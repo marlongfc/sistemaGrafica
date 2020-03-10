@@ -10,7 +10,7 @@ package graficaatual.utilitarios;
 
 
 import graficaatual.entidades.Formulario;
-import graficaatual.entidades.Usuarios;
+import graficaatual.entidades.Usuario;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.CascadeType;
@@ -39,7 +39,7 @@ public class Permissao implements Serializable {
     private Integer codigo;
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name="CodUsuario",nullable=false)
-    private Usuarios usuario;
+    private Usuario usuario;
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name="CodFormulario",nullable=false)
     private Formulario formulario;
@@ -74,11 +74,11 @@ public class Permissao implements Serializable {
         this.formulario = formulario;
     }
 
-    public Usuarios getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuarios usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 

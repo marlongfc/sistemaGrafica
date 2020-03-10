@@ -1,6 +1,6 @@
 package graficaatual.daos;
 
-import graficaatual.entidades.Usuarios;
+import graficaatual.entidades.Usuario;
 import graficaatual.utilitarios.Permissao;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class PermissaoDAO extends GenericDAO {
     public boolean delete(Permissao entity){
         return deletePojo(entity);
     }
-    public boolean delete(Usuarios usr){
+    public boolean delete(Usuario usr){
         return executeQuery("delete from Permissao where usuario.codigo = ?1", usr.getCodUsuario());
     }
     public Permissao getPermissao(int codPermissao){

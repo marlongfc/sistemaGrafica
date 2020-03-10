@@ -6,7 +6,7 @@
 package graficaatual;
 
 import graficaatual.daos.UsuariosDao;
-import graficaatual.entidades.Usuarios;
+import graficaatual.entidades.Usuario;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -235,7 +235,7 @@ public class FLogin extends javax.swing.JFrame {
             try {
 
                 UsuariosDao usDao = new UsuariosDao();
-                Usuarios us;
+                Usuario us;
 
                 //Pesquisa o usuário
                 us = usDao.getUsuario(login.getText().trim());

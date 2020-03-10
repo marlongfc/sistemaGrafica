@@ -26,7 +26,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuarios implements java.io.Serializable {
+public class Usuario implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,7 +54,7 @@ public class Usuarios implements java.io.Serializable {
     @JoinColumn(name = "CodTipo", nullable = true)
     private TipoPermissao tipoPermissao;
 
-    public Usuarios() {
+    public Usuario() {
         this.tipoUsuario = 2;
     }
 
@@ -126,10 +126,10 @@ public class Usuarios implements java.io.Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuarios)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        Usuarios other = (Usuarios) object;
+        Usuario other = (Usuario) object;
         if ((this.codUsuario == null && other.codUsuario != null)
                 || (this.codUsuario != null && !this.codUsuario.equals(other.codUsuario))) {
             return false;

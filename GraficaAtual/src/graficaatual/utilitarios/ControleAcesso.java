@@ -7,7 +7,7 @@ package graficaatual.utilitarios;
 
 import graficaatual.daos.FormularioDAO;
 import graficaatual.daos.PermissaoDAO;
-import graficaatual.entidades.Usuarios;
+import graficaatual.entidades.Usuario;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,7 +22,7 @@ import javax.swing.JTabbedPane;
 public class ControleAcesso {
 
     private static PermissaoDAO pedao = new PermissaoDAO();
-    public static Usuarios usuario = new Usuarios();
+    public static Usuario usuario = new Usuario();
     public static FormularioDAO fordao = new FormularioDAO();
     public static String MensagemSeguranca = "Acesso negado ao formulário."
             + "\nCaso necessite de acesso ao formulário, solicite permissão ao administrador do sistema.";
@@ -134,7 +134,7 @@ public class ControleAcesso {
         return FvaRetorno;
     }
 
-    public static Permissao getPermissaoFormulario(Usuarios usuario, String formulario) {
+    public static Permissao getPermissaoFormulario(Usuario usuario, String formulario) {
         return pedao.getPermissaoFormulario(usuario.getCodUsuario(), formulario);
     }
 
