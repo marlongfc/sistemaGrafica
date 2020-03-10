@@ -23,28 +23,27 @@ import javax.swing.JTextField;
  *
  * @author Pro
  */
-public class FLogin extends javax.swing.JFrame {
-
-    private Statement stmtPgEntrada = null;
- 
-    private String inicioAtualizacao = "";
-    private String inicioGeracao = "";
-    private long tempoEntreAtualizacao = 0;
-    private long tempoEntreGeracao = 0;
-    private long horaUltimaAtualizacao = 0;
-    private long horaUltimaGeracao = 0;
+public class FLogin extends javax.swing.JFrame { 
 
     private String erroV = "", sNomeBanco = "";
-
-    private int aux = 0;
-    private String tipo = "0";
+    private boolean verConf = true; 
 
     /**
      * Creates new form Geral
      */
     public FLogin() {
         initComponents();
-
+        //Visualizar as Configurações
+        host.setVisible(verConf);
+        porta.setVisible(verConf);
+        user.setVisible(verConf);
+        senha.setVisible(verConf);
+        banco.setVisible(verConf);
+        jLabel1.setVisible(verConf);
+        jLabel3.setVisible(verConf);
+        jLabel6.setVisible(verConf);
+        jLabel7.setVisible(verConf);
+        jLabel8.setVisible(verConf);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -56,25 +55,24 @@ public class FLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         senhaUsuario = new javax.swing.JPasswordField();
         jToggleButton1 = new javax.swing.JToggleButton();
-        jButton24 = new javax.swing.JButton();
-        jLabel42 = new javax.swing.JLabel();
-        host = new javax.swing.JTextField();
         sair = new javax.swing.JToggleButton();
-        porta = new javax.swing.JTextField();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        senha = new javax.swing.JPasswordField();
-        jLabel46 = new javax.swing.JLabel();
-        banco = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        host = new javax.swing.JTextField();
         user = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        porta = new javax.swing.JTextField();
+        senha = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        banco = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setSize(new java.awt.Dimension(400, 300));
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setPreferredSize(new java.awt.Dimension(1060, 600));
+        setSize(new java.awt.Dimension(1060, 600));
         getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(153, 0, 153));
@@ -83,22 +81,22 @@ public class FLogin extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Login:");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(17, 294, 37, 15);
+        jLabel4.setBounds(10, 460, 60, 20);
 
         login.setText("root");
         login.setToolTipText("");
         jPanel2.add(login);
-        login.setBounds(80, 291, 133, 19);
+        login.setBounds(70, 460, 180, 19);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Senha:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(12, 318, 50, 15);
+        jLabel5.setBounds(10, 480, 60, 20);
 
         senhaUsuario.setText("427623");
         senhaUsuario.setToolTipText("");
         jPanel2.add(senhaUsuario);
-        senhaUsuario.setBounds(80, 316, 133, 19);
+        senhaUsuario.setBounds(70, 480, 180, 19);
 
         jToggleButton1.setBackground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setText("Confirmar");
@@ -108,28 +106,9 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jToggleButton1);
-        jToggleButton1.setBounds(95, 341, 118, 36);
+        jToggleButton1.setBounds(10, 520, 140, 36);
 
-        jButton24.setText("<html><center>Testar Conexão");
-        jButton24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton24ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton24);
-        jButton24.setBounds(95, 383, 118, 30);
-
-        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel42.setText("Ip/Host:");
-        jPanel2.add(jLabel42);
-        jLabel42.setBounds(40, 40, 70, 15);
-
-        host.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        host.setText("localhost");
-        host.setToolTipText("");
-        jPanel2.add(host);
-        host.setBounds(120, 40, 61, 19);
-
+        sair.setBackground(new java.awt.Color(255, 255, 255));
         sair.setText("Sair");
         sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,68 +116,63 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(sair);
-        sair.setBounds(150, 420, 62, 25);
+        sair.setBounds(150, 520, 100, 36);
 
-        porta.setText("5432");
-        porta.setToolTipText("");
-        jPanel2.add(porta);
-        porta.setBounds(100, 80, 48, 19);
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("IP:");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(10, 120, 70, 20);
 
-        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel43.setText("Porta:");
-        jPanel2.add(jLabel43);
-        jLabel43.setBounds(30, 90, 60, 15);
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Porta:");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(10, 140, 51, 20);
 
-        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel44.setText("User:");
-        jPanel2.add(jLabel44);
-        jLabel44.setBounds(20, 110, 70, 15);
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Banco:");
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(10, 200, 51, 20);
 
-        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel45.setText("Senha:");
-        jPanel2.add(jLabel45);
-        jLabel45.setBounds(20, 130, 70, 15);
-
-        senha.setText("427623");
-        jPanel2.add(senha);
-        senha.setBounds(100, 130, 46, 19);
-
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel46.setText("Nome BD:");
-        jPanel2.add(jLabel46);
-        jLabel46.setBounds(20, 160, 70, 15);
-
-        banco.setText("bancoGrafica");
-        banco.setToolTipText("");
-        jPanel2.add(banco);
-        banco.setBounds(100, 150, 110, 19);
-
-        jLabel7.setText("Versão: 1.0.08");
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Usuário:");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(20, 230, 101, 15);
+        jLabel7.setBounds(10, 160, 80, 20);
+
+        host.setText("localhost");
+        jPanel2.add(host);
+        host.setBounds(90, 120, 150, 19);
 
         user.setText("postgres");
         jPanel2.add(user);
-        user.setBounds(100, 110, 96, 19);
+        user.setBounds(90, 160, 150, 19);
+
+        porta.setText("5432");
+        jPanel2.add(porta);
+        porta.setBounds(90, 140, 150, 19);
+
+        senha.setText("427623");
+        jPanel2.add(senha);
+        senha.setBounds(90, 180, 150, 19);
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Senha:");
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(10, 180, 51, 20);
+
+        banco.setText("bancoGrafica");
+        jPanel2.add(banco);
+        banco.setBounds(90, 200, 150, 19);
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 220, 450);
+        jPanel2.setBounds(0, 0, 260, 580);
 
-        jPanel1.setLayout(null);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO.png"))); // NOI18N
-        jPanel1.add(jButton1);
-        jButton1.setBounds(3, 5, 610, 440);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(220, 0, 620, 450);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO COM FUNDO.jpg"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(-350, -50, 2028, 630);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        getConexaoPostgresDesck();
-    }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         try {
@@ -227,57 +201,36 @@ public class FLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField banco;
     private javax.swing.JTextField host;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton24;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField login;
     private javax.swing.JTextField porta;
     private javax.swing.JToggleButton sair;
-    private javax.swing.JPasswordField senha;
+    private javax.swing.JTextField senha;
     private javax.swing.JPasswordField senhaUsuario;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 
-    private void getConexaoPostgresDesck() {
-        conexoes.Conectar.setDriveJDBC("org.postgresql.Driver");
-        conexoes.Conectar.setIpServidor(host.getText());
-        conexoes.Conectar.setNomeDB(banco.getText());
-        conexoes.Conectar.setPorta(porta.getText());
-        conexoes.Conectar.setSenhaBanco(senha.getText());
-        conexoes.Conectar.setUsurioBanco(user.getText());
-        conexoes.Conectar.setUrlConexao("jdbc:postgresql://" + conexoes.Conectar.getIpServidor() + ":" + conexoes.Conectar.getPorta() + "/" + conexoes.Conectar.getNomeDB());
-        stmtPgEntrada = conexoes.Conectar.getStatement();
-//        if (conexoes.clBuscaResultSet.getCount("SELECT DATNAME FROM PG_DATABASE where datname like '" + banco.getText() + "' ORDER BY LOWER(DATNAME)  ") > 0) {
-//            status5.setForeground(new Color(0, 153, 51));
-//            status5.setText("Conectado");
-//        } else {
-//            status5.setForeground(new Color(204, 0, 0));
-//            status5.setText("Desconectado");
-//        }
-    }
-
-
+    
     private void confirmar() throws Exception {
 
         if (erroV.trim().length() > 0) {
             JOptionPane.showMessageDialog(this, erroV);
             return;
         }
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PesistenceHibernate");
-        EntityManager em = emf.createEntityManager();
-        em.close();
-        emf.close();
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PesistenceHibernate");
+                    EntityManager em = emf.createEntityManager();
+                    em.close();
+                    emf.close();
+       
         if (isValidoUsuario()) {
             try {
 
@@ -289,6 +242,7 @@ public class FLogin extends javax.swing.JFrame {
                 if (us != null) {
 
                     System.out.println("É Usuário");
+                  
                 }
 
             } catch (Exception e) {
@@ -302,7 +256,8 @@ public class FLogin extends javax.swing.JFrame {
     }
 
     private boolean isValidoUsuario() throws Exception {
-
+        
+       
         String sHost = host.getText();
         String sPorta = porta.getText();
         String sUsr = user.getText();

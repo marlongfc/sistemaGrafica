@@ -5,11 +5,7 @@
  */
 package graficaatual.entidades;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import graficaatual.utilitarios.TipoPermissao;
 import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -54,6 +49,10 @@ public class Usuarios implements java.io.Serializable {
 
     @Column(name = "tipoUsuario", nullable = false, columnDefinition = "integer default 2")
     private Integer tipoUsuario;
+    
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "CodTipo", nullable = true)
+    private TipoPermissao tipoPermissao;
 
     public Usuarios() {
         this.tipoUsuario = 2;
@@ -107,7 +106,14 @@ public class Usuarios implements java.io.Serializable {
         this.tipoUsuario = tipoUsuario;
     }
 
-    
+    public TipoPermissao getTipoPermissao() {
+        return tipoPermissao;
+    }
+
+    public void setTipoPermissao(TipoPermissao tipoPermissao) {
+        this.tipoPermissao = tipoPermissao;
+    }
+
 
 
     @Override

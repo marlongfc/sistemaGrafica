@@ -8,14 +8,12 @@ package graficaatual.daos;
 import graficaatual.entidades.Usuarios;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author testes
+ * @author Projeto X
  */
-public class UsuariosDao extends GenericDao{
+public class UsuariosDao extends GenericDAO{
     
     public boolean addUsuario(Usuarios usuario) {
         return savePojo(usuario);
@@ -32,7 +30,7 @@ public class UsuariosDao extends GenericDao{
     public Usuarios getUsuario(String login) {
         Usuarios us = null;
         us = getPurePojoUnique(Usuarios.class,
-                "select usuario from Usuario usuario where usuario.login=?1 order by usuario.nome",
+                "select usuario from Usuarios usuario where usuario.login=?1 order by usuario.nome",
                 login.trim());
 
         if (us != null && us.getCodUsuario()> 0) {
@@ -44,7 +42,7 @@ public class UsuariosDao extends GenericDao{
 
     public Usuarios getUsCodigo(Integer codigo) {
         Usuarios us = null;
-        us = getPurePojoUnique(Usuarios.class, "select usuario from Usuario usuario where usuario.codigo=?1"
+        us = getPurePojoUnique(Usuarios.class, "select usuario from Usuarios usuario where usuario.codigo=?1"
                 + " and usuario.codigo not in (select ex.usuario.codigo from ResponsavelUsuario ex where ex.usuario.codigo = usuario.codigo)"
                 + " order by usuario.codigo", codigo);
 
@@ -56,7 +54,7 @@ public class UsuariosDao extends GenericDao{
     }
 
     public int getCount() {
-        return getPureList(Usuarios.class, "select usuarios from Usuario usuario order by usuario.nome").size();
+        return getPureList(Usuarios.class, "select usuarios from Usuarios usuario order by usuario.nome").size();
     }
 
     public List<Usuarios> getLista() {
@@ -68,7 +66,7 @@ public class UsuariosDao extends GenericDao{
     }
 
     public List<Usuarios> getListaAdministradores() {
-        return getPureList(Usuarios.class, "select e from Usuario e where e.tipoPermissao.codigo >= 5 order by e.nome");
+        return getPureList(Usuarios.class, "select e from Usuarios e where e.tipoPermissao.codigo >= 5 order by e.nome");
     }
     
 }

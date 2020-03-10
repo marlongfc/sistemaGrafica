@@ -12,16 +12,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 /**
  *
- * @author ProjetoX
+ * @author Projeto X
  */
-public class GenericDao {
+public class GenericDAO {
     private static final long serialVersionUID = 1L;
     EntityManager session=null;
     protected String LogMensagem="";
     protected boolean FvaControleTransacao=false;
     protected boolean FvaInjectionTransaction=false;
     
-     public GenericDao(){
+     public GenericDAO(){
 
     }
      
