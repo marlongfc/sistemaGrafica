@@ -18,36 +18,65 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author marlo
+ * @author ProjetoX
  */
 @Entity
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @Column(name = "codPessoa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    private Long codPessoa;
+
+    @Column(name = "nome", nullable = false, length = 200)
+    private String nome;
+
+    @Column(name = "nomeFantasia", nullable = true, length = 200)
+    private String nomeFantasia;
+
     //Tipo Pessao 1 - Pessoa FISICA
     //2 - Pessoa Juridica
-    @Column(name = "tipo", nullable = false)
-    private Integer tipo;
-    
-    @Column(name = "nome",nullable = false, length = 200)
-    private String nome;
-    
-    @Column(name = "nomeFantasia",nullable = true, length = 200)
-    private String nomeFantasia;
-    
-    @Column(name = "cnpj",nullable = false, length = 14)
+    @Column(name = "tipoPessoa", nullable = false)
+    private Integer tipoPessoa;
+
+    @Column(name = "cnpj", nullable = false, length = 14)
     private String cnpj;
-    
+
+    @ManyToOne()
+    @JoinColumn(name = "logradouro", nullable = false)
+    private Logradouro logradouro;
+
     @ManyToOne()
     @JoinColumn(name = "bairro", nullable = false)
     private Bairro bairro;
-    
+
+    @ManyToOne()
+    @JoinColumn(name = "cidade", nullable = false)
+    private Cidade cidade;
+
+    @Column(name = "UF", nullable = false)
+    private String uf;
+
+    @Column(name = "inscEstadual", nullable = true)
+    private String inscEstadual;
+
+    @Column(name = "dataNascimento", nullable = true)
+    private Date dataNascimento;
+
+    @Column(name = "obs", nullable = true)
+    private String obs;
+
+    @Column(name = "telefone", nullable = true)
+    private String telefone;
+
+    @Column(name = "email", nullable = true)
+    private String email;
+
+    @Column(name = "numCasa", nullable = true)
+    private String numCasa;
+
     @Column(name = "dataCadastro", nullable = true)
     private Date dataCadastro;
 
@@ -62,9 +91,9 @@ public class Pessoa implements Serializable {
 
     public Pessoa() {
         this.dataCadastro = new Date();
-        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() +" "+ControleAcesso.usuario.getNome();
-    } 
-    
+        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+    }
+
     public Date getDataCadastro() {
         return dataCadastro;
     }
@@ -96,7 +125,7 @@ public class Pessoa implements Serializable {
     public void setUsuarioAtualizacao(String usuarioAtualizacao) {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
-    
+
     public Bairro getBairro() {
         return bairro;
     }
@@ -105,12 +134,84 @@ public class Pessoa implements Serializable {
         this.bairro = bairro;
     }
 
-    public Integer getTipo() {
-        return tipo;
+    public Long getCodPessoa() {
+        return codPessoa;
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+    public void setCodPessoa(Long codPessoa) {
+        this.codPessoa = codPessoa;
+    }
+
+    public Integer getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(Integer tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public Logradouro getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(Logradouro logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getInscEstadual() {
+        return inscEstadual;
+    }
+
+    public void setInscEstadual(String inscEstadual) {
+        this.inscEstadual = inscEstadual;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNome() {
@@ -136,28 +237,19 @@ public class Pessoa implements Serializable {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-    
-    
-    
-    
-    
-    
 
-    
-    
-    
-    public Long getId() {
-        return id;
+    public String getNumCasa() {
+        return numCasa;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNumCasa(String numCasa) {
+        this.numCasa = numCasa;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (codPessoa != null ? codPessoa.hashCode() : 0);
         return hash;
     }
 
@@ -168,7 +260,7 @@ public class Pessoa implements Serializable {
             return false;
         }
         Pessoa other = (Pessoa) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.codPessoa == null && other.codPessoa != null) || (this.codPessoa != null && !this.codPessoa.equals(other.codPessoa))) {
             return false;
         }
         return true;
@@ -176,7 +268,7 @@ public class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Pessoas[ id=" + id + " ]";
+        return "graficaatual.entidades.Pessoas[ id=" + codPessoa + " ]";
     }
-    
+
 }

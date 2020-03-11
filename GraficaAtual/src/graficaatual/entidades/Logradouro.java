@@ -15,29 +15,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  *
  * @author ProjetoX
  */
 @Entity
-@Table(name = "bairro")
-public class Bairro implements Serializable {
+public class Logradouro implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codBairro")
+    @Column(name = "codLogradouro")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codBairro;
+    private Long codLogradouro;
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
-
-    @ManyToOne()
-    @JoinColumn(name = "logradouro", nullable = false)
-    private Logradouro logradouro;
 
     @Column(name = "dataCadastro", nullable = true)
     private Date dataCadastro;
@@ -51,25 +45,17 @@ public class Bairro implements Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Bairro() {
+    public Logradouro() {
         this.dataCadastro = new Date();
         this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
-    public Long getCodBairro() {
-        return codBairro;
+    public Long getCodLogradouro() {
+        return codLogradouro;
     }
 
-    public void setCodBairro(Long codBairro) {
-        this.codBairro = codBairro;
-    }
-
-    public Logradouro getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(Logradouro logradouro) {
-        this.logradouro = logradouro;
+    public void setCodLogradouro(Long codLogradouro) {
+        this.codLogradouro = codLogradouro;
     }
 
     public String getDescricao() {
@@ -115,18 +101,18 @@ public class Bairro implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codBairro != null ? codBairro.hashCode() : 0);
+        hash += (codLogradouro != null ? codLogradouro.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bairro)) {
+        if (!(object instanceof Logradouro)) {
             return false;
         }
-        Bairro other = (Bairro) object;
-        if ((this.codBairro == null && other.codBairro != null) || (this.codBairro != null && !this.codBairro.equals(other.codBairro))) {
+        Logradouro other = (Logradouro) object;
+        if ((this.codLogradouro == null && other.codLogradouro != null) || (this.codLogradouro != null && !this.codLogradouro.equals(other.codLogradouro))) {
             return false;
         }
         return true;
@@ -134,7 +120,7 @@ public class Bairro implements Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Pessoas[ id=" + codBairro + " ]";
+        return "graficaatual.entidades.Pessoas[ id=" + codLogradouro + " ]";
     }
 
 }

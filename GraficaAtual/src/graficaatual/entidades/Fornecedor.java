@@ -15,29 +15,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  *
  * @author ProjetoX
  */
 @Entity
-@Table(name = "bairro")
-public class Bairro implements Serializable {
+public class Fornecedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codBairro")
+    @Column(name = "codFornecedor")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codBairro;
-
-    @Column(name = "descricao", nullable = false, length = 300)
-    private String descricao;
+    private Long codFornecedor;
 
     @ManyToOne()
-    @JoinColumn(name = "logradouro", nullable = false)
-    private Logradouro logradouro;
+    @JoinColumn(name = "pessoa", nullable = false)
+    private Pessoa pessoa;
+
+    @ManyToOne()
+    @JoinColumn(name = "endereco", nullable = false)
+    private Endereco endereco;
 
     @Column(name = "dataCadastro", nullable = true)
     private Date dataCadastro;
@@ -51,33 +50,33 @@ public class Bairro implements Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Bairro() {
+    public Fornecedor() {
         this.dataCadastro = new Date();
         this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
-    public Long getCodBairro() {
-        return codBairro;
+    public Long getCodFornecedor() {
+        return codFornecedor;
     }
 
-    public void setCodBairro(Long codBairro) {
-        this.codBairro = codBairro;
+    public void setCodFornecedor(Long codFornecedor) {
+        this.codFornecedor = codFornecedor;
     }
 
-    public Logradouro getLogradouro() {
-        return logradouro;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setLogradouro(Logradouro logradouro) {
-        this.logradouro = logradouro;
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public Date getDataCadastro() {
@@ -115,18 +114,18 @@ public class Bairro implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codBairro != null ? codBairro.hashCode() : 0);
+        hash += (codFornecedor != null ? codFornecedor.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bairro)) {
+        if (!(object instanceof Fornecedor)) {
             return false;
         }
-        Bairro other = (Bairro) object;
-        if ((this.codBairro == null && other.codBairro != null) || (this.codBairro != null && !this.codBairro.equals(other.codBairro))) {
+        Fornecedor other = (Fornecedor) object;
+        if ((this.codFornecedor == null && other.codFornecedor != null) || (this.codFornecedor != null && !this.codFornecedor.equals(other.codFornecedor))) {
             return false;
         }
         return true;
@@ -134,7 +133,7 @@ public class Bairro implements Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Pessoas[ id=" + codBairro + " ]";
+        return "graficaatual.entidades.Pessoas[ id=" + codFornecedor + " ]";
     }
 
 }

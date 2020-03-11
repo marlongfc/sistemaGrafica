@@ -22,22 +22,29 @@ import javax.persistence.Table;
  * @author ProjetoX
  */
 @Entity
-@Table(name = "bairro")
-public class Bairro implements Serializable {
+@Table(name = "cidade")
+public class Cidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codBairro")
+    @Column(name = "codCidade")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codBairro;
+    private Long codCidade;
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
 
     @ManyToOne()
+    @JoinColumn(name = "bairro", nullable = false)
+    private Bairro bairro;
+
+    @ManyToOne()
     @JoinColumn(name = "logradouro", nullable = false)
     private Logradouro logradouro;
+
+    @Column(name = "codIBGE", nullable = true)
+    private Integer codIBGE;
 
     @Column(name = "dataCadastro", nullable = true)
     private Date dataCadastro;
@@ -51,17 +58,33 @@ public class Bairro implements Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Bairro() {
+    public Cidade() {
         this.dataCadastro = new Date();
         this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
-    public Long getCodBairro() {
-        return codBairro;
+    public Long getCodCidade() {
+        return codCidade;
     }
 
-    public void setCodBairro(Long codBairro) {
-        this.codBairro = codBairro;
+    public void setCodCidade(Long codCidade) {
+        this.codCidade = codCidade;
+    }
+
+    public Bairro getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(Bairro bairro) {
+        this.bairro = bairro;
+    }
+
+    public Integer getCodIBGE() {
+        return codIBGE;
+    }
+
+    public void setCodIBGE(Integer codIBGE) {
+        this.codIBGE = codIBGE;
     }
 
     public Logradouro getLogradouro() {
@@ -115,18 +138,18 @@ public class Bairro implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codBairro != null ? codBairro.hashCode() : 0);
+        hash += (codCidade != null ? codCidade.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bairro)) {
+        if (!(object instanceof Cidade)) {
             return false;
         }
-        Bairro other = (Bairro) object;
-        if ((this.codBairro == null && other.codBairro != null) || (this.codBairro != null && !this.codBairro.equals(other.codBairro))) {
+        Cidade other = (Cidade) object;
+        if ((this.codCidade == null && other.codCidade != null) || (this.codCidade != null && !this.codCidade.equals(other.codCidade))) {
             return false;
         }
         return true;
@@ -134,7 +157,7 @@ public class Bairro implements Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Pessoas[ id=" + codBairro + " ]";
+        return "graficaatual.entidades.Pessoas[ id=" + codCidade + " ]";
     }
 
 }

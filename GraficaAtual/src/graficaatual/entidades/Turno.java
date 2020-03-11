@@ -22,28 +22,18 @@ import javax.persistence.Table;
  * @author ProjetoX
  */
 @Entity
-@Table(name = "usuarios")
-public class Usuario implements java.io.Serializable {
+@Table(name = "turno")
+public class Turno implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codUsuario")
+    @Column(name = "codTurno")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codUsuario;
+    private Integer codTurno;
 
-    @Column(nullable = false, length = 30)
-    private Integer nivelAcesso;
-
-    @ManyToOne()
-    @JoinColumn(name = "pessoa", nullable = false)
-    private Pessoa pessoa;
-
-    @Column(nullable = false, length = 30)
-    private String login;
-
-    @Column(nullable = false, length = 20)
-    private String senha;
+    @Column(nullable = false, length = 300)
+    private String descricao;
 
     @Column(name = "DataCadastro", nullable = true)
     private java.sql.Timestamp data;
@@ -55,49 +45,25 @@ public class Usuario implements java.io.Serializable {
     @JoinColumn(name = "CodTipo", nullable = true)
     private TipoPermissao tipoPermissao;
 
-    public Usuario() {
+    public Turno() {
         this.tipoUsuario = 2;
     }
 
-    public Integer getCodUsuario() {
-        return codUsuario;
+    public Integer getCodTurno() {
+        return codTurno;
     }
 
-    public void setCodUsuario(Integer codUsuario) {
-        this.codUsuario = codUsuario;
+    public void setCodTurno(Integer codTurno) {
+        this.codTurno = codTurno;
     }
 
-    public Integer getNivelAcesso() {
-        return nivelAcesso;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNivelAcesso(Integer nivelAcesso) {
-        this.nivelAcesso = nivelAcesso;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    } 
 
     public Timestamp getData() {
         return data;
@@ -126,19 +92,19 @@ public class Usuario implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codUsuario != null ? codUsuario.hashCode() : 0);
+        hash += (codTurno != null ? codTurno.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+        if (!(object instanceof Turno)) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.codUsuario == null && other.codUsuario != null)
-                || (this.codUsuario != null && !this.codUsuario.equals(other.codUsuario))) {
+        Turno other = (Turno) object;
+        if ((this.codTurno == null && other.codTurno != null)
+                || (this.codTurno != null && !this.codTurno.equals(other.codTurno))) {
             return false;
         }
         return true;
@@ -146,7 +112,7 @@ public class Usuario implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Usuarios[ codUsuario=" + codUsuario + " ]";
+        return "graficaatual.entidades.Usuarios[ codUsuario=" + codTurno + " ]";
     }
 
 }
