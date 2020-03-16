@@ -5,9 +5,9 @@
  */
 package graficaatual;
 
-import graficaatual.daos.UsuariosDao;
+import graficaatual.daos.UsuariosDAO;
 import graficaatual.entidades.Usuario;
-import java.awt.Color;
+import graficaatual.utilitarios.Persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -226,15 +226,15 @@ public class FLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, erroV);
             return;
         }
-         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PesistenceHibernate");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PesistenceHibernate");
                     EntityManager em = emf.createEntityManager();
                     em.close();
                     emf.close();
-       
+        
         if (isValidoUsuario()) {
             try {
 
-                UsuariosDao usDao = new UsuariosDao();
+                UsuariosDAO usDao = new UsuariosDAO();
                 Usuario us;
 
                 //Pesquisa o usuário

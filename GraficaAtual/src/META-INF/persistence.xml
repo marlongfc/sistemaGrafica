@@ -3,8 +3,16 @@
   <persistence-unit name="PesistenceHibernate" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>graficaatual.entidades.Bairro</class>
+    <class>graficaatual.entidades.Cargo</class>
+    <class>graficaatual.entidades.Cidade</class>
+    <class>graficaatual.entidades.Colaborador</class>
+    <class>graficaatual.entidades.Endereco</class>
+    <class>graficaatual.entidades.Formulario</class>
+    <class>graficaatual.entidades.Fornecedor</class>
     <class>graficaatual.entidades.Pessoa</class>
+    <class>graficaatual.entidades.Turno</class>
     <class>graficaatual.entidades.Usuario</class>
+    <class>graficaatual.entidades.Logradouro</class>
     <validation-mode>NONE</validation-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bancoGrafica"/>

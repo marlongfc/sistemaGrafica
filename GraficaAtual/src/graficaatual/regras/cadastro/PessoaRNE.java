@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 public class PessoaRNE extends GenericDAO{
     
     public Pessoa salvar(EntityManager session, Pessoa pessoa) throws Exception{
-       return super.savePojo(session,Pessoa.class, pessoa);
+       return super.saveOrUpdatePojo(session, pessoa);
     }
     
 }

@@ -51,7 +51,7 @@ public class Persistencia {
         emFactory = Persistence.createEntityManagerFactory(nomePersistenceUnit, parametro);
         
     }
-
+  
     private Persistencia(EntityManagerFactory factory) {
         emFactory = factory;
     }
