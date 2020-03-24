@@ -775,5 +775,25 @@ public abstract class GenericDAO implements java.io.Serializable {
         BigDecimal ret = getPojoUnique(BigDecimal.class, query, parametros);
         return ret == null ? BigDecimal.ZERO : ret;
     }
+    
+    public Long getLong(EntityManager session, String query, Object... parametros) {
+
+        Object o = getPojoUnique(session, Long.class, query, parametros);
+        if (o == null) {
+            return (long) 0;
+
+        } else if (o instanceof Integer) {
+            Integer ret = (Integer) o;
+            return Long.valueOf(ret);
+
+        } else if (o instanceof Long) {
+            Long ret = (Long) o;
+            return ret;
+
+        } else {
+            return (long) 0;
+        }
+
+    }
 //
 }
