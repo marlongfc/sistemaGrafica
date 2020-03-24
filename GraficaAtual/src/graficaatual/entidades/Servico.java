@@ -18,15 +18,15 @@ import javax.persistence.Table;
  * @author Moisés
  */
 @Entity
-@Table(name = "turno")
-public class Turno implements java.io.Serializable {
+@Table(name = "Servico")
+public class Servico implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codTurno")
+    @Column(name = "codServico")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codTurno;
+    private Integer codServico;
 
     @Column(nullable = false, length = 300)
     private String descricao;
@@ -43,12 +43,12 @@ public class Turno implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodTurno() {
-        return codTurno;
+    public Integer getCodServico() {
+        return codServico;
     }
 
-    public void setCodTurno(Integer codTurno) {
-        this.codTurno = codTurno;
+    public void setCodServico(Integer codServico) {
+        this.codServico = codServico;
     }
 
     public String getDescricao() {
@@ -94,19 +94,19 @@ public class Turno implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codTurno != null ? codTurno.hashCode() : 0);
+        hash += (codServico != null ? codServico.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Turno)) {
+        if (!(object instanceof Servico)) {
             return false;
         }
-        Turno other = (Turno) object;
-        if ((this.codTurno == null && other.codTurno != null)
-                || (this.codTurno != null && !this.codTurno.equals(other.codTurno))) {
+        Servico other = (Servico) object;
+        if ((this.codServico == null && other.codServico != null)
+                || (this.codServico != null && !this.codServico.equals(other.codServico))) {
             return false;
         }
         return true;
@@ -114,7 +114,7 @@ public class Turno implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Turno[ codTurno=" + codTurno + " ]";
+        return "graficaatual.entidades.Servico[ codServico=" + codServico + " ]";
     }
 
 }

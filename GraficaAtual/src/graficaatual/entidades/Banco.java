@@ -18,18 +18,24 @@ import javax.persistence.Table;
  * @author Moisés
  */
 @Entity
-@Table(name = "turno")
-public class Turno implements java.io.Serializable {
+@Table(name = "banco")
+public class Banco implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codTurno")
+    @Column(name = "codBanco")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codTurno;
+    private Integer codBanco;
 
     @Column(nullable = false, length = 300)
     private String descricao;
+
+    @Column(nullable = false)
+    private String conta;
+
+    @Column(nullable = false)
+    private String agencia;
 
     @Column(name = "dataCadastro")
     private java.sql.Timestamp dataCadastro;
@@ -43,12 +49,28 @@ public class Turno implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodTurno() {
-        return codTurno;
+    public Integer getCodBanco() {
+        return codBanco;
     }
 
-    public void setCodTurno(Integer codTurno) {
-        this.codTurno = codTurno;
+    public void setCodBanco(Integer codBanco) {
+        this.codBanco = codBanco;
+    }
+
+    public String getConta() {
+        return conta;
+    }
+
+    public void setConta(String conta) {
+        this.conta = conta;
+    }
+
+    public String getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
     }
 
     public String getDescricao() {
@@ -94,19 +116,19 @@ public class Turno implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codTurno != null ? codTurno.hashCode() : 0);
+        hash += (codBanco != null ? codBanco.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Turno)) {
+        if (!(object instanceof Banco)) {
             return false;
         }
-        Turno other = (Turno) object;
-        if ((this.codTurno == null && other.codTurno != null)
-                || (this.codTurno != null && !this.codTurno.equals(other.codTurno))) {
+        Banco other = (Banco) object;
+        if ((this.codBanco == null && other.codBanco != null)
+                || (this.codBanco != null && !this.codBanco.equals(other.codBanco))) {
             return false;
         }
         return true;
@@ -114,7 +136,7 @@ public class Turno implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Turno[ codTurno=" + codTurno + " ]";
+        return "graficaatual.entidades.Banco[ codBanco=" + codBanco + " ]";
     }
 
 }

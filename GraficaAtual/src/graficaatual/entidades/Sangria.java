@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,18 +20,28 @@ import javax.persistence.Table;
  * @author Moisés
  */
 @Entity
-@Table(name = "turno")
-public class Turno implements java.io.Serializable {
+@Table(name = "sangria")
+public class Sangria implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codTurno")
+    @Column(name = "codSangria")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codTurno;
+    private Integer codSangria;
 
     @Column(nullable = false, length = 300)
     private String descricao;
+
+    @Column(nullable = false)
+    private Double valor;
+
+    @ManyToOne()
+    @JoinColumn(name = "colaborador", nullable = false)
+    private Colaborador colaborador;
+
+    @Column(length = 300)
+    private String observacao;
 
     @Column(name = "dataCadastro")
     private java.sql.Timestamp dataCadastro;
@@ -43,12 +55,12 @@ public class Turno implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodTurno() {
-        return codTurno;
+    public Integer getCodSangria() {
+        return codSangria;
     }
 
-    public void setCodTurno(Integer codTurno) {
-        this.codTurno = codTurno;
+    public void setCodSangria(Integer codSangria) {
+        this.codSangria = codSangria;
     }
 
     public String getDescricao() {
@@ -57,6 +69,30 @@ public class Turno implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     public Timestamp getDataCadastro() {
@@ -94,19 +130,19 @@ public class Turno implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codTurno != null ? codTurno.hashCode() : 0);
+        hash += (codSangria != null ? codSangria.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Turno)) {
+        if (!(object instanceof Sangria)) {
             return false;
         }
-        Turno other = (Turno) object;
-        if ((this.codTurno == null && other.codTurno != null)
-                || (this.codTurno != null && !this.codTurno.equals(other.codTurno))) {
+        Sangria other = (Sangria) object;
+        if ((this.codSangria == null && other.codSangria != null)
+                || (this.codSangria != null && !this.codSangria.equals(other.codSangria))) {
             return false;
         }
         return true;
@@ -114,7 +150,7 @@ public class Turno implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Turno[ codTurno=" + codTurno + " ]";
+        return "graficaatual.entidades.Sangria[ codSangria=" + codSangria + " ]";
     }
 
 }
