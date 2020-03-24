@@ -27,4 +27,5 @@ public class CidadeRNE extends GenericDAO {
     public List<Cidade> getList(EntityManager session, Cidade cidade) throws Exception {
         return super.getPureList(session, Cidade.class, "Select e from Cidade e");
     }
+    //
 }
