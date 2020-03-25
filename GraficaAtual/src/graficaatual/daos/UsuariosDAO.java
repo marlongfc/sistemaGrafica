@@ -30,7 +30,7 @@ public class UsuariosDAO extends GenericDAO{
     public Usuario getUsuario(String login) {
         Usuario us = null;
         us = getPurePojoUnique(Usuario.class,
-                "select usuario from Usuarios usuario where usuario.login=?1 order by usuario.nome",
+                "select u from Usuario u where u.login=?1 ",
                 login.trim());
 
         if (us != null && us.getCodUsuario()> 0) {

@@ -49,10 +49,13 @@ public class Fornecedor implements Serializable {
 
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
+    
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo;
 
     public Fornecedor() {
-        this.dataCadastro = new Date();
-        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+ //       this.dataCadastro = new Date();
+//        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
     public Long getCodFornecedor() {
@@ -133,7 +136,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Pessoas[ id=" + codFornecedor + " ]";
+        return "graficaatual.entidades.[ id=" + codFornecedor + " ]";
     }
 
 }

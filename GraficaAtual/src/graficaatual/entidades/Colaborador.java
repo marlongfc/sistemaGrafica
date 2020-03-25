@@ -149,7 +149,7 @@ public class Colaborador implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Usuarios[ codUsuario=" + codColaborador + " ]";
+        return "graficaatual.entidades.Colaborador[ codUsuario=" + codColaborador + " ]";
     }
 
 }

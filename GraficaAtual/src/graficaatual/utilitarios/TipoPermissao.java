@@ -25,7 +25,7 @@ public class TipoPermissao implements Serializable {
      * 2 - Acesso Personalizado
      * 5 - Administrador do Sistema / Módulo
      * 10 - Administrador Geral
-     * 30 - Administrador HLH/Empresa Fornecedora
+     * 30 - Administrador Projeto
     */
     private static final long serialVersionUID = 1L;
     @Id

@@ -27,4 +27,9 @@ public class BairroRNE extends GenericDAO {
     public List<Bairro> getList(EntityManager session, Bairro bairro) throws Exception {
         return super.getPureList(session, Bairro.class, "Select e from Bairro e");
     }
+    
+     public Bairro get(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from Bairro e where e.codBairro=?1 ";
+        return getPojoUnique(session, Bairro.class, sql, codigo);
+    }
 }

@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;

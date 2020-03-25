@@ -201,7 +201,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel8);
         jLabel8.setBounds(20, 130, 51, 20);
 
-        banco.setText("bancoGrafica2");
+        banco.setText("bancoGrafica");
         banco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bancoActionPerformed(evt);

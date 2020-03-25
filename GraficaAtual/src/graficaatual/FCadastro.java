@@ -5,13 +5,21 @@
  */
 package graficaatual;
 
+import graficaatual.daos.cadsatro.BairroDAO;
+import graficaatual.daos.cadsatro.CidadeDAO;
+import graficaatual.daos.cadsatro.LogradouroDAO;
 import graficaatual.daos.cadsatro.PessoaDAO;
+import graficaatual.entidades.Bairro;
+import graficaatual.entidades.Cidade;
+import graficaatual.entidades.Logradouro;
 import graficaatual.entidades.Pessoa;
 import graficaatual.pesq.cadastro.CnvCadastroPessoa;
 import graficaatual.utilitarios.Componentes;
+import graficaatual.utilitarios.ControleAcesso;
 import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -29,22 +37,57 @@ public class FCadastro extends javax.swing.JFrame {
 private Pessoa pessoa = null;
 private PessoaDAO pessoaDao = new PessoaDAO();
 
+private Logradouro logradouro = null;
+private LogradouroDAO logradouroDao = new LogradouroDAO();
+
+private Bairro bairro = null;
+private BairroDAO bairroDao = new BairroDAO();
+
+private Cidade cidade = null;
+private CidadeDAO cidadeDao = new CidadeDAO();
+
 //Lista Suspensa
 private List<Pessoa>listaPessoaNome = null;
+private List<Pessoa>listaPessoaCPF = null;
+private List<Logradouro>listaLogradouroNome = null;
+private List<Bairro>listaBairroNome = null;
+private List<Cidade>listaCidadeNome = null;
 
 //Controle Navegação
-    CnvCadastroPessoa cnv = new CnvCadastroPessoa();
+    CnvCadastroPessoa cnvPessoaCad = new CnvCadastroPessoa();
     
     public FCadastro() {
         initComponents();
         
         listaPessoaNome = ObservableCollections.observableList(new LinkedList<Pessoa>());
         Componentes comp1 = new Componentes(listaPessoaNome, false, codPessoa
-                , nomePessoa, rootPane, jButton10, nomePessoa.getWidth(), 200);
-        comp1.addCol(0, "codpessoa", "Código", 50, Integer.class.getName());
+                , nomePessoa, this, jPanel10, nomePessoa.getWidth(), 200);
+        comp1.addCol(0, "codPessoa", "Código", 50, Long.class.getName());
         comp1.addCol(1, "nome", "Nome", 200, String.class.getName());
         comp1.bind();
-        
+
+        listaLogradouroNome = ObservableCollections.observableList(new LinkedList<Logradouro>());
+        Componentes comp2 = new Componentes(listaLogradouroNome, false, codLogradouroPessoa
+                , descLogradouroPessoa, this, jPanel10, descLogradouroPessoa.getWidth(), 200);
+        comp2.addCol(0, "codLogradouro", "Código", 50, Long.class.getName());
+        comp2.addCol(1, "descricao", "Nome", 200, String.class.getName());
+        comp2.bind();        
+         atualizaTabelaPessoa();
+         
+         listaBairroNome = ObservableCollections.observableList(new LinkedList<Bairro>());
+        Componentes comp3 = new Componentes(listaBairroNome, false, codBairroPessoa
+                , descBairroPessoa, this, jPanel10, descBairroPessoa.getWidth(), 200);
+        comp3.addCol(0, "codBairro", "Código", 50, Long.class.getName());
+        comp3.addCol(1, "descricao", "Nome", 200, String.class.getName());
+        comp3.bind();        
+         atualizaTabelaPessoa();
+         
+         listaCidadeNome = ObservableCollections.observableList(new LinkedList<Cidade>());
+        Componentes comp4 = new Componentes(listaCidadeNome, false, codCidadePessoa
+                , descCidadePessoa, this, jPanel10, descCidadePessoa.getWidth(), 200);
+        comp4.addCol(0, "codCidade", "Código", 50, Long.class.getName());
+        comp4.addCol(1, "descricao", "Nome", 200, String.class.getName());
+        comp4.bind();        
          atualizaTabelaPessoa();
     }
     
@@ -219,7 +262,7 @@ private List<Pessoa>listaPessoaNome = null;
         cnpjPessoa = new javax.swing.JTextField();
         nomePessoa = new javax.swing.JTextField();
         codLogradouroPessoa = new javax.swing.JTextField();
-        descLogradouroPessao = new javax.swing.JTextField();
+        descLogradouroPessoa = new javax.swing.JTextField();
         numeroPessoa = new javax.swing.JTextField();
         codBairroPessoa = new javax.swing.JTextField();
         descBairroPessoa = new javax.swing.JTextField();
@@ -1083,19 +1126,31 @@ private List<Pessoa>listaPessoaNome = null;
         });
         jPanel10.add(nomePessoa);
         nomePessoa.setBounds(160, 50, 490, 19);
+
+        codLogradouroPessoa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codLogradouroPessoaFocusLost(evt);
+            }
+        });
         jPanel10.add(codLogradouroPessoa);
         codLogradouroPessoa.setBounds(120, 150, 80, 19);
 
-        descLogradouroPessao.setBackground(new java.awt.Color(255, 255, 204));
-        descLogradouroPessao.addKeyListener(new java.awt.event.KeyAdapter() {
+        descLogradouroPessoa.setBackground(new java.awt.Color(255, 255, 204));
+        descLogradouroPessoa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                descLogradouroPessaoKeyReleased(evt);
+                descLogradouroPessoaKeyReleased(evt);
             }
         });
-        jPanel10.add(descLogradouroPessao);
-        descLogradouroPessao.setBounds(200, 150, 470, 19);
+        jPanel10.add(descLogradouroPessoa);
+        descLogradouroPessoa.setBounds(200, 150, 470, 19);
         jPanel10.add(numeroPessoa);
         numeroPessoa.setBounds(780, 150, 140, 19);
+
+        codBairroPessoa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codBairroPessoaFocusLost(evt);
+            }
+        });
         jPanel10.add(codBairroPessoa);
         codBairroPessoa.setBounds(120, 170, 80, 19);
 
@@ -1109,6 +1164,12 @@ private List<Pessoa>listaPessoaNome = null;
         descBairroPessoa.setBounds(200, 170, 470, 19);
         jPanel10.add(complementoPessoa);
         complementoPessoa.setBounds(780, 170, 140, 19);
+
+        codCidadePessoa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codCidadePessoaFocusLost(evt);
+            }
+        });
         jPanel10.add(codCidadePessoa);
         codCidadePessoa.setBounds(120, 190, 80, 19);
 
@@ -1366,6 +1427,11 @@ private List<Pessoa>listaPessoaNome = null;
         salvarPessoa.setBounds(320, 330, 180, 25);
 
         InativarPessoa.setText("Inativar");
+        InativarPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InativarPessoaActionPerformed(evt);
+            }
+        });
         jPanel10.add(InativarPessoa);
         InativarPessoa.setBounds(500, 330, 180, 25);
 
@@ -1396,6 +1462,11 @@ private List<Pessoa>listaPessoaNome = null;
                 return canEdit [columnIndex];
             }
         });
+        tabPessoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPessoaMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tabPessoa);
 
         jPanel10.add(jScrollPane5);
@@ -1404,12 +1475,32 @@ private List<Pessoa>listaPessoaNome = null;
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
         finalPessoa.setText(">>||");
+        finalPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalPessoaActionPerformed(evt);
+            }
+        });
 
         proximoPessoa.setText(">>");
+        proximoPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proximoPessoaActionPerformed(evt);
+            }
+        });
 
         anteriorPessoa.setText("<<");
+        anteriorPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anteriorPessoaActionPerformed(evt);
+            }
+        });
 
         inicioPessoa.setText("||<<");
+        inicioPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inicioPessoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1490,6 +1581,7 @@ private List<Pessoa>listaPessoaNome = null;
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         pessoa = new Pessoa();
         limpaCamposPessoa();
+        tipoPessoa.requestFocus();
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void codPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codPessoaFocusLost
@@ -1502,12 +1594,13 @@ private List<Pessoa>listaPessoaNome = null;
     }//GEN-LAST:event_codPessoaFocusLost
 
     private void salvarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarPessoaActionPerformed
-        
-       try{
-           salvarPessoa();
-       }catch(Exception e){
-           JOptionPane.showMessageDialog(this, e.getMessage());
-       }
+        try {
+            salvarPessoa();
+            JOptionPane.showMessageDialog(this, " Cadastro realizado com Sucesso!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_salvarPessoaActionPerformed
 
     private void cnpjPessoaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cnpjPessoaKeyReleased
@@ -1518,7 +1611,7 @@ private List<Pessoa>listaPessoaNome = null;
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             List<Pessoa> merged = pessoaDao.getPureList(session, 0, 12, Pessoa.class,
-                    "select e from Pessoa e where lower ( trim(e.descricao) ) like ?1 order by e.descricao",
+                    "select e from Pessoa e where lower ( trim(e.nome) ) like ?1 order by e.nome",
                     nomePessoa.getText().trim().toLowerCase() + "%");
             listaPessoaNome.clear();
             listaPessoaNome.addAll(merged);
@@ -1528,19 +1621,142 @@ private List<Pessoa>listaPessoaNome = null;
         }
     }//GEN-LAST:event_nomePessoaKeyReleased
 
-    private void descLogradouroPessaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descLogradouroPessaoKeyReleased
-       
-    }//GEN-LAST:event_descLogradouroPessaoKeyReleased
+    private void descLogradouroPessoaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descLogradouroPessoaKeyReleased
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            List<Logradouro> merged = new LogradouroDAO().getPureList(session, 0, 12, Logradouro.class,
+                    "select e from Logradouro e where lower ( trim(e.descricao) ) like ?1 order by e.descricao",
+                    descLogradouroPessoa.getText().trim().toLowerCase() + "%");
+            listaLogradouroNome.clear();
+            listaLogradouroNome.addAll(merged);
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+    }//GEN-LAST:event_descLogradouroPessoaKeyReleased
 
     private void descBairroPessoaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descBairroPessoaKeyReleased
-        // TODO add your handling code here:
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            List<Bairro> merged = new BairroDAO().getPureList(session, 0, 12, Bairro.class,
+                    "select e from Bairro e where lower ( trim(e.descricao) ) like ?1 order by e.descricao",
+                    descBairroPessoa.getText().trim().toLowerCase() + "%");
+            listaBairroNome.clear();
+            listaBairroNome.addAll(merged);
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
     }//GEN-LAST:event_descBairroPessoaKeyReleased
 
     private void descCidadePessoaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCidadePessoaKeyReleased
-        // TODO add your handling code here:
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            List<Cidade> merged = new CidadeDAO().getPureList(session, 0, 12, Cidade.class,
+                    "select e from Cidade e where lower ( trim(e.descricao) ) like ?1 order by e.descricao",
+                    descCidadePessoa.getText().trim().toLowerCase() + "%");
+            listaCidadeNome.clear();
+            listaCidadeNome.addAll(merged);
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
     }//GEN-LAST:event_descCidadePessoaKeyReleased
 
-    
+    private void codLogradouroPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codLogradouroPessoaFocusLost
+       try{
+           carregaLogCadPessoa();
+       }catch(Exception e){
+           e.printStackTrace();
+           JOptionPane.showMessageDialog(this, e.getMessage());
+       }
+               
+    }//GEN-LAST:event_codLogradouroPessoaFocusLost
+
+    private void codBairroPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codBairroPessoaFocusLost
+         try{
+           carregaBairroCadPessoa();
+       }catch(Exception e){
+           e.printStackTrace();
+           JOptionPane.showMessageDialog(this, e.getMessage());
+       }
+    }//GEN-LAST:event_codBairroPessoaFocusLost
+
+    private void codCidadePessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCidadePessoaFocusLost
+         try{
+           carregaCidadeCadPessoa();
+       }catch(Exception e){
+           e.printStackTrace();
+           JOptionPane.showMessageDialog(this, e.getMessage());
+       }
+    }//GEN-LAST:event_codCidadePessoaFocusLost
+
+    private void InativarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InativarPessoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InativarPessoaActionPerformed
+
+    private void inicioPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioPessoaActionPerformed
+        try {
+            if (cnvPessoaCad == null) {
+                atualizaTabelaPessoa();
+            } else {
+                cnvPessoaCad.primeiro();
+                atualizarTabelaPessoaCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_inicioPessoaActionPerformed
+
+    private void anteriorPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorPessoaActionPerformed
+        try {
+            if (cnvPessoaCad == null) {
+                atualizaTabelaPessoa();
+            } else {
+                cnvPessoaCad.anterior();
+                atualizarTabelaPessoaCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_anteriorPessoaActionPerformed
+
+    private void proximoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoPessoaActionPerformed
+        try {
+            System.out.println("000001");
+            if (cnvPessoaCad == null) {
+                System.out.println("000002");
+                atualizaTabelaPessoa();
+            } else {
+                System.out.println("000003");
+                cnvPessoaCad.proximo();
+                atualizarTabelaPessoaCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_proximoPessoaActionPerformed
+
+    private void finalPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalPessoaActionPerformed
+        try {
+            if (cnvPessoaCad == null) {
+                atualizaTabelaPessoa();
+            } else {
+                cnvPessoaCad.ultimo();
+                atualizarTabelaPessoaCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_finalPessoaActionPerformed
+
+    private void tabPessoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPessoaMouseClicked
+        if (evt.getClickCount() > 1) {
+            codPessoa.setText(("" + tabPessoa.getValueAt(tabPessoa.getSelectedRow(), 0)));
+            codPessoaFocusLost(null);
+            nomePessoa.requestFocus();
+        }
+    }//GEN-LAST:event_tabPessoaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton InativarPessoa;
@@ -1555,7 +1771,7 @@ private List<Pessoa>listaPessoaNome = null;
     private javax.swing.JTextField dataNascimentoPessoa;
     private javax.swing.JTextField descBairroPessoa;
     private javax.swing.JTextField descCidadePessoa;
-    private javax.swing.JTextField descLogradouroPessao;
+    private javax.swing.JTextField descLogradouroPessoa;
     private javax.swing.JTextField emailPessoa;
     private javax.swing.JButton finalPessoa;
     private javax.swing.JButton inicioPessoa;
@@ -1793,7 +2009,7 @@ private List<Pessoa>listaPessoaNome = null;
         dataNascimentoPessoa.setText("");
         
         codLogradouroPessoa.setText("");
-        descLogradouroPessao.setText("");
+        descLogradouroPessoa.setText("");
         numeroPessoa.setText("");
         codBairroPessoa.setText("");
         descBairroPessoa.setText("");
@@ -1810,45 +2026,46 @@ private List<Pessoa>listaPessoaNome = null;
     }
 
     private void atualizaTabelaPessoa() {
-         try {
-              try {
+        try {
 
-            if (cnv == null) {
-                cnv = new CnvCadastroPessoa();
+            if (cnvPessoaCad == null) {
+                cnvPessoaCad = new CnvCadastroPessoa();
             }
 
-            cnv.iniciarNavTabelaCalculo();
+            cnvPessoaCad.iniciarNavTabelaPessoa();
 
-            cnv.primeiro();
-            
-            DefaultTableModel model = (DefaultTableModel) tabPessoa.getModel();
-            removeLinhas(tabPessoa);
+            cnvPessoaCad.primeiro();
+            atualizarTabelaPessoaCad();
 
-        List<?> lv;
-
-        lv = cnv.getLista();
-
-        if (lv != null && !lv.isEmpty()) {
-
-            for (Object o : lv) {
-                Object[] os = (Object[]) o;
-                model.addRow(os);
-                
-
-            }
-        }
-
-        } catch (Exception e) {
-
-        }  
-           
-           
         } catch (Exception e) {
             e.printStackTrace();
 
         }
     }
     
+    private void atualizarTabelaPessoaCad() {
+
+        DefaultTableModel model = (DefaultTableModel) tabPessoa.getModel();
+        removeLinhas(tabPessoa);
+
+        List<?> lv;
+
+        lv = cnvPessoaCad.getLista();
+        
+        System.out.println("vvvv "+ lv.size());
+        
+        if (lv != null && !lv.isEmpty()) {
+
+            for (Object o : lv) {
+                System.out.println("ccccc ");
+                Object[] os = (Object[]) o;
+                model.addRow(os);
+                //Colocar tamanho nas colunas
+
+            }
+        }
+    }
+  
     public static void removeLinhas(JTable table) {
         int n=table.getRowCount();
         
@@ -1875,7 +2092,7 @@ private List<Pessoa>listaPessoaNome = null;
             dataNascimentoPessoa.setText(Data.getDateParse(pessoa.getDataNascimento(),Data.FORMAT_DATA));
 
             codLogradouroPessoa.setText(pessoa.getLogradouro().getCodLogradouro().toString());
-            descLogradouroPessao.setText(pessoa.getLogradouro().getDescricao());
+            descLogradouroPessoa.setText(pessoa.getLogradouro().getDescricao());
             numeroPessoa.setText(pessoa.getNumCasa());
             codBairroPessoa.setText(pessoa.getBairro().getCodBairro().toString());
             descBairroPessoa.setText(pessoa.getBairro().getDescricao());
@@ -1896,12 +2113,28 @@ private List<Pessoa>listaPessoaNome = null;
 
 
     private void salvarPessoa() throws Exception{
-        
+        Pessoa pessoaAux;
         if(pessoa!=null){
             setPessoa();
-        Pessoa pessoaAux = pessoaDao.get(pessoa.getCodPessoa());
+            if(codPessoa.getText().equals("")){
+                pessoaAux= null;
+            }else{
+                pessoaAux = pessoaDao.get(pessoa.getCodPessoa());
+            }
             
-      
+            if(pessoaAux == null){
+//                pessoa.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() +" - "
+//                        + ControleAcesso.usuario.getPessoa().getNome());
+//                pessoa.setDataCadastro(new Date());
+                pessoa = pessoaDao.addUsuario(pessoa);
+            
+            }else{
+//                pessoa.setUsuarioAtualizacao(ControleAcesso.usuario.getCodUsuario() +" - "
+//                        + ControleAcesso.usuario.getPessoa().getNome());
+//                pessoa.setDataAtualizacao(new Date());
+                pessoa = pessoaDao.addUsuario(pessoa);
+            }
+            atualizaTabelaPessoa();
         }else{
             throw new Exception(" Para inserir um cadastro novo, aperte o botão "
                     + " Novo Cadastro.");
@@ -1919,20 +2152,47 @@ private List<Pessoa>listaPessoaNome = null;
         pessoa.setEmail(emailPessoa.getText());
         pessoa.setTelefone(telefonePessoa.getText());
         pessoa.setDataNascimento(Data.getDateUtil(dataNascimentoPessoa.getText()));
-        
-        
-//        pessoa.setTipoPessoa(codLogradouroPessoa.getText());
-//        pessoa.setTipoPessoa(descLogradouroPessao.getText());
-//        pessoa.setTipoPessoa(numeroPessoa.getText());
-//        pessoa.setTipoPessoa(codBairroPessoa.getText());
-//        pessoa.setTipoPessoa(descBairroPessoa.getText());
-//        pessoa.setTipoPessoa(complementoPessoa.getText());
-//        pessoa.setTipoPessoa(codCidadePessoa.getText());
-//        pessoa.setTipoPessoa(descCidadePessoa.getText());
-//        pessoa.setTipoPessoa(ufPessoa.getText());
-//        pessoa.setTipoPessoa(cepPessoa.getText());
-//        
-//        pessoa.setTipoPessoa(obsPessoa.getText());
+        pessoa.setLogradouro(logradouro);
+        pessoa.setNumCasa(numeroPessoa.getText());
+        pessoa.setBairro(bairro);
+        pessoa.setComplemento(complementoPessoa.getText());
+        pessoa.setCidade(cidade);
+        pessoa.setUf(ufPessoa.getText());
+        pessoa.setCep(cepPessoa.getText());
+        pessoa.setObs(obsPessoa.getText());
+    }
+
+    private void carregaLogCadPessoa() throws Exception {
+        logradouro = logradouroDao.getPorCodigo(ValidarValor.getLong(codLogradouroPessoa.getText()));
+        if(logradouro != null){
+            codLogradouroPessoa.setText(logradouro.getCodLogradouro().toString());
+            descLogradouroPessoa.setText(logradouro.getDescricao());
+        }else{
+            codLogradouroPessoa.setText("");
+            descLogradouroPessoa.setText("");
+        }
+    }
+
+    private void carregaBairroCadPessoa() throws Exception {
+        bairro = bairroDao.getPorCodigo(ValidarValor.getInt(codBairroPessoa.getText()));
+        if(bairro != null){
+            codBairroPessoa.setText(bairro.getCodBairro().toString());
+            descBairroPessoa.setText(bairro.getDescricao());
+        }else{
+            codBairroPessoa.setText("");
+            descBairroPessoa.setText("");
+        }
+    }
+
+    private void carregaCidadeCadPessoa() throws  Exception{
+         cidade = cidadeDao.getPorCodigo(ValidarValor.getInt(codCidadePessoa.getText()));
+        if(cidade != null){
+            codCidadePessoa.setText(cidade.getCodCidade().toString());
+            descCidadePessoa.setText(cidade.getDescricao());
+        }else{
+            codCidadePessoa.setText("");
+            descCidadePessoa.setText("");
+        }
     }
 
 

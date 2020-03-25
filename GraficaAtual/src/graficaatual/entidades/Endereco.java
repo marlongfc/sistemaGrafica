@@ -55,8 +55,8 @@ public class Endereco implements Serializable {
     private String usuarioAtualizacao;
 
     public Endereco() {
-        this.dataCadastro = new Date();
-        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+ //       this.dataCadastro = new Date();
+//        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
     public Long getCodEndereco() {

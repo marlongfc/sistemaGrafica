@@ -3,7 +3,6 @@ package graficaatual.pesq.cadastro;
 
 import graficaatual.utilitarios.CnvNativeQueryRNE;
 import graficaatual.utilitarios.Persistencia;
-import graficaatual.utilitarios.ValidarValor;
 import javax.persistence.EntityManager;
 
 /**
@@ -16,7 +15,7 @@ public class CnvCadastroPessoa extends CnvNativeQueryRNE {
 
     }
 
-    public void iniciarNavTabelaCalculo() {
+    public void iniciarNavTabelaPessoa() {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -32,15 +31,9 @@ public class CnvCadastroPessoa extends CnvNativeQueryRNE {
                     + " where p.ativo = 'true'"
                     + " order by p.nome";
 
-            String sqlNrReg = " select  "
-                    + " p.codpessoa ,  "
-                    + " p.cnpj, "
-                    + " p.nome,  "
-                    + " p.nomefantasia, "
-                    + " p.ativo "
+            String sqlNrReg = " select  count(p.codpessoa)"
                     + " from pessoa p  "
-                    + " where p.ativo = 'true'"
-                    + " order by p.nome";
+                    + " where p.ativo = 'true'";
                    
             
             
@@ -77,7 +70,7 @@ public class CnvCadastroPessoa extends CnvNativeQueryRNE {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
-
+            System.out.println("entrei");
             super.proximo(session, parametros);
 
         } catch (Exception e) {

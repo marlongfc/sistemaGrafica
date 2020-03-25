@@ -103,11 +103,13 @@ public class CnvNativeQueryRNE extends GenericDAO {
 
     public void proximo(EntityManager session, Object... parametros) {
         try {
-
+            System.out.println("entrei1");
             if (posisaoInicial < 0) {
                 posisaoInicial = 0;
-
             } else {
+                System.out.println("entrei3");
+                System.out.println("posisaoInicial "+ posisaoInicial);
+                System.out.println("posisaoInicial "+ qtdeRegCarregado);
                 int aux = posisaoInicial + qtdeRegCarregado;
                 if (aux >= qtdeRegTotal) {
                     aux = posisaoInicial + 0;

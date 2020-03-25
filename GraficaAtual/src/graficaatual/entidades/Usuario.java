@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,7 +23,7 @@ import javax.persistence.Table;
  * @author ProjetoX
  */
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 public class Usuario implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,7 +36,7 @@ public class Usuario implements java.io.Serializable {
     @Column(nullable = false, length = 30)
     private Integer nivelAcesso;
 
-    @ManyToOne()
+    @OneToOne()
     @JoinColumn(name = "pessoa", nullable = false)
     private Pessoa pessoa;
 

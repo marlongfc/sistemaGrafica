@@ -52,8 +52,8 @@ public class Bairro implements Serializable {
     private String usuarioAtualizacao;
 
     public Bairro() {
-        this.dataCadastro = new Date();
-        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+//        this.dataCadastro = new Date();
+//        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
     public Long getCodBairro() {
