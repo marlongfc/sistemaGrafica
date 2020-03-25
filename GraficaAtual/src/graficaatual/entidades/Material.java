@@ -62,8 +62,8 @@ public class Material implements Serializable {
     private String usuarioAtualizacao;
 
     public Material() {
-        this.dataCadastro = new Date();
-        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+      //  this.dataCadastro = new Date();
+      //  this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
     public Long getCodMaterial() {

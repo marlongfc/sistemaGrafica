@@ -8,6 +8,7 @@ package graficaatual.daos.cadsatro;
 import graficaatual.entidades.Pessoa;
 import graficaatual.regras.cadastro.PessoaRNE;
 import graficaatual.utilitarios.Persistencia;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -32,6 +33,62 @@ public class PessoaDAO extends PessoaRNE {
             session.close();
         }
         
+    }
+    
+    public Pessoa altera(Pessoa obj) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            session.getTransaction().begin();
+            obj = super.salvar( session,obj);
+            session.getTransaction().commit();
+            return obj;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public void delete(Pessoa obj) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            session.getTransaction().begin();
+            super.delete(session,obj);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    public Pessoa get(Long cod) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            Pessoa aux = super.getPojo(Pessoa.class, cod);
+            return aux;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
+    public Pessoa getList(int cod) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            Pessoa aux = super.getPojo(Pessoa.class, cod);
+            return aux;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
+     public List<Pessoa> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Pessoa.class, SQL, parametros);
     }
 
   

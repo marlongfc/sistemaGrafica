@@ -18,5 +18,10 @@ public class PessoaRNE extends GenericDAO{
     public Pessoa salvar(EntityManager session, Pessoa pessoa) throws Exception{
        return super.saveOrUpdatePojo(session, pessoa);
     }
+
+    public boolean delete(EntityManager session, Pessoa obj) {
+      return super.deletePojo(session, obj);
+    }
+    
     
 }

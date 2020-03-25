@@ -58,9 +58,15 @@ public class Pessoa implements Serializable {
 
     @Column(name = "UF", nullable = false)
     private String uf;
+    
+    @Column(name = "ativo", nullable = true)
+    private Boolean ativo = true;
 
     @Column(name = "inscEstadual", nullable = true)
     private String inscEstadual;
+    
+    @Column(name = "inscMunicipal", nullable = true)
+    private String inscMunicipal;
 
     @Column(name = "dataNascimento", nullable = true)
     private Date dataNascimento;
@@ -76,6 +82,12 @@ public class Pessoa implements Serializable {
 
     @Column(name = "numCasa", nullable = true)
     private String numCasa;
+    
+    @Column(name = "complemento", nullable = true)
+    private String complemento;
+    
+    @Column(name = "cep", nullable = true)
+    private String cep;
 
     @Column(name = "dataCadastro", nullable = true)
     private Date dataCadastro;
@@ -90,10 +102,44 @@ public class Pessoa implements Serializable {
     private String usuarioAtualizacao;
 
     public Pessoa() {
-        this.dataCadastro = new Date();
-        this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+        //this.ativo = true;
+        //this.dataCadastro = new Date();
+        //this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+    
+
+    public String getInscMunicipal() {
+        return inscMunicipal;
+    }
+
+    public void setInscMunicipal(String inscMunicipal) {
+        this.inscMunicipal = inscMunicipal;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+    
     public Date getDataCadastro() {
         return dataCadastro;
     }

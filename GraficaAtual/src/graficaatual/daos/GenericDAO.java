@@ -3,6 +3,7 @@ package graficaatual.daos;
 import graficaatual.utilitarios.Persistencia;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -776,6 +777,76 @@ public abstract class GenericDAO implements java.io.Serializable {
         return ret == null ? BigDecimal.ZERO : ret;
     }
     
+   
+    public Integer getInteger(EntityManager session, String query, Object... parametros) {
+
+        Object o = getPojoUnique(session, Integer.class, query, parametros);
+        if (o == null) {
+            return 0;
+
+        } else if (o instanceof Integer) {
+            Integer ret = (Integer) o;
+            return ret;
+
+        } else if (o instanceof Long) {
+            Integer ret = ((Long) o).intValue();
+            return ret;
+
+        } else {
+            return 0;
+        }
+
+    }
+    
+    public int getIntegerNativeQuery(EntityManager session, String query, Object... parametros) {
+
+        Query qr = session.createNativeQuery(query);
+
+        for (int i = 0; i < parametros.length; i++) {
+            qr.setParameter(i + 1, parametros[i]);
+        }
+
+        Object o = null;
+
+        List<?> r = qr.getResultList();
+
+        if (r != null && !r.isEmpty()) {
+            o = r.get(0);
+        }
+
+        if (o == null) {
+            return 0;
+
+        } else if (o instanceof Integer) {
+            Integer ret = (Integer) o;
+            return ret;
+
+        } else if (o instanceof Long) {
+            Integer ret = ((Long) o).intValue();
+            return ret;
+
+        } else if (o instanceof BigInteger) {
+            Integer ret = ((BigInteger) o).intValue();
+            return ret;
+
+        } else {
+            return 0;
+        }
+
+    }
+    
+    public List<?> getListNativeQuery(EntityManager session, int regInicial, int qtdeReg, String sql, Object... parametros) {
+
+        Query qr = session.createNativeQuery(sql).setMaxResults(qtdeReg).setFirstResult(regInicial);
+
+        for (int i = 0; i < parametros.length; i++) {
+            qr.setParameter(i + 1, parametros[i]);
+        }
+
+        return qr.getResultList();
+
+    }
+    
     public Long getLong(EntityManager session, String query, Object... parametros) {
 
         Object o = getPojoUnique(session, Long.class, query, parametros);
@@ -795,5 +866,4 @@ public abstract class GenericDAO implements java.io.Serializable {
         }
 
     }
-//
 }

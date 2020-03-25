@@ -7,7 +7,6 @@ package graficaatual;
 
 import graficaatual.daos.UsuariosDAO;
 import graficaatual.entidades.Usuario;
-import graficaatual.utilitarios.Persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,12 +20,13 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Pro
+ * @author Projeto X
  */
 public class FLogin extends javax.swing.JFrame { 
 
     private String erroV = "", sNomeBanco = "";
     private boolean verConf = true; 
+    private static FLogin instancia;
 
     /**
      * Creates new form Geral
@@ -44,11 +44,16 @@ public class FLogin extends javax.swing.JFrame {
         jLabel6.setVisible(verConf);
         jLabel7.setVisible(verConf);
         jLabel8.setVisible(verConf);
+        habilitaMenus(false);
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jBProducao = new javax.swing.JButton();
+        jBPedidos = new javax.swing.JButton();
+        jBCadastro = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         login = new javax.swing.JTextField();
@@ -66,37 +71,74 @@ public class FLogin extends javax.swing.JFrame {
         senha = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         banco = new javax.swing.JTextField();
+        jBFinanceiro = new javax.swing.JButton();
+        jBRelatorios = new javax.swing.JButton();
+        jBEstoque = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema Gráfica Atual");
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setPreferredSize(new java.awt.Dimension(1060, 600));
-        setSize(new java.awt.Dimension(1060, 600));
+        setMaximumSize(new java.awt.Dimension(2400, 1200));
+        setMinimumSize(new java.awt.Dimension(1060, 720));
+        setName("FLogin"); // NOI18N
+        setSize(new java.awt.Dimension(1060, 720));
         getContentPane().setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(153, 0, 153));
+        jBProducao.setBackground(new java.awt.Color(255, 255, 255));
+        jBProducao.setForeground(new java.awt.Color(255, 255, 255));
+        jBProducao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PRODUÇÃO SEM FUNDO.png"))); // NOI18N
+        jBProducao.setBorderPainted(false);
+        getContentPane().add(jBProducao);
+        jBProducao.setBounds(620, 540, 80, 100);
+
+        jBPedidos.setBackground(new java.awt.Color(255, 255, 255));
+        jBPedidos.setForeground(new java.awt.Color(255, 255, 255));
+        jBPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDOS SEM FUNDO.png"))); // NOI18N
+        jBPedidos.setBorderPainted(false);
+        jBPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPedidosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBPedidos);
+        jBPedidos.setBounds(390, 170, 100, 80);
+
+        jBCadastro.setBackground(new java.awt.Color(255, 255, 255));
+        jBCadastro.setForeground(new java.awt.Color(255, 255, 255));
+        jBCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO.png"))); // NOI18N
+        jBCadastro.setBorderPainted(false);
+        jBCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastroActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBCadastro);
+        jBCadastro.setBounds(400, 420, 80, 90);
+
+        jPanel2.setBackground(new java.awt.Color(102, 0, 153));
         jPanel2.setLayout(null);
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Login:");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(10, 460, 60, 20);
+        jLabel4.setBounds(10, 570, 60, 20);
 
         login.setText("root");
         login.setToolTipText("");
         jPanel2.add(login);
-        login.setBounds(70, 460, 180, 19);
+        login.setBounds(70, 570, 180, 19);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Senha:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(10, 480, 60, 20);
+        jLabel5.setBounds(10, 590, 60, 20);
 
         senhaUsuario.setText("427623");
         senhaUsuario.setToolTipText("");
         jPanel2.add(senhaUsuario);
-        senhaUsuario.setBounds(70, 480, 180, 19);
+        senhaUsuario.setBounds(70, 590, 180, 19);
 
         jToggleButton1.setBackground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setText("Confirmar");
@@ -106,7 +148,7 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jToggleButton1);
-        jToggleButton1.setBounds(10, 520, 140, 36);
+        jToggleButton1.setBounds(10, 630, 140, 36);
 
         sair.setBackground(new java.awt.Color(255, 255, 255));
         sair.setText("Sair");
@@ -116,60 +158,92 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(sair);
-        sair.setBounds(150, 520, 100, 36);
+        sair.setBounds(150, 630, 100, 36);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("IP:");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(10, 120, 70, 20);
+        jLabel1.setBounds(20, 70, 70, 20);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Porta:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(10, 140, 51, 20);
+        jLabel3.setBounds(20, 90, 51, 20);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Banco:");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(10, 200, 51, 20);
+        jLabel6.setBounds(20, 150, 51, 20);
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Usuário:");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(10, 160, 80, 20);
+        jLabel7.setBounds(20, 110, 80, 20);
 
         host.setText("localhost");
         jPanel2.add(host);
-        host.setBounds(90, 120, 150, 19);
+        host.setBounds(100, 70, 150, 19);
 
         user.setText("postgres");
         jPanel2.add(user);
-        user.setBounds(90, 160, 150, 19);
+        user.setBounds(100, 110, 150, 19);
 
         porta.setText("5432");
         jPanel2.add(porta);
-        porta.setBounds(90, 140, 150, 19);
+        porta.setBounds(100, 90, 150, 19);
 
         senha.setText("427623");
         jPanel2.add(senha);
-        senha.setBounds(90, 180, 150, 19);
+        senha.setBounds(100, 130, 150, 19);
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Senha:");
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(10, 180, 51, 20);
+        jLabel8.setBounds(20, 130, 51, 20);
 
-        banco.setText("bancoGrafica");
+        banco.setText("bancoGrafica2");
+        banco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bancoActionPerformed(evt);
+            }
+        });
         jPanel2.add(banco);
-        banco.setBounds(90, 200, 150, 19);
+        banco.setBounds(100, 150, 150, 19);
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 260, 580);
+        jPanel2.setBounds(0, 0, 260, 690);
 
+        jBFinanceiro.setBackground(new java.awt.Color(255, 255, 255));
+        jBFinanceiro.setForeground(new java.awt.Color(255, 255, 255));
+        jBFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/FINANCEIRO SEM FUNDO.png"))); // NOI18N
+        jBFinanceiro.setBorderPainted(false);
+        getContentPane().add(jBFinanceiro);
+        jBFinanceiro.setBounds(830, 170, 80, 90);
+
+        jBRelatorios.setBackground(new java.awt.Color(255, 255, 255));
+        jBRelatorios.setForeground(new java.awt.Color(255, 255, 255));
+        jBRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/RELATORIOS  SEM FUNDO.png"))); // NOI18N
+        jBRelatorios.setBorderPainted(false);
+        getContentPane().add(jBRelatorios);
+        jBRelatorios.setBounds(620, 40, 80, 100);
+
+        jBEstoque.setBackground(new java.awt.Color(255, 255, 255));
+        jBEstoque.setForeground(new java.awt.Color(255, 255, 255));
+        jBEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ESTOQUE SEM FUNDO.png"))); // NOI18N
+        jBEstoque.setBorderPainted(false);
+        getContentPane().add(jBEstoque);
+        jBEstoque.setBounds(840, 410, 70, 100);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO COM FUNDO.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO2.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(-350, -50, 2028, 630);
+        jLabel2.setBounds(260, 0, 790, 680);
+
+        getAccessibleContext().setAccessibleName("FLogin");
+        getAccessibleContext().setAccessibleDescription("");
+        getAccessibleContext().setAccessibleParent(this);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,6 +261,19 @@ public class FLogin extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_sairActionPerformed
 
+    private void jBPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPedidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBPedidosActionPerformed
+
+    private void bancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bancoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bancoActionPerformed
+
+    private void jBCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastroActionPerformed
+        FCadastro c = FCadastro.getInstancia();
+        c.setVisible(true);
+    }//GEN-LAST:event_jBCadastroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -194,13 +281,20 @@ public class FLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FLogin().setVisible(true);
+                
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField banco;
     private javax.swing.JTextField host;
+    private javax.swing.JButton jBCadastro;
+    private javax.swing.JButton jBEstoque;
+    private javax.swing.JButton jBFinanceiro;
+    private javax.swing.JButton jBPedidos;
+    private javax.swing.JButton jBProducao;
+    private javax.swing.JButton jBRelatorios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -242,6 +336,7 @@ public class FLogin extends javax.swing.JFrame {
                 if (us != null) {
 
                     System.out.println("É Usuário");
+                    habilitaMenus(true);
                   
                 }
 
@@ -272,7 +367,7 @@ public class FLogin extends javax.swing.JFrame {
         System.out.println("conexão True");
         Statement banco = conexao.createStatement(1004, 1008);
         System.out.println("vai fazer Pesquisa");
-        ResultSet rs = banco.executeQuery("select senha from usuarios where login = '" + login.getText().trim() + "'");
+        ResultSet rs = banco.executeQuery("select senha from usuario where login = '" + login.getText().trim() + "'");
         System.out.println("realizou pesquisa");
         if (rs.next()) {
             String str = rs.getString("senha");
@@ -293,5 +388,14 @@ public class FLogin extends javax.swing.JFrame {
         return false;
 
     }
+
+    private void habilitaMenus(boolean b) {
+        jBCadastro.setEnabled(b);
+        jBEstoque.setEnabled(b);
+        jBFinanceiro.setEnabled(b);
+        jBPedidos.setEnabled(b);
+        jBProducao.setEnabled(b);
+        jBRelatorios.setEnabled(b);            
      
+    }
 }
