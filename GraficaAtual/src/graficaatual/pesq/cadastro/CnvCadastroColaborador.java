@@ -9,35 +9,36 @@ import javax.persistence.EntityManager;
  *
  * @author Projeto X
  */
-public class CnvCadastroPessoa extends CnvNativeQueryRNE {
+public class CnvCadastroColaborador extends CnvNativeQueryRNE {
 
-    public CnvCadastroPessoa() {
+    public CnvCadastroColaborador() {
 
     }
 
-    public void iniciarNavTabelaPessoa() {
+    public void iniciarNavTabela() {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
 
             String sql = " select  "
-                    + " p.codpessoa ,  "
-                    + " p.cnpj, "
-                    + " p.nome,  "
-                    + " p.nomefantasia, "
+                    + " c.codColaborador ,  "
+                    + " p.nome, "
+                    + " f.descricao,  "
                     + " p.ativo "
-                    + " from pessoa p  "
-                    + " where p.ativo = 'true'"
+                    + " from colaborador c  "
+                    + " left join pessoa p on (p.codpessoa = c.pessoa)"
+                    + " left join cargo f on (f.codcargo = c.cargo)"
+                    + " where c.ativo = 'true'"
                     + " order by p.nome";
 
-            String sqlNrReg = " select  count(p.codpessoa)"
-                    + " from pessoa p  "
+            String sqlNrReg = " select  count(p.codcolaborador)"
+                    + " from colaborador p  "
                     + " where p.ativo = 'true'";
                    
             
             
-            super.iniciarCnv(session, sqlNrReg, sql, 9);
+            super.iniciarCnv(session, sqlNrReg, sql, 3);
 
         } catch (Exception e) {
             e.printStackTrace();

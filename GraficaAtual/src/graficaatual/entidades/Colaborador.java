@@ -5,9 +5,8 @@
  */
 package graficaatual.entidades;
 
-import graficaatual.utilitarios.TipoPermissao;
 import java.sql.Timestamp;
-import javax.persistence.CascadeType;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,32 +32,34 @@ public class Colaborador implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codColaborador;
 
-    @ManyToOne()
-    @JoinColumn(name = "pessoa", nullable = false)
+    @OneToOne()
+    @JoinColumn(name = "pessoa")
     private Pessoa pessoa;
 
     @ManyToOne()
     @JoinColumn(name = "cargo", nullable = false)
     private Cargo cargo;
-
-    @Column(nullable = false, length = 30)
-    private String login;
-
-    @Column(nullable = false, length = 20)
-    private String senha;
+    
+    @Column(name = "DataInicio", nullable = true)
+    private Date dataInicio;
+    
+    @Column(name = "ativo", nullable = true)
+    private boolean ativo;
+    
+    @Column(name = "salario", nullable = true)
+    private Double salario;
+     
+    @Column(name = "DataFim", nullable = true)
+    private Date dataFim;
+    
+    @Column(name = "ctps", nullable = true)
+    private String ctps;
 
     @Column(name = "DataCadastro", nullable = true)
     private java.sql.Timestamp data;
 
-    @Column(name = "tipoUsuario", nullable = false, columnDefinition = "integer default 2")
-    private Integer tipoUsuario;
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "CodTipo", nullable = true)
-    private TipoPermissao tipoPermissao;
-
     public Colaborador() {
-        this.tipoUsuario = 2;
+       
     }
 
     public Integer getCodColaborador() {
@@ -76,7 +78,45 @@ public class Colaborador implements java.io.Serializable {
         this.cargo = cargo;
     }
 
+    public Double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Double salario) {
+        this.salario = salario;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
     
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public String getCtps() {
+        return ctps;
+    }
+
+    public void setCtps(String ctps) {
+        this.ctps = ctps;
+    }
 
     public Pessoa getPessoa() {
         return pessoa;
@@ -86,44 +126,12 @@ public class Colaborador implements java.io.Serializable {
         this.pessoa = pessoa;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public Timestamp getData() {
         return data;
     }
 
     public void setData(Timestamp data) {
         this.data = data;
-    }
-
-    public Integer getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(Integer tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
-
-    public TipoPermissao getTipoPermissao() {
-        return tipoPermissao;
-    }
-
-    public void setTipoPermissao(TipoPermissao tipoPermissao) {
-        this.tipoPermissao = tipoPermissao;
     }
 
     @Override
