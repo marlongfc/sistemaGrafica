@@ -6,20 +6,23 @@
 package graficaatual;
 
 import graficaatual.daos.cadsatro.BairroDAO;
+import graficaatual.daos.cadsatro.CargoDAO;
 import graficaatual.daos.cadsatro.CidadeDAO;
+import graficaatual.daos.cadsatro.ColaboradorDAO;
 import graficaatual.daos.cadsatro.LogradouroDAO;
 import graficaatual.daos.cadsatro.PessoaDAO;
 import graficaatual.entidades.Bairro;
+import graficaatual.entidades.Cargo;
 import graficaatual.entidades.Cidade;
+import graficaatual.entidades.Colaborador;
 import graficaatual.entidades.Logradouro;
 import graficaatual.entidades.Pessoa;
+import graficaatual.pesq.cadastro.CnvCadastroColaborador;
 import graficaatual.pesq.cadastro.CnvCadastroPessoa;
 import graficaatual.utilitarios.Componentes;
-import graficaatual.utilitarios.ControleAcesso;
 import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -34,66 +37,95 @@ import org.jdesktop.observablecollections.ObservableCollections;
  */
 public class FCadastro extends javax.swing.JFrame {
 
-private Pessoa pessoa = null;
-private PessoaDAO pessoaDao = new PessoaDAO();
+    private Pessoa pessoa = null;
+    private PessoaDAO pessoaDao = new PessoaDAO();
 
-private Logradouro logradouro = null;
-private LogradouroDAO logradouroDao = new LogradouroDAO();
+    private Colaborador colaborador = null;
+    private ColaboradorDAO colaboradorDao = new ColaboradorDAO();
 
-private Bairro bairro = null;
-private BairroDAO bairroDao = new BairroDAO();
+    private Cargo cargo = null;
+    private CargoDAO cargoDao = new CargoDAO();
 
-private Cidade cidade = null;
-private CidadeDAO cidadeDao = new CidadeDAO();
+    private Logradouro logradouro = null;
+    private LogradouroDAO logradouroDao = new LogradouroDAO();
+
+    private Bairro bairro = null;
+    private BairroDAO bairroDao = new BairroDAO();
+
+    private Cidade cidade = null;
+    private CidadeDAO cidadeDao = new CidadeDAO();
 
 //Lista Suspensa
-private List<Pessoa>listaPessoaNome = null;
-private List<Pessoa>listaPessoaCPF = null;
-private List<Logradouro>listaLogradouroNome = null;
-private List<Bairro>listaBairroNome = null;
-private List<Cidade>listaCidadeNome = null;
+    private List<Pessoa> listaPessoaNome = null;
+    private List<Pessoa> listaPessoaNomeColaborador = null;
+    private List<Pessoa> listaPessoaCPF = null;
+    private List<Pessoa> listaPessoaCPFColaborador = null;
+    private List<Logradouro> listaLogradouroNome = null;
+    private List<Bairro> listaBairroNome = null;
+    private List<Cidade> listaCidadeNome = null;
 
 //Controle Navegação
     CnvCadastroPessoa cnvPessoaCad = new CnvCadastroPessoa();
-    
+    CnvCadastroColaborador cnvColaboradorCad = new CnvCadastroColaborador();
+
     public FCadastro() {
         initComponents();
-        
+
         listaPessoaNome = ObservableCollections.observableList(new LinkedList<Pessoa>());
-        Componentes comp1 = new Componentes(listaPessoaNome, false, codPessoa
-                , nomePessoa, this, jPanel10, nomePessoa.getWidth(), 200);
+        Componentes comp1 = new Componentes(listaPessoaNome, false, codPessoa, nomePessoa, this, jPanel10, nomePessoa.getWidth(), 100);
         comp1.addCol(0, "codPessoa", "Código", 50, Long.class.getName());
-        comp1.addCol(1, "nome", "Nome", 200, String.class.getName());
+        comp1.addCol(1, "cnpj", "CPF/CNPJ", 100, String.class.getName());
+        comp1.addCol(2, "nome", "Nome", 200, String.class.getName());
         comp1.bind();
+        
+        listaPessoaNomeColaborador = ObservableCollections.observableList(new LinkedList<Pessoa>());
+        Componentes comp6 = new Componentes(listaPessoaNomeColaborador, false, codPessoaCadColaborador, 
+                nomePessoaCadColaborador, this, jPanel13, nomePessoaCadColaborador.getWidth(), 100);
+        comp6.addCol(0, "codPessoa", "Código", 50, Long.class.getName());
+        comp6.addCol(1, "cnpj", "CPF/CNPJ", 100, String.class.getName());
+        comp6.addCol(2, "nome", "Nome", 200, String.class.getName());
+        comp6.bind();
 
         listaLogradouroNome = ObservableCollections.observableList(new LinkedList<Logradouro>());
-        Componentes comp2 = new Componentes(listaLogradouroNome, false, codLogradouroPessoa
-                , descLogradouroPessoa, this, jPanel10, descLogradouroPessoa.getWidth(), 200);
+        Componentes comp2 = new Componentes(listaLogradouroNome, false, codLogradouroPessoa, descLogradouroPessoa, this, jPanel10, descLogradouroPessoa.getWidth(), 100);
         comp2.addCol(0, "codLogradouro", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome", 200, String.class.getName());
-        comp2.bind();        
-         atualizaTabelaPessoa();
-         
-         listaBairroNome = ObservableCollections.observableList(new LinkedList<Bairro>());
-        Componentes comp3 = new Componentes(listaBairroNome, false, codBairroPessoa
-                , descBairroPessoa, this, jPanel10, descBairroPessoa.getWidth(), 200);
+        comp2.bind();
+
+        listaBairroNome = ObservableCollections.observableList(new LinkedList<Bairro>());
+        Componentes comp3 = new Componentes(listaBairroNome, false, codBairroPessoa, descBairroPessoa, this, jPanel10, descBairroPessoa.getWidth(), 100);
         comp3.addCol(0, "codBairro", "Código", 50, Long.class.getName());
         comp3.addCol(1, "descricao", "Nome", 200, String.class.getName());
-        comp3.bind();        
-         atualizaTabelaPessoa();
-         
-         listaCidadeNome = ObservableCollections.observableList(new LinkedList<Cidade>());
-        Componentes comp4 = new Componentes(listaCidadeNome, false, codCidadePessoa
-                , descCidadePessoa, this, jPanel10, descCidadePessoa.getWidth(), 200);
+        comp3.bind();
+
+        listaCidadeNome = ObservableCollections.observableList(new LinkedList<Cidade>());
+        Componentes comp4 = new Componentes(listaCidadeNome, false, codCidadePessoa, descCidadePessoa, this, jPanel10, descCidadePessoa.getWidth(), 100);
         comp4.addCol(0, "codCidade", "Código", 50, Long.class.getName());
         comp4.addCol(1, "descricao", "Nome", 200, String.class.getName());
-        comp4.bind();        
-         atualizaTabelaPessoa();
+        comp4.bind();
+
+        listaPessoaCPF = ObservableCollections.observableList(new LinkedList<Pessoa>());
+        Componentes comp5 = new Componentes(listaPessoaCPF, false, codPessoa, cnpjPessoa, this, jPanel10, cnpjPessoa.getWidth(), 100);
+        comp5.addCol(0, "codPessoa", "Código", 50, Long.class.getName());
+        comp5.addCol(1, "cnpj", "CPF/CNPJ", 100, String.class.getName());
+        comp5.addCol(2, "nome", "Nome", 200, String.class.getName());
+        comp5.bind();
+        atualizaTabelaPessoa();
+        
+        listaPessoaCPFColaborador = ObservableCollections.observableList(new LinkedList<Pessoa>());
+        Componentes comp7 = new Componentes(listaPessoaCPFColaborador, false, codPessoaCadColaborador, 
+                cnpjCadColaborador, this, jPanel13, cnpjCadColaborador.getWidth()+nomePessoaCadColaborador.getWidth(), 100);
+        comp7.addCol(0, "codPessoa", "Código", 50, Long.class.getName());
+        comp7.addCol(1, "cnpj", "CPF/CNPJ", 100, String.class.getName());
+        comp7.addCol(2, "nome", "Nome", 200, String.class.getName());
+        comp7.bind();
+        atualizaTabelaPessoa();
+        atualizaTabelaColaborador();
     }
-    
-     private static FCadastro instancia;
-    
-     public static FCadastro getInstancia() {
+
+    private static FCadastro instancia;
+
+    public static FCadastro getInstancia() {
         if (instancia == null) {
             instancia = new FCadastro();
         }
@@ -231,36 +263,36 @@ private List<Cidade>listaCidadeNome = null;
         jLabel7 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
+        nomePessoaCadColaborador = new javax.swing.JTextField();
+        codColaborador = new javax.swing.JTextField();
+        codCargoCadColaborador = new javax.swing.JTextField();
+        descCargoCadColaborador = new javax.swing.JTextField();
+        codPessoaCadColaborador = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        cnpjCadColaborador = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
+        finalColaborador = new javax.swing.JButton();
+        proximoColaborador = new javax.swing.JButton();
+        anteriorColaborador = new javax.swing.JButton();
+        inicioColaborador = new javax.swing.JButton();
+        novoCadColaboradores = new javax.swing.JButton();
+        salvarCadColaboradores = new javax.swing.JButton();
+        inativarColabotadores = new javax.swing.JButton();
+        sairColaboradores = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jTextField27 = new javax.swing.JTextField();
+        ctps = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jTextField29 = new javax.swing.JTextField();
-        jTextField30 = new javax.swing.JTextField();
+        dtFimContrato = new javax.swing.JTextField();
+        dtInicioContrato = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tabColaborador = new javax.swing.JTable();
+        jLabel72 = new javax.swing.JLabel();
+        salarioColaborador = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         codPessoa = new javax.swing.JTextField();
-        cnpjPessoa = new javax.swing.JTextField();
-        nomePessoa = new javax.swing.JTextField();
         codLogradouroPessoa = new javax.swing.JTextField();
         descLogradouroPessoa = new javax.swing.JTextField();
         numeroPessoa = new javax.swing.JTextField();
@@ -284,6 +316,8 @@ private List<Cidade>listaCidadeNome = null;
         jLabel21 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
+        cnpjPessoa = new javax.swing.JTextField();
+        nomePessoa = new javax.swing.JTextField();
         dataNascimentoPessoa = new javax.swing.JTextField();
         inscMunicipalPessoa = new javax.swing.JTextField();
         inscEstadualPessao = new javax.swing.JTextField();
@@ -342,6 +376,7 @@ private List<Cidade>listaCidadeNome = null;
         jLabel71 = new javax.swing.JLabel();
         nomeFantasiaPessoa = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -957,28 +992,56 @@ private List<Cidade>listaCidadeNome = null;
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(null);
 
-        jTextField8.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel3.add(jTextField8);
-        jTextField8.setBounds(360, 30, 570, 19);
-        jPanel3.add(jTextField9);
-        jTextField9.setBounds(90, 10, 70, 20);
-        jPanel3.add(jTextField10);
-        jTextField10.setBounds(90, 50, 70, 20);
+        nomePessoaCadColaborador.setBackground(new java.awt.Color(255, 255, 204));
+        nomePessoaCadColaborador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomePessoaCadColaboradorKeyReleased(evt);
+            }
+        });
+        jPanel3.add(nomePessoaCadColaborador);
+        nomePessoaCadColaborador.setBounds(360, 30, 570, 19);
 
-        jTextField11.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel3.add(jTextField11);
-        jTextField11.setBounds(160, 50, 200, 19);
-        jPanel3.add(jTextField12);
-        jTextField12.setBounds(90, 30, 70, 20);
+        codColaborador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codColaboradorFocusLost(evt);
+            }
+        });
+        jPanel3.add(codColaborador);
+        codColaborador.setBounds(90, 10, 70, 20);
+
+        codCargoCadColaborador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codCargoCadColaboradorFocusLost(evt);
+            }
+        });
+        jPanel3.add(codCargoCadColaborador);
+        codCargoCadColaborador.setBounds(90, 50, 70, 20);
+
+        descCargoCadColaborador.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel3.add(descCargoCadColaborador);
+        descCargoCadColaborador.setBounds(160, 50, 200, 19);
+
+        codPessoaCadColaborador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codPessoaCadColaboradorFocusLost(evt);
+            }
+        });
+        jPanel3.add(codPessoaCadColaborador);
+        codPessoaCadColaborador.setBounds(90, 30, 70, 20);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Código: ");
         jPanel3.add(jLabel11);
         jLabel11.setBounds(10, 10, 80, 15);
 
-        jTextField13.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel3.add(jTextField13);
-        jTextField13.setBounds(160, 30, 200, 19);
+        cnpjCadColaborador.setBackground(new java.awt.Color(255, 255, 204));
+        cnpjCadColaborador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cnpjCadColaboradorKeyReleased(evt);
+            }
+        });
+        jPanel3.add(cnpjCadColaborador);
+        cnpjCadColaborador.setBounds(160, 30, 200, 19);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Cargo: ");
@@ -987,26 +1050,46 @@ private List<Cidade>listaCidadeNome = null;
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton9.setText(">>||");
+        finalColaborador.setText(">>||");
+        finalColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalColaboradorActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText(">>");
+        proximoColaborador.setText(">>");
+        proximoColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proximoColaboradorActionPerformed(evt);
+            }
+        });
 
-        jButton11.setText("<<");
+        anteriorColaborador.setText("<<");
+        anteriorColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anteriorColaboradorActionPerformed(evt);
+            }
+        });
 
-        jButton12.setText("||<<");
+        inicioColaborador.setText("||<<");
+        inicioColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inicioColaboradorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inicioColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(anteriorColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(proximoColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(finalColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 36, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -1015,32 +1098,52 @@ private List<Cidade>listaCidadeNome = null;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton11)
-                        .addComponent(jButton12))
+                        .addComponent(anteriorColaborador)
+                        .addComponent(inicioColaborador))
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton10)
-                        .addComponent(jButton9)))
+                        .addComponent(proximoColaborador)
+                        .addComponent(finalColaborador)))
                 .addGap(23, 23, 23))
         );
 
         jPanel3.add(jPanel9);
         jPanel9.setBounds(280, 490, 430, 40);
 
-        jButton13.setText("Novo Cadastro");
-        jPanel3.add(jButton13);
-        jButton13.setBounds(140, 140, 180, 25);
+        novoCadColaboradores.setText("Novo Cadastro");
+        novoCadColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoCadColaboradoresActionPerformed(evt);
+            }
+        });
+        jPanel3.add(novoCadColaboradores);
+        novoCadColaboradores.setBounds(140, 140, 180, 25);
 
-        jButton14.setText("Salvar/Atualizar");
-        jPanel3.add(jButton14);
-        jButton14.setBounds(320, 140, 180, 25);
+        salvarCadColaboradores.setText("Salvar/Atualizar");
+        salvarCadColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarCadColaboradoresActionPerformed(evt);
+            }
+        });
+        jPanel3.add(salvarCadColaboradores);
+        salvarCadColaboradores.setBounds(320, 140, 180, 25);
 
-        jButton15.setText("Inativar");
-        jPanel3.add(jButton15);
-        jButton15.setBounds(500, 140, 180, 25);
+        inativarColabotadores.setText("Inativar");
+        inativarColabotadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inativarColabotadoresActionPerformed(evt);
+            }
+        });
+        jPanel3.add(inativarColabotadores);
+        inativarColabotadores.setBounds(500, 140, 180, 25);
 
-        jButton16.setText("Sair");
-        jPanel3.add(jButton16);
-        jButton16.setBounds(680, 140, 180, 25);
+        sairColaboradores.setText("Sair");
+        sairColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sairColaboradoresActionPerformed(evt);
+            }
+        });
+        jPanel3.add(sairColaboradores);
+        sairColaboradores.setBounds(680, 140, 180, 25);
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("Data de Fim Contrato: ");
@@ -1051,8 +1154,8 @@ private List<Cidade>listaCidadeNome = null;
         jLabel25.setText("Pessoa: ");
         jPanel3.add(jLabel25);
         jLabel25.setBounds(10, 30, 80, 15);
-        jPanel3.add(jTextField27);
-        jTextField27.setBounds(90, 70, 270, 19);
+        jPanel3.add(ctps);
+        ctps.setBounds(90, 70, 270, 19);
 
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("CTPS: ");
@@ -1063,24 +1166,24 @@ private List<Cidade>listaCidadeNome = null;
         jLabel27.setText("Data de Início Contrato: ");
         jPanel3.add(jLabel27);
         jLabel27.setBounds(530, 50, 190, 15);
-        jPanel3.add(jTextField29);
-        jTextField29.setBounds(730, 70, 200, 19);
-        jPanel3.add(jTextField30);
-        jTextField30.setBounds(730, 50, 200, 19);
+        jPanel3.add(dtFimContrato);
+        dtFimContrato.setBounds(730, 70, 200, 19);
+        jPanel3.add(dtInicioContrato);
+        dtInicioContrato.setBounds(730, 50, 200, 19);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tabColaborador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "Cargo", "Ativo"
+                "Código", "Nome", "Cargo", "Ativo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1091,10 +1194,24 @@ private List<Cidade>listaCidadeNome = null;
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        tabColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabColaboradorMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabColaborador);
 
         jPanel3.add(jScrollPane3);
         jScrollPane3.setBounds(20, 181, 910, 310);
+
+        jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel72.setText("Salário:");
+        jPanel3.add(jLabel72);
+        jLabel72.setBounds(10, 90, 80, 15);
+
+        salarioColaborador.setText("0,00");
+        jPanel3.add(salarioColaborador);
+        salarioColaborador.setBounds(90, 90, 270, 19);
 
         jTabbedPane1.addTab("Colaboradores", jPanel3);
 
@@ -1108,24 +1225,6 @@ private List<Cidade>listaCidadeNome = null;
         });
         jPanel10.add(codPessoa);
         codPessoa.setBounds(160, 10, 90, 20);
-
-        cnpjPessoa.setBackground(new java.awt.Color(255, 255, 204));
-        cnpjPessoa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cnpjPessoaKeyReleased(evt);
-            }
-        });
-        jPanel10.add(cnpjPessoa);
-        cnpjPessoa.setBounds(340, 30, 310, 19);
-
-        nomePessoa.setBackground(new java.awt.Color(255, 255, 204));
-        nomePessoa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                nomePessoaKeyReleased(evt);
-            }
-        });
-        jPanel10.add(nomePessoa);
-        nomePessoa.setBounds(160, 50, 490, 19);
 
         codLogradouroPessoa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -1249,6 +1348,24 @@ private List<Cidade>listaCidadeNome = null;
         jLabel28.setText("CPF/CNPJ: ");
         jPanel10.add(jLabel28);
         jLabel28.setBounds(80, 30, 80, 20);
+
+        cnpjPessoa.setBackground(new java.awt.Color(255, 255, 204));
+        cnpjPessoa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cnpjPessoaKeyReleased(evt);
+            }
+        });
+        jPanel10.add(cnpjPessoa);
+        cnpjPessoa.setBounds(340, 30, 310, 19);
+
+        nomePessoa.setBackground(new java.awt.Color(255, 255, 204));
+        nomePessoa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomePessoaKeyReleased(evt);
+            }
+        });
+        jPanel10.add(nomePessoa);
+        nomePessoa.setBounds(160, 50, 490, 19);
         jPanel10.add(dataNascimentoPessoa);
         dataNascimentoPessoa.setBounds(790, 70, 140, 19);
         jPanel10.add(inscMunicipalPessoa);
@@ -1436,6 +1553,11 @@ private List<Cidade>listaCidadeNome = null;
         InativarPessoa.setBounds(500, 330, 180, 25);
 
         sairPessoa.setText("Sair");
+        sairPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sairPessoaActionPerformed(evt);
+            }
+        });
         jPanel10.add(sairPessoa);
         sairPessoa.setBounds(680, 330, 180, 25);
 
@@ -1470,7 +1592,7 @@ private List<Cidade>listaCidadeNome = null;
         jScrollPane5.setViewportView(tabPessoa);
 
         jPanel10.add(jScrollPane5);
-        jScrollPane5.setBounds(20, 370, 923, 140);
+        jScrollPane5.setBounds(20, 360, 923, 150);
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1540,15 +1662,19 @@ private List<Cidade>listaCidadeNome = null;
         jPanel10.add(nomeFantasiaPessoa);
         nomeFantasiaPessoa.setBounds(160, 70, 490, 19);
 
-        jTabbedPane1.addTab("Pessoa", jPanel10);
+        jTabbedPane1.addTab("Pessoa", new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png")), jPanel10); // NOI18N
 
         jPanel1.add(jTabbedPane1);
-        jTabbedPane1.setBounds(40, 60, 1080, 550);
+        jTabbedPane1.setBounds(40, 60, 1090, 550);
         jTabbedPane1.getAccessibleContext().setAccessibleName("");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO3.png"))); // NOI18N
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 490, 140, 130);
+        jLabel4.setBounds(10, 470, 140, 130);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO.png"))); // NOI18N
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(240, 0, 70, 90);
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -1557,7 +1683,7 @@ private List<Cidade>listaCidadeNome = null;
         jLabel8.setText("Módulo de Cadastros");
         jLabel8.setOpaque(true);
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(1, 0, 1140, 50);
+        jLabel8.setBounds(1, 0, 1140, 60);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1604,14 +1730,20 @@ private List<Cidade>listaCidadeNome = null;
     }//GEN-LAST:event_salvarPessoaActionPerformed
 
     private void cnpjPessoaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cnpjPessoaKeyReleased
-        // TODO add your handling code here:
+        try {
+            List<Pessoa> merged = pessoaDao.getList(15, "select e from Pessoa e where e.ativo='true' and  REPLACE(REPLACE(REPLACE(trim(e.cnpj),'.',''),'-',''),' ', '') like ?1 order by e.cnpj", cnpjPessoa.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+            listaPessoaCPF.clear();
+            listaPessoaCPF.addAll(merged);
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar pesquisar pessoas. Erro: " + e);
+        }
     }//GEN-LAST:event_cnpjPessoaKeyReleased
 
     private void nomePessoaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomePessoaKeyReleased
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             List<Pessoa> merged = pessoaDao.getPureList(session, 0, 12, Pessoa.class,
-                    "select e from Pessoa e where lower ( trim(e.nome) ) like ?1 order by e.nome",
+                    "select e from Pessoa e where e.ativo='true' and  lower ( trim(e.nome) ) like ?1 order by e.nome",
                     nomePessoa.getText().trim().toLowerCase() + "%");
             listaPessoaNome.clear();
             listaPessoaNome.addAll(merged);
@@ -1664,35 +1796,47 @@ private List<Cidade>listaCidadeNome = null;
     }//GEN-LAST:event_descCidadePessoaKeyReleased
 
     private void codLogradouroPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codLogradouroPessoaFocusLost
-       try{
-           carregaLogCadPessoa();
-       }catch(Exception e){
-           e.printStackTrace();
-           JOptionPane.showMessageDialog(this, e.getMessage());
-       }
-               
+        try {
+            carregaLogCadPessoa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
     }//GEN-LAST:event_codLogradouroPessoaFocusLost
 
     private void codBairroPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codBairroPessoaFocusLost
-         try{
-           carregaBairroCadPessoa();
-       }catch(Exception e){
-           e.printStackTrace();
-           JOptionPane.showMessageDialog(this, e.getMessage());
-       }
+        try {
+            carregaBairroCadPessoa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_codBairroPessoaFocusLost
 
     private void codCidadePessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCidadePessoaFocusLost
-         try{
-           carregaCidadeCadPessoa();
-       }catch(Exception e){
-           e.printStackTrace();
-           JOptionPane.showMessageDialog(this, e.getMessage());
-       }
+        try {
+            carregaCidadeCadPessoa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_codCidadePessoaFocusLost
 
     private void InativarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InativarPessoaActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (pessoa != null) {
+                Integer resp = JOptionPane.showConfirmDialog(this, "Deseja realmente Inativar essa Pessoa.");
+                if (resp == 0) {
+                    inativarPessoa();
+                }
+            } else {
+                throw new Exception(" Por Favor, Selecione uma Pessoa.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_InativarPessoaActionPerformed
 
     private void inicioPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioPessoaActionPerformed
@@ -1723,12 +1867,9 @@ private List<Cidade>listaCidadeNome = null;
 
     private void proximoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoPessoaActionPerformed
         try {
-            System.out.println("000001");
             if (cnvPessoaCad == null) {
-                System.out.println("000002");
                 atualizaTabelaPessoa();
             } else {
-                System.out.println("000003");
                 cnvPessoaCad.proximo();
                 atualizarTabelaPessoaCad();
             }
@@ -1758,33 +1899,193 @@ private List<Cidade>listaCidadeNome = null;
         }
     }//GEN-LAST:event_tabPessoaMouseClicked
 
+    private void cnpjCadColaboradorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cnpjCadColaboradorKeyReleased
+        try {
+            List<Pessoa> merged = pessoaDao.getList(15, "select e from Pessoa e where e.ativo='true' and REPLACE(REPLACE(REPLACE(trim(e.cnpj),'.',''),'-',''),' ', '') "
+                    + " like ?1 order by e.cnpj", cnpjCadColaborador.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+            listaPessoaCPFColaborador.clear();
+            listaPessoaCPFColaborador.addAll(merged);
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar pesquisar pessoas. Erro: " + e);
+        }
+    }//GEN-LAST:event_cnpjCadColaboradorKeyReleased
+
+    private void nomePessoaCadColaboradorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomePessoaCadColaboradorKeyReleased
+         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            List<Pessoa> merged = pessoaDao.getPureList(session, 0, 12, Pessoa.class,
+                    "select e from Pessoa e where e.ativo='true' and  lower ( trim(e.nome) ) like ?1   order by e.nome",
+                    nomePessoaCadColaborador.getText().trim().toLowerCase() + "%");
+            listaPessoaNomeColaborador.clear();
+            listaPessoaNomeColaborador.addAll(merged);
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+    }//GEN-LAST:event_nomePessoaCadColaboradorKeyReleased
+
+    private void codPessoaCadColaboradorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codPessoaCadColaboradorFocusLost
+        try {
+            carregaPessoaColaborador();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }  
+    }//GEN-LAST:event_codPessoaCadColaboradorFocusLost
+
+    private void codColaboradorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codColaboradorFocusLost
+        try {
+            carregaColaborador();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }     
+    }//GEN-LAST:event_codColaboradorFocusLost
+
+    private void codCargoCadColaboradorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCargoCadColaboradorFocusLost
+        try {
+            carregaCargoColaborador();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }  
+    }//GEN-LAST:event_codCargoCadColaboradorFocusLost
+
+    private void novoCadColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoCadColaboradoresActionPerformed
+        pessoa = null;
+        cargo = null;
+        colaborador= new Colaborador();
+        limpaCamposColaborador();
+        codPessoaCadColaborador.requestFocus();
+    }//GEN-LAST:event_novoCadColaboradoresActionPerformed
+
+    private void salvarCadColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarCadColaboradoresActionPerformed
+        try {
+            salvarColaborador();
+            atualizaTabelaColaborador();
+            JOptionPane.showMessageDialog(this, " Cadastro realizado com Sucesso!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_salvarCadColaboradoresActionPerformed
+
+    private void inativarColabotadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inativarColabotadoresActionPerformed
+        try {
+            if (colaborador != null) {
+                Integer resp = JOptionPane.showConfirmDialog(this, "Deseja realmente Inativar esse Colaborador.");
+                if (resp == 0) {
+                    inativarColaborador();
+                }
+            } else {
+                throw new Exception(" Por Favorm Selecione um Colaborador.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_inativarColabotadoresActionPerformed
+
+    private void sairPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairPessoaActionPerformed
+        dispose();
+    }//GEN-LAST:event_sairPessoaActionPerformed
+
+    private void sairColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairColaboradoresActionPerformed
+        dispose();
+    }//GEN-LAST:event_sairColaboradoresActionPerformed
+
+    private void inicioColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioColaboradorActionPerformed
+        try {
+            if (cnvColaboradorCad == null) {
+                atualizaTabelaColaborador();
+            } else {
+                cnvColaboradorCad.primeiro();
+                atualizarTabelaColaboradorCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_inicioColaboradorActionPerformed
+
+    private void anteriorColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorColaboradorActionPerformed
+         try {
+            if (cnvColaboradorCad == null) {
+                atualizaTabelaColaborador();
+            } else {
+                cnvColaboradorCad.anterior();
+                atualizarTabelaColaboradorCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_anteriorColaboradorActionPerformed
+
+    private void proximoColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoColaboradorActionPerformed
+        try {
+            if (cnvColaboradorCad == null) {
+                atualizaTabelaColaborador();
+            } else {
+                cnvColaboradorCad.proximo();
+                atualizarTabelaColaboradorCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_proximoColaboradorActionPerformed
+
+    private void finalColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalColaboradorActionPerformed
+         try {
+            if (cnvColaboradorCad == null) {
+                atualizaTabelaColaborador();
+            } else {
+                cnvColaboradorCad.ultimo();
+                atualizarTabelaColaboradorCad();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_finalColaboradorActionPerformed
+
+    private void tabColaboradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabColaboradorMouseClicked
+         if (evt.getClickCount() > 1) {
+            codColaborador.setText(("" + tabColaborador.getValueAt(tabColaborador.getSelectedRow(), 0)));
+            codColaboradorFocusLost(null);
+            codPessoaCadColaborador.requestFocus();
+        }
+    }//GEN-LAST:event_tabColaboradorMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton InativarPessoa;
+    private javax.swing.JButton anteriorColaborador;
     private javax.swing.JButton anteriorPessoa;
     private javax.swing.JTextField cepPessoa;
+    private javax.swing.JTextField cnpjCadColaborador;
     private javax.swing.JTextField cnpjPessoa;
     private javax.swing.JTextField codBairroPessoa;
+    private javax.swing.JTextField codCargoCadColaborador;
     private javax.swing.JTextField codCidadePessoa;
+    private javax.swing.JTextField codColaborador;
     private javax.swing.JTextField codLogradouroPessoa;
     private javax.swing.JTextField codPessoa;
+    private javax.swing.JTextField codPessoaCadColaborador;
     private javax.swing.JTextField complementoPessoa;
+    private javax.swing.JTextField ctps;
     private javax.swing.JTextField dataNascimentoPessoa;
     private javax.swing.JTextField descBairroPessoa;
+    private javax.swing.JTextField descCargoCadColaborador;
     private javax.swing.JTextField descCidadePessoa;
     private javax.swing.JTextField descLogradouroPessoa;
+    private javax.swing.JTextField dtFimContrato;
+    private javax.swing.JTextField dtInicioContrato;
     private javax.swing.JTextField emailPessoa;
+    private javax.swing.JButton finalColaborador;
     private javax.swing.JButton finalPessoa;
+    private javax.swing.JButton inativarColabotadores;
+    private javax.swing.JButton inicioColaborador;
     private javax.swing.JButton inicioPessoa;
     private javax.swing.JTextField inscEstadualPessao;
     private javax.swing.JTextField inscMunicipalPessoa;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton25;
@@ -1809,7 +2110,6 @@ private List<Cidade>listaCidadeNome = null;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
@@ -1820,6 +2120,7 @@ private List<Cidade>listaCidadeNome = null;
     private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1887,6 +2188,7 @@ private List<Cidade>listaCidadeNome = null;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1915,21 +2217,13 @@ private List<Cidade>listaCidadeNome = null;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField27;
-    private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField30;
     private javax.swing.JTextField jTextField33;
     private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField35;
@@ -1978,23 +2272,26 @@ private List<Cidade>listaCidadeNome = null;
     private javax.swing.JTextField jTextField77;
     private javax.swing.JTextField jTextField78;
     private javax.swing.JTextField jTextField79;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField80;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField nomeFantasiaPessoa;
     private javax.swing.JTextField nomePessoa;
+    private javax.swing.JTextField nomePessoaCadColaborador;
+    private javax.swing.JButton novoCadColaboradores;
     private javax.swing.JTextField numeroPessoa;
     private javax.swing.JTextArea obsPessoa;
+    private javax.swing.JButton proximoColaborador;
     private javax.swing.JButton proximoPessoa;
+    private javax.swing.JButton sairColaboradores;
     private javax.swing.JButton sairPessoa;
+    private javax.swing.JTextField salarioColaborador;
+    private javax.swing.JButton salvarCadColaboradores;
     private javax.swing.JButton salvarPessoa;
+    private javax.swing.JTable tabColaborador;
     private javax.swing.JTable tabPessoa;
     private javax.swing.JTextField telefonePessoa;
     private javax.swing.JComboBox<String> tipoPessoa;
     private javax.swing.JTextField ufPessoa;
     // End of variables declaration//GEN-END:variables
-
-
 
     private void limpaCamposPessoa() {
         codPessoa.setText("");
@@ -2007,7 +2304,7 @@ private List<Cidade>listaCidadeNome = null;
         emailPessoa.setText("");
         telefonePessoa.setText("");
         dataNascimentoPessoa.setText("");
-        
+
         codLogradouroPessoa.setText("");
         descLogradouroPessoa.setText("");
         numeroPessoa.setText("");
@@ -2018,11 +2315,11 @@ private List<Cidade>listaCidadeNome = null;
         descCidadePessoa.setText("");
         ufPessoa.setText("");
         cepPessoa.setText("");
-        
+
         obsPessoa.setText("");
-        
+
         atualizaTabelaPessoa();
-        
+
     }
 
     private void atualizaTabelaPessoa() {
@@ -2043,6 +2340,24 @@ private List<Cidade>listaCidadeNome = null;
         }
     }
     
+    private void atualizaTabelaColaborador() {
+        try {
+
+            if (cnvColaboradorCad == null) {
+                cnvColaboradorCad = new CnvCadastroColaborador();
+            }
+
+            cnvColaboradorCad.iniciarNavTabela();
+
+            cnvColaboradorCad.primeiro();
+            atualizarTabelaColaboradorCad();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
     private void atualizarTabelaPessoaCad() {
 
         DefaultTableModel model = (DefaultTableModel) tabPessoa.getModel();
@@ -2051,13 +2366,10 @@ private List<Cidade>listaCidadeNome = null;
         List<?> lv;
 
         lv = cnvPessoaCad.getLista();
-        
-        System.out.println("vvvv "+ lv.size());
-        
+
         if (lv != null && !lv.isEmpty()) {
 
             for (Object o : lv) {
-                System.out.println("ccccc ");
                 Object[] os = (Object[]) o;
                 model.addRow(os);
                 //Colocar tamanho nas colunas
@@ -2065,20 +2377,39 @@ private List<Cidade>listaCidadeNome = null;
             }
         }
     }
-  
+    
+     private void atualizarTabelaColaboradorCad() {
+
+        DefaultTableModel model = (DefaultTableModel) tabColaborador.getModel();
+        removeLinhas(tabColaborador);
+
+        List<?> lv;
+
+        lv = cnvColaboradorCad.getLista();
+
+        if (lv != null && !lv.isEmpty()) {
+
+            for (Object o : lv) {
+                Object[] os = (Object[]) o;
+                model.addRow(os);
+
+            }
+        }
+    }
+
     public static void removeLinhas(JTable table) {
-        int n=table.getRowCount();
-        
-        DefaultTableModel model=(DefaultTableModel)table.getModel();
-                
-        for(int i=n-1;i>=0;i--){
+        int n = table.getRowCount();
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
 
-    private void carregaPessoa() throws Exception{
+    private void carregaPessoa() throws Exception {
         pessoa = pessoaDao.get(ValidarValor.getLong(codPessoa.getText()));
-        if (pessoa !=null) {
+        if (pessoa != null) {
 
             codPessoa.setText(pessoa.getCodPessoa().toString());
             tipoPessoa.setSelectedIndex(pessoa.getTipoPessoa());
@@ -2089,7 +2420,7 @@ private List<Cidade>listaCidadeNome = null;
             inscEstadualPessao.setText(pessoa.getInscEstadual());
             emailPessoa.setText(pessoa.getEmail());
             telefonePessoa.setText(pessoa.getTelefone());
-            dataNascimentoPessoa.setText(Data.getDateParse(pessoa.getDataNascimento(),Data.FORMAT_DATA));
+            dataNascimentoPessoa.setText(Data.getDateParse(pessoa.getDataNascimento(), Data.FORMAT_DATA));
 
             codLogradouroPessoa.setText(pessoa.getLogradouro().getCodLogradouro().toString());
             descLogradouroPessoa.setText(pessoa.getLogradouro().getDescricao());
@@ -2108,37 +2439,30 @@ private List<Cidade>listaCidadeNome = null;
             limpaCamposPessoa();
             new Exception("Por favor, inserir um código válido.");
         }
-        
+
     }
 
-
-    private void salvarPessoa() throws Exception{
+    private void salvarPessoa() throws Exception {
         Pessoa pessoaAux;
-        if(pessoa!=null){
+        if (pessoa != null) {
             setPessoa();
-            if(codPessoa.getText().equals("")){
-                pessoaAux= null;
-            }else{
+            if (codPessoa.getText().equals("")) {
+                pessoaAux = null;
+            } else {
                 pessoaAux = pessoaDao.get(pessoa.getCodPessoa());
             }
-            
-            if(pessoaAux == null){
-//                pessoa.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() +" - "
-//                        + ControleAcesso.usuario.getPessoa().getNome());
-//                pessoa.setDataCadastro(new Date());
+
+            if (pessoaAux == null) {
                 pessoa = pessoaDao.addUsuario(pessoa);
-            
-            }else{
-//                pessoa.setUsuarioAtualizacao(ControleAcesso.usuario.getCodUsuario() +" - "
-//                        + ControleAcesso.usuario.getPessoa().getNome());
-//                pessoa.setDataAtualizacao(new Date());
+
+            } else {
                 pessoa = pessoaDao.addUsuario(pessoa);
             }
             atualizaTabelaPessoa();
-        }else{
+        } else {
             throw new Exception(" Para inserir um cadastro novo, aperte o botão "
                     + " Novo Cadastro.");
-        }    
+        }
     }
 
     private void setPessoa() {
@@ -2164,10 +2488,10 @@ private List<Cidade>listaCidadeNome = null;
 
     private void carregaLogCadPessoa() throws Exception {
         logradouro = logradouroDao.getPorCodigo(ValidarValor.getLong(codLogradouroPessoa.getText()));
-        if(logradouro != null){
+        if (logradouro != null) {
             codLogradouroPessoa.setText(logradouro.getCodLogradouro().toString());
             descLogradouroPessoa.setText(logradouro.getDescricao());
-        }else{
+        } else {
             codLogradouroPessoa.setText("");
             descLogradouroPessoa.setText("");
         }
@@ -2175,26 +2499,138 @@ private List<Cidade>listaCidadeNome = null;
 
     private void carregaBairroCadPessoa() throws Exception {
         bairro = bairroDao.getPorCodigo(ValidarValor.getInt(codBairroPessoa.getText()));
-        if(bairro != null){
+        if (bairro != null) {
             codBairroPessoa.setText(bairro.getCodBairro().toString());
             descBairroPessoa.setText(bairro.getDescricao());
-        }else{
+        } else {
             codBairroPessoa.setText("");
             descBairroPessoa.setText("");
         }
     }
 
-    private void carregaCidadeCadPessoa() throws  Exception{
-         cidade = cidadeDao.getPorCodigo(ValidarValor.getInt(codCidadePessoa.getText()));
-        if(cidade != null){
+    private void carregaCidadeCadPessoa() throws Exception {
+        cidade = cidadeDao.getPorCodigo(ValidarValor.getInt(codCidadePessoa.getText()));
+        if (cidade != null) {
             codCidadePessoa.setText(cidade.getCodCidade().toString());
             descCidadePessoa.setText(cidade.getDescricao());
-        }else{
+        } else {
             codCidadePessoa.setText("");
             descCidadePessoa.setText("");
         }
     }
 
+    private void limpaCamposColaborador() {
+        codColaborador.setText("");
+        codPessoaCadColaborador.setText("");
+        cnpjCadColaborador.setText("");
+        nomePessoaCadColaborador.setText("");
+        ctps.setText("");
+        codCargoCadColaborador.setText("");
+        descCargoCadColaborador.setText("");
+        dtInicioContrato.setText(Data.getDataAtual(Data.FORMAT_DATA_BR));
+        dtFimContrato.setText("");
+        salarioColaborador.setText("0,00");
 
-    
+    }
+
+    private void salvarColaborador() throws Exception {
+
+        Colaborador colaboradorAux;
+        if (colaborador != null) {
+            setColaborador();
+            if (codColaborador.getText().equals("")) {
+                colaboradorAux = null;
+            } else {
+                colaboradorAux = colaboradorDao.get(colaborador.getCodColaborador());
+            }
+
+            if (colaboradorAux == null) {
+                colaborador = colaboradorDao.addColaborador(colaborador);
+
+            } else {
+                colaborador = colaboradorDao.addColaborador(colaborador);
+            }
+            atualizaTabelaColaborador();
+        } else {
+            throw new Exception(" Para inserir um cadastro novo, aperte o botão "
+                    + " Novo Cadastro.");
+        }
+
+    }
+
+    private void setColaborador() throws Exception {
+        colaborador.setAtivo(true);
+        colaborador.setCtps(ctps.getText());
+        colaborador.setDataInicio(Data.getDateSQL(dtInicioContrato.getText()));
+        colaborador.setDataFim(Data.getDateSQL(dtFimContrato.getText()));
+        if (pessoa != null) {
+            colaborador.setPessoa(pessoa);
+        } else {
+            throw new Exception(" Por favor, inserir uma Pessoa.");
+        }
+        if (cargo != null) {
+            colaborador.setCargo(cargo);
+        } else {
+            throw new Exception(" Por favor, inserir um cargo.");
+        }
+        colaborador.setSalario(ValidarValor.getDouble(salarioColaborador.getText()));
+    }
+
+    private void inativarPessoa() throws Exception {
+        pessoa.setAtivo(false);
+        pessoa = pessoaDao.addUsuario(pessoa);
+        limpaCamposPessoa();
+    }
+
+    private void inativarColaborador() throws Exception {
+        colaborador.setAtivo(false);
+        colaborador = colaboradorDao.addColaborador(colaborador);
+        limpaCamposColaborador();
+
+    }
+
+    private void carregaColaborador() throws Exception {
+       colaborador = colaboradorDao.get(ValidarValor.getInteger(codColaborador.getText()));
+        if (colaborador != null) {
+
+            codColaborador.setText(colaborador.getCodColaborador().toString());
+            codPessoaCadColaborador.setText(colaborador.getPessoa().getCodPessoa().toString());
+            carregaPessoaColaborador();
+            codCargoCadColaborador.setText(colaborador.getCargo().getCodCargo().toString());
+            carregaCargoColaborador();
+            ctps.setText(colaborador.getCtps());
+            salarioColaborador.setText(ValidarValor.getDouble(colaborador.getSalario()));
+            dtInicioContrato.setText(Data.getDate(colaborador.getDataInicio()));
+            dtFimContrato.setText(Data.getDate(colaborador.getDataFim()));
+
+        } else {
+            limpaCamposColaborador();
+            new Exception("Por favor, inserir um código válido.");
+        }
+    }
+
+    private void carregaCargoColaborador()  throws Exception {
+        cargo = cargoDao.get(ValidarValor.getInt(codCargoCadColaborador.getText()));
+        if(cargo!=null){
+            descCargoCadColaborador.setText(cargo.getDescricao());
+            
+            
+        }else{
+            descCargoCadColaborador.setText("");
+            codCargoCadColaborador.setText("");
+        }
+    }
+
+    private void carregaPessoaColaborador() throws Exception{
+        pessoa = pessoaDao.get(ValidarValor.getLong(codPessoaCadColaborador.getText()));
+        if(pessoa!=null){
+            nomePessoaCadColaborador.setText(pessoa.getNome());
+            cnpjCadColaborador.setText(pessoa.getCnpj());
+        }else{
+            nomePessoaCadColaborador.setText("");
+            cnpjCadColaborador.setText("");
+            codPessoaCadColaborador.setText("");
+        }
+    }
+
 }
