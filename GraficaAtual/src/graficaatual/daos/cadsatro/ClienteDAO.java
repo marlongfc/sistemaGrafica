@@ -5,9 +5,8 @@
  */
 package graficaatual.daos.cadsatro;
 
-
-import graficaatual.entidades.Colaborador;
-import graficaatual.regras.cadastro.ColaboradorRNE;
+import graficaatual.entidades.Cliente;
+import graficaatual.regras.cadastro.ClienteRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,14 +15,14 @@ import javax.persistence.EntityManager;
  *
  * @author Projeto X
  */
-public class ColaboradorDAO extends ColaboradorRNE {
+public class ClienteDAO extends ClienteRNE {
     
-    public Colaborador addColaborador(Colaborador colaborador) throws Exception {
+    public Cliente addCliente(Cliente cliente) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Colaborador aux = null;
+        Cliente aux = null;
         try {
-            aux = super.salvar(session, colaborador);
+            aux = super.salvar(session, cliente);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -36,7 +35,7 @@ public class ColaboradorDAO extends ColaboradorRNE {
         
     }
     
-    public Colaborador altera(Colaborador obj) {
+    public Cliente altera(Cliente obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -51,10 +50,10 @@ public class ColaboradorDAO extends ColaboradorRNE {
         return null;
     }
 
-    public Colaborador get(Integer cod) {
+    public Cliente get(Long cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Colaborador aux = super.getPojo(Colaborador.class, cod);
+            Cliente aux = super.getPojo(Cliente.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -63,10 +62,10 @@ public class ColaboradorDAO extends ColaboradorRNE {
         return null;
     }
     
-    public Colaborador getList(int cod) {
+    public Cliente getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Colaborador aux = super.getPojo(Colaborador.class, cod);
+            Cliente aux = super.getPojo(Cliente.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -75,8 +74,8 @@ public class ColaboradorDAO extends ColaboradorRNE {
         return null;
     }
     
-     public List<Colaborador> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Colaborador.class, SQL, parametros);
+     public List<Cliente> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cliente.class, SQL, parametros);
     }
      
 

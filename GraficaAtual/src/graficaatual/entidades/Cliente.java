@@ -1,16 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package graficaatual.entidades;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import graficaatual.utilitarios.ControleAcesso;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -36,24 +26,26 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codCliente;
     
-    @Column(name = "ativo", nullable = false)
+    @Column(name = "ativo")
     private Boolean ativo = true;
     
-    @Column(name = "limite", nullable = true)
+    @Column(name = "limite")
     private Double limite;
+    
+    @Column(name = "seresa")
+    private Boolean serasa = true;
+    
+    @Column(name = "contato")
+    private String contato ;
 
     @ManyToOne()
-    @JoinColumn(name = "pessoa", nullable = false)
+    @JoinColumn(name = "pessoa")
     private Pessoa pessoa;
     
-    @ManyToOne()
-    @JoinColumn(name = "endereco", nullable = false)
-    private Endereco endereco;
-
-    @Column(name = "dataCadastro", nullable = true)
+    @Column(name = "dataCadastro")
     private Date dataCadastro;
 
-    @Column(name = "dataAtualizacao", nullable = true)
+    @Column(name = "dataAtualizacao")
     private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)
@@ -61,6 +53,10 @@ public class Cliente implements Serializable {
 
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
+    
+    @Column(name = "obs", columnDefinition = "text" )
+    private String obs;
+    
 
     public Cliente() {
  //       this.dataCadastro = new Date();
@@ -99,14 +95,6 @@ public class Cliente implements Serializable {
         this.pessoa = pessoa;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public Date getDataCadastro() {
         return dataCadastro;
     }
@@ -137,6 +125,30 @@ public class Cliente implements Serializable {
 
     public void setUsuarioAtualizacao(String usuarioAtualizacao) {
         this.usuarioAtualizacao = usuarioAtualizacao;
+    }
+
+    public Boolean getSerasa() {
+        return serasa;
+    }
+
+    public void setSerasa(Boolean serasa) {
+        this.serasa = serasa;
+    }
+
+    public String getContato() {
+        return contato;
+    }
+
+    public void setContato(String contato) {
+        this.contato = contato;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 
     @Override

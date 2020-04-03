@@ -7,6 +7,7 @@ package graficaatual.regras.cadastro;
 
 import graficaatual.daos.GenericDAO;
 import graficaatual.entidades.Colaborador;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -15,9 +16,23 @@ import javax.persistence.EntityManager;
  */
 public class ColaboradorRNE extends GenericDAO{
     
-    public Colaborador salvar(EntityManager session, Colaborador pessoa) throws Exception{
-       return super.saveOrUpdatePojo(session, pessoa);
+
+    public Colaborador salvar(EntityManager session, Colaborador colaborador) throws Exception {
+        return super.saveOrUpdatePojo(session, colaborador);
+    }
+
+    public boolean excluir(EntityManager session, Colaborador colaborador) throws Exception {
+        return super.deletePojo(session, colaborador);
+    }
+
+    public List<Colaborador> getList(EntityManager session, Colaborador colaborador) throws Exception {
+        return super.getPureList(session, Colaborador.class, "Select e from Colaborador e");
     }
     
+     public Colaborador get(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from colaborador e where e.codColaborador=?1 ";
+        return getPojoUnique(session, Colaborador.class, sql, codigo);
+    }
+
     
 }
