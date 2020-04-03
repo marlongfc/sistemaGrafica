@@ -24,7 +24,25 @@ public class MaterialRNE extends GenericDAO {
         return super.deletePojo(session, material);
     }
 
-    public List<Material> getList(EntityManager session, Material material) throws Exception {
-        return super.getPureList(session, Material.class, "Select e from Material e");
+    public long getNextItem(EntityManager session) throws Exception {
+        String q = " select max(e.codMaterial) from Material e ";
+
+        Long ret = getLong(session, q);
+
+        return ret == null ? 1 : ret + 1;
+    }
+    
+     public Material get(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from Material e where e.codMaterial=?1 ";
+        return getPojoUnique(session, Material.class, sql, codigo);
+    }
+     
+      public List<Material> getList(EntityManager session) throws Exception {
+        String sql = " select e from Material e order by e.codMaterial";
+        return getPureList(session, Material.class, sql);
+    }
+
+    public List<Material> getList(EntityManager session, String sql) throws Exception {
+        return getPureList(session, Material.class, sql);
     }
 }

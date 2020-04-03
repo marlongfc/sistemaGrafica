@@ -27,4 +27,26 @@ public class ProdutoRNE extends GenericDAO {
     public List<Produto> getList(EntityManager session, Produto produto) throws Exception {
         return super.getPureList(session, Produto.class, "Select e from Produto e");
     }
+    
+     public long getNextItem(EntityManager session) throws Exception {
+        String q = " select max(e.codProduto) from Produto e ";
+
+        Long ret = getLong(session, q);
+
+        return ret == null ? 1 : ret + 1;
+    }
+    
+     public Produto get(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from Produto e where e.codProduto=?1 ";
+        return getPojoUnique(session, Produto.class, sql, codigo);
+    }
+     
+      public List<Produto> getList(EntityManager session) throws Exception {
+        String sql = " select e from Produto e order by e.codProduto";
+        return getPureList(session, Produto.class, sql);
+    }
+
+    public List<Produto> getList(EntityManager session, String sql) throws Exception {
+        return getPureList(session, Produto.class, sql);
+    }
 }

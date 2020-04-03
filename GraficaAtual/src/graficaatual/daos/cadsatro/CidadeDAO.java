@@ -69,27 +69,35 @@ public class CidadeDAO extends CidadeRNE {
         }
     }
 
+     public long getNextItem() throws Exception {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.getNextItem(session);
+        } finally {
+            session.close();
+        }
+    }
 
-//    public List<Bairro> getList() throws Exception {
-//
-//        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-//
-//        try {
-//            return super.getList(session);
-//        } finally {
-//            session.close();
-//        }
-//    }
-//
-//    public List<Bairro> getList(String sql) throws Exception {
-//
-//        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-//
-//        try {
-//            return super.getList(session, sql);
-//        } finally {
-//            session.close();
-//        }
-//    }
+    public List<Cidade> getList() throws Exception {
+
+       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+       try {
+           return super.getList(session);
+       } finally {
+           session.close();
+       }
+   }
+
+    public List<Cidade> getList(String sql) throws Exception {
+
+       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            return super.getList(session, sql);
+        } finally {
+           session.close();
+        }
+    }
 
 }

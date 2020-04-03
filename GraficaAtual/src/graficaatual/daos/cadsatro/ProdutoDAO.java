@@ -5,8 +5,9 @@
  */
 package graficaatual.daos.cadsatro;
 
-import graficaatual.entidades.Logradouro;
-import graficaatual.regras.cadastro.LogradouroRNE;
+
+import graficaatual.entidades.Produto;
+import graficaatual.regras.cadastro.ProdutoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,14 +16,14 @@ import javax.persistence.EntityManager;
  *
  * @author Marlon
  */
-public class LogradouroDAO extends LogradouroRNE {
+public class ProdutoDAO extends ProdutoRNE {
 
-    public Logradouro salvar(Logradouro logradouro) throws Exception {
+    public Produto salvar(Produto bairro) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Logradouro aux = null;
+        Produto aux = null;
         try {
-            aux = super.salvar(session, logradouro);
+            aux = super.salvar(session, bairro);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -30,12 +31,12 @@ public class LogradouroDAO extends LogradouroRNE {
             throw e;
         } finally {
             session.close();
-            return null;
+            
         }
 
     }
 
-    public void delete(Logradouro l) throws Exception {
+    public void delete(Produto l) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -52,8 +53,23 @@ public class LogradouroDAO extends LogradouroRNE {
             session.close();
         }
     }
+    
+    public Produto getPorCodigo(int codigo) throws Exception {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-    public long getNextItem() throws Exception {
+        try {
+            return super.get(codigo, session);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            session.close();
+            return null;
+        }finally {
+            session.close();
+        }
+    }
+
+     public long getNextItem() throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             return super.getNextItem(session);
@@ -62,40 +78,25 @@ public class LogradouroDAO extends LogradouroRNE {
         }
     }
 
-    public Logradouro getPorCodigo(long codigo) throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+    public List<Produto> getList() throws Exception {
 
-        try {
-            return super.get(codigo, session);
+       EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            session.close();
-            return null;
-        } finally {
-            session.close();
-        }
-    }
+       try {
+           return super.getList(session);
+       } finally {
+           session.close();
+       }
+   }
 
-    public List<Logradouro> getList() throws Exception {
+    public List<Produto> getList(String sql) throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
-        try {
-            return super.getList(session);
-        } finally {
-            session.close();
-        }
-    }
-
-    public List<Logradouro> getList(String sql) throws Exception {
-
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+       EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.getList(session, sql);
         } finally {
-            session.close();
+           session.close();
         }
     }
 

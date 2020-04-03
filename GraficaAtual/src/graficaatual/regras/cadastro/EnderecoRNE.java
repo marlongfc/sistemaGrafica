@@ -23,8 +23,26 @@ public class EnderecoRNE extends GenericDAO {
     public boolean excluir(EntityManager session, Endereco endereco) throws Exception {
         return super.deletePojo(session, endereco);
     }
+    
+         public long getNextItem(EntityManager session) throws Exception {
+        String q = " select max(e.codEndereco) from Endereco e ";
 
-    public List<Endereco> getList(EntityManager session, Endereco endereco) throws Exception {
-        return super.getPureList(session, Endereco.class, "Select e from Endereco e");
+        Long ret = getLong(session, q);
+
+        return ret == null ? 1 : ret + 1;
+    }
+
+       public Endereco get(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from Endereco e where e.codEndereco=?1 ";
+        return getPojoUnique(session, Endereco.class, sql, codigo);
+    }
+     
+      public List<Endereco> getList(EntityManager session) throws Exception {
+        String sql = " select e from Endereco e order by e.codEndereco";
+        return getPureList(session, Endereco.class, sql);
+    }
+
+    public List<Endereco> getList(EntityManager session, String sql) throws Exception {
+        return getPureList(session, Endereco.class, sql);
     }
 }

@@ -30,7 +30,6 @@ public class BairroDAO extends BairroRNE {
             throw e;
         } finally {
             session.close();
-            
         }
 
     }
@@ -52,53 +51,51 @@ public class BairroDAO extends BairroRNE {
             session.close();
         }
     }
-/*
+
     public long getNextItem() throws Exception {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-          EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        return super.getNextItem(session);
-         } finally {
+            return super.getNextItem(session);
+        } finally {
             session.close();
         }
     }
-*/
-    
+
     public Bairro getPorCodigo(int codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.get(codigo, session);
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
             session.close();
             return null;
-        }finally {
+        } finally {
             session.close();
         }
     }
 
+    public List<Bairro> getList() throws Exception {
 
-//    public List<Bairro> getList() throws Exception {
-//
-//        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-//
-//        try {
-//            return super.getList(session);
-//        } finally {
-//            session.close();
-//        }
-//    }
-//
-//    public List<Bairro> getList(String sql) throws Exception {
-//
-//        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-//
-//        try {
-//            return super.getList(session, sql);
-//        } finally {
-//            session.close();
-//        }
-//    }
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            return super.getList(session);
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Bairro> getList(String sql) throws Exception {
+
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            return super.getList(session, sql);
+        } finally {
+            session.close();
+        }
+    }
 
 }
