@@ -31,6 +31,9 @@ public class Turno implements java.io.Serializable {
     @Column(nullable = false, length = 300)
     private String descricao;
 
+    @Column(nullable = true)
+    private String observacao;
+
     @Column(name = "dataCadastro")
     private java.sql.Timestamp dataCadastro;
 
@@ -57,6 +60,14 @@ public class Turno implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     public Timestamp getDataCadastro() {

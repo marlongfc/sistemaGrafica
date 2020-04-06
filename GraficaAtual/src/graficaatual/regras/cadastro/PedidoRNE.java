@@ -27,4 +27,12 @@ public class PedidoRNE extends GenericDAO {
     public List<Pedido> getList(EntityManager session, Pedido pedido) throws Exception {
         return super.getPureList(session, Pedido.class, "Select e from Orcamento e");
     }
+    
+     public Pedido get(int codigo, EntityManager session) {
+        return getPojo(session, Pedido.class, codigo);
+    }
+
+    public List<Pedido> getList(EntityManager session) throws Exception {
+        return super.getPureList(session, Pedido.class, "Select e from Pedido e order by e.codPedido");
+    } 
 }

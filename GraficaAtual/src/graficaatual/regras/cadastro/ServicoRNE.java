@@ -27,4 +27,13 @@ public class ServicoRNE extends GenericDAO {
     public List<Servico> getList(EntityManager session, Servico servico) throws Exception {
         return super.getPureList(session, Servico.class, "Select e from Servico e");
     }
+    
+     public Servico get(int codigo, EntityManager session) {
+        return getPojo(session, Servico.class, codigo);
+    }
+
+    public List<Servico> getList(EntityManager session) throws Exception {
+        return super.getPureList(session, Servico.class, "Select e from Servico e order by e.codServico");
+    } 
+
 }

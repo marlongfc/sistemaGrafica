@@ -24,7 +24,11 @@ public class BancoRNE extends GenericDAO {
         return super.deletePojo(session, banco);
     }
 
-    public List<Banco> getList(EntityManager session, Banco banco) throws Exception {
-        return super.getPureList(session, Banco.class, "Select e from Banco e");
+    public Banco get(int codigo, EntityManager session) {
+        return getPojo(session, Banco.class, codigo);
+    }
+
+    public List<Banco> getList(EntityManager session) throws Exception {
+        return super.getPureList(session, Banco.class, "Select e from Banco e order by e.codBanco");
     }
 }

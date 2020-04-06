@@ -24,7 +24,11 @@ public class SangriaRNE extends GenericDAO {
         return super.deletePojo(session, sangria);
     }
 
-    public List<Sangria> getList(EntityManager session, Sangria sangria) throws Exception {
-        return super.getPureList(session, Sangria.class, "Select e from Sangria e");
+    public Sangria get(int codigo, EntityManager session) {
+        return getPojo(session, Sangria.class, codigo);
+    }
+
+    public List<Sangria> getList(EntityManager session) throws Exception {
+        return super.getPureList(session, Sangria.class, "Select e from Sangria e order by e.codSangria");
     }
 }

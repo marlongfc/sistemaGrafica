@@ -23,8 +23,12 @@ public class LancamentoCaixaRNE extends GenericDAO {
     public boolean excluir(EntityManager session, LancamentoCaixa lancamento) throws Exception {
         return super.deletePojo(session, lancamento);
     }
-
-    public List<LancamentoCaixa> getList(EntityManager session, LancamentoCaixa lancamento) throws Exception {
-        return super.getPureList(session, LancamentoCaixa.class, "Select e from LancamentoCaixa e");
+    
+     public LancamentoCaixa get(int codigo, EntityManager session) {
+        return getPojo(session, LancamentoCaixa.class, codigo);
     }
+
+    public List<LancamentoCaixa> getList(EntityManager session) throws Exception {
+        return super.getPureList(session, LancamentoCaixa.class, "Select e from LancametoCaixa e order by e.codLancamento");
+    }  
 }

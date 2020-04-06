@@ -24,7 +24,12 @@ public class TurnoRNE extends GenericDAO {
         return super.deletePojo(session, turno);
     }
 
-    public List<Turno> getList(EntityManager session, Turno turno) throws Exception {
-        return super.getPureList(session, Turno.class, "Select e from Turno e");
+    public Turno get(int codigo, EntityManager session) {
+        return getPojo(session, Turno.class, codigo);
     }
+
+    public List<Turno> getList(EntityManager session) throws Exception {
+        return super.getPureList(session, Turno.class, "Select e from Turno e order by e.codTurno");
+    } 
+
 }
