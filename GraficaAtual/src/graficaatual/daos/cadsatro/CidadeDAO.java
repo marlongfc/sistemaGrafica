@@ -5,7 +5,6 @@
  */
 package graficaatual.daos.cadsatro;
 
-
 import graficaatual.entidades.Cidade;
 import graficaatual.regras.cadastro.CidadeRNE;
 import graficaatual.utilitarios.Persistencia;
@@ -31,7 +30,7 @@ public class CidadeDAO extends CidadeRNE {
             throw e;
         } finally {
             session.close();
-            
+
         }
 
     }
@@ -53,23 +52,23 @@ public class CidadeDAO extends CidadeRNE {
             session.close();
         }
     }
-    
-    public Cidade getPorCodigo(int codigo) throws Exception {
+
+    public Cidade getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.get(codigo, session);
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
             session.close();
             return null;
-        }finally {
+        } finally {
             session.close();
         }
     }
 
-     public long getNextItem() throws Exception {
+    public long getNextItem() throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             return super.getNextItem(session);
@@ -80,24 +79,27 @@ public class CidadeDAO extends CidadeRNE {
 
     public List<Cidade> getList() throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-       try {
-           return super.getList(session);
-       } finally {
-           session.close();
-       }
-   }
+        try {
+            return super.getList(session);
+        } finally {
+            session.close();
+        }
+    }
 
     public List<Cidade> getList(String sql) throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.getList(session, sql);
         } finally {
-           session.close();
+            session.close();
         }
     }
 
+    public List<Cidade> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cidade.class, SQL, parametros);
+    }
 }

@@ -61,7 +61,7 @@ public class BairroDAO extends BairroRNE {
         }
     }
 
-    public Bairro getPorCodigo(int codigo) throws Exception {
+    public Bairro getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
@@ -96,6 +96,10 @@ public class BairroDAO extends BairroRNE {
         } finally {
             session.close();
         }
+    }
+
+    public List<Bairro> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Bairro.class, SQL, parametros);
     }
 
 }

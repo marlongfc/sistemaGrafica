@@ -5,7 +5,6 @@
  */
 package graficaatual.daos.cadsatro;
 
-
 import graficaatual.entidades.Material;
 import graficaatual.regras.cadastro.MaterialRNE;
 import graficaatual.utilitarios.Persistencia;
@@ -31,7 +30,7 @@ public class MaterialDAO extends MaterialRNE {
             throw e;
         } finally {
             session.close();
-            
+
         }
 
     }
@@ -53,23 +52,23 @@ public class MaterialDAO extends MaterialRNE {
             session.close();
         }
     }
-    
-    public Material getPorCodigo(int codigo) throws Exception {
+
+    public Material getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.get(codigo, session);
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
             session.close();
             return null;
-        }finally {
+        } finally {
             session.close();
         }
     }
 
-     public long getNextItem() throws Exception {
+    public long getNextItem() throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             return super.getNextItem(session);
@@ -80,24 +79,27 @@ public class MaterialDAO extends MaterialRNE {
 
     public List<Material> getList() throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-       try {
-           return super.getList(session);
-       } finally {
-           session.close();
-       }
-   }
+        try {
+            return super.getList(session);
+        } finally {
+            session.close();
+        }
+    }
 
     public List<Material> getList(String sql) throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.getList(session, sql);
         } finally {
-           session.close();
+            session.close();
         }
     }
 
+    public List<Material> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Material.class, SQL, parametros);
+    }
 }

@@ -54,7 +54,7 @@ public class ProdutoDAO extends ProdutoRNE {
         }
     }
     
-    public Produto getPorCodigo(int codigo) throws Exception {
+    public Produto getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
@@ -98,6 +98,10 @@ public class ProdutoDAO extends ProdutoRNE {
         } finally {
            session.close();
         }
+    }
+    
+     public List<Produto> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Produto.class, SQL, parametros);
     }
 
 }

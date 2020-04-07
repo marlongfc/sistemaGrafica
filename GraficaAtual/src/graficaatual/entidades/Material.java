@@ -31,14 +31,23 @@ public class Material implements Serializable {
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
 
-    @Column(name = "unidade", nullable = true, length = 10)
-    private String unidade;
+    @Column(name = "unidade", nullable = false)
+    private int unidade;
 
-    @Column(name = "precoCusto", nullable = true)
-    private Double precoCusto;
+    @Column(name = "precoCompra", nullable = true)
+    private Double precoCompra;
+    
+    @Column(name = "precoCustoTotal", nullable = false)
+    private Double precoCustoTotal;
 
-    @Column(name = "precoVenda", nullable = true)
-    private Double precoVenda;
+    @Column(name = "precoFreteMetro", nullable = true)
+    private Double precoFreteMetro;
+
+    @Column(name = "precoFreteQuilo", nullable = true)
+    private Double precoFreteQuilo;
+
+    @Column(name = "precoFretePeca", nullable = true)
+    private Double precoFretePeca;
 
     @Column(name = "peso", nullable = true)
     private Double peso;
@@ -62,8 +71,8 @@ public class Material implements Serializable {
     private String usuarioAtualizacao;
 
     public Material() {
-      //  this.dataCadastro = new Date();
-      //  this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+        //  this.dataCadastro = new Date();
+        //  this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
     }
 
     public Long getCodMaterial() {
@@ -112,6 +121,80 @@ public class Material implements Serializable {
 
     public void setUsuarioAtualizacao(String usuarioAtualizacao) {
         this.usuarioAtualizacao = usuarioAtualizacao;
+    }
+
+    public int getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(int unidade) {
+        this.unidade = unidade;
+    }
+
+    public Double getPrecoFretePeca() {
+        return precoFretePeca;
+    }
+
+    public void setPrecoFretePeca(Double precoFretePeca) {
+        this.precoFretePeca = precoFretePeca;
+    }
+
+    public Double getPrecoCompra() {
+        return precoCompra;
+    }
+
+    public void setPrecoCompra(Double precoCompra) {
+        this.precoCompra = precoCompra;
+    }
+
+    public Double getPrecoCustoTotal() {
+        return precoCustoTotal;
+    }
+
+    public void setPrecoCustoTotal(Double precoCustoTotal) {
+        this.precoCustoTotal = precoCustoTotal;
+    }
+
+   
+
+    public Double getPrecoFreteMetro() {
+        return precoFreteMetro;
+    }
+
+    public void setPrecoFreteMetro(Double precoFreteMetro2) {
+        this.precoFreteMetro = precoFreteMetro2;
+    }
+
+    public Double getPrecoFreteQuilo() {
+        return precoFreteQuilo;
+    }
+
+    public void setPrecoFreteQuilo(Double precoFreteQuilo) {
+        this.precoFreteQuilo = precoFreteQuilo;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Double altura) {
+        this.altura = altura;
+    }
+
+    public Double getLargura() {
+        return largura;
+    }
+
+    public void setLargura(Double largura) {
+        this.largura = largura;
     }
 
     @Override

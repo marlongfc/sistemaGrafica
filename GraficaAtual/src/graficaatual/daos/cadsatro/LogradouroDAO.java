@@ -99,4 +99,8 @@ public class LogradouroDAO extends LogradouroRNE {
         }
     }
 
+    public List<Logradouro> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Logradouro.class, SQL, parametros);
+    }
+
 }
