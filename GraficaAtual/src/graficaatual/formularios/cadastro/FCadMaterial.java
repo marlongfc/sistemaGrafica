@@ -716,11 +716,7 @@ public class FCadMaterial extends javax.swing.JPanel {
             // considerando 0 como sim
             if (op == 0) {
 
-                materialDao.delete(material);
-
-                material.setCodMaterial(Long.parseLong(codMaterial.getText()));
-                material.setDescricao(descMaterial.getText());
-                atualizarTabelaPessoaCad();
+                limparTela();
 
             } else {
                 return;

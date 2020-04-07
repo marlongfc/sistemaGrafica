@@ -440,7 +440,7 @@ public class FCadProduto extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_descProdutoKeyReleased
 
-    private void atualizarTabelaPessoaCad() {
+    private void atualizarTabela() {
 
         DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
         removeLinhas(tabProduto);
@@ -500,7 +500,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
 
             codProduto.setEnabled(true);
-            atualizarTabelaPessoaCad();
+            atualizarTabela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar produto. Erro: " + e);
@@ -520,9 +520,9 @@ public class FCadProduto extends javax.swing.JPanel {
 
                 produtoDao.delete(produto);
 
-                produto.setCodProduto(Long.parseLong(codProduto.getText()));
-                produto.setDescricao(descProduto.getText());
-                atualizarTabelaPessoaCad();
+                codProduto.setText("");
+                descProduto.setText("");
+                atualizarTabela();
 
             } else {
                 return;

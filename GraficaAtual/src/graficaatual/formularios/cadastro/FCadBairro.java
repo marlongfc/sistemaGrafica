@@ -440,7 +440,7 @@ public class FCadBairro extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_descBairroKeyReleased
 
-    private void atualizarTabelaPessoaCad() {
+    private void atualizarTabela() {
 
         DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
         removeLinhas(tabBairro);
@@ -500,7 +500,7 @@ public class FCadBairro extends javax.swing.JPanel {
             }
 
             codBairro.setEnabled(true);
-            atualizarTabelaPessoaCad();
+            atualizarTabela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar bairro. Erro: " + e);
@@ -520,9 +520,9 @@ public class FCadBairro extends javax.swing.JPanel {
 
                 bairroDao.delete(bairro);
 
-                bairro.setCodBairro(Long.parseLong(codBairro.getText()));
-                bairro.setDescricao(descBairro.getText());
-                atualizarTabelaPessoaCad();
+                codBairro.setText("");
+                descBairro.setText("");
+                atualizarTabela();
 
             } else {
                 return;

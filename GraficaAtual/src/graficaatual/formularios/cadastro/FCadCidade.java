@@ -440,7 +440,7 @@ public class FCadCidade extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_descCidadeKeyReleased
 
-    private void atualizarTabelaPessoaCad() {
+    private void atualizarTabela() {
 
         DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
         removeLinhas(tabCidade);
@@ -500,7 +500,7 @@ public class FCadCidade extends javax.swing.JPanel {
             }
 
             codCidade.setEnabled(true);
-            atualizarTabelaPessoaCad();
+            atualizarTabela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar cidade. Erro: " + e);
@@ -520,9 +520,9 @@ public class FCadCidade extends javax.swing.JPanel {
 
                 cidadeDao.delete(cidade);
 
-                cidade.setCodCidade(Long.parseLong(codCidade.getText()));
-                cidade.setDescricao(descCidade.getText());
-                atualizarTabelaPessoaCad();
+                codCidade.setText("");
+                descCidade.setText("");
+                atualizarTabela();
 
             } else {
                 return;

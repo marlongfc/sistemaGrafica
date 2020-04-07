@@ -440,7 +440,7 @@ public class FCadLogradouro extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_descLogradouroKeyReleased
 
-    private void atualizarTabelaPessoaCad() {
+    private void atualizarTabela() {
 
         DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
         removeLinhas(tabLogradouro);
@@ -500,7 +500,7 @@ public class FCadLogradouro extends javax.swing.JPanel {
             }
 
             codLogradouro.setEnabled(true);
-            atualizarTabelaPessoaCad();
+            atualizarTabela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar logradouro. Erro: " + e);
@@ -519,10 +519,9 @@ public class FCadLogradouro extends javax.swing.JPanel {
             if (op == 0) {
 
                 logradouroDao.delete(logradouro);
-
-                logradouro.setCodLogradouro(Long.parseLong(codLogradouro.getText()));
-                logradouro.setDescricao(descLogradouro.getText());
-                atualizarTabelaPessoaCad();
+                codLogradouro.setText("");
+                descLogradouro.setText("");
+                atualizarTabela();
 
             } else {
                 return;
@@ -550,32 +549,32 @@ public class FCadLogradouro extends javax.swing.JPanel {
         try {
             cnvLogradouro.ultimo();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_ultimoActionPerformed
 
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvLogradouro.proximo();
         } catch (Exception e) {
-             e.printStackTrace();
-        }       
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_proximoActionPerformed
 
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvLogradouro.anterior();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_anteriorActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvLogradouro.primeiro();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_inicioActionPerformed
 
 
