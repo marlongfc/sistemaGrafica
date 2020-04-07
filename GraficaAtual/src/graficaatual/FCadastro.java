@@ -19,6 +19,7 @@ import graficaatual.entidades.Cliente;
 import graficaatual.entidades.Colaborador;
 import graficaatual.entidades.Logradouro;
 import graficaatual.entidades.Pessoa;
+import graficaatual.formularios.cadastro.FCadPessoa;
 import graficaatual.pesq.cadastro.CnvCadastroCliente;
 import graficaatual.pesq.cadastro.CnvCadastroColaborador;
 import graficaatual.pesq.cadastro.CnvCadastroPessoa;
@@ -60,6 +61,8 @@ public class FCadastro extends javax.swing.JFrame {
 
     private Cidade cidade = null;
     private CidadeDAO cidadeDao = new CidadeDAO();
+    
+   
 
 //Lista Suspensa
     private List<Colaborador> listaColaboradorNome = null;
@@ -130,7 +133,6 @@ public class FCadastro extends javax.swing.JFrame {
         comp5.addCol(1, "cnpj", "CPF/CNPJ", 100, String.class.getName());
         comp5.addCol(2, "nome", "Nome", 200, String.class.getName());
         comp5.bind();
-        atualizaTabelaPessoa();
         
         listaPessoaCPFColaborador = ObservableCollections.observableList(new LinkedList<Pessoa>());
         Componentes comp7 = new Componentes(listaPessoaCPFColaborador, false, codPessoaCadColaborador, 
@@ -1826,7 +1828,7 @@ public class FCadastro extends javax.swing.JFrame {
         jTabbedPaneCadastro.addTab("Pessoa", new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png")), jPanel10); // NOI18N
 
         jPanel1.add(jTabbedPaneCadastro);
-        jTabbedPaneCadastro.setBounds(30, 70, 1090, 560);
+        jTabbedPaneCadastro.setBounds(40, 70, 1090, 560);
         jTabbedPaneCadastro.getAccessibleContext().setAccessibleName("");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO3.png"))); // NOI18N
@@ -2350,6 +2352,28 @@ public class FCadastro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }    
     }//GEN-LAST:event_codPessoaCadClienteFocusLost
+  
+private void Finalizar() {
+
+        if (localIncusao == 1) {
+            instanceCont = null;
+
+        } else {
+            initControle = 0;
+            instance = null;
+
+        }
+
+        dispose();
+    }
+
+    private static FCadPessoa instance;
+    private static FCadPessoa instanceCont;
+    private static int initControle;
+    private int localIncusao;
+    
+    
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton InativarPessoa;

@@ -37,7 +37,7 @@ public class CnvCadastroPessoa extends CnvNativeQueryRNE {
                    
             
             
-            super.iniciarCnv(session, sqlNrReg, sql, 9);
+            super.iniciarCnv(session, sqlNrReg, sql, 5);
 
         } catch (Exception e) {
             e.printStackTrace();

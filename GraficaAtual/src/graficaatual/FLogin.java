@@ -14,6 +14,7 @@ import java.sql.Statement;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -262,7 +263,20 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_sairActionPerformed
 
     private void jBPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPedidosActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            FCadastro_Novo clComp;
+            if (FCadastro_Novo.isInicializado() != 1) {
+                clComp = FCadastro_Novo.getInstance();
+                clComp.setVisible(true);
+            } else {
+                clComp = FCadastro_Novo.getInstance();
+            }
+            clComp.toFront();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBPedidosActionPerformed
 
     private void bancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bancoActionPerformed
