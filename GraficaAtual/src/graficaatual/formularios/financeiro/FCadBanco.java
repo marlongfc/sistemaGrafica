@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.formularios.cadastro;
+package graficaatual.formularios.financeiro;
 
-import graficaatual.daos.cadsatro.TurnoDAO;
-import graficaatual.entidades.Turno;
+import graficaatual.daos.financeiro.BancoDAO;
+import graficaatual.entidades.Banco;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
-import java.util.Date;
+import java.util.Date; 
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -20,31 +20,31 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author User
  */
-public class FCadTurno extends javax.swing.JInternalFrame {
+public class FCadBanco extends javax.swing.JInternalFrame {
 
-    private Turno turno;
-    private TurnoDAO turnoDao = new TurnoDAO();
+    private Banco banco;
+    private BancoDAO bancoDAO = new BancoDAO();
 
-    private List<Turno> listaTurno = null;
+    private List<Banco> listaBanco = null;
 
-    public FCadTurno() {
+    public FCadBanco() {
         initComponents();
 
         atualizatabela();
 
-        listaTurno = ObservableCollections.observableList(new LinkedList<Turno>());
-        Componentes comp2 = new Componentes(listaTurno, false, codTurnoo, descTurno, this, jPanel18, descTurno.getWidth(), 100);
-        comp2.addCol(0, "codTurno", "Código", 50, Long.class.getName());
-        comp2.addCol(1, "descricao", "Turno", 200, String.class.getName());
+        listaBanco = ObservableCollections.observableList(new LinkedList<Banco>());
+        Componentes comp2 = new Componentes(listaBanco, false, codBanco, descBanco, this, jPanel18, descBanco.getWidth(), 100);
+        comp2.addCol(0, "codBanco", "Código", 50, Long.class.getName());
+        comp2.addCol(1, "descricao", "Banco", 200, String.class.getName());
         comp2.bind();
 
     }
 
-    private static FCadTurno instancia;
+    private static FCadBanco instancia;
 
-    public static FCadTurno getInstancia() {
+    public static FCadBanco getInstancia() {
         if (instancia == null) {
-            instancia = new FCadTurno();
+            instancia = new FCadBanco();
         }
 
         return instancia;
@@ -55,9 +55,9 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel18 = new javax.swing.JPanel();
-        codTurnoo = new javax.swing.JTextField();
+        conta = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
-        descTurno = new javax.swing.JTextField();
+        descBanco = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jTextField49 = new javax.swing.JTextField();
         jTextField50 = new javax.swing.JTextField();
@@ -103,31 +103,35 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         inicioPessoa1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
+        codBanco = new javax.swing.JTextField();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        agencia = new javax.swing.JTextField();
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setLayout(null);
 
-        codTurnoo.addFocusListener(new java.awt.event.FocusAdapter() {
+        conta.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codTurnooFocusLost(evt);
+                contaFocusLost(evt);
             }
         });
-        jPanel18.add(codTurnoo);
-        codTurnoo.setBounds(60, 90, 80, 20);
+        jPanel18.add(conta);
+        conta.setBounds(750, 90, 190, 20);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel78.setText("Turno");
+        jLabel78.setText("Banco");
         jPanel18.add(jLabel78);
         jLabel78.setBounds(140, 70, 40, 20);
 
-        descTurno.setBackground(new java.awt.Color(255, 255, 204));
-        descTurno.addKeyListener(new java.awt.event.KeyAdapter() {
+        descBanco.setBackground(new java.awt.Color(255, 255, 204));
+        descBanco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                descTurnoKeyReleased(evt);
+                descBancoKeyReleased(evt);
             }
         });
-        jPanel18.add(descTurno);
-        descTurno.setBounds(140, 90, 810, 20);
+        jPanel18.add(descBanco);
+        descBanco.setBounds(140, 90, 420, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -286,14 +290,14 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Turno"
+                "Código", "Banco", "Agência", "Conta"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -312,7 +316,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         jScrollPane11.setViewportView(tab);
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 200, 930, 180);
+        jScrollPane11.setBounds(20, 210, 930, 210);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -373,76 +377,102 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(280, 400, 430, 40);
+        jPanel20.setBounds(280, 440, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("CADASTRO DE TURNO");
+        jLabel1.setText("CADASTRO DE BANCO");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 970, 70);
+        jLabel1.setBounds(0, 0, 960, 70);
 
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel79.setText("Código");
+        jLabel79.setText("Conta");
         jPanel18.add(jLabel79);
-        jLabel79.setBounds(60, 70, 40, 20);
+        jLabel79.setBounds(750, 70, 40, 20);
+
+        codBanco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codBancoFocusLost(evt);
+            }
+        });
+        jPanel18.add(codBanco);
+        codBanco.setBounds(60, 90, 80, 20);
+
+        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel80.setText("Código");
+        jPanel18.add(jLabel80);
+        jLabel80.setBounds(60, 70, 40, 20);
+
+        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel81.setText("Agência");
+        jPanel18.add(jLabel81);
+        jLabel81.setBounds(560, 70, 90, 20);
+
+        agencia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                agenciaFocusLost(evt);
+            }
+        });
+        jPanel18.add(agencia);
+        agencia.setBounds(560, 90, 190, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 965, Short.MAX_VALUE)
+            .addGap(0, 985, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 965, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 548, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void codTurnooFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTurnooFocusLost
+    private void contaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contaFocusLost
         try {
-            carregaTurno();
+            carregaBanco();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_codTurnooFocusLost
+    }//GEN-LAST:event_contaFocusLost
 
-    private void carregaTurno() throws Exception {
-        turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-        if (turno != null) {
-            descTurno.setText(turno.getDescricao());
+    private void carregaBanco() throws Exception {
+        banco = bancoDAO.get(ValidarValor.getInt(descBanco.getText()));
+        if (banco != null) {
+            descBanco.setText(banco.getDescricao());
         } else {
-            descTurno.setText("");
+            descBanco.setText("");
         }
     }
 
 
-    private void descTurnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descTurnoKeyReleased
+    private void descBancoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descBancoKeyReleased
         try {
-            List<Turno> merged = turnoDao.getList(15, "select e from Turno e where e.descricao order by e.codigo", descTurno.getText().trim().toLowerCase());
-            listaTurno.clear();
-            listaTurno.addAll(merged);
+            List<Banco> merged = bancoDAO.getList(15, "select e from Banco e where e.descricao order by e.codigo", descBanco.getText().trim().toLowerCase());
+            listaBanco.clear();
+            listaBanco.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Turnos. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Bancos. Erro: " + e);
         }
-    }//GEN-LAST:event_descTurnoKeyReleased
+    }//GEN-LAST:event_descBancoKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            turno = new Turno();
+            banco = new Banco();
             limpaCampos();
             habilitaCampos(true);
-            descTurno.requestFocus();
+            descBanco.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -451,19 +481,19 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-            if (turno == null) {
-                turno = new Turno();
+            banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
+            if (banco == null) {
+                banco = new Banco();
                 setCausa();
-                turno.setDataCadastro(new Date());
-                turno.setDataAtualizacao(new Date());
-                if (turnoDao.confereTurno(turno)) {
-                    turno = turnoDao.salvar(turno);
-                    codTurnoo.setText(turno.getCodTurno().toString());
-                    turno.setDataAtualizacao(new Date());
+                banco.setDataCadastro(new Date());
+                banco.setDataAtualizacao(new Date());
+                if (bancoDAO.confereBanco(banco)) {
+                    banco = bancoDAO.salvar(banco);
+                    codBanco.setText(banco.getCodBanco().toString());
+                    banco.setDataAtualizacao(new Date());
                     btSalvar.setEnabled(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Causa de Morte já Cadastrada");
+                    JOptionPane.showMessageDialog(this, "Banco já Cadastrado");
                 }
             }
             atualizatabela();
@@ -475,15 +505,15 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-            if (turno == null) {
+            banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
+            if (banco == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
                 setCausa();
-                turnoDao.delete(turno);
+                bancoDAO.delete(banco);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descTurno.requestFocus();
+                descBanco.requestFocus();
             }
             atualizatabela();
         } catch (Exception e) {
@@ -515,29 +545,49 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inicioPessoa1ActionPerformed
 
+    private void codBancoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codBancoFocusLost
+        try {
+            carregaBanco();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_codBancoFocusLost
+
+    private void agenciaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_agenciaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agenciaFocusLost
+
     private void limpaCampos() {
-        codTurnoo.setText("");
-        descTurno.setText("");
+        descBanco.setText("");
+        agencia.setText("");
+        conta.setText("");
     }
 
     private void habilitaCampos(boolean b) {
-        codTurnoo.setEnabled(b);
-        descTurno.setEnabled(b);
+        codBanco.setEnabled(b);
+        descBanco.setEnabled(b);
+        agencia.setEnabled(b);
+        conta.setEnabled(b);
     }
 
     private void setCausa() {
-        turno.setDescricao(descTurno.getText());
+        banco.setDescricao(descBanco.getText());
+        banco.setAgencia(agencia.getText());
+        banco.setConta(conta.getText());
     }
 
     private void atualizatabela() {
         DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<Turno> listaT = turnoDao.getList();
+        List<Banco> listaT = bancoDAO.getList();
         if (listaT.size() > 0) {
             model.setNumRows(0);
-            for (Turno t : listaT) {
+            for (Banco b : listaT) {
                 Object o[] = new Object[]{
-                    t.getCodTurno(),
-                    t.getDescricao()};
+                    b.getCodBanco(),
+                    b.getDescricao(),
+                    b.getAgencia(),
+                    b.getConta()};
 
                 model.addRow(o);
             }
@@ -547,13 +597,15 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField agencia;
     private javax.swing.JButton anteriorPessoa1;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codTurnoo;
-    private javax.swing.JTextField descTurno;
+    private javax.swing.JTextField codBanco;
+    private javax.swing.JTextField conta;
+    private javax.swing.JTextField descBanco;
     private javax.swing.JButton finalPessoa1;
     private javax.swing.JButton inicioPessoa1;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -564,6 +616,8 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
