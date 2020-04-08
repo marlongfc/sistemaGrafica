@@ -37,6 +37,24 @@ public class CargoDAO extends CargoRNE {
         
     }
     
+    public Boolean delete(Cargo cargo) throws Exception {
+
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        Boolean aux = null;
+        try {
+            aux = super.deletePojo(session, cargo);
+            session.getTransaction().commit();
+            return aux;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        finally {
+            session.close();
+        }
+        
+    }
+    
     public Cargo altera(Cargo obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {

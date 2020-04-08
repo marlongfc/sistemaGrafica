@@ -56,11 +56,32 @@ public class Colaborador implements java.io.Serializable {
     private String ctps;
 
     @Column(name = "DataCadastro", nullable = true)
-    private java.sql.Timestamp data;
+    private Date dataCadastro;
+    
+    @Column(name = "DataAtualizacao", nullable = true)
+    private Date dataAtualizacao;
 
     public Colaborador() {
        
     }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Date getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(Date dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+    
+    
 
     public Integer getCodColaborador() {
         return codColaborador;
@@ -126,13 +147,6 @@ public class Colaborador implements java.io.Serializable {
         this.pessoa = pessoa;
     }
 
-    public Timestamp getData() {
-        return data;
-    }
-
-    public void setData(Timestamp data) {
-        this.data = data;
-    }
 
     @Override
     public int hashCode() {

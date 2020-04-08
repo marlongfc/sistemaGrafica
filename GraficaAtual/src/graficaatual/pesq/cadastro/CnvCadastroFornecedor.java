@@ -9,9 +9,9 @@ import javax.persistence.EntityManager;
  *
  * @author Projeto X
  */
-public class CnvCadastroColaborador extends CnvNativeQueryRNE {
+public class CnvCadastroFornecedor extends CnvNativeQueryRNE {
 
-    public CnvCadastroColaborador() {
+    public CnvCadastroFornecedor() {
 
     }
 
@@ -22,18 +22,18 @@ public class CnvCadastroColaborador extends CnvNativeQueryRNE {
         try {
 
             String sql = " select  "
-                    + " c.codColaborador ,  "
+                    + " c.codFornecedor ,  "
                     + " p.nome, "
-                    + " f.descricao,  "
+                    + " p.nomeFantasia, "
+                    + " p.telefone, "
                     + " c.ativo "
-                    + " from colaborador c  "
+                    + " from fornecedor c  "
                     + " left join pessoa p on (p.codpessoa = c.pessoa)"
-                    + " left join cargo f on (f.codcargo = c.cargo)"
                     + " order by p.nome";
 
-            String sqlNrReg = " select  count(p.codcolaborador)"
-                    + " from colaborador p  ";
-                   
+            String sqlNrReg = " select  count(p.codFornecedor)"
+                    + " from fornecedor p  ";
+                  
                    
             
             

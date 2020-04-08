@@ -263,20 +263,7 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_sairActionPerformed
 
     private void jBPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPedidosActionPerformed
-
-        try {
-            FCadastro_Novo clComp;
-            if (FCadastro_Novo.isInicializado() != 1) {
-                clComp = FCadastro_Novo.getInstance();
-                clComp.setVisible(true);
-            } else {
-                clComp = FCadastro_Novo.getInstance();
-            }
-            clComp.toFront();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-        }
+       
     }//GEN-LAST:event_jBPedidosActionPerformed
 
     private void bancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bancoActionPerformed
@@ -284,8 +271,19 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_bancoActionPerformed
 
     private void jBCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastroActionPerformed
-        FCadastro c = FCadastro.getInstancia();
-        c.setVisible(true);
+        try {
+            FCadastro clComp;
+            if (FCadastro.isInicializado() != 1) {
+                clComp = FCadastro.getInstance();
+                clComp.setVisible(true);
+            } else {
+                clComp = FCadastro.getInstance();
+            }
+            clComp.toFront();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBCadastroActionPerformed
 
     /**

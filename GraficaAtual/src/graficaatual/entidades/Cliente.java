@@ -54,9 +54,6 @@ public class Cliente implements Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
     
-    @Column(name = "obs", columnDefinition = "text" )
-    private String obs;
-    
 
     public Cliente() {
  //       this.dataCadastro = new Date();
@@ -141,14 +138,6 @@ public class Cliente implements Serializable {
 
     public void setContato(String contato) {
         this.contato = contato;
-    }
-
-    public String getObs() {
-        return obs;
-    }
-
-    public void setObs(String obs) {
-        this.obs = obs;
     }
 
     @Override

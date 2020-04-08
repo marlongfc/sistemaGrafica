@@ -5,9 +5,7 @@
  */
 package graficaatual.entidades;
 
-import graficaatual.utilitarios.TipoPermissao;
-import java.sql.Timestamp;
-import javax.persistence.CascadeType;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,32 +29,45 @@ public class Cargo implements java.io.Serializable {
     @Column(name = "codCargo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codCargo;
-
-    @Column(nullable = false, length = 300)
+ 
+    @Column(name = "descricao",nullable = false, length = 300)
     private String descricao;
+    
+    @Column(name = "crm", length = 30)
+    private String crm;
+    
+    @Column(name = "funcao",columnDefinition = "text")
+    private String funcao;
+    
+    @Column(name = "especificacao",columnDefinition = "text")
+    private String especificacao;
 
     @ManyToOne()
-    @JoinColumn(name = "turno", nullable = true)
+    @JoinColumn(name = "turno")
     private Turno turno;
 
-    @Column(nullable = false, length = 30)
-    private String login;
-
-    @Column(nullable = false, length = 20)
-    private String senha;
-
-    @Column(name = "DataCadastro", nullable = true)
-    private java.sql.Timestamp data;
-
-    @Column(name = "tipoUsuario", nullable = false, columnDefinition = "integer default 2")
-    private Integer tipoUsuario;
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "CodTipo", nullable = true)
-    private TipoPermissao tipoPermissao;
-
+    @Column(name = "dataCadastro")
+    private Date dataCadastro;
+    
+     @Column(name = "dataAtualizacao")
+    private Date dataAtualizacao;
+     
+    @Column(name = "UsuarioCadastro")
+    private String UsuarioCadastro;
+    
+    @Column(name = "UsuarioAtualizacao")
+    private String UsuarioAtualizacao;
+     
     public Cargo() {
-        this.tipoUsuario = 2;
+       
+    }
+
+    public String getCrm() {
+        return crm;
+    }
+
+    public void setCrm(String crm) {
+        this.crm = crm;
     }
 
     public Integer getCodCargo() {
@@ -75,6 +86,22 @@ public class Cargo implements java.io.Serializable {
         this.descricao = descricao;
     }
 
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
+    }
+
+    public String getEspecificacao() {
+        return especificacao;
+    }
+
+    public void setEspecificacao(String especificacao) {
+        this.especificacao = especificacao;
+    }
+
     public Turno getTurno() {
         return turno;
     }
@@ -83,45 +110,39 @@ public class Cargo implements java.io.Serializable {
         this.turno = turno;
     }
 
-    public String getLogin() {
-        return login;
+    public Date getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
-    public String getSenha() {
-        return senha;
+    public Date getDataAtualizacao() {
+        return dataAtualizacao;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setDataAtualizacao(Date dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 
-    public Timestamp getData() {
-        return data;
+    public String getUsuarioCadastro() {
+        return UsuarioCadastro;
     }
 
-    public void setData(Timestamp data) {
-        this.data = data;
+    public void setUsuarioCadastro(String UsuarioCadastro) {
+        this.UsuarioCadastro = UsuarioCadastro;
     }
 
-    public Integer getTipoUsuario() {
-        return tipoUsuario;
+    public String getUsuarioAtualizacao() {
+        return UsuarioAtualizacao;
     }
 
-    public void setTipoUsuario(Integer tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setUsuarioAtualizacao(String UsuarioAtualizacao) {
+        this.UsuarioAtualizacao = UsuarioAtualizacao;
     }
 
-    public TipoPermissao getTipoPermissao() {
-        return tipoPermissao;
-    }
-
-    public void setTipoPermissao(TipoPermissao tipoPermissao) {
-        this.tipoPermissao = tipoPermissao;
-    }
+   
 
     @Override
     public int hashCode() {

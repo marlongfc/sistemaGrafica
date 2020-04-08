@@ -34,10 +34,6 @@ public class Fornecedor implements Serializable {
     @JoinColumn(name = "pessoa", nullable = false)
     private Pessoa pessoa;
 
-    @ManyToOne()
-    @JoinColumn(name = "endereco", nullable = false)
-    private Endereco endereco;
-
     @Column(name = "dataCadastro", nullable = true)
     private Date dataCadastro;
 
@@ -52,6 +48,9 @@ public class Fornecedor implements Serializable {
     
     @Column(name = "ativo", nullable = false)
     private Boolean ativo;
+    
+    @Column(name = "contato")
+    private String contato ;
 
     public Fornecedor() {
  //       this.dataCadastro = new Date();
@@ -74,14 +73,22 @@ public class Fornecedor implements Serializable {
         this.pessoa = pessoa;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Boolean getAtivo() {
+        return ativo;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
+    public String getContato() {
+        return contato;
+    }
+
+    public void setContato(String contato) {
+        this.contato = contato;
+    }
+    
     public Date getDataCadastro() {
         return dataCadastro;
     }

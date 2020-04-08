@@ -24,6 +24,7 @@ public class CnvCadastroCliente extends CnvNativeQueryRNE {
             String sql = " select  "
                     + " c.codCliente ,  "
                     + " p.nome, "
+                    + " p.nomeFantasia, "
                     + " p.telefone, "
                     + " c.limite, "
                     + " c.ativo "
@@ -37,7 +38,7 @@ public class CnvCadastroCliente extends CnvNativeQueryRNE {
                    
             
             
-            super.iniciarCnv(session, sqlNrReg, sql, 3);
+            super.iniciarCnv(session, sqlNrReg, sql, 6);
 
         } catch (Exception e) {
             e.printStackTrace();

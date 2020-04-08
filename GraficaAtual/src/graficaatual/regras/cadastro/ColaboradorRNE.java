@@ -29,10 +29,9 @@ public class ColaboradorRNE extends GenericDAO{
         return super.getPureList(session, Colaborador.class, "Select e from Colaborador e");
     }
     
-     public Colaborador get(long codigo, EntityManager session) throws Exception {
-        String sql = " select e from colaborador e where e.codColaborador=?1 ";
-        return getPojoUnique(session, Colaborador.class, sql, codigo);
+    public Colaborador get(int codigo, EntityManager session) throws Exception {
+        return super.getPojo(session, Colaborador.class, codigo);
     }
-
+    
     
 }

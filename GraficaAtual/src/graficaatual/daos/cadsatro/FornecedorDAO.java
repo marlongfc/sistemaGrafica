@@ -6,8 +6,8 @@
 package graficaatual.daos.cadsatro;
 
 
-import graficaatual.entidades.Colaborador;
-import graficaatual.regras.cadastro.ColaboradorRNE;
+import graficaatual.entidades.Fornecedor;
+import graficaatual.regras.cadastro.FornecedorRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,14 +16,14 @@ import javax.persistence.EntityManager;
  *
  * @author Projeto X
  */
-public class ColaboradorDAO extends ColaboradorRNE {
+public class FornecedorDAO extends FornecedorRNE {
     
-    public Colaborador addColaborador(Colaborador colaborador) throws Exception {
+    public Fornecedor addFornecedor(Fornecedor fornecedor) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Colaborador aux = null;
+        Fornecedor aux = null;
         try {
-            aux = super.salvar(session, colaborador);
+            aux = super.salvar(session, fornecedor);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -35,26 +35,21 @@ public class ColaboradorDAO extends ColaboradorRNE {
         }
         
     }
-    
-    public Colaborador altera(Colaborador obj) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        
+   public Fornecedor addFornecedor(EntityManager session, Fornecedor fornecedor) throws Exception {
+        Fornecedor aux = null;
         try {
-            session.getTransaction().begin();
-            obj = super.salvar( session,obj);
-            session.getTransaction().commit();
-            return obj;
+            aux = super.salvar(session, fornecedor);
+            return aux;
         } catch (Exception e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
+            throw e;
         }
-        return null;
     }
 
-    public Colaborador get(Integer cod) throws Exception{
+    public Fornecedor get(Long cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Colaborador aux = super.get(cod, session);
+            Fornecedor aux = super.getPojo(Fornecedor.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -63,10 +58,22 @@ public class ColaboradorDAO extends ColaboradorRNE {
         return null;
     }
     
-    public List<Colaborador> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Colaborador.class, SQL, parametros);
+    public Fornecedor getList(int cod) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            Fornecedor aux = super.getPojo(Fornecedor.class, cod);
+            return aux;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
     }
-       
+    
+     public List<Fornecedor> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Fornecedor.class, SQL, parametros);
+    }
+     
 
   
 }

@@ -34,20 +34,21 @@ public class ClienteDAO extends ClienteRNE {
         }
         
     }
-    
-    public Cliente altera(Cliente obj) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        
+   public Cliente addCliente(EntityManager session, Cliente cliente) throws Exception {
+
+       
+        Cliente aux = null;
         try {
-            session.getTransaction().begin();
-            obj = super.salvar( session,obj);
-            session.getTransaction().commit();
-            return obj;
+            aux = super.salvar(session, cliente);
+           
+            return aux;
         } catch (Exception e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
+            
+            throw e;
         }
-        return null;
+        
+        
     }
 
     public Cliente get(Long cod) {
