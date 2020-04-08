@@ -5,7 +5,7 @@
  */
 package graficaatual.entidades;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,10 +38,10 @@ public class Banco implements java.io.Serializable {
     private String agencia;
 
     @Column(name = "dataCadastro")
-    private java.sql.Timestamp dataCadastro;
+    private Date dataCadastro;
 
     @Column(name = "dataAtualizacao")
-    private java.sql.Timestamp dataAtualizacao;
+    private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)
     private String usuarioCadastro;
@@ -81,19 +81,19 @@ public class Banco implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public Timestamp getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Timestamp dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public Timestamp getDataAtualizacao() {
+    public Date getDataAtualizacao() {
         return dataAtualizacao;
     }
 
-    public void setDataAtualizacao(Timestamp dataAtualizacao) {
+    public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
     }
 
