@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.financeiro;
 
-import graficaatual.entidades.Banco; 
-import graficaatual.regras.cadastro.BancoRNE; 
+import graficaatual.entidades.Banco;
+import graficaatual.regras.financeiro.BancoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -81,7 +81,7 @@ public class BancoDAO extends BancoRNE {
     }
 
     public List<Banco> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
         List<Banco> aux;
         try {
             aux = super.getList(session);
@@ -107,6 +107,17 @@ public class BancoDAO extends BancoRNE {
 
     public List<Banco> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Banco.class, SQL, parametros);
+    }
+
+    public boolean confereBanco(Banco b) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.confereBanco(session, b);
+        } catch (Exception e) {
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
 }

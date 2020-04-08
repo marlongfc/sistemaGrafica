@@ -108,5 +108,18 @@ public class TurnoDAO extends TurnoRNE {
     public List<Turno> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Turno.class, SQL, parametros);
     }
+    
+    
+    public boolean confereTurno(Turno t) {
+       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.confereTurno(session,t);
+        } catch (Exception e) {
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+    
 
 }
