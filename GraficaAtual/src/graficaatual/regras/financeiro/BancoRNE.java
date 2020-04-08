@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.regras.cadastro;
+package graficaatual.regras.financeiro;
 
 import graficaatual.daos.GenericDAO;
 import graficaatual.entidades.Banco;
@@ -31,4 +31,17 @@ public class BancoRNE extends GenericDAO {
     public List<Banco> getList(EntityManager session) throws Exception {
         return super.getPureList(session, Banco.class, "Select e from Banco e order by e.codBanco");
     }
+
+    public List<Banco> getListNome(EntityManager session, Banco ban) {
+        return getPureList(session, Banco.class, "select t from Banco t where t.descricao  = '" + ban.getDescricao() + "' ");
+    }
+
+    public boolean confereBanco(EntityManager session, Banco ban) {
+        List<Banco> aux = getListNome(session, ban);
+        if (aux.size() > 0) {
+            return false;
+        }
+        return true;
+    }
+
 }

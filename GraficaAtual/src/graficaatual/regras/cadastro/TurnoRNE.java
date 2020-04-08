@@ -31,5 +31,17 @@ public class TurnoRNE extends GenericDAO {
     public List<Turno> getList(EntityManager session) throws Exception {
         return super.getPureList(session, Turno.class, "Select e from Turno e order by e.codTurno");
     } 
+    
+      public List<Turno> getListNome(EntityManager session, Turno tur) {
+       return getPureList(session,Turno.class, "select t from Turno t where t.descricao  = '"+tur.getDescricao()+"' ");
+    }
+    
+    public boolean confereTurno(EntityManager session, Turno t) {
+         List<Turno> aux = getListNome(session,t);
+        if( aux.size()> 0){
+            return false;
+        }
+        return true;
+    }
 
 }
