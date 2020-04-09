@@ -11,6 +11,7 @@ import graficaatual.formularios.cadastro.FCadColaborador;
 import graficaatual.formularios.cadastro.FCadFornecedor;
 import graficaatual.formularios.cadastro.FCadTurno;
 import graficaatual.formularios.cadastro.FCadUsuario;
+import graficaatual.formularios.pedido.FCadOrcamento;
 import javax.swing.JOptionPane;
 /**
  *
@@ -48,25 +49,28 @@ public class FCadastro extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1150, 690));
         setName("FCadastro"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1150, 690));
+        setPreferredSize(new java.awt.Dimension(1500, 700));
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 153));
+        jPanel1.setBackground(new java.awt.Color(71, 37, 131));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1335, 650));
         jPanel1.setLayout(null);
 
+        deskTop.setMinimumSize(new java.awt.Dimension(1335, 650));
+        deskTop.setPreferredSize(new java.awt.Dimension(1335, 650));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 deskTopComponentResized(evt);
@@ -78,11 +82,7 @@ public class FCadastro extends javax.swing.JFrame {
         jLabel1.setBounds(200, 100, 550, 340);
 
         jPanel1.add(deskTop);
-        deskTop.setBounds(250, 80, 880, 550);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO3.png"))); // NOI18N
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(50, 110, 140, 130);
+        deskTop.setBounds(250, 80, 1100, 600);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO.png"))); // NOI18N
         jPanel1.add(jLabel10);
@@ -90,16 +90,18 @@ public class FCadastro extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Módulo de Cadastros");
         jLabel8.setOpaque(true);
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(1, 0, 1140, 70);
+        jLabel8.setBounds(1, 0, 1380, 70);
 
-        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setBackground(new java.awt.Color(71, 37, 131));
+        jButton9.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
         jButton9.setText("Cliente");
+        jButton9.setOpaque(false);
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -130,17 +132,6 @@ public class FCadastro extends javax.swing.JFrame {
         jPanel1.add(jButton11);
         jButton11.setBounds(20, 480, 200, 40);
 
-        jButton13.setBackground(new java.awt.Color(255, 255, 255));
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
-        jButton13.setText("Usuário");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton13);
-        jButton13.setBounds(20, 580, 200, 40);
-
         jButton14.setBackground(new java.awt.Color(255, 255, 255));
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
         jButton14.setText("Cargo");
@@ -152,17 +143,33 @@ public class FCadastro extends javax.swing.JFrame {
         jPanel1.add(jButton14);
         jButton14.setBounds(20, 530, 200, 40);
 
+        jButton15.setBackground(new java.awt.Color(255, 255, 255));
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
+        jButton15.setText("Usuário");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton15);
+        jButton15.setBounds(20, 580, 200, 40);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGOFUNDOROXO.jpeg"))); // NOI18N
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(-30, 130, 260, 190);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleName("FCadastro");
@@ -201,21 +208,6 @@ public class FCadastro extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        try {
-            deskTop.removeAll();
-            FCadUsuario clComp;
-
-            clComp = FCadUsuario.getInstance();
-            deskTop.add(clComp);
-            clComp.setVisible(true);
-                
-         } catch (Exception e) {
-              e.printStackTrace();
-              JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-         }
-    }//GEN-LAST:event_jButton13ActionPerformed
-
     private void deskTopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_deskTopComponentResized
 
     }//GEN-LAST:event_deskTopComponentResized
@@ -250,16 +242,20 @@ public class FCadastro extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
