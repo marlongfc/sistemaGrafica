@@ -34,7 +34,7 @@ public class Produto implements Serializable {
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
 
-    @ManyToOne()
+    
     @JoinColumn(name = "composicaoProduto", nullable = false)
     private ComposicaoProduto composicaoProduto;
 
