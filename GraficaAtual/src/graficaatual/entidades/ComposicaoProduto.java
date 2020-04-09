@@ -26,12 +26,12 @@ public class ComposicaoProduto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codComposicaoProduto;
 
-    @ManyToMany()
+    @ManyToOne()
     @JoinColumn(name = "material")
     private Material material;
 
     @Id
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "produto")
     private Produto produto;
 
