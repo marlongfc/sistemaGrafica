@@ -22,7 +22,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author Marlon
  */
-public class FCadBairro extends javax.swing.JPanel {
+public class FCadBairro extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FCadBairro
