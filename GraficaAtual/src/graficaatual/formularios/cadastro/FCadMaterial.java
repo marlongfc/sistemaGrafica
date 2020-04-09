@@ -22,7 +22,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author Marlon
  */
-public class FCadMaterial extends javax.swing.JPanel {
+public class FCadMaterial extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FCadMaterial

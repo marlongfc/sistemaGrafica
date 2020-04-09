@@ -22,7 +22,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author Marlon
  */
-public class FCadLogradouro extends javax.swing.JPanel {
+public class FCadLogradouro extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FCadLogradouro

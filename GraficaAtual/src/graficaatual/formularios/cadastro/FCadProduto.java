@@ -26,7 +26,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author Marlon
  */
-public class FCadProduto extends javax.swing.JPanel {
+public class FCadProduto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FCadProduto
@@ -86,6 +86,7 @@ public class FCadProduto extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel18 = new javax.swing.JPanel();
         codProduto = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
@@ -126,13 +127,6 @@ public class FCadProduto extends javax.swing.JPanel {
         btSalvar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        tabProduto = new javax.swing.JTable();
-        jPanel20 = new javax.swing.JPanel();
-        ultimo = new javax.swing.JButton();
-        proximo = new javax.swing.JButton();
-        anterior = new javax.swing.JButton();
-        inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -157,6 +151,50 @@ public class FCadProduto extends javax.swing.JPanel {
         quantidade = new javax.swing.JTextField();
         btAddMaterial = new javax.swing.JButton();
         msgMaterial = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jTextField65 = new javax.swing.JTextField();
+        jTextField66 = new javax.swing.JTextField();
+        jTextField67 = new javax.swing.JTextField();
+        jTextField68 = new javax.swing.JTextField();
+        jTextField69 = new javax.swing.JTextField();
+        jTextField70 = new javax.swing.JTextField();
+        jTextField71 = new javax.swing.JTextField();
+        jTextField72 = new javax.swing.JTextField();
+        jTextField73 = new javax.swing.JTextField();
+        jTextField74 = new javax.swing.JTextField();
+        jTextField75 = new javax.swing.JTextField();
+        jTextField76 = new javax.swing.JTextField();
+        jTextField77 = new javax.swing.JTextField();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel104 = new javax.swing.JLabel();
+        jLabel105 = new javax.swing.JLabel();
+        jLabel106 = new javax.swing.JLabel();
+        jLabel107 = new javax.swing.JLabel();
+        jLabel108 = new javax.swing.JLabel();
+        jLabel109 = new javax.swing.JLabel();
+        jLabel110 = new javax.swing.JLabel();
+        jLabel111 = new javax.swing.JLabel();
+        jLabel112 = new javax.swing.JLabel();
+        jLabel113 = new javax.swing.JLabel();
+        jLabel114 = new javax.swing.JLabel();
+        jLabel115 = new javax.swing.JLabel();
+        jTextField78 = new javax.swing.JTextField();
+        jTextField79 = new javax.swing.JTextField();
+        jTextField80 = new javax.swing.JTextField();
+        jLabel116 = new javax.swing.JLabel();
+        jLabel117 = new javax.swing.JLabel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        tabProduto = new javax.swing.JTable();
+        jPanel23 = new javax.swing.JPanel();
+        ultimo1 = new javax.swing.JButton();
+        proximo1 = new javax.swing.JButton();
+        anterior1 = new javax.swing.JButton();
+        inicio1 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setLayout(null);
@@ -306,7 +344,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 400, 180, 23);
+        btNovo.setBounds(140, 500, 180, 23);
 
         btSalvar.setText("Salvar/Atualizar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -315,7 +353,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 400, 180, 23);
+        btSalvar.setBounds(320, 500, 180, 23);
 
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -324,7 +362,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 400, 180, 23);
+        btExcluir.setBounds(500, 500, 180, 23);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -333,106 +371,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 400, 180, 23);
-
-        tabProduto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Produto", "Custo Produto (m²)", "Mão de Obra (m²)", "Custo Empresa (m² / hora)", "Custo Serviço (m²)", "Margem de Lucro (%)", "Valor Unitário"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabProdutoMouseClicked(evt);
-            }
-        });
-        jScrollPane11.setViewportView(tabProduto);
-        if (tabProduto.getColumnModel().getColumnCount() > 0) {
-            tabProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
-            tabProduto.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tabProduto.getColumnModel().getColumn(7).setPreferredWidth(30);
-        }
-
-        jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 450, 930, 120);
-
-        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
-
-        ultimo.setText(">>||");
-        ultimo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ultimoActionPerformed(evt);
-            }
-        });
-
-        proximo.setText(">>");
-        proximo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                proximoActionPerformed(evt);
-            }
-        });
-
-        anterior.setText("<<");
-        anterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anteriorActionPerformed(evt);
-            }
-        });
-
-        inicio.setText("||<<");
-        inicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inicioActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(anterior, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(proximo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ultimo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(anterior)
-                        .addComponent(inicio))
-                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(proximo)
-                        .addComponent(ultimo)))
-                .addGap(23, 23, 23))
-        );
-
-        jPanel18.add(jPanel20);
-        jPanel20.setBounds(280, 580, 430, 40);
+        btSair.setBounds(680, 500, 180, 23);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -447,10 +386,7 @@ public class FCadProduto extends javax.swing.JPanel {
 
         tabComposicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código Material", "Material", "Valor Unitário (R$)", "Quantidade", "Total (R$)"
@@ -460,7 +396,7 @@ public class FCadProduto extends javax.swing.JPanel {
                 java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, true
+                true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -474,19 +410,19 @@ public class FCadProduto extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tabComposicao);
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 180, 930, 120);
+        jScrollPane1.setBounds(20, 180, 930, 220);
 
         jLabel2.setText("Custo Produto ( m²)");
         jPanel18.add(jLabel2);
-        jLabel2.setBounds(20, 340, 110, 14);
+        jLabel2.setBounds(20, 440, 110, 14);
 
         custoProduto.setText("0,00");
         jPanel18.add(custoProduto);
-        custoProduto.setBounds(20, 360, 130, 20);
+        custoProduto.setBounds(20, 460, 130, 20);
 
         jLabel3.setText("Mão De Obra (m²)");
         jPanel18.add(jLabel3);
-        jLabel3.setBounds(160, 340, 90, 14);
+        jLabel3.setBounds(160, 440, 90, 14);
 
         maoDeObra.setText("0,00");
         maoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -495,7 +431,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(maoDeObra);
-        maoDeObra.setBounds(160, 360, 130, 20);
+        maoDeObra.setBounds(160, 460, 130, 20);
 
         custoEmpresa.setText("0,00");
         custoEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -504,24 +440,24 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(custoEmpresa);
-        custoEmpresa.setBounds(300, 360, 130, 20);
+        custoEmpresa.setBounds(300, 460, 130, 20);
 
         jLabel4.setText("Custo Empresa ( m² / hora)");
         jPanel18.add(jLabel4);
-        jLabel4.setBounds(300, 340, 140, 14);
+        jLabel4.setBounds(300, 440, 140, 14);
 
         jLabel5.setText("Custo do Serviço m²");
         jPanel18.add(jLabel5);
-        jLabel5.setBounds(440, 340, 140, 14);
+        jLabel5.setBounds(440, 440, 140, 14);
 
         custoServico.setBackground(new java.awt.Color(255, 255, 204));
         custoServico.setText("0,00");
         jPanel18.add(custoServico);
-        custoServico.setBounds(440, 360, 130, 20);
+        custoServico.setBounds(440, 460, 130, 20);
 
         jLabel6.setText("Margem de Lucro (%)");
         jPanel18.add(jLabel6);
-        jLabel6.setBounds(580, 340, 130, 14);
+        jLabel6.setBounds(580, 440, 130, 14);
 
         margemLucro.setBackground(new java.awt.Color(255, 255, 204));
         margemLucro.setText("0");
@@ -531,18 +467,18 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(margemLucro);
-        margemLucro.setBounds(580, 360, 130, 20);
+        margemLucro.setBounds(580, 460, 130, 20);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Valor Unitário (m²)");
         jPanel18.add(jLabel7);
-        jLabel7.setBounds(780, 340, 150, 15);
+        jLabel7.setBounds(780, 440, 150, 15);
 
         valorUnitario.setBackground(new java.awt.Color(255, 255, 204));
         valorUnitario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         valorUnitario.setText("0,00");
         jPanel18.add(valorUnitario);
-        valorUnitario.setBounds(780, 360, 130, 21);
+        valorUnitario.setBounds(780, 460, 130, 21);
 
         jLabel8.setText("Cód. Material");
         jPanel18.add(jLabel8);
@@ -594,26 +530,291 @@ public class FCadProduto extends javax.swing.JPanel {
         msgMaterial.setForeground(new java.awt.Color(255, 0, 0));
         msgMaterial.setText("* Produto ainda não foi salvo. Informe os valores abaixo e clique em salvar!");
         jPanel18.add(msgMaterial);
-        msgMaterial.setBounds(20, 310, 400, 14);
+        msgMaterial.setBounds(20, 410, 400, 14);
+
+        jTabbedPane1.addTab("Cadastrar", jPanel18);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel21.setLayout(null);
+
+        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel22.setLayout(null);
+        jPanel22.add(jTextField65);
+        jTextField65.setBounds(160, 10, 90, 20);
+
+        jTextField66.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel22.add(jTextField66);
+        jTextField66.setBounds(340, 30, 310, 20);
+
+        jTextField67.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel22.add(jTextField67);
+        jTextField67.setBounds(160, 50, 490, 20);
+        jPanel22.add(jTextField68);
+        jTextField68.setBounds(120, 160, 80, 20);
+        jPanel22.add(jTextField69);
+        jTextField69.setBounds(200, 160, 470, 20);
+        jPanel22.add(jTextField70);
+        jTextField70.setBounds(780, 160, 140, 20);
+        jPanel22.add(jTextField71);
+        jTextField71.setBounds(120, 180, 80, 20);
+        jPanel22.add(jTextField72);
+        jTextField72.setBounds(200, 180, 470, 20);
+        jPanel22.add(jTextField73);
+        jTextField73.setBounds(780, 180, 140, 20);
+        jPanel22.add(jTextField74);
+        jTextField74.setBounds(120, 200, 80, 20);
+        jPanel22.add(jTextField75);
+        jTextField75.setBounds(200, 200, 310, 20);
+        jPanel22.add(jTextField76);
+        jTextField76.setBounds(780, 200, 140, 20);
+        jPanel22.add(jTextField77);
+        jTextField77.setBounds(580, 200, 90, 20);
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Física", "Juridica" }));
+        jPanel22.add(jComboBox4);
+        jComboBox4.setBounds(160, 30, 180, 18);
+
+        jLabel104.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel104.setText("UF: ");
+        jPanel22.add(jLabel104);
+        jLabel104.setBounds(510, 200, 70, 20);
+
+        jLabel105.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel105.setText("CEP: ");
+        jPanel22.add(jLabel105);
+        jLabel105.setBounds(670, 200, 110, 20);
+
+        jLabel106.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel106.setText("Código: ");
+        jPanel22.add(jLabel106);
+        jLabel106.setBounds(80, 10, 80, 20);
+
+        jLabel107.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel107.setText("Data Nascimento: ");
+        jPanel22.add(jLabel107);
+        jLabel107.setBounds(650, 70, 140, 20);
+
+        jLabel108.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel108.setText("Número: ");
+        jPanel22.add(jLabel108);
+        jLabel108.setBounds(670, 160, 110, 20);
+
+        jLabel109.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel109.setText("Insc. Estadual:");
+        jPanel22.add(jLabel109);
+        jLabel109.setBounds(650, 50, 140, 20);
+
+        jLabel110.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel110.setText("Bairro: ");
+        jPanel22.add(jLabel110);
+        jLabel110.setBounds(20, 180, 100, 20);
+
+        jLabel111.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel111.setText("Logradouro: ");
+        jPanel22.add(jLabel111);
+        jLabel111.setBounds(20, 160, 100, 20);
+
+        jLabel112.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel112.setText("Complemento: ");
+        jPanel22.add(jLabel112);
+        jLabel112.setBounds(670, 180, 110, 20);
+
+        jLabel113.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel113.setText("Cidade: ");
+        jPanel22.add(jLabel113);
+        jLabel113.setBounds(20, 200, 100, 20);
+
+        jLabel114.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel114.setBorder(javax.swing.BorderFactory.createTitledBorder("Endeço:"));
+        jPanel22.add(jLabel114);
+        jLabel114.setBounds(10, 130, 920, 110);
+
+        jLabel115.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel115.setText("CPF/CNPJ: ");
+        jPanel22.add(jLabel115);
+        jLabel115.setBounds(80, 30, 80, 20);
+        jPanel22.add(jTextField78);
+        jTextField78.setBounds(790, 70, 130, 20);
+        jPanel22.add(jTextField79);
+        jTextField79.setBounds(790, 30, 130, 20);
+        jPanel22.add(jTextField80);
+        jTextField80.setBounds(790, 50, 130, 20);
+
+        jLabel116.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel116.setText("Nome/Razão Socia: ");
+        jPanel22.add(jLabel116);
+        jLabel116.setBounds(10, 50, 150, 20);
+
+        jLabel117.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel117.setText("Insc. Munícipal:");
+        jPanel22.add(jLabel117);
+        jLabel117.setBounds(650, 30, 140, 20);
+
+        jPanel21.add(jPanel22);
+        jPanel22.setBounds(0, 0, 0, 0);
+
+        tabProduto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Produto", "Custo Produto (m²)", "Mão de Obra (m²)", "Custo Empresa (m² / hora)", "Custo Serviço (m²)", "Margem de Lucro (%)", "Valor Unitário"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane12.setViewportView(tabProduto);
+        if (tabProduto.getColumnModel().getColumnCount() > 0) {
+            tabProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tabProduto.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabProduto.getColumnModel().getColumn(7).setPreferredWidth(30);
+        }
+
+        jPanel21.add(jScrollPane12);
+        jScrollPane12.setBounds(20, 100, 930, 310);
+
+        jPanel23.setBackground(new java.awt.Color(255, 255, 255));
+
+        ultimo1.setText(">>||");
+        ultimo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ultimo1ActionPerformed(evt);
+            }
+        });
+
+        proximo1.setText(">>");
+        proximo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proximo1ActionPerformed(evt);
+            }
+        });
+
+        anterior1.setText("<<");
+        anterior1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anterior1ActionPerformed(evt);
+            }
+        });
+
+        inicio1.setText("||<<");
+        inicio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inicio1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addComponent(inicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(anterior1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(proximo1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ultimo1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 36, Short.MAX_VALUE))
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(anterior1)
+                        .addComponent(inicio1))
+                    .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(proximo1)
+                        .addComponent(ultimo1)))
+                .addGap(23, 23, 23))
+        );
+
+        jPanel21.add(jPanel23);
+        jPanel23.setBounds(280, 430, 430, 40);
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("CADASTRO DE PRODUTO");
+        jPanel21.add(jLabel11);
+        jLabel11.setBounds(0, 0, 970, 70);
+
+        jLabel12.setText("Produtos Cadastrados");
+        jPanel21.add(jLabel12);
+        jLabel12.setBounds(20, 80, 210, 14);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1001, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 981, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 649, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(126, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Produtos Cadastrados", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 985, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 965, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 55, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -780,46 +981,6 @@ public class FCadProduto extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void tabProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProdutoMouseClicked
-        if (evt.getClickCount() > 1) {
-            codProduto.setText(("" + tabProduto.getValueAt(tabProduto.getSelectedRow(), 0)));
-            codProdutoFocusLost(null);
-            descProduto.requestFocus();
-        }
-    }//GEN-LAST:event_tabProdutoMouseClicked
-
-    private void ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimoActionPerformed
-        try {
-            cnvProduto.ultimo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_ultimoActionPerformed
-
-    private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
-        try {
-            cnvProduto.proximo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_proximoActionPerformed
-
-    private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
-        try {
-            cnvProduto.anterior();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_anteriorActionPerformed
-
-    private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-        try {
-            cnvProduto.primeiro();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_inicioActionPerformed
-
     private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_quantidadeActionPerformed
@@ -894,6 +1055,26 @@ public class FCadProduto extends javax.swing.JPanel {
         atualizaValorTotalProduto();
     }//GEN-LAST:event_margemLucroFocusLost
 
+    private void tabProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProdutoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabProdutoMouseClicked
+
+    private void ultimo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ultimo1ActionPerformed
+
+    private void proximo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_proximo1ActionPerformed
+
+    private void anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anterior1ActionPerformed
+
+    private void inicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inicio1ActionPerformed
+
     private void atualizaCustoMateriais() {
         DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
         int i = 0;
@@ -935,7 +1116,7 @@ public class FCadProduto extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton anterior;
+    private javax.swing.JButton anterior1;
     private javax.swing.JButton btAddMaterial;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
@@ -948,14 +1129,31 @@ public class FCadProduto extends javax.swing.JPanel {
     private javax.swing.JTextField custoServico;
     private javax.swing.JTextField descMaterial;
     private javax.swing.JTextField descProduto;
-    private javax.swing.JButton inicio;
+    private javax.swing.JButton inicio1;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel104;
+    private javax.swing.JLabel jLabel105;
+    private javax.swing.JLabel jLabel106;
+    private javax.swing.JLabel jLabel107;
+    private javax.swing.JLabel jLabel108;
+    private javax.swing.JLabel jLabel109;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel110;
+    private javax.swing.JLabel jLabel111;
+    private javax.swing.JLabel jLabel112;
+    private javax.swing.JLabel jLabel113;
+    private javax.swing.JLabel jLabel114;
+    private javax.swing.JLabel jLabel115;
+    private javax.swing.JLabel jLabel116;
+    private javax.swing.JLabel jLabel117;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -976,11 +1174,16 @@ public class FCadProduto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField50;
     private javax.swing.JTextField jTextField51;
@@ -997,14 +1200,30 @@ public class FCadProduto extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
+    private javax.swing.JTextField jTextField65;
+    private javax.swing.JTextField jTextField66;
+    private javax.swing.JTextField jTextField67;
+    private javax.swing.JTextField jTextField68;
+    private javax.swing.JTextField jTextField69;
+    private javax.swing.JTextField jTextField70;
+    private javax.swing.JTextField jTextField71;
+    private javax.swing.JTextField jTextField72;
+    private javax.swing.JTextField jTextField73;
+    private javax.swing.JTextField jTextField74;
+    private javax.swing.JTextField jTextField75;
+    private javax.swing.JTextField jTextField76;
+    private javax.swing.JTextField jTextField77;
+    private javax.swing.JTextField jTextField78;
+    private javax.swing.JTextField jTextField79;
+    private javax.swing.JTextField jTextField80;
     private javax.swing.JTextField maoDeObra;
     private javax.swing.JTextField margemLucro;
     private javax.swing.JLabel msgMaterial;
-    private javax.swing.JButton proximo;
+    private javax.swing.JButton proximo1;
     private javax.swing.JTextField quantidade;
     private javax.swing.JTable tabComposicao;
     private javax.swing.JTable tabProduto;
-    private javax.swing.JButton ultimo;
+    private javax.swing.JButton ultimo1;
     private javax.swing.JTextField valorUnitario;
     // End of variables declaration//GEN-END:variables
 }
