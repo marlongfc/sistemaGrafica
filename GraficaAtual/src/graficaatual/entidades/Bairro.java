@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -40,9 +41,11 @@ public class Bairro implements Serializable {
     private Logradouro logradouro;
 
     @Column(name = "dataCadastro", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
 
     @Column(name = "dataAtualizacao", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)

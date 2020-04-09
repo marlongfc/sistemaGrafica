@@ -110,6 +110,14 @@ public class FCadProduto extends javax.swing.JPanel {
         inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabComposicao = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        valorProduto = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        maoDeObra = new javax.swing.JTextField();
+        custoEmpresa = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setLayout(null);
@@ -259,7 +267,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 150, 180, 23);
+        btNovo.setBounds(140, 350, 180, 23);
 
         btSalvar.setText("Salvar/Atualizar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +276,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 150, 180, 23);
+        btSalvar.setBounds(320, 350, 180, 23);
 
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +285,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 150, 180, 23);
+        btExcluir.setBounds(500, 350, 180, 23);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -286,7 +294,7 @@ public class FCadProduto extends javax.swing.JPanel {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 150, 180, 23);
+        btSair.setBounds(680, 350, 180, 23);
 
         tabProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -319,7 +327,7 @@ public class FCadProduto extends javax.swing.JPanel {
         jScrollPane11.setViewportView(tabProduto);
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 210, 930, 180);
+        jScrollPane11.setBounds(20, 390, 930, 100);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -380,7 +388,7 @@ public class FCadProduto extends javax.swing.JPanel {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(280, 400, 430, 40);
+        jPanel20.setBounds(280, 500, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -392,6 +400,61 @@ public class FCadProduto extends javax.swing.JPanel {
         jLabel80.setText("Produto");
         jPanel18.add(jLabel80);
         jLabel80.setBounds(140, 70, 70, 20);
+
+        tabComposicao.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Código Material", "Material", "Valor Unitário (R$)", "Quantidade", "Total (R$)"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabComposicao);
+
+        jPanel18.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 140, 930, 110);
+
+        jLabel2.setText("Valor Produto m²");
+        jPanel18.add(jLabel2);
+        jLabel2.setBounds(20, 280, 110, 14);
+
+        valorProduto.setText("0,00");
+        jPanel18.add(valorProduto);
+        valorProduto.setBounds(20, 300, 120, 20);
+
+        jLabel3.setText("Mão De Obra m²");
+        jPanel18.add(jLabel3);
+        jLabel3.setBounds(160, 280, 90, 14);
+
+        maoDeObra.setText("0,00");
+        jPanel18.add(maoDeObra);
+        maoDeObra.setBounds(160, 300, 120, 20);
+
+        custoEmpresa.setText("0,00");
+        jPanel18.add(custoEmpresa);
+        custoEmpresa.setBounds(300, 300, 130, 20);
+
+        jLabel4.setText("Custo Empresa m² / hora");
+        jPanel18.add(jLabel4);
+        jLabel4.setBounds(300, 280, 120, 14);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -586,6 +649,7 @@ public class FCadProduto extends javax.swing.JPanel {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField codProduto;
+    private javax.swing.JTextField custoEmpresa;
     private javax.swing.JTextField descProduto;
     private javax.swing.JButton inicio;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -594,6 +658,9 @@ public class FCadProduto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel90;
@@ -609,6 +676,7 @@ public class FCadProduto extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField50;
@@ -626,8 +694,11 @@ public class FCadProduto extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
+    private javax.swing.JTextField maoDeObra;
     private javax.swing.JButton proximo;
+    private javax.swing.JTable tabComposicao;
     private javax.swing.JTable tabProduto;
     private javax.swing.JButton ultimo;
+    private javax.swing.JTextField valorProduto;
     // End of variables declaration//GEN-END:variables
 }

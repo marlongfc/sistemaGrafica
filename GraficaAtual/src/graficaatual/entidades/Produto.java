@@ -13,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -31,28 +34,34 @@ public class Produto implements Serializable {
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
 
-    @Column(name = "unidade", nullable = true, length = 10)
-    private String unidade;
+    @ManyToOne()
+    @JoinColumn(name = "composicaoProduto", nullable = false)
+    private ComposicaoProduto composicaoProduto;
 
-    @Column(name = "precoCusto", nullable = true)
-    private Double precoCusto;
+    @Column(name = "valorProdutoM2", nullable = true, length = 10)
+    private Double valorProdutoM2;
 
-    @Column(name = "precoVenda", nullable = true)
-    private Double precoVenda;
+    @Column(name = "maoDeObra", nullable = true)
+    private Double maoDeObra;
 
-    @Column(name = "peso", nullable = true)
-    private Double peso;
+    @Column(name = "custoEmpresa", nullable = true)
+    private Double custoEmpresa;
 
-    @Column(name = "altura", nullable = true)
-    private Double altura;
+    @Column(name = "custoTotal", nullable = true)
+    private Double custoTotal;
 
-    @Column(name = "largura", nullable = true)
-    private Double largura;
+    @Column(name = "valorUnitario", nullable = true)
+    private Double valorUnitario;
+
+    @Column(name = "margemLucro", nullable = true)
+    private Double margemLucro;
 
     @Column(name = "dataCadastro", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
 
     @Column(name = "dataAtualizacao", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)
@@ -62,8 +71,66 @@ public class Produto implements Serializable {
     private String usuarioAtualizacao;
 
     public Produto() {
-     //   this.dataCadastro = new Date();
-     //   this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+        //   this.dataCadastro = new Date();
+        //   this.usuarioCadastro = ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getPessoa().getNome();
+    }
+
+    public Double getValorProdutoM2() {
+        return valorProdutoM2;
+    }
+
+    public void setValorProdutoM2(Double valorProdutoM2) {
+        this.valorProdutoM2 = valorProdutoM2;
+    }
+
+    public Double getMaoDeObra() {
+        return maoDeObra;
+    }
+
+    public void setMaoDeObra(Double maoDeObra) {
+        this.maoDeObra = maoDeObra;
+    }
+
+    public Double getCustoEmpresa() {
+        return custoEmpresa;
+    }
+
+    public void setCustoEmpresa(Double custoEmpresa) {
+        this.custoEmpresa = custoEmpresa;
+    }
+
+    public Double getCustoTotal() {
+        return custoTotal;
+    }
+
+    public void setCustoTotal(Double custoTotal) {
+        this.custoTotal = custoTotal;
+    }
+
+    public ComposicaoProduto getComposicaoProduto() {
+        return composicaoProduto;
+    }
+
+    public void setComposicaoProduto(ComposicaoProduto composicaoProduto) {
+        this.composicaoProduto = composicaoProduto;
+    }
+    
+    
+
+    public Double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(Double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public Double getMargemLucro() {
+        return margemLucro;
+    }
+
+    public void setMargemLucro(Double margemLucro) {
+        this.margemLucro = margemLucro;
     }
 
     public Long getCodProduto() {

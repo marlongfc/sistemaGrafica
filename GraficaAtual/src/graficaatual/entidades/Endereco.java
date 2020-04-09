@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -43,9 +44,11 @@ public class Endereco implements Serializable {
     private Cidade cidade;
 
     @Column(name = "dataCadastro", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
 
     @Column(name = "dataAtualizacao", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)

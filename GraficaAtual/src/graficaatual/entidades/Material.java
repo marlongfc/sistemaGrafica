@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -59,9 +60,11 @@ public class Material implements Serializable {
     private Double largura;
 
     @Column(name = "dataCadastro", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
 
     @Column(name = "dataAtualizacao", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)
