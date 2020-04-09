@@ -579,7 +579,7 @@ public class FCadMaterial extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_descMaterialKeyReleased
 
-    private void atualizarTabelaPessoaCad() {
+    private void atualizarTabela() {
 
         DefaultTableModel model = (DefaultTableModel) tabMaterial.getModel();
         removeLinhas(tabMaterial);
@@ -698,7 +698,7 @@ public class FCadMaterial extends javax.swing.JPanel {
             }
 
             codMaterial.setEnabled(true);
-            atualizarTabelaPessoaCad();
+            atualizarTabela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar material. Erro: " + e);
