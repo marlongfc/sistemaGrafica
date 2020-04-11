@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.cadastro;
 
-
-import graficaatual.entidades.UF;
-import graficaatual.regras.cadastro.UFRNE;
+import graficaatual.entidades.Bairro;
+import graficaatual.regras.cadastro.BairroRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,12 +15,12 @@ import javax.persistence.EntityManager;
  *
  * @author Marlon
  */
-public class UFDAO extends UFRNE {
+public class BairroDAO extends BairroRNE {
 
-    public UF salvar(UF bairro) throws Exception {
+    public Bairro salvar(Bairro bairro) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        UF aux = null;
+        Bairro aux = null;
         try {
             aux = super.salvar(session, bairro);
             session.getTransaction().commit();
@@ -31,12 +30,11 @@ public class UFDAO extends UFRNE {
             throw e;
         } finally {
             session.close();
-            
         }
 
     }
 
-    public void delete(UF l) throws Exception {
+    public void delete(Bairro l) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -53,23 +51,8 @@ public class UFDAO extends UFRNE {
             session.close();
         }
     }
-    
-    public UF getPorCodigo(int codigo) throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-        try {
-            return super.get(codigo, session);
-            
-        }catch(Exception e){
-            e.printStackTrace();
-            session.close();
-            return null;
-        }finally {
-            session.close();
-        }
-    }
-
-     public long getNextItem() throws Exception {
+    public long getNextItem() throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             return super.getNextItem(session);
@@ -78,26 +61,45 @@ public class UFDAO extends UFRNE {
         }
     }
 
-    public List<UF> getList() throws Exception {
+    public Bairro getPorCodigo(long codigo) throws Exception {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.get(codigo, session);
 
-       try {
-           return super.getList(session);
-       } finally {
-           session.close();
-       }
-   }
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.close();
+            return null;
+        } finally {
+            session.close();
+        }
+    }
 
-    public List<UF> getList(String sql) throws Exception {
+    public List<Bairro> getList() throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            return super.getList(session);
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Bairro> getList(String sql) throws Exception {
+
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.getList(session, sql);
         } finally {
-           session.close();
+            session.close();
         }
+    }
+
+    public List<Bairro> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Bairro.class, SQL, parametros);
     }
 
 }

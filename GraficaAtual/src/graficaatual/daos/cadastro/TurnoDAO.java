@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.cadastro;
 
 import graficaatual.entidades.Turno;
 import graficaatual.regras.cadastro.TurnoRNE;

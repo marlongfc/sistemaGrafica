@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
- 
-import graficaatual.entidades.Pedido;
-import graficaatual.regras.cadastro.PedidoRNE;
+package graficaatual.daos.cadastro;
+
+import graficaatual.entidades.Cidade;
+import graficaatual.regras.cadastro.CidadeRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
- * @author Moisés
+ * @author Marlon
  */
-public class PedidoDAO extends PedidoRNE {
+public class CidadeDAO extends CidadeRNE {
 
-    public Pedido salvar(Pedido ped) throws Exception {
+    public Cidade salvar(Cidade bairro) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Pedido aux = null;
+        Cidade aux = null;
         try {
-            aux = super.salvar(session, ped);
+            aux = super.salvar(session, bairro);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -32,30 +32,16 @@ public class PedidoDAO extends PedidoRNE {
             session.close();
 
         }
+
     }
 
-    public Pedido altera(Pedido obj) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        try {
-            session.getTransaction().begin();
-            obj = super.salvar(session, obj);
-            session.getTransaction().commit();
-            return obj;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return null;
-    }
-
-    public void delete(Pedido t) throws Exception {
+    public void delete(Cidade l) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
 
-            super.excluir(session, t);
+            super.excluir(session, l);
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -67,46 +53,53 @@ public class PedidoDAO extends PedidoRNE {
         }
     }
 
-    public Pedido get(int codigo) {
+    public Cidade getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Pedido aux;
+
         try {
-            aux = super.get(codigo, session);
-            return aux;
+            return super.get(codigo, session);
+
         } catch (Exception e) {
+            e.printStackTrace();
+            session.close();
+            return null;
         } finally {
             session.close();
         }
-        return null;
     }
 
-    public List<Pedido> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        List<Pedido> aux;
-        try {
-            aux = super.getList(session);
-            return aux;
-        } catch (Exception e) {
-        } finally {
-            session.close();
-        }
-        return null;
-    }
-
-    public Pedido getList(int cod) {
+    public long getNextItem() throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Pedido aux = super.getPojo(Pedido.class, cod);
-            return aux;
-        } catch (Exception e) {
+            return super.getNextItem(session);
         } finally {
             session.close();
         }
-        return null;
     }
 
-    public List<Pedido> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Pedido.class, SQL, parametros);
+    public List<Cidade> getList() throws Exception {
+
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            return super.getList(session);
+        } finally {
+            session.close();
+        }
     }
 
+    public List<Cidade> getList(String sql) throws Exception {
+
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            return super.getList(session, sql);
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Cidade> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cidade.class, SQL, parametros);
+    }
 }

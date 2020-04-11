@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
- 
-import graficaatual.entidades.LancamentoCaixa;
-import graficaatual.regras.cadastro.LancamentoCaixaRNE;
+package graficaatual.daos.cadastro;
+
+
+import graficaatual.entidades.Servico;
+import graficaatual.regras.cadastro.ServicoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,14 +16,14 @@ import javax.persistence.EntityManager;
  *
  * @author Moisés
  */
-public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
+public class ServicoDAO extends ServicoRNE {
 
-    public LancamentoCaixa salvar(LancamentoCaixa lanc) throws Exception {
+    public Servico salvar(Servico servico) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        LancamentoCaixa aux = null;
+        Servico aux = null;
         try {
-            aux = super.salvar(session, lanc);
+            aux = super.salvar(session, servico);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -34,7 +35,7 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
         }
     }
 
-    public LancamentoCaixa altera(LancamentoCaixa obj) {
+    public Servico altera(Servico obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -49,13 +50,13 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
         return null;
     }
 
-    public void delete(LancamentoCaixa t) throws Exception {
+    public void delete(Servico s) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
 
-            super.excluir(session, t);
+            super.excluir(session, s);
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -67,9 +68,9 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
         }
     }
 
-    public LancamentoCaixa get(int codigo) {
+    public Servico get(int codigo) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        LancamentoCaixa aux;
+        Servico aux;
         try {
             aux = super.get(codigo, session);
             return aux;
@@ -80,9 +81,9 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
         return null;
     }
 
-    public List<LancamentoCaixa> getList() {
+    public List<Servico> getList() {
          EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        List<LancamentoCaixa> aux;
+        List<Servico> aux;
         try {
             aux = super.getList(session);
             return aux;
@@ -93,10 +94,10 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
         return null;
     }
 
-    public LancamentoCaixa getList(int cod) {
+    public Servico getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            LancamentoCaixa aux = super.getPojo(LancamentoCaixa.class, cod);
+            Servico aux = super.getPojo(Servico.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -105,8 +106,8 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
         return null;
     }
 
-    public List<LancamentoCaixa> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, LancamentoCaixa.class, SQL, parametros);
+    public List<Servico> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Servico.class, SQL, parametros);
     }
 
 }

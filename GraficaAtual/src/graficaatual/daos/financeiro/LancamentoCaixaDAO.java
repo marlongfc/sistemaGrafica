@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package graficaatual.daos.financeiro;
-
-import graficaatual.entidades.financeiro.Banco;
-import graficaatual.regras.financeiro.BancoRNE;
+ 
+import graficaatual.entidades.financeiro.LancamentoCaixa;
+import graficaatual.regras.financeiro.LancamentoCaixaRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,14 +15,14 @@ import javax.persistence.EntityManager;
  *
  * @author Moisés
  */
-public class BancoDAO extends BancoRNE {
+public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
 
-    public Banco salvar(Banco ban) throws Exception {
+    public LancamentoCaixa salvar(LancamentoCaixa lanc) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Banco aux = null;
+        LancamentoCaixa aux = null;
         try {
-            aux = super.salvar(session, ban);
+            aux = super.salvar(session, lanc);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class BancoDAO extends BancoRNE {
         }
     }
 
-    public Banco altera(Banco obj) {
+    public LancamentoCaixa altera(LancamentoCaixa obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -49,13 +49,13 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public void delete(Banco b) throws Exception {
+    public void delete(LancamentoCaixa t) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
 
-            super.excluir(session, b);
+            super.excluir(session, t);
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -67,9 +67,9 @@ public class BancoDAO extends BancoRNE {
         }
     }
 
-    public Banco get(int codigo) {
+    public LancamentoCaixa get(int codigo) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Banco aux;
+        LancamentoCaixa aux;
         try {
             aux = super.get(codigo, session);
             return aux;
@@ -80,9 +80,9 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public List<Banco> getList() {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        List<Banco> aux;
+    public List<LancamentoCaixa> getList() {
+         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        List<LancamentoCaixa> aux;
         try {
             aux = super.getList(session);
             return aux;
@@ -93,10 +93,10 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public Banco getList(int cod) {
+    public LancamentoCaixa getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Banco aux = super.getPojo(Banco.class, cod);
+            LancamentoCaixa aux = super.getPojo(LancamentoCaixa.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -105,14 +105,14 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public List<Banco> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Banco.class, SQL, parametros);
+    public List<LancamentoCaixa> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, LancamentoCaixa.class, SQL, parametros);
     }
-
-    public boolean confereBanco(Banco b) {
+    
+    public boolean confereLancamento(LancamentoCaixa l) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            return super.confereBanco(session, b);
+            return super.confereLancamento(session, l);
         } catch (Exception e) {
             return false;
         } finally {

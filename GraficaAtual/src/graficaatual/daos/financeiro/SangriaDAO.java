@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.financeiro;
 
  
-import graficaatual.entidades.Sangria;
-import graficaatual.regras.cadastro.SangriaRNE;
+import graficaatual.entidades.financeiro.Sangria;
+import graficaatual.regras.financeiro.SangriaRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -108,6 +108,17 @@ public class SangriaDAO extends SangriaRNE {
 
     public List<Sangria> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Sangria.class, SQL, parametros);
+    }
+    
+     public boolean confereSangria(Sangria s) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.confereSangria(session, s);
+        } catch (Exception e) {
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
 }

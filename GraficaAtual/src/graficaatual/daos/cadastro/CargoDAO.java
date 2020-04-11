@@ -3,103 +3,100 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.cadastro;
 
-import graficaatual.entidades.Cidade;
-import graficaatual.regras.cadastro.CidadeRNE;
+
+
+import graficaatual.entidades.Cargo;
+import graficaatual.regras.cadastro.CargoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
- * @author Marlon
+ * @author Projeto X
  */
-public class CidadeDAO extends CidadeRNE {
-
-    public Cidade salvar(Cidade bairro) throws Exception {
+public class CargoDAO extends CargoRNE {
+    
+    public Cargo addCargo(Cargo cargo) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Cidade aux = null;
+        Cargo aux = null;
         try {
-            aux = super.salvar(session, bairro);
+            aux = super.salvar(session, cargo);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
             session.getTransaction().rollback();
             throw e;
-        } finally {
-            session.close();
-
         }
-
+        finally {
+            session.close();
+        }
+        
     }
-
-    public void delete(Cidade l) throws Exception {
+    
+    public Boolean delete(Cargo cargo) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
+        Boolean aux = null;
         try {
-
-            super.excluir(session, l);
+            aux = super.deletePojo(session, cargo);
             session.getTransaction().commit();
-
+            return aux;
         } catch (Exception e) {
             session.getTransaction().rollback();
             throw e;
-
-        } finally {
+        }
+        finally {
             session.close();
         }
+        
     }
-
-    public Cidade getPorCodigo(long codigo) throws Exception {
+    
+    public Cargo altera(Cargo obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
         try {
-            return super.get(codigo, session);
-
+            session.getTransaction().begin();
+            obj = super.salvar( session,obj);
+            session.getTransaction().commit();
+            return obj;
         } catch (Exception e) {
-            e.printStackTrace();
-            session.close();
-            return null;
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
+        return null;
     }
 
-    public long getNextItem() throws Exception {
+    public Cargo get(Integer cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            return super.getNextItem(session);
+            Cargo aux = super.getPojo(Cargo.class, cod);
+            return aux;
+        } catch (Exception e) {
         } finally {
             session.close();
         }
+        return null;
     }
-
-    public List<Cidade> getList() throws Exception {
-
+    
+    public Cargo getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
         try {
-            return super.getList(session);
+            Cargo aux = super.getPojo(Cargo.class, cod);
+            return aux;
+        } catch (Exception e) {
         } finally {
             session.close();
         }
+        return null;
+    }
+    
+     public List<Cargo> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cargo.class, SQL, parametros);
     }
 
-    public List<Cidade> getList(String sql) throws Exception {
-
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
-        try {
-            return super.getList(session, sql);
-        } finally {
-            session.close();
-        }
-    }
-
-    public List<Cidade> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cidade.class, SQL, parametros);
-    }
+  
 }

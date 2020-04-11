@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.cadastro;
 
-import graficaatual.entidades.Material;
-import graficaatual.regras.cadastro.MaterialRNE;
+import graficaatual.entidades.Logradouro;
+import graficaatual.regras.cadastro.LogradouroRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,14 +15,14 @@ import javax.persistence.EntityManager;
  *
  * @author Marlon
  */
-public class MaterialDAO extends MaterialRNE {
+public class LogradouroDAO extends LogradouroRNE {
 
-    public Material salvar(Material bairro) throws Exception {
+    public Logradouro salvar(Logradouro logradouro) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Material aux = null;
+        Logradouro aux = null;
         try {
-            aux = super.salvar(session, bairro);
+            aux = super.salvar(session, logradouro);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -30,12 +30,12 @@ public class MaterialDAO extends MaterialRNE {
             throw e;
         } finally {
             session.close();
-
+            return null;
         }
 
     }
 
-    public void delete(Material l) throws Exception {
+    public void delete(Logradouro l) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -53,7 +53,16 @@ public class MaterialDAO extends MaterialRNE {
         }
     }
 
-    public Material getPorCodigo(long codigo) throws Exception {
+    public long getNextItem() throws Exception {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.getNextItem(session);
+        } finally {
+            session.close();
+        }
+    }
+
+    public Logradouro getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
@@ -68,16 +77,7 @@ public class MaterialDAO extends MaterialRNE {
         }
     }
 
-    public long getNextItem() throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        try {
-            return super.getNextItem(session);
-        } finally {
-            session.close();
-        }
-    }
-
-    public List<Material> getList() throws Exception {
+    public List<Logradouro> getList() throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -88,7 +88,7 @@ public class MaterialDAO extends MaterialRNE {
         }
     }
 
-    public List<Material> getList(String sql) throws Exception {
+    public List<Logradouro> getList(String sql) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -99,7 +99,8 @@ public class MaterialDAO extends MaterialRNE {
         }
     }
 
-    public List<Material> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Material.class, SQL, parametros);
+    public List<Logradouro> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Logradouro.class, SQL, parametros);
     }
+
 }

@@ -5,8 +5,10 @@
  */
 package graficaatual.daos.financeiro;
 
-import graficaatual.entidades.financeiro.Banco;
-import graficaatual.regras.financeiro.BancoRNE;
+ 
+ 
+import graficaatual.entidades.financeiro.FormaDePagamento;
+import graficaatual.regras.financeiro.FormaDePagamentoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,14 +17,14 @@ import javax.persistence.EntityManager;
  *
  * @author Moisés
  */
-public class BancoDAO extends BancoRNE {
+public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
 
-    public Banco salvar(Banco ban) throws Exception {
+    public FormaDePagamento salvar(FormaDePagamento forma) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Banco aux = null;
+        FormaDePagamento aux = null;
         try {
-            aux = super.salvar(session, ban);
+            aux = super.salvar(session, forma);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -34,7 +36,7 @@ public class BancoDAO extends BancoRNE {
         }
     }
 
-    public Banco altera(Banco obj) {
+    public FormaDePagamento altera(FormaDePagamento obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -49,13 +51,13 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public void delete(Banco b) throws Exception {
+    public void delete(FormaDePagamento f) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
 
-            super.excluir(session, b);
+            super.excluir(session, f);
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -67,9 +69,9 @@ public class BancoDAO extends BancoRNE {
         }
     }
 
-    public Banco get(int codigo) {
+    public FormaDePagamento get(int codigo) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Banco aux;
+        FormaDePagamento aux;
         try {
             aux = super.get(codigo, session);
             return aux;
@@ -80,9 +82,9 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public List<Banco> getList() {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        List<Banco> aux;
+    public List<FormaDePagamento> getList() {
+         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        List<FormaDePagamento> aux;
         try {
             aux = super.getList(session);
             return aux;
@@ -93,10 +95,10 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public Banco getList(int cod) {
+    public FormaDePagamento getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Banco aux = super.getPojo(Banco.class, cod);
+            FormaDePagamento aux = super.getPojo(FormaDePagamento.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -105,14 +107,14 @@ public class BancoDAO extends BancoRNE {
         return null;
     }
 
-    public List<Banco> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Banco.class, SQL, parametros);
+    public List<FormaDePagamento> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, FormaDePagamento.class, SQL, parametros);
     }
-
-    public boolean confereBanco(Banco b) {
+    
+     public boolean confereFormaPagamento(FormaDePagamento f) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            return super.confereBanco(session, b);
+            return super.confereFormaPagamento(session, f);
         } catch (Exception e) {
             return false;
         } finally {

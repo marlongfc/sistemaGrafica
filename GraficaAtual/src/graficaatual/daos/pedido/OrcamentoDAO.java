@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.pedido;
 
-
-import graficaatual.entidades.Servico;
-import graficaatual.regras.cadastro.ServicoRNE;
+ 
+import graficaatual.entidades.pedido.Orcamento;
+import graficaatual.regras.pedido.OrcamentoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,14 +16,14 @@ import javax.persistence.EntityManager;
  *
  * @author Moisés
  */
-public class ServicoDAO extends ServicoRNE {
+public class OrcamentoDAO extends OrcamentoRNE {
 
-    public Servico salvar(Servico servico) throws Exception {
+    public Orcamento salvar(Orcamento orca) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Servico aux = null;
+        Orcamento aux = null;
         try {
-            aux = super.salvar(session, servico);
+            aux = super.salvar(session, orca);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class ServicoDAO extends ServicoRNE {
         }
     }
 
-    public Servico altera(Servico obj) {
+    public Orcamento altera(Orcamento obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -50,13 +50,13 @@ public class ServicoDAO extends ServicoRNE {
         return null;
     }
 
-    public void delete(Servico s) throws Exception {
+    public void delete(Orcamento o) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
 
-            super.excluir(session, s);
+            super.excluir(session, o);
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -68,9 +68,9 @@ public class ServicoDAO extends ServicoRNE {
         }
     }
 
-    public Servico get(int codigo) {
+    public Orcamento get(int codigo) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Servico aux;
+        Orcamento aux;
         try {
             aux = super.get(codigo, session);
             return aux;
@@ -81,9 +81,9 @@ public class ServicoDAO extends ServicoRNE {
         return null;
     }
 
-    public List<Servico> getList() {
+    public List<Orcamento> getList() {
          EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        List<Servico> aux;
+        List<Orcamento> aux;
         try {
             aux = super.getList(session);
             return aux;
@@ -94,10 +94,10 @@ public class ServicoDAO extends ServicoRNE {
         return null;
     }
 
-    public Servico getList(int cod) {
+    public Orcamento getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Servico aux = super.getPojo(Servico.class, cod);
+            Orcamento aux = super.getPojo(Orcamento.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -106,8 +106,8 @@ public class ServicoDAO extends ServicoRNE {
         return null;
     }
 
-    public List<Servico> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Servico.class, SQL, parametros);
+    public List<Orcamento> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Orcamento.class, SQL, parametros);
     }
 
 }

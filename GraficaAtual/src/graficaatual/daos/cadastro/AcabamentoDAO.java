@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.cadastro;
 
  
-import graficaatual.entidades.Orcamento;
-import graficaatual.regras.cadastro.OrcamentoRNE;
+ 
+ 
+import graficaatual.entidades.Acabamento;
+import graficaatual.regras.cadastro.AcabamentoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,14 +18,14 @@ import javax.persistence.EntityManager;
  *
  * @author Moisés
  */
-public class OrcamentoDAO extends OrcamentoRNE {
+public class AcabamentoDAO extends AcabamentoRNE {
 
-    public Orcamento salvar(Orcamento orca) throws Exception {
+    public Acabamento salvar(Acabamento a) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Orcamento aux = null;
+        Acabamento aux = null;
         try {
-            aux = super.salvar(session, orca);
+            aux = super.salvar(session, a);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -35,7 +37,7 @@ public class OrcamentoDAO extends OrcamentoRNE {
         }
     }
 
-    public Orcamento altera(Orcamento obj) {
+    public Acabamento altera(Acabamento obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -50,15 +52,11 @@ public class OrcamentoDAO extends OrcamentoRNE {
         return null;
     }
 
-    public void delete(Orcamento o) throws Exception {
-
+    public void delete(Acabamento a) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
         try {
-
-            super.excluir(session, o);
+            super.excluir(session, a);
             session.getTransaction().commit();
-
         } catch (Exception e) {
             session.getTransaction().rollback();
             throw e;
@@ -68,9 +66,9 @@ public class OrcamentoDAO extends OrcamentoRNE {
         }
     }
 
-    public Orcamento get(int codigo) {
+    public Acabamento get(int codigo) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Orcamento aux;
+        Acabamento aux;
         try {
             aux = super.get(codigo, session);
             return aux;
@@ -81,9 +79,9 @@ public class OrcamentoDAO extends OrcamentoRNE {
         return null;
     }
 
-    public List<Orcamento> getList() {
+    public List<Acabamento> getList() {
          EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        List<Orcamento> aux;
+        List<Acabamento> aux;
         try {
             aux = super.getList(session);
             return aux;
@@ -94,10 +92,10 @@ public class OrcamentoDAO extends OrcamentoRNE {
         return null;
     }
 
-    public Orcamento getList(int cod) {
+    public Acabamento getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Orcamento aux = super.getPojo(Orcamento.class, cod);
+            Acabamento aux = super.getPojo(Acabamento.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -106,8 +104,19 @@ public class OrcamentoDAO extends OrcamentoRNE {
         return null;
     }
 
-    public List<Orcamento> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Orcamento.class, SQL, parametros);
+    public List<Acabamento> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Acabamento.class, SQL, parametros);
+    }
+    
+     public boolean confereAcabamento(Acabamento a) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.confereAcabamento(session, a);
+        } catch (Exception e) {
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
 }

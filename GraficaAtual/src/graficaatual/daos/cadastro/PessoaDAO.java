@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.cadastro;
 
-
-
-import graficaatual.entidades.Cargo;
-import graficaatual.regras.cadastro.CargoRNE;
+import graficaatual.entidades.Pessoa;
+import graficaatual.regras.cadastro.PessoaRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,14 +15,14 @@ import javax.persistence.EntityManager;
  *
  * @author Projeto X
  */
-public class CargoDAO extends CargoRNE {
+public class PessoaDAO extends PessoaRNE {
     
-    public Cargo addCargo(Cargo cargo) throws Exception {
+    public Pessoa addUsuario(Pessoa pessoa) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Cargo aux = null;
+        Pessoa aux = null;
         try {
-            aux = super.salvar(session, cargo);
+            aux = super.salvar(session, pessoa);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -37,25 +35,7 @@ public class CargoDAO extends CargoRNE {
         
     }
     
-    public Boolean delete(Cargo cargo) throws Exception {
-
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Boolean aux = null;
-        try {
-            aux = super.deletePojo(session, cargo);
-            session.getTransaction().commit();
-            return aux;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e;
-        }
-        finally {
-            session.close();
-        }
-        
-    }
-    
-    public Cargo altera(Cargo obj) {
+    public Pessoa altera(Pessoa obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -70,10 +50,23 @@ public class CargoDAO extends CargoRNE {
         return null;
     }
 
-    public Cargo get(Integer cod) {
+    public void delete(Pessoa obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Cargo aux = super.getPojo(Cargo.class, cod);
+            session.getTransaction().begin();
+            super.delete(session,obj);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    public Pessoa get(Long cod) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            Pessoa aux = super.getPojo(Pessoa.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -82,10 +75,12 @@ public class CargoDAO extends CargoRNE {
         return null;
     }
     
-    public Cargo getList(int cod) {
+    
+    public Pessoa getByCnpj(String cnpj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Cargo aux = super.getPojo(Cargo.class, cod);
+            Pessoa aux = super.getPojoUnique(Pessoa.class,"select e from Pessoa e where "
+                    + "  REPLACE(REPLACE(REPLACE(trim(e.cnpj),'.',''),'-',''),' ', '') like ?1 order by e.cnpj", cnpj);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -94,8 +89,8 @@ public class CargoDAO extends CargoRNE {
         return null;
     }
     
-     public List<Cargo> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cargo.class, SQL, parametros);
+     public List<Pessoa> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Pessoa.class, SQL, parametros);
     }
 
   

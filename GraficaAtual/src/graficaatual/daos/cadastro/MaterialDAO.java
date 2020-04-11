@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadsatro;
+package graficaatual.daos.cadastro;
 
-import graficaatual.entidades.Bairro;
-import graficaatual.regras.cadastro.BairroRNE;
+import graficaatual.entidades.Material;
+import graficaatual.regras.cadastro.MaterialRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,12 +15,12 @@ import javax.persistence.EntityManager;
  *
  * @author Marlon
  */
-public class BairroDAO extends BairroRNE {
+public class MaterialDAO extends MaterialRNE {
 
-    public Bairro salvar(Bairro bairro) throws Exception {
+    public Material salvar(Material bairro) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Bairro aux = null;
+        Material aux = null;
         try {
             aux = super.salvar(session, bairro);
             session.getTransaction().commit();
@@ -30,11 +30,12 @@ public class BairroDAO extends BairroRNE {
             throw e;
         } finally {
             session.close();
+
         }
 
     }
 
-    public void delete(Bairro l) throws Exception {
+    public void delete(Material l) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -52,16 +53,7 @@ public class BairroDAO extends BairroRNE {
         }
     }
 
-    public long getNextItem() throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        try {
-            return super.getNextItem(session);
-        } finally {
-            session.close();
-        }
-    }
-
-    public Bairro getPorCodigo(long codigo) throws Exception {
+    public Material getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
@@ -76,7 +68,16 @@ public class BairroDAO extends BairroRNE {
         }
     }
 
-    public List<Bairro> getList() throws Exception {
+    public long getNextItem() throws Exception {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            return super.getNextItem(session);
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Material> getList() throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -87,7 +88,7 @@ public class BairroDAO extends BairroRNE {
         }
     }
 
-    public List<Bairro> getList(String sql) throws Exception {
+    public List<Material> getList(String sql) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
@@ -98,8 +99,7 @@ public class BairroDAO extends BairroRNE {
         }
     }
 
-    public List<Bairro> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Bairro.class, SQL, parametros);
+    public List<Material> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Material.class, SQL, parametros);
     }
-
 }
