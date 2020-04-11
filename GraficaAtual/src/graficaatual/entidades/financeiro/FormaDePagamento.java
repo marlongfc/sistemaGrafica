@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.entidades;
-
-import java.sql.Timestamp;
+package graficaatual.entidades.financeiro;
+ 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,34 +18,27 @@ import javax.persistence.Table;
  * @author Moisés
  */
 @Entity
-@Table(name = "sangria")
-public class Sangria implements java.io.Serializable {
+@Table(name = "formaDePagamento")
+public class FormaDePagamento implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codSangria")
+    @Column(name = "codForma")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codSangria;
+    private Integer codForma;
 
     @Column(nullable = false, length = 300)
     private String descricao;
-
-    @Column(nullable = false)
-    private Double valor;
-
-    @ManyToOne()
-    @JoinColumn(name = "colaborador", nullable = false)
-    private Colaborador colaborador;
 
     @Column(length = 300)
     private String observacao;
 
     @Column(name = "dataCadastro")
-    private java.sql.Timestamp dataCadastro;
+    private Date dataCadastro;
 
     @Column(name = "dataAtualizacao")
-    private java.sql.Timestamp dataAtualizacao;
+    private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)
     private String usuarioCadastro;
@@ -55,12 +46,12 @@ public class Sangria implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodSangria() {
-        return codSangria;
+    public Integer getCodForma() {
+        return codForma;
     }
 
-    public void setCodSangria(Integer codSangria) {
-        this.codSangria = codSangria;
+    public void setCodForma(Integer codForma) {
+        this.codForma = codForma;
     }
 
     public String getDescricao() {
@@ -71,22 +62,6 @@ public class Sangria implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public Colaborador getColaborador() {
-        return colaborador;
-    }
-
-    public void setColaborador(Colaborador colaborador) {
-        this.colaborador = colaborador;
-    }
-
     public String getObservacao() {
         return observacao;
     }
@@ -95,19 +70,19 @@ public class Sangria implements java.io.Serializable {
         this.observacao = observacao;
     }
 
-    public Timestamp getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Timestamp dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public Timestamp getDataAtualizacao() {
+    public Date getDataAtualizacao() {
         return dataAtualizacao;
     }
 
-    public void setDataAtualizacao(Timestamp dataAtualizacao) {
+    public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
     }
 
@@ -127,22 +102,25 @@ public class Sangria implements java.io.Serializable {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
 
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codSangria != null ? codSangria.hashCode() : 0);
+        hash += (codForma != null ? codForma.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sangria)) {
+        if (!(object instanceof FormaDePagamento)) {
             return false;
         }
-        Sangria other = (Sangria) object;
-        if ((this.codSangria == null && other.codSangria != null)
-                || (this.codSangria != null && !this.codSangria.equals(other.codSangria))) {
+        FormaDePagamento other = (FormaDePagamento) object;
+        if ((this.codForma == null && other.codForma != null)
+                || (this.codForma != null && !this.codForma.equals(other.codForma))) {
             return false;
         }
         return true;
@@ -150,7 +128,7 @@ public class Sangria implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Sangria[ codSangria=" + codSangria + " ]";
+        return "graficaatual.entidades.financeiro.formaDePagamento[ codSangria=" + codForma + " ]";
     }
 
 }

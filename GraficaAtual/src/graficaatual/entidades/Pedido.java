@@ -5,6 +5,7 @@
  */
 package graficaatual.entidades;
 
+import graficaatual.entidades.pedido.Orcamento;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;

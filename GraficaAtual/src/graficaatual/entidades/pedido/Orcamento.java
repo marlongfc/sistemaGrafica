@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.entidades;
+package graficaatual.entidades.pedido;
 
+import graficaatual.entidades.Cliente;
+import graficaatual.entidades.Colaborador;
+import graficaatual.entidades.Endereco;
+import graficaatual.entidades.Produto;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -33,9 +37,6 @@ public class Orcamento implements java.io.Serializable {
     @Column(nullable = false, length = 300)
     private String descricao;
 
-    @Column(nullable = false)
-    private Double valorUnitario;
-
     @Column(nullable = true)
     private Double desconto;
 
@@ -47,11 +48,15 @@ public class Orcamento implements java.io.Serializable {
 
     @ManyToOne()
     @JoinColumn(name = "cliente", nullable = false)
-    private Pessoa cliente;
+    private Cliente cliente;
 
     @ManyToOne()
     @JoinColumn(name = "colaborador", nullable = false)
     private Colaborador colaborador;
+
+    @ManyToOne()
+    @JoinColumn(name = "produto", nullable = false)
+    private Produto produto;
 
     @ManyToOne()
     @JoinColumn(name = "endereco", nullable = false)
@@ -83,12 +88,12 @@ public class Orcamento implements java.io.Serializable {
         this.codOrcamento = codOrcamento;
     }
 
-    public Double getValorUnitario() {
-        return valorUnitario;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setValorUnitario(Double valorUnitario) {
-        this.valorUnitario = valorUnitario;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     public Double getDesconto() {
@@ -115,11 +120,11 @@ public class Orcamento implements java.io.Serializable {
         this.quantidade = quantidade;
     }
 
-    public Pessoa getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Pessoa cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -218,7 +223,7 @@ public class Orcamento implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.Orcamento[ codOrcamento=" + codOrcamento + " ]";
+        return "graficaatual.entidades.pedido.Orcamento[ codOrcamento=" + codOrcamento + " ]";
     }
 
 }

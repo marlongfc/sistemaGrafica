@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.entidades;
-
-import java.sql.Timestamp;
+package graficaatual.entidades.financeiro;
+ 
+import graficaatual.entidades.Colaborador;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,15 +21,15 @@ import javax.persistence.Table;
  * @author Moisés
  */
 @Entity
-@Table(name = "lancamentoCaixa")
-public class LancamentoCaixa implements java.io.Serializable {
+@Table(name = "sangria")
+public class Sangria implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codLancamento")
+    @Column(name = "codSangria")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codLancamento;
+    private Integer codSangria;
 
     @Column(nullable = false, length = 300)
     private String descricao;
@@ -44,10 +45,10 @@ public class LancamentoCaixa implements java.io.Serializable {
     private String observacao;
 
     @Column(name = "dataCadastro")
-    private java.sql.Timestamp dataCadastro;
+    private Date dataCadastro;
 
     @Column(name = "dataAtualizacao")
-    private java.sql.Timestamp dataAtualizacao;
+    private Date dataAtualizacao;
 
     @Column(name = "usuarioCadastro", length = 200)
     private String usuarioCadastro;
@@ -55,12 +56,12 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodLancamento() {
-        return codLancamento;
+    public Integer getCodSangria() {
+        return codSangria;
     }
 
-    public void setCodLancamento(Integer codLancamento) {
-        this.codLancamento = codLancamento;
+    public void setCodSangria(Integer codSangria) {
+        this.codSangria = codSangria;
     }
 
     public String getDescricao() {
@@ -95,19 +96,19 @@ public class LancamentoCaixa implements java.io.Serializable {
         this.observacao = observacao;
     }
 
-    public Timestamp getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Timestamp dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public Timestamp getDataAtualizacao() {
+    public Date getDataAtualizacao() {
         return dataAtualizacao;
     }
 
-    public void setDataAtualizacao(Timestamp dataAtualizacao) {
+    public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
     }
 
@@ -130,19 +131,19 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codLancamento != null ? codLancamento.hashCode() : 0);
+        hash += (codSangria != null ? codSangria.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LancamentoCaixa)) {
+        if (!(object instanceof Sangria)) {
             return false;
         }
-        LancamentoCaixa other = (LancamentoCaixa) object;
-        if ((this.codLancamento == null && other.codLancamento != null)
-                || (this.codLancamento != null && !this.codLancamento.equals(other.codLancamento))) {
+        Sangria other = (Sangria) object;
+        if ((this.codSangria == null && other.codSangria != null)
+                || (this.codSangria != null && !this.codSangria.equals(other.codSangria))) {
             return false;
         }
         return true;
@@ -150,7 +151,7 @@ public class LancamentoCaixa implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.LancamentoCaixa[ codLancamento=" + codLancamento + " ]";
+        return "graficaatual.entidades.financeiro.Sangria[ codSangria=" + codSangria + " ]";
     }
 
 }
