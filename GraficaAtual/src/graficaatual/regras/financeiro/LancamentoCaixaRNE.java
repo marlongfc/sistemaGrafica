@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.regras.cadastro;
+package graficaatual.regras.financeiro;
 
 import graficaatual.daos.GenericDAO;
-import graficaatual.entidades.LancamentoCaixa;
+import graficaatual.entidades.financeiro.LancamentoCaixa;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -31,4 +31,16 @@ public class LancamentoCaixaRNE extends GenericDAO {
     public List<LancamentoCaixa> getList(EntityManager session) throws Exception {
         return super.getPureList(session, LancamentoCaixa.class, "Select e from LancametoCaixa e order by e.codLancamento");
     }  
+    
+      public List<LancamentoCaixa> getListNome(EntityManager session, LancamentoCaixa lan) {
+        return getPureList(session, LancamentoCaixa.class, "select e from LancamentoCaixa e where e.descricao  = '" + lan.getDescricao() + "' ");
+    }
+
+    public boolean confereLancamento(EntityManager session, LancamentoCaixa lan) {
+        List<LancamentoCaixa> aux = getListNome(session, lan);
+        if (aux.size() > 0) {
+            return false;
+        }
+        return true;
+    }
 }

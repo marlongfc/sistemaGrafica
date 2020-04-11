@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.regras.cadastro;
+package graficaatual.regras.financeiro;
 
 import graficaatual.daos.GenericDAO;
-import graficaatual.entidades.Sangria;
+import graficaatual.entidades.financeiro.Sangria;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -31,4 +31,17 @@ public class SangriaRNE extends GenericDAO {
     public List<Sangria> getList(EntityManager session) throws Exception {
         return super.getPureList(session, Sangria.class, "Select e from Sangria e order by e.codSangria");
     }
+    
+     public List<Sangria> getListNome(EntityManager session, Sangria san) {
+        return getPureList(session, Sangria.class, "select e from Sangria e where e.descricao  = '" + san.getDescricao() + "' ");
+    }
+
+    public boolean confereSangria(EntityManager session, Sangria san) {
+        List<Sangria> aux = getListNome(session, san);
+        if (aux.size() > 0) {
+            return false;
+        }
+        return true;
+    }
+
 }

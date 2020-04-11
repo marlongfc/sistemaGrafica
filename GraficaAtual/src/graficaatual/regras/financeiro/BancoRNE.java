@@ -6,7 +6,7 @@
 package graficaatual.regras.financeiro;
 
 import graficaatual.daos.GenericDAO;
-import graficaatual.entidades.Banco;
+import graficaatual.entidades.financeiro.Banco;
 import java.util.List;
 import javax.persistence.EntityManager;
 
