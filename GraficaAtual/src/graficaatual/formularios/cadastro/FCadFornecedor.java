@@ -277,9 +277,9 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descLogradouro);
-        descLogradouro.setBounds(130, 240, 460, 19);
+        descLogradouro.setBounds(130, 240, 650, 19);
         jPanel10.add(numero);
-        numero.setBounds(590, 240, 250, 19);
+        numero.setBounds(780, 240, 250, 19);
 
         codBairro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -296,9 +296,9 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descBairro);
-        descBairro.setBounds(130, 280, 460, 19);
+        descBairro.setBounds(130, 280, 650, 19);
         jPanel10.add(complemento);
-        complemento.setBounds(590, 280, 250, 19);
+        complemento.setBounds(780, 280, 250, 19);
 
         codCidade.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -315,21 +315,21 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descCidade);
-        descCidade.setBounds(130, 320, 460, 19);
+        descCidade.setBounds(130, 320, 650, 19);
         jPanel10.add(cep);
-        cep.setBounds(690, 320, 150, 19);
+        cep.setBounds(880, 320, 150, 19);
         jPanel10.add(uf);
-        uf.setBounds(590, 320, 100, 19);
+        uf.setBounds(780, 320, 100, 19);
 
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel23.setText("UF ");
         jPanel10.add(jLabel23);
-        jLabel23.setBounds(590, 300, 50, 20);
+        jLabel23.setBounds(780, 300, 50, 20);
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel22.setText("CEP");
         jPanel10.add(jLabel22);
-        jLabel22.setBounds(690, 300, 110, 20);
+        jLabel22.setBounds(880, 300, 110, 20);
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Código: ");
@@ -344,7 +344,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("Número");
         jPanel10.add(jLabel16);
-        jLabel16.setBounds(590, 220, 110, 20);
+        jLabel16.setBounds(780, 220, 110, 20);
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel18.setText("Bairro");
@@ -359,7 +359,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("Complemento");
         jPanel10.add(jLabel20);
-        jLabel20.setBounds(590, 260, 110, 20);
+        jLabel20.setBounds(780, 260, 110, 20);
 
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel21.setText("Codigo");
