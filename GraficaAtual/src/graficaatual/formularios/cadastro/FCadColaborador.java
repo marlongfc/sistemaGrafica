@@ -5,12 +5,13 @@
  */
 package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.cadsatro.BairroDAO;
-import graficaatual.daos.cadsatro.CargoDAO;
-import graficaatual.daos.cadsatro.CidadeDAO;
-import graficaatual.daos.cadsatro.ColaboradorDAO;
-import graficaatual.daos.cadsatro.LogradouroDAO;
-import graficaatual.daos.cadsatro.PessoaDAO;
+
+import graficaatual.daos.cadastro.BairroDAO;
+import graficaatual.daos.cadastro.CargoDAO;
+import graficaatual.daos.cadastro.CidadeDAO;
+import graficaatual.daos.cadastro.ColaboradorDAO;
+import graficaatual.daos.cadastro.LogradouroDAO;
+import graficaatual.daos.cadastro.PessoaDAO;
 import graficaatual.entidades.Bairro;
 import graficaatual.entidades.Cargo;
 import graficaatual.entidades.Cidade;
@@ -119,6 +120,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         
         
         atualizaTabelaColaborador();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         
     }
     
@@ -244,20 +246,26 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         inativar = new javax.swing.JButton();
         sair = new javax.swing.JButton();
         ativo = new javax.swing.JCheckBox();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Colaborador");
-        setMinimumSize(new java.awt.Dimension(890, 550));
-        setPreferredSize(new java.awt.Dimension(890, 550));
+        setMinimumSize(new java.awt.Dimension(1335, 750));
+        setPreferredSize(new java.awt.Dimension(1335, 750));
         getContentPane().setLayout(null);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setToolTipText("Cadastro de Pessoas");
-        jPanel10.setMaximumSize(new java.awt.Dimension(880, 550));
-        jPanel10.setMinimumSize(new java.awt.Dimension(880, 550));
+        jPanel10.setMaximumSize(new java.awt.Dimension(999999, 99999));
+        jPanel10.setMinimumSize(new java.awt.Dimension(1335, 750));
         jPanel10.setName(""); // NOI18N
-        jPanel10.setPreferredSize(new java.awt.Dimension(880, 550));
+        jPanel10.setPreferredSize(new java.awt.Dimension(1335, 750));
         jPanel10.setLayout(null);
 
         codigo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -266,7 +274,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codigo);
-        codigo.setBounds(110, 10, 90, 20);
+        codigo.setBounds(30, 90, 90, 20);
 
         codLogradouro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -274,7 +282,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codLogradouro);
-        codLogradouro.setBounds(130, 160, 80, 19);
+        codLogradouro.setBounds(40, 240, 80, 19);
 
         descLogradouro.setBackground(new java.awt.Color(255, 255, 204));
         descLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -283,9 +291,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descLogradouro);
-        descLogradouro.setBounds(210, 160, 360, 19);
+        descLogradouro.setBounds(120, 240, 950, 19);
         jPanel10.add(numero);
-        numero.setBounds(710, 160, 140, 19);
+        numero.setBounds(1070, 240, 240, 19);
 
         codBairro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -293,7 +301,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codBairro);
-        codBairro.setBounds(130, 180, 80, 19);
+        codBairro.setBounds(40, 280, 80, 19);
 
         descBairro.setBackground(new java.awt.Color(255, 255, 204));
         descBairro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -302,9 +310,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descBairro);
-        descBairro.setBounds(210, 180, 360, 19);
+        descBairro.setBounds(120, 280, 950, 19);
         jPanel10.add(complemento);
-        complemento.setBounds(710, 180, 140, 19);
+        complemento.setBounds(1070, 280, 240, 19);
 
         codCidade.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -312,7 +320,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codCidade);
-        codCidade.setBounds(130, 200, 80, 19);
+        codCidade.setBounds(40, 320, 80, 19);
 
         descCidade.setBackground(new java.awt.Color(255, 255, 204));
         descCidade.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -321,66 +329,66 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descCidade);
-        descCidade.setBounds(210, 200, 240, 19);
+        descCidade.setBounds(120, 320, 950, 19);
         jPanel10.add(cep);
-        cep.setBounds(710, 200, 140, 19);
+        cep.setBounds(1150, 320, 160, 19);
         jPanel10.add(uf);
-        uf.setBounds(500, 200, 70, 19);
+        uf.setBounds(1070, 320, 80, 19);
 
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel23.setText("UF: ");
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel23.setText("UF");
         jPanel10.add(jLabel23);
-        jLabel23.setBounds(450, 200, 50, 20);
+        jLabel23.setBounds(1070, 300, 50, 20);
 
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel22.setText("CEP: ");
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel22.setText("CEP");
         jPanel10.add(jLabel22);
-        jLabel22.setBounds(600, 200, 110, 20);
+        jLabel22.setBounds(1150, 300, 110, 20);
 
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel13.setText("Código: ");
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("Código");
         jPanel10.add(jLabel13);
-        jLabel13.setBounds(30, 10, 80, 20);
+        jLabel13.setBounds(30, 70, 80, 20);
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Observação: ");
         jPanel10.add(jLabel15);
-        jLabel15.setBounds(30, 230, 100, 20);
+        jLabel15.setBounds(20, 350, 100, 20);
 
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel16.setText("Número: ");
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("Número");
         jPanel10.add(jLabel16);
-        jLabel16.setBounds(600, 160, 110, 20);
+        jLabel16.setBounds(1070, 220, 110, 20);
 
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel18.setText("Bairro: ");
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel18.setText("Bairro");
         jPanel10.add(jLabel18);
-        jLabel18.setBounds(30, 180, 100, 20);
+        jLabel18.setBounds(120, 260, 100, 20);
 
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel19.setText("Logradouro: ");
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel19.setText("Logradouro ");
         jPanel10.add(jLabel19);
-        jLabel19.setBounds(30, 160, 100, 20);
+        jLabel19.setBounds(120, 220, 100, 20);
 
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel20.setText("Complemento: ");
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel20.setText("Complemento ");
         jPanel10.add(jLabel20);
-        jLabel20.setBounds(600, 180, 110, 20);
+        jLabel20.setBounds(1070, 260, 110, 20);
 
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel21.setText("Cidade: ");
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel21.setText("Codigo");
         jPanel10.add(jLabel21);
-        jLabel21.setBounds(30, 200, 100, 20);
+        jLabel21.setBounds(30, 150, 80, 20);
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço:"));
         jPanel10.add(jLabel14);
-        jLabel14.setBounds(30, 140, 830, 90);
+        jLabel14.setBounds(20, 200, 1300, 150);
 
-        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel28.setText("CPF: ");
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel28.setText("CPF");
         jPanel10.add(jLabel28);
-        jLabel28.setBounds(30, 30, 80, 20);
+        jLabel28.setBounds(730, 70, 80, 20);
 
         cnpj.setBackground(new java.awt.Color(255, 255, 204));
         cnpj.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -389,7 +397,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(cnpj);
-        cnpj.setBounds(110, 30, 400, 19);
+        cnpj.setBounds(730, 90, 280, 20);
 
         nome.setBackground(new java.awt.Color(255, 255, 204));
         nome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -398,14 +406,14 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(nome);
-        nome.setBounds(110, 50, 400, 19);
+        nome.setBounds(120, 90, 610, 20);
         jPanel10.add(dataNascimento);
-        dataNascimento.setBounds(720, 30, 140, 19);
+        dataNascimento.setBounds(730, 170, 140, 19);
 
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel29.setText("Email: ");
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel29.setText("Email");
         jPanel10.add(jLabel29);
-        jLabel29.setBounds(30, 90, 80, 20);
+        jLabel29.setBounds(30, 110, 80, 20);
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setLayout(null);
@@ -523,36 +531,36 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         jPanel10.add(jPanel11);
         jPanel11.setBounds(0, 0, 0, 0);
         jPanel10.add(email);
-        email.setBounds(110, 90, 400, 19);
+        email.setBounds(30, 130, 700, 19);
         jPanel10.add(telefone);
-        telefone.setBounds(720, 50, 140, 19);
+        telefone.setBounds(730, 130, 140, 19);
 
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Telefone: ");
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("Telefone");
         jPanel10.add(jLabel9);
-        jLabel9.setBounds(630, 50, 90, 20);
+        jLabel9.setBounds(730, 110, 90, 20);
 
         obs.setColumns(20);
         obs.setRows(2);
         jScrollPane4.setViewportView(obs);
 
         jPanel10.add(jScrollPane4);
-        jScrollPane4.setBounds(30, 250, 830, 50);
+        jScrollPane4.setBounds(20, 370, 1300, 60);
 
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel46.setText("Data Nascimento: ");
+        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel46.setText("Data Nascimento");
         jPanel10.add(jLabel46);
-        jLabel46.setBounds(580, 30, 140, 20);
+        jLabel46.setBounds(730, 150, 140, 20);
 
-        jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel71.setText("Nome: ");
+        jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel71.setText("Nome");
         jPanel10.add(jLabel71);
-        jLabel71.setBounds(30, 50, 80, 20);
+        jLabel71.setBounds(120, 70, 80, 20);
 
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setText("Cargo: ");
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("Cargo");
         jPanel10.add(jLabel12);
-        jLabel12.setBounds(30, 70, 80, 20);
+        jLabel12.setBounds(100, 150, 80, 20);
 
         codCargo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -560,7 +568,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codCargo);
-        codCargo.setBounds(110, 70, 70, 20);
+        codCargo.setBounds(30, 170, 70, 20);
 
         descCargo.setBackground(new java.awt.Color(255, 255, 204));
         descCargo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -569,37 +577,37 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descCargo);
-        descCargo.setBounds(180, 70, 330, 19);
+        descCargo.setBounds(100, 170, 350, 19);
 
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel27.setText("Data de Início Contrato: ");
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel27.setText("Data de Início");
         jPanel10.add(jLabel27);
-        jLabel27.setBounds(530, 70, 190, 15);
+        jLabel27.setBounds(870, 150, 130, 20);
 
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel24.setText("Data de Fim Contrato: ");
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel24.setText("Data de Fim");
         jPanel10.add(jLabel24);
-        jLabel24.setBounds(530, 90, 190, 15);
+        jLabel24.setBounds(1010, 150, 130, 20);
         jPanel10.add(dtInicioContrato);
-        dtInicioContrato.setBounds(720, 70, 140, 19);
+        dtInicioContrato.setBounds(870, 170, 140, 19);
         jPanel10.add(dtFimContrato);
-        dtFimContrato.setBounds(720, 90, 140, 19);
+        dtFimContrato.setBounds(1010, 170, 140, 19);
 
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel26.setText("CTPS: ");
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel26.setText("CTPS");
         jPanel10.add(jLabel26);
-        jLabel26.setBounds(30, 110, 80, 20);
+        jLabel26.setBounds(450, 150, 80, 20);
         jPanel10.add(ctps);
-        ctps.setBounds(110, 110, 360, 19);
+        ctps.setBounds(450, 170, 280, 19);
 
-        jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel72.setText("Salário: ");
+        jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel72.setText("Salário");
         jPanel10.add(jLabel72);
-        jLabel72.setBounds(640, 110, 80, 20);
+        jLabel72.setBounds(1150, 150, 80, 20);
 
         salario.setText("0,00");
         jPanel10.add(salario);
-        salario.setBounds(720, 110, 140, 19);
+        salario.setBounds(1150, 170, 160, 19);
 
         tabColaborador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -632,7 +640,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(tabColaborador);
 
         jPanel10.add(jScrollPane3);
-        jScrollPane3.setBounds(30, 350, 830, 130);
+        jScrollPane3.setBounds(20, 490, 1300, 160);
 
         inicio.setText("||<<");
         inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -641,7 +649,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(inicio);
-        inicio.setBounds(320, 490, 62, 20);
+        inicio.setBounds(550, 650, 62, 30);
 
         anterior.setText("<<");
         anterior.addActionListener(new java.awt.event.ActionListener() {
@@ -650,7 +658,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(anterior);
-        anterior.setBounds(380, 490, 54, 20);
+        anterior.setBounds(610, 650, 54, 30);
 
         proximo.setText(">>");
         proximo.addActionListener(new java.awt.event.ActionListener() {
@@ -659,7 +667,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(proximo);
-        proximo.setBounds(430, 490, 54, 20);
+        proximo.setBounds(660, 650, 54, 30);
 
         ultimo.setText(">>||");
         ultimo.addActionListener(new java.awt.event.ActionListener() {
@@ -668,7 +676,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(ultimo);
-        ultimo.setBounds(480, 490, 62, 20);
+        ultimo.setBounds(710, 650, 62, 30);
 
         novo.setText("Novo Cadastro");
         novo.addActionListener(new java.awt.event.ActionListener() {
@@ -677,8 +685,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(novo);
-        novo.setBounds(80, 318, 180, 25);
+        novo.setBounds(330, 440, 180, 40);
 
+        salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         salvar.setText("Salvar/Atualizar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -686,8 +695,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(260, 318, 180, 25);
+        salvar.setBounds(510, 440, 180, 40);
 
+        inativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         inativar.setText("Inativar");
         inativar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -695,7 +705,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(inativar);
-        inativar.setBounds(440, 318, 180, 25);
+        inativar.setBounds(690, 440, 180, 40);
 
         sair.setText("Sair");
         sair.addActionListener(new java.awt.event.ActionListener() {
@@ -704,9 +714,11 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(620, 318, 180, 25);
+        sair.setBounds(870, 440, 180, 40);
 
-        ativo.setBackground(new java.awt.Color(255, 255, 255));
+        ativo.setBackground(new java.awt.Color(255, 0, 51));
+        ativo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        ativo.setForeground(new java.awt.Color(255, 255, 255));
         ativo.setText("Ativo");
         ativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ativo.addItemListener(new java.awt.event.ItemListener() {
@@ -715,10 +727,36 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(ativo);
-        ativo.setBounds(210, 10, 100, 20);
+        ativo.setBounds(1010, 90, 130, 20);
+
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel25.setText("Cidade");
+        jPanel10.add(jLabel25);
+        jLabel25.setBounds(120, 300, 100, 20);
+
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel30.setText("Codigo");
+        jPanel10.add(jLabel30);
+        jLabel30.setBounds(40, 300, 80, 20);
+
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel45.setText("Codigo");
+        jPanel10.add(jLabel45);
+        jLabel45.setBounds(40, 260, 80, 20);
+
+        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel47.setText("Codigo");
+        jPanel10.add(jLabel47);
+        jLabel47.setBounds(40, 220, 80, 20);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("CADASTRO DE COLABORADOR");
+        jPanel10.add(jLabel2);
+        jLabel2.setBounds(0, 0, 1330, 70);
 
         getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 0, 880, 540);
+        jPanel10.setBounds(0, 0, 1335, 750);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
 
         pack();
@@ -1309,15 +1347,18 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
@@ -1332,7 +1373,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel9;

@@ -5,9 +5,9 @@
  */
 package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.cadsatro.ComposicaoProdutoDAO;
-import graficaatual.daos.cadsatro.MaterialDAO;
-import graficaatual.daos.cadsatro.ProdutoDAO;
+import graficaatual.daos.cadastro.ComposicaoProdutoDAO;
+import graficaatual.daos.cadastro.MaterialDAO;
+import graficaatual.daos.cadastro.ProdutoDAO;
 import graficaatual.entidades.ComposicaoProduto;
 import graficaatual.entidades.Material;
 import graficaatual.entidades.Produto;

@@ -5,7 +5,7 @@
  */
 package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.cadsatro.LogradouroDAO;
+import graficaatual.daos.cadastro.LogradouroDAO;
 import graficaatual.entidades.Logradouro;
 import graficaatual.pesq.cadastro.CnvLogradouro;
 import graficaatual.utilitarios.Componentes;

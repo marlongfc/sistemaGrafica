@@ -20,8 +20,8 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity
-@Table(name = "sangria")
+@Entity(name="graficaatual.entidades.financeiro.Sangria")
+@Table(name = "sangrias")
 public class Sangria implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,10 +31,10 @@ public class Sangria implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codSangria;
 
-    @Column(nullable = false, length = 300)
+    @Column(length = 300)
     private String descricao;
 
-    @Column(nullable = false)
+    @Column()
     private Double valor;
 
     @ManyToOne()

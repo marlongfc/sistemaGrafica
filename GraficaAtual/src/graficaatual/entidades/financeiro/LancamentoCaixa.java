@@ -20,8 +20,8 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity
-@Table(name = "lancamentoCaixa")
+@Entity(name="graficaatual.entidades.financeiro.lancamentoCaixa")
+@Table(name = "lancamentosCaixa")
 public class LancamentoCaixa implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;

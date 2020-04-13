@@ -6,7 +6,7 @@
 package graficaatual.formularios.financeiro;
 
 import graficaatual.daos.financeiro.BancoDAO;
-import graficaatual.entidades.Banco;
+import graficaatual.entidades.financeiro.Banco;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import java.util.Date; 

@@ -14,7 +14,6 @@ import java.sql.Statement;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -46,6 +45,8 @@ public class FLogin extends javax.swing.JFrame {
         jLabel7.setVisible(verConf);
         jLabel8.setVisible(verConf);
         habilitaMenus(false);
+        this.setLocationRelativeTo(null);
+
         
     }
     @SuppressWarnings("unchecked")
@@ -77,7 +78,7 @@ public class FLogin extends javax.swing.JFrame {
         jBEstoque = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual");
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -118,7 +119,7 @@ public class FLogin extends javax.swing.JFrame {
         getContentPane().add(jBCadastro);
         jBCadastro.setBounds(400, 420, 80, 90);
 
-        jPanel2.setBackground(new java.awt.Color(102, 0, 153));
+        jPanel2.setBackground(new java.awt.Color(71, 37, 131));
         jPanel2.setLayout(null);
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,8 +142,11 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(senhaUsuario);
         senhaUsuario.setBounds(70, 590, 180, 19);
 
-        jToggleButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jToggleButton1.setBackground(new java.awt.Color(71, 37, 131));
+        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/senha2.png"))); // NOI18N
         jToggleButton1.setText("Confirmar");
+        jToggleButton1.setBorderPainted(false);
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
@@ -151,8 +155,10 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jToggleButton1);
         jToggleButton1.setBounds(10, 630, 140, 36);
 
-        sair.setBackground(new java.awt.Color(255, 255, 255));
+        sair.setBackground(new java.awt.Color(71, 37, 131));
+        sair.setForeground(new java.awt.Color(255, 255, 255));
         sair.setText("Sair");
+        sair.setBorderPainted(false);
         sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sairActionPerformed(evt);

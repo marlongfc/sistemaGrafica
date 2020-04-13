@@ -23,8 +23,8 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity
-@Table(name = "orcamento")
+@Entity(name="graficaatual.entidades.pedido.Orcamento")
+@Table(name = "orcamentos")
 public class Orcamento implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,32 +34,32 @@ public class Orcamento implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codOrcamento;
 
-    @Column(nullable = false, length = 300)
+    @Column( length = 300)
     private String descricao;
 
     @Column(nullable = true)
     private Double desconto;
 
-    @Column(nullable = false)
+    @Column()
     private Double valorTotal;
 
-    @Column(nullable = false)
+    @Column()
     private Integer quantidade;
 
     @ManyToOne()
-    @JoinColumn(name = "cliente", nullable = false)
+    @JoinColumn(name = "cliente")
     private Cliente cliente;
 
     @ManyToOne()
-    @JoinColumn(name = "colaborador", nullable = false)
+    @JoinColumn(name = "colaborador" )
     private Colaborador colaborador;
 
     @ManyToOne()
-    @JoinColumn(name = "produto", nullable = false)
+    @JoinColumn(name = "produto" )
     private Produto produto;
 
     @ManyToOne()
-    @JoinColumn(name = "endereco", nullable = false)
+    @JoinColumn(name = "endereco")
     private Endereco endereco;
 
     @Column(length = 300)
