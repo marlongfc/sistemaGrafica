@@ -217,16 +217,16 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Castro de Usuário");
-        setMinimumSize(new java.awt.Dimension(890, 550));
-        setPreferredSize(new java.awt.Dimension(1335, 750));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setToolTipText("Cadastro de Pessoas");
         jPanel10.setMaximumSize(new java.awt.Dimension(999999, 999999));
-        jPanel10.setMinimumSize(new java.awt.Dimension(1335, 750));
+        jPanel10.setMinimumSize(new java.awt.Dimension(1100, 700));
         jPanel10.setName(""); // NOI18N
-        jPanel10.setPreferredSize(new java.awt.Dimension(1335, 750));
+        jPanel10.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel10.setLayout(null);
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
@@ -383,17 +383,22 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         checkFinanceiro.setBackground(new java.awt.Color(255, 255, 255));
         checkFinanceiro.setText("Financeiro");
         jPanel10.add(checkFinanceiro);
-        checkFinanceiro.setBounds(100, 380, 99, 23);
+        checkFinanceiro.setBounds(100, 360, 99, 23);
 
         checkEstoque.setBackground(new java.awt.Color(255, 255, 255));
         checkEstoque.setText("Estoque");
+        checkEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkEstoqueActionPerformed(evt);
+            }
+        });
         jPanel10.add(checkEstoque);
-        checkEstoque.setBounds(100, 420, 83, 23);
+        checkEstoque.setBounds(100, 380, 83, 23);
 
         checkProducao.setBackground(new java.awt.Color(255, 255, 255));
         checkProducao.setText("Produção");
         jPanel10.add(checkProducao);
-        checkProducao.setBounds(290, 380, 92, 23);
+        checkProducao.setBounds(290, 360, 92, 23);
 
         checkPedidos.setBackground(new java.awt.Color(255, 255, 255));
         checkPedidos.setText("Pedidos");
@@ -404,12 +409,12 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         checkRelatorios.setBackground(new java.awt.Color(255, 255, 255));
         checkRelatorios.setText("Relarórios");
         jPanel10.add(checkRelatorios);
-        checkRelatorios.setBounds(290, 420, 98, 23);
+        checkRelatorios.setBounds(290, 380, 98, 23);
 
         jLabel7.setToolTipText("");
         jLabel7.setBorder(javax.swing.BorderFactory.createTitledBorder("  Módulos  "));
         jPanel10.add(jLabel7);
-        jLabel7.setBounds(30, 320, 420, 140);
+        jLabel7.setBounds(30, 320, 420, 90);
 
         tabTelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -437,25 +442,25 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tabTelas);
 
         jPanel10.add(jScrollPane2);
-        jScrollPane2.setBounds(480, 120, 840, 340);
+        jScrollPane2.setBounds(480, 120, 560, 290);
 
         novo.setText("Novo Cadastro");
         jPanel10.add(novo);
-        novo.setBounds(320, 470, 180, 40);
+        novo.setBounds(190, 420, 180, 40);
 
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         salvar.setText("Salvar/Atualizar");
         jPanel10.add(salvar);
-        salvar.setBounds(500, 470, 180, 40);
+        salvar.setBounds(370, 420, 180, 40);
 
         deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         deletar.setText("Inativar");
         jPanel10.add(deletar);
-        deletar.setBounds(680, 470, 180, 40);
+        deletar.setBounds(550, 420, 180, 40);
 
         sair.setText("Sair");
         jPanel10.add(sair);
-        sair.setBounds(860, 470, 180, 40);
+        sair.setBounds(730, 420, 180, 40);
 
         tabUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -483,28 +488,28 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabUsuario);
 
         jPanel10.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 520, 1310, 150);
+        jScrollPane1.setBounds(10, 470, 1030, 160);
 
         inicio.setText("||<<");
         jPanel10.add(inicio);
-        inicio.setBounds(560, 670, 62, 25);
+        inicio.setBounds(430, 640, 62, 25);
 
         anterior.setText("<<");
         jPanel10.add(anterior);
-        anterior.setBounds(620, 670, 54, 25);
+        anterior.setBounds(490, 640, 54, 25);
 
         proximo.setText(">>");
         jPanel10.add(proximo);
-        proximo.setBounds(670, 670, 54, 25);
+        proximo.setBounds(540, 640, 54, 25);
 
         ultimo.setText(">>||");
         jPanel10.add(ultimo);
-        ultimo.setBounds(720, 670, 62, 25);
+        ultimo.setBounds(590, 640, 62, 25);
 
         pequisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar2.png"))); // NOI18N
         pequisar.setText("Pesquisar");
         jPanel10.add(pequisar);
-        pequisar.setBounds(1130, 80, 190, 40);
+        pequisar.setBounds(850, 80, 190, 40);
 
         jComboModulos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "CADASTRO", "FINANCEIRO", "ESTOQUE", "PRODUÇÃO", "RELATÓRIOS" }));
         jPanel10.add(jComboModulos);
@@ -536,14 +541,18 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("CADASTRO DE USUÁRIO");
         jPanel10.add(jLabel9);
-        jLabel9.setBounds(0, 0, 1330, 70);
+        jLabel9.setBounds(0, 0, 1130, 70);
 
         getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 0, 1335, 750);
+        jPanel10.setBounds(0, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEstoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkEstoqueActionPerformed
 
     /**
      * @param args the command line arguments

@@ -68,15 +68,15 @@ public class FCadastro extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(null);
         setName("FCadastro"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1606, 780));
+        setPreferredSize(new java.awt.Dimension(1310, 750));
 
         jPanel1.setBackground(new java.awt.Color(71, 37, 131));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1400, 750));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1400, 750));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel1.setLayout(null);
 
-        deskTop.setMinimumSize(new java.awt.Dimension(1335, 700));
-        deskTop.setPreferredSize(new java.awt.Dimension(1335, 700));
+        deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
+        deskTop.setPreferredSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 deskTopComponentResized(evt);
@@ -85,10 +85,10 @@ public class FCadastro extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO COM FUNDO.jpg"))); // NOI18N
         deskTop.add(jLabel1);
-        jLabel1.setBounds(380, 100, 550, 510);
+        jLabel1.setBounds(280, 90, 550, 510);
 
         jPanel1.add(deskTop);
-        deskTop.setBounds(250, 20, 1335, 700);
+        deskTop.setBounds(220, 10, 1070, 700);
 
         jBCliente.setBackground(new java.awt.Color(71, 37, 131));
         jBCliente.setForeground(new java.awt.Color(255, 255, 255));
@@ -104,7 +104,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBCliente);
-        jBCliente.setBounds(0, 210, 250, 30);
+        jBCliente.setBounds(0, 180, 220, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
         jPanel1.add(jLabel3);
@@ -124,7 +124,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBCargo);
-        jBCargo.setBounds(0, 490, 250, 30);
+        jBCargo.setBounds(0, 460, 220, 30);
 
         jBFornecedor.setBackground(new java.awt.Color(71, 37, 131));
         jBFornecedor.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,7 +140,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBFornecedor);
-        jBFornecedor.setBounds(0, 250, 250, 30);
+        jBFornecedor.setBounds(0, 220, 220, 30);
 
         jBLogradouro.setBackground(new java.awt.Color(71, 37, 131));
         jBLogradouro.setForeground(new java.awt.Color(255, 255, 255));
@@ -156,7 +156,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBLogradouro);
-        jBLogradouro.setBounds(0, 290, 250, 30);
+        jBLogradouro.setBounds(0, 260, 220, 30);
 
         jBBairro.setBackground(new java.awt.Color(71, 37, 131));
         jBBairro.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,7 +172,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBBairro);
-        jBBairro.setBounds(0, 330, 250, 30);
+        jBBairro.setBounds(0, 300, 220, 30);
 
         jBCidade.setBackground(new java.awt.Color(71, 37, 131));
         jBCidade.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,7 +188,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBCidade);
-        jBCidade.setBounds(0, 370, 250, 30);
+        jBCidade.setBounds(0, 340, 220, 30);
 
         jBUsuario.setBackground(new java.awt.Color(71, 37, 131));
         jBUsuario.setForeground(new java.awt.Color(255, 255, 255));
@@ -204,7 +204,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBUsuario);
-        jBUsuario.setBounds(0, 410, 250, 30);
+        jBUsuario.setBounds(0, 380, 220, 30);
 
         jBColaborador.setBackground(new java.awt.Color(71, 37, 131));
         jBColaborador.setForeground(new java.awt.Color(255, 255, 255));
@@ -220,7 +220,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBColaborador);
-        jBColaborador.setBounds(0, 450, 250, 30);
+        jBColaborador.setBounds(0, 420, 220, 30);
 
         jBTurno.setBackground(new java.awt.Color(71, 37, 131));
         jBTurno.setForeground(new java.awt.Color(255, 255, 255));
@@ -236,7 +236,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBTurno);
-        jBTurno.setBounds(0, 530, 250, 30);
+        jBTurno.setBounds(0, 500, 220, 30);
 
         jBMaterial.setBackground(new java.awt.Color(71, 37, 131));
         jBMaterial.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,7 +252,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBMaterial);
-        jBMaterial.setBounds(0, 570, 250, 30);
+        jBMaterial.setBounds(0, 540, 220, 30);
 
         jBProduto.setBackground(new java.awt.Color(71, 37, 131));
         jBProduto.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,7 +268,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBProduto);
-        jBProduto.setBounds(0, 610, 250, 30);
+        jBProduto.setBounds(0, 580, 220, 30);
 
         jBAcabamento.setBackground(new java.awt.Color(71, 37, 131));
         jBAcabamento.setForeground(new java.awt.Color(255, 255, 255));
@@ -284,7 +284,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBAcabamento);
-        jBAcabamento.setBounds(0, 650, 250, 30);
+        jBAcabamento.setBounds(0, 620, 220, 30);
 
         jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
         jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
@@ -300,19 +300,17 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBFormaPagamento);
-        jBFormaPagamento.setBounds(0, 690, 250, 30);
+        jBFormaPagamento.setBounds(0, 660, 220, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1606, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         getAccessibleContext().setAccessibleName("FCadastro");
