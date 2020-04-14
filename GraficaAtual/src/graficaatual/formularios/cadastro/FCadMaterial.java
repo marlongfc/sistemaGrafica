@@ -737,7 +737,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        // TODO add your handling code here:
+           dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMaterialMouseClicked

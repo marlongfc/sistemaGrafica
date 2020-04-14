@@ -5,7 +5,6 @@
  */
 package graficaatual.formularios.cadastro;
 
-
 import graficaatual.daos.cadastro.BairroDAO;
 import graficaatual.entidades.Bairro;
 import graficaatual.pesq.cadastro.CnvBairro;
@@ -540,11 +539,11 @@ public class FCadBairro extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabBairroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabBairroMouseClicked
-         if (evt.getClickCount() > 1) {
+        if (evt.getClickCount() > 1) {
             codBairro.setText(("" + tabBairro.getValueAt(tabBairro.getSelectedRow(), 0)));
             codBairroFocusLost(null);
             descBairro.requestFocus();
@@ -555,32 +554,32 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         try {
             cnvBairro.ultimo();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_ultimoActionPerformed
 
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvBairro.proximo();
         } catch (Exception e) {
-             e.printStackTrace();
-        }       
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_proximoActionPerformed
 
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvBairro.anterior();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_anteriorActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvBairro.primeiro();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_inicioActionPerformed
 
 
