@@ -112,11 +112,11 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jLabel80 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(1335, 650));
-        setPreferredSize(new java.awt.Dimension(1335, 650));
+        setMinimumSize(new java.awt.Dimension(1335, 700));
+        setPreferredSize(new java.awt.Dimension(1335, 700));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel18.setMinimumSize(new java.awt.Dimension(1335, 650));
+        jPanel18.setMinimumSize(new java.awt.Dimension(1335, 700));
         jPanel18.setLayout(null);
 
         codLogradouro.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -418,6 +418,8 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                     .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void codLogradouroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codLogradouroFocusLost

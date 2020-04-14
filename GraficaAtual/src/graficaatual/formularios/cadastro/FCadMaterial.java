@@ -142,12 +142,13 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         precoFretePeca = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(1335, 650));
-        setPreferredSize(new java.awt.Dimension(1335, 650));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1335, 700));
+        setPreferredSize(new java.awt.Dimension(1335, 700));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel18.setMinimumSize(new java.awt.Dimension(1335, 650));
-        jPanel18.setPreferredSize(new java.awt.Dimension(1335, 650));
+        jPanel18.setMinimumSize(new java.awt.Dimension(1335, 700));
+        jPanel18.setPreferredSize(new java.awt.Dimension(1335, 700));
         jPanel18.setLayout(null);
 
         codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
