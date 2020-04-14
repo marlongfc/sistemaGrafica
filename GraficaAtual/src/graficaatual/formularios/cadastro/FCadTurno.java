@@ -5,7 +5,7 @@
  */
 package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.cadsatro.TurnoDAO;
+import graficaatual.daos.cadastro.TurnoDAO;
 import graficaatual.entidades.Turno;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;

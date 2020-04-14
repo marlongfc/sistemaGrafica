@@ -9,8 +9,8 @@ import graficaatual.formularios.cadastro.FCadCargo;
 import graficaatual.formularios.cadastro.FCadCliente;
 import graficaatual.formularios.cadastro.FCadColaborador;
 import graficaatual.formularios.cadastro.FCadFornecedor;
-import graficaatual.formularios.cadastro.FCadTurno;
 import graficaatual.formularios.cadastro.FCadUsuario;
+
 import javax.swing.JOptionPane;
 /**
  *
@@ -29,7 +29,7 @@ public class FCadastro extends javax.swing.JFrame {
     public FCadastro() {
         
         initComponents();
-        
+        this.setLocationRelativeTo(null);
        
     }
 
@@ -48,121 +48,269 @@ public class FCadastro extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        jBCliente = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jBCargo = new javax.swing.JButton();
+        jBFornecedor = new javax.swing.JButton();
+        jBLogradouro = new javax.swing.JButton();
+        jBBairro = new javax.swing.JButton();
+        jBCidade = new javax.swing.JButton();
+        jBUsuario = new javax.swing.JButton();
+        jBColaborador = new javax.swing.JButton();
+        jBTurno = new javax.swing.JButton();
+        jBMaterial = new javax.swing.JButton();
+        jBProduto = new javax.swing.JButton();
+        jBAcabamento = new javax.swing.JButton();
+        jBFormaPagamento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(1150, 690));
+        setMinimumSize(null);
         setName("FCadastro"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1150, 690));
+        setPreferredSize(new java.awt.Dimension(1310, 750));
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 153));
+        jPanel1.setBackground(new java.awt.Color(71, 37, 131));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel1.setLayout(null);
 
+        deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
+        deskTop.setPreferredSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 deskTopComponentResized(evt);
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Bem-vindo.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO COM FUNDO.jpg"))); // NOI18N
         deskTop.add(jLabel1);
-        jLabel1.setBounds(200, 100, 550, 340);
+        jLabel1.setBounds(280, 90, 550, 510);
 
         jPanel1.add(deskTop);
-        deskTop.setBounds(250, 80, 880, 550);
+        deskTop.setBounds(220, 10, 1070, 700);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO3.png"))); // NOI18N
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(50, 110, 140, 130);
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO.png"))); // NOI18N
-        jPanel1.add(jLabel10);
-        jLabel10.setBounds(260, 0, 70, 110);
-
-        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Módulo de Cadastros");
-        jLabel8.setOpaque(true);
-        jPanel1.add(jLabel8);
-        jLabel8.setBounds(1, 0, 1140, 70);
-
-        jButton9.setBackground(new java.awt.Color(131, 37, 135));
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
-        jButton9.setText("Cliente");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jBCliente.setBackground(new java.awt.Color(71, 37, 131));
+        jBCliente.setForeground(new java.awt.Color(255, 255, 255));
+        jBCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBCliente.setText("Cliente");
+        jBCliente.setBorderPainted(false);
+        jBCliente.setFocusPainted(false);
+        jBCliente.setFocusable(false);
+        jBCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jBClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9);
-        jButton9.setBounds(20, 380, 200, 40);
+        jPanel1.add(jBCliente);
+        jBCliente.setBounds(0, 180, 220, 30);
 
-        jButton10.setBackground(new java.awt.Color(255, 255, 255));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
-        jButton10.setText("Fornecedor");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(60, 20, 120, 110);
+
+        jBCargo.setBackground(new java.awt.Color(71, 37, 131));
+        jBCargo.setForeground(new java.awt.Color(255, 255, 255));
+        jBCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBCargo.setText("Cargo");
+        jBCargo.setBorderPainted(false);
+        jBCargo.setFocusPainted(false);
+        jBCargo.setFocusable(false);
+        jBCargo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jBCargoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton10);
-        jButton10.setBounds(20, 430, 200, 40);
+        jPanel1.add(jBCargo);
+        jBCargo.setBounds(0, 460, 220, 30);
 
-        jButton11.setBackground(new java.awt.Color(255, 255, 255));
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
-        jButton11.setText("Colaboradores");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jBFornecedor.setBackground(new java.awt.Color(71, 37, 131));
+        jBFornecedor.setForeground(new java.awt.Color(255, 255, 255));
+        jBFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBFornecedor.setText("Fornecedor");
+        jBFornecedor.setBorderPainted(false);
+        jBFornecedor.setFocusPainted(false);
+        jBFornecedor.setFocusable(false);
+        jBFornecedor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jBFornecedorActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton11);
-        jButton11.setBounds(20, 480, 200, 40);
+        jPanel1.add(jBFornecedor);
+        jBFornecedor.setBounds(0, 220, 220, 30);
 
-        jButton13.setBackground(new java.awt.Color(255, 255, 255));
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
-        jButton13.setText("Usuário");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        jBLogradouro.setBackground(new java.awt.Color(71, 37, 131));
+        jBLogradouro.setForeground(new java.awt.Color(255, 255, 255));
+        jBLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBLogradouro.setText("Logradouro");
+        jBLogradouro.setBorderPainted(false);
+        jBLogradouro.setFocusPainted(false);
+        jBLogradouro.setFocusable(false);
+        jBLogradouro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBLogradouro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                jBLogradouroActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton13);
-        jButton13.setBounds(20, 580, 200, 40);
+        jPanel1.add(jBLogradouro);
+        jBLogradouro.setBounds(0, 260, 220, 30);
 
-        jButton14.setBackground(new java.awt.Color(255, 255, 255));
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
-        jButton14.setText("Cargo");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        jBBairro.setBackground(new java.awt.Color(71, 37, 131));
+        jBBairro.setForeground(new java.awt.Color(255, 255, 255));
+        jBBairro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBBairro.setText("Bairro");
+        jBBairro.setBorderPainted(false);
+        jBBairro.setFocusPainted(false);
+        jBBairro.setFocusable(false);
+        jBBairro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                jBBairroActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton14);
-        jButton14.setBounds(20, 530, 200, 40);
+        jPanel1.add(jBBairro);
+        jBBairro.setBounds(0, 300, 220, 30);
+
+        jBCidade.setBackground(new java.awt.Color(71, 37, 131));
+        jBCidade.setForeground(new java.awt.Color(255, 255, 255));
+        jBCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBCidade.setText("Cidade");
+        jBCidade.setBorderPainted(false);
+        jBCidade.setFocusPainted(false);
+        jBCidade.setFocusable(false);
+        jBCidade.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCidadeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBCidade);
+        jBCidade.setBounds(0, 340, 220, 30);
+
+        jBUsuario.setBackground(new java.awt.Color(71, 37, 131));
+        jBUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        jBUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBUsuario.setText("Usuarios");
+        jBUsuario.setBorderPainted(false);
+        jBUsuario.setFocusPainted(false);
+        jBUsuario.setFocusable(false);
+        jBUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBUsuarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBUsuario);
+        jBUsuario.setBounds(0, 380, 220, 30);
+
+        jBColaborador.setBackground(new java.awt.Color(71, 37, 131));
+        jBColaborador.setForeground(new java.awt.Color(255, 255, 255));
+        jBColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBColaborador.setText("Colaborador");
+        jBColaborador.setBorderPainted(false);
+        jBColaborador.setFocusPainted(false);
+        jBColaborador.setFocusable(false);
+        jBColaborador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBColaboradorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBColaborador);
+        jBColaborador.setBounds(0, 420, 220, 30);
+
+        jBTurno.setBackground(new java.awt.Color(71, 37, 131));
+        jBTurno.setForeground(new java.awt.Color(255, 255, 255));
+        jBTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBTurno.setText("Turno");
+        jBTurno.setBorderPainted(false);
+        jBTurno.setFocusPainted(false);
+        jBTurno.setFocusable(false);
+        jBTurno.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTurnoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBTurno);
+        jBTurno.setBounds(0, 500, 220, 30);
+
+        jBMaterial.setBackground(new java.awt.Color(71, 37, 131));
+        jBMaterial.setForeground(new java.awt.Color(255, 255, 255));
+        jBMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBMaterial.setText("Material");
+        jBMaterial.setBorderPainted(false);
+        jBMaterial.setFocusPainted(false);
+        jBMaterial.setFocusable(false);
+        jBMaterial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMaterialActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBMaterial);
+        jBMaterial.setBounds(0, 540, 220, 30);
+
+        jBProduto.setBackground(new java.awt.Color(71, 37, 131));
+        jBProduto.setForeground(new java.awt.Color(255, 255, 255));
+        jBProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBProduto.setText("Produtos");
+        jBProduto.setBorderPainted(false);
+        jBProduto.setFocusPainted(false);
+        jBProduto.setFocusable(false);
+        jBProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBProdutoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBProduto);
+        jBProduto.setBounds(0, 580, 220, 30);
+
+        jBAcabamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBAcabamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBAcabamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBAcabamento.setText("Acabamentos");
+        jBAcabamento.setBorderPainted(false);
+        jBAcabamento.setFocusPainted(false);
+        jBAcabamento.setFocusable(false);
+        jBAcabamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBAcabamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAcabamentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBAcabamento);
+        jBAcabamento.setBounds(0, 620, 220, 30);
+
+        jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBFormaPagamento.setText("Forma de Pagamento");
+        jBFormaPagamento.setBorderPainted(false);
+        jBFormaPagamento.setFocusPainted(false);
+        jBFormaPagamento.setFocusable(false);
+        jBFormaPagamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFormaPagamentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBFormaPagamento);
+        jBFormaPagamento.setBounds(0, 660, 220, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         getAccessibleContext().setAccessibleName("FCadastro");
@@ -171,71 +319,11 @@ public class FCadastro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        try {
-            deskTop.removeAll();
-            FCadFornecedor clComp;
-
-            clComp = FCadFornecedor.getInstance();
-            deskTop.add(clComp);
-            clComp.setVisible(true);
-                
-         } catch (Exception e) {
-              e.printStackTrace();
-              JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-         }
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        try {
-            deskTop.removeAll();
-            FCadCliente clComp;
-
-            clComp = FCadCliente.getInstance();
-            deskTop.add(clComp);
-            clComp.setVisible(true);
-                
-         } catch (Exception e) {
-              e.printStackTrace();
-              JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-         }
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        try {
-            deskTop.removeAll();
-            FCadUsuario clComp;
-
-            clComp = FCadUsuario.getInstance();
-            deskTop.add(clComp);
-            clComp.setVisible(true);
-                
-         } catch (Exception e) {
-              e.printStackTrace();
-              JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-         }
-    }//GEN-LAST:event_jButton13ActionPerformed
-
     private void deskTopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_deskTopComponentResized
 
     }//GEN-LAST:event_deskTopComponentResized
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-    try {
-          deskTop.removeAll();
-          FCadColaborador clComp;
-
-            clComp = FCadColaborador.getInstance();
-            deskTop.add(clComp);
-            clComp.setVisible(true);
-                
-         } catch (Exception e) {
-              e.printStackTrace();
-              JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-         }
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void jBCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCargoActionPerformed
         try {
             deskTop.removeAll();
             FCadCargo clComp;
@@ -243,24 +331,131 @@ public class FCadastro extends javax.swing.JFrame {
             clComp = FCadCargo.getInstance();
             deskTop.add(clComp);
             clComp.setVisible(true);
-                
-         } catch (Exception e) {
-              e.printStackTrace();
-              JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-         }
-    }//GEN-LAST:event_jButton14ActionPerformed
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBCargoActionPerformed
+
+    private void jBBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBairroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBBairroActionPerformed
+
+    private void jBCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBCidadeActionPerformed
+
+    private void jBUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUsuarioActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadUsuario clComp;
+
+            clComp = FCadUsuario.getInstance().getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBUsuarioActionPerformed
+
+    private void jBColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBColaboradorActionPerformed
+         try {
+            deskTop.removeAll();
+            FCadColaborador clComp;
+
+            clComp = FCadColaborador.getInstance().getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBColaboradorActionPerformed
+
+    private void jBTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTurnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBTurnoActionPerformed
+
+    private void jBMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMaterialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBMaterialActionPerformed
+
+    private void jBProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBProdutoActionPerformed
+
+    private void jBAcabamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAcabamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBAcabamentoActionPerformed
+
+    private void jBFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFormaPagamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBFormaPagamentoActionPerformed
+
+    private void jBLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLogradouroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBLogradouroActionPerformed
+
+    private void jBFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFornecedorActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadFornecedor clComp;
+
+            clComp = FCadFornecedor.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBFornecedorActionPerformed
+
+    private void jBClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBClienteActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadCliente clComp;
+
+            clComp = FCadCliente.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jBAcabamento;
+    private javax.swing.JButton jBBairro;
+    private javax.swing.JButton jBCargo;
+    private javax.swing.JButton jBCidade;
+    private javax.swing.JButton jBCliente;
+    private javax.swing.JButton jBColaborador;
+    private javax.swing.JButton jBFormaPagamento;
+    private javax.swing.JButton jBFornecedor;
+    private javax.swing.JButton jBLogradouro;
+    private javax.swing.JButton jBMaterial;
+    private javax.swing.JButton jBProduto;
+    private javax.swing.JButton jBTurno;
+    private javax.swing.JButton jBUsuario;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

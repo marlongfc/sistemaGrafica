@@ -5,13 +5,13 @@
  */
 package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.cadsatro.BairroDAO;
-import graficaatual.daos.cadsatro.CargoDAO;
-import graficaatual.daos.cadsatro.CidadeDAO;
-import graficaatual.daos.cadsatro.ClienteDAO;
-import graficaatual.daos.cadsatro.ColaboradorDAO;
-import graficaatual.daos.cadsatro.LogradouroDAO;
-import graficaatual.daos.cadsatro.PessoaDAO;
+import graficaatual.daos.cadastro.BairroDAO;
+import graficaatual.daos.cadastro.CargoDAO;
+import graficaatual.daos.cadastro.CidadeDAO;
+import graficaatual.daos.cadastro.ClienteDAO;
+import graficaatual.daos.cadastro.ColaboradorDAO;
+import graficaatual.daos.cadastro.LogradouroDAO;
+import graficaatual.daos.cadastro.PessoaDAO;
 import graficaatual.entidades.Bairro;
 import graficaatual.entidades.Cargo;
 import graficaatual.entidades.Cidade;
@@ -73,6 +73,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
 
     public FCadUsuario() {
         initComponents();
+         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         
 //         listaPessoaNome = ObservableCollections.observableList(new LinkedList<Pessoa>());
 //        Componentes comp1 = new Componentes(listaPessoaNome, false, codPessoa, nomePessoa, this, jPanel10, nomePessoa.getWidth(), 100);
@@ -178,50 +179,54 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        codigo = new javax.swing.JTextField();
+        codColaborador = new javax.swing.JTextField();
+        nomeColaborador = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        login = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
+        checkCadastro = new javax.swing.JCheckBox();
+        checkFinanceiro = new javax.swing.JCheckBox();
+        checkEstoque = new javax.swing.JCheckBox();
+        checkProducao = new javax.swing.JCheckBox();
+        checkPedidos = new javax.swing.JCheckBox();
+        checkRelatorios = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton8 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        tabTelas = new javax.swing.JTable();
+        novo = new javax.swing.JButton();
+        salvar = new javax.swing.JButton();
+        deletar = new javax.swing.JButton();
+        sair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tabUsuario = new javax.swing.JTable();
+        inicio = new javax.swing.JButton();
+        anterior = new javax.swing.JButton();
+        proximo = new javax.swing.JButton();
+        ultimo = new javax.swing.JButton();
+        pequisar = new javax.swing.JButton();
+        jComboModulos = new javax.swing.JComboBox<>();
+        confirmacao = new javax.swing.JPasswordField();
+        senha = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Castro de Usuário");
-        setMinimumSize(new java.awt.Dimension(890, 550));
-        setPreferredSize(new java.awt.Dimension(890, 550));
+        setMinimumSize(new java.awt.Dimension(1100, 700));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(null);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setToolTipText("Cadastro de Pessoas");
-        jPanel10.setMaximumSize(new java.awt.Dimension(880, 550));
-        jPanel10.setMinimumSize(new java.awt.Dimension(880, 550));
+        jPanel10.setMaximumSize(new java.awt.Dimension(999999, 999999));
+        jPanel10.setMinimumSize(new java.awt.Dimension(1100, 700));
         jPanel10.setName(""); // NOI18N
-        jPanel10.setPreferredSize(new java.awt.Dimension(880, 550));
+        jPanel10.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel10.setLayout(null);
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
@@ -340,86 +345,78 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jPanel10.add(jPanel11);
         jPanel11.setBounds(0, 0, 0, 0);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Código: ");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Nome:");
         jPanel10.add(jLabel1);
-        jLabel1.setBounds(80, 20, 60, 15);
-        jPanel10.add(jTextField1);
-        jTextField1.setBounds(140, 20, 70, 19);
+        jLabel1.setBounds(120, 140, 60, 15);
+        jPanel10.add(codigo);
+        codigo.setBounds(30, 90, 70, 19);
+        jPanel10.add(codColaborador);
+        codColaborador.setBounds(30, 160, 80, 19);
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Colaborador: ");
-        jPanel10.add(jLabel2);
-        jLabel2.setBounds(40, 40, 100, 15);
-        jPanel10.add(jTextField2);
-        jTextField2.setBounds(140, 40, 70, 19);
+        nomeColaborador.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel10.add(nomeColaborador);
+        nomeColaborador.setBounds(110, 160, 340, 19);
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel10.add(jTextField3);
-        jTextField3.setBounds(210, 40, 190, 19);
-
-        jTextField4.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel10.add(jTextField4);
-        jTextField4.setBounds(400, 40, 430, 19);
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("Login: ");
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Login:");
         jPanel10.add(jLabel5);
-        jLabel5.setBounds(80, 60, 60, 15);
-        jPanel10.add(jTextField5);
-        jTextField5.setBounds(140, 60, 260, 19);
+        jLabel5.setBounds(30, 200, 60, 20);
+        jPanel10.add(login);
+        login.setBounds(30, 220, 430, 19);
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Senha: ");
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Senha");
         jPanel10.add(jLabel6);
-        jLabel6.setBounds(70, 80, 70, 15);
-        jPanel10.add(jTextField7);
-        jTextField7.setBounds(140, 80, 260, 19);
+        jLabel6.setBounds(30, 240, 70, 20);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Confirmação: ");
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Confirmação");
         jPanel10.add(jLabel3);
-        jLabel3.setBounds(30, 100, 110, 15);
-        jPanel10.add(jTextField6);
-        jTextField6.setBounds(140, 100, 260, 19);
+        jLabel3.setBounds(30, 280, 110, 20);
 
-        jCheckBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("Cadastro");
-        jPanel10.add(jCheckBox2);
-        jCheckBox2.setBounds(60, 170, 90, 23);
+        checkCadastro.setBackground(new java.awt.Color(255, 255, 255));
+        checkCadastro.setText("Cadastro");
+        jPanel10.add(checkCadastro);
+        checkCadastro.setBounds(100, 340, 90, 23);
 
-        jCheckBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setText("Financeiro");
-        jPanel10.add(jCheckBox3);
-        jCheckBox3.setBounds(60, 210, 99, 23);
+        checkFinanceiro.setBackground(new java.awt.Color(255, 255, 255));
+        checkFinanceiro.setText("Financeiro");
+        jPanel10.add(checkFinanceiro);
+        checkFinanceiro.setBounds(100, 360, 99, 23);
 
-        jCheckBox4.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox4.setText("Estoque");
-        jPanel10.add(jCheckBox4);
-        jCheckBox4.setBounds(60, 250, 83, 23);
+        checkEstoque.setBackground(new java.awt.Color(255, 255, 255));
+        checkEstoque.setText("Estoque");
+        checkEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkEstoqueActionPerformed(evt);
+            }
+        });
+        jPanel10.add(checkEstoque);
+        checkEstoque.setBounds(100, 380, 83, 23);
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Produção");
-        jPanel10.add(jCheckBox1);
-        jCheckBox1.setBounds(210, 210, 92, 23);
+        checkProducao.setBackground(new java.awt.Color(255, 255, 255));
+        checkProducao.setText("Produção");
+        jPanel10.add(checkProducao);
+        checkProducao.setBounds(290, 360, 92, 23);
 
-        jCheckBox6.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox6.setText("Pedidos");
-        jCheckBox6.setToolTipText("");
-        jPanel10.add(jCheckBox6);
-        jCheckBox6.setBounds(210, 170, 82, 23);
+        checkPedidos.setBackground(new java.awt.Color(255, 255, 255));
+        checkPedidos.setText("Pedidos");
+        checkPedidos.setToolTipText("");
+        jPanel10.add(checkPedidos);
+        checkPedidos.setBounds(290, 340, 82, 23);
 
-        jCheckBox5.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox5.setText("Relarórios");
-        jPanel10.add(jCheckBox5);
-        jCheckBox5.setBounds(210, 250, 98, 23);
+        checkRelatorios.setBackground(new java.awt.Color(255, 255, 255));
+        checkRelatorios.setText("Relarórios");
+        jPanel10.add(checkRelatorios);
+        checkRelatorios.setBounds(290, 380, 98, 23);
 
         jLabel7.setToolTipText("");
         jLabel7.setBorder(javax.swing.BorderFactory.createTitledBorder("  Módulos  "));
         jPanel10.add(jLabel7);
-        jLabel7.setBounds(20, 140, 330, 150);
+        jLabel7.setBounds(30, 320, 420, 90);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabTelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -442,28 +439,30 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tabTelas);
 
         jPanel10.add(jScrollPane2);
-        jScrollPane2.setBounds(420, 70, 410, 230);
+        jScrollPane2.setBounds(480, 120, 560, 290);
 
-        jButton8.setText("Novo Cadastro");
-        jPanel10.add(jButton8);
-        jButton8.setBounds(90, 310, 180, 25);
+        novo.setText("Novo Cadastro");
+        jPanel10.add(novo);
+        novo.setBounds(190, 420, 180, 40);
 
-        jButton5.setText("Salvar/Atualizar");
-        jPanel10.add(jButton5);
-        jButton5.setBounds(270, 310, 180, 25);
+        salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
+        salvar.setText("Salvar/Atualizar");
+        jPanel10.add(salvar);
+        salvar.setBounds(370, 420, 180, 40);
 
-        jButton6.setText("Inativar");
-        jPanel10.add(jButton6);
-        jButton6.setBounds(450, 310, 180, 25);
+        deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
+        deletar.setText("Inativar");
+        jPanel10.add(deletar);
+        deletar.setBounds(550, 420, 180, 40);
 
-        jButton7.setText("Sair");
-        jPanel10.add(jButton7);
-        jButton7.setBounds(630, 310, 180, 25);
+        sair.setText("Sair");
+        jPanel10.add(sair);
+        sair.setBounds(730, 420, 180, 40);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -486,33 +485,74 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabUsuario);
 
         jPanel10.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 340, 810, 130);
+        jScrollPane1.setBounds(10, 470, 1030, 160);
 
-        jButton1.setText("||<<");
-        jPanel10.add(jButton1);
-        jButton1.setBounds(310, 470, 62, 25);
+        inicio.setText("||<<");
+        jPanel10.add(inicio);
+        inicio.setBounds(430, 640, 62, 25);
 
-        jButton2.setText("<<");
-        jPanel10.add(jButton2);
-        jButton2.setBounds(370, 470, 54, 25);
+        anterior.setText("<<");
+        jPanel10.add(anterior);
+        anterior.setBounds(490, 640, 54, 25);
 
-        jButton3.setText(">>");
-        jPanel10.add(jButton3);
-        jButton3.setBounds(420, 470, 54, 25);
+        proximo.setText(">>");
+        jPanel10.add(proximo);
+        proximo.setBounds(540, 640, 54, 25);
 
-        jButton4.setText(">>||");
-        jPanel10.add(jButton4);
-        jButton4.setBounds(470, 470, 62, 25);
+        ultimo.setText(">>||");
+        jPanel10.add(ultimo);
+        ultimo.setBounds(590, 640, 62, 25);
+
+        pequisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar2.png"))); // NOI18N
+        pequisar.setText("Pesquisar");
+        jPanel10.add(pequisar);
+        pequisar.setBounds(850, 80, 190, 40);
+
+        jComboModulos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "CADASTRO", "FINANCEIRO", "ESTOQUE", "PRODUÇÃO", "RELATÓRIOS" }));
+        jPanel10.add(jComboModulos);
+        jComboModulos.setBounds(480, 90, 210, 24);
+
+        confirmacao.setText("jPasswordField1");
+        jPanel10.add(confirmacao);
+        confirmacao.setBounds(30, 300, 280, 19);
+
+        senha.setText("jPasswordField1");
+        jPanel10.add(senha);
+        senha.setBounds(30, 260, 280, 19);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Código ");
+        jPanel10.add(jLabel2);
+        jLabel2.setBounds(30, 70, 60, 20);
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("Código ");
+        jPanel10.add(jLabel8);
+        jLabel8.setBounds(30, 140, 60, 15);
+
+        jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Colaborador"));
+        jPanel10.add(jLabel4);
+        jLabel4.setBounds(20, 120, 440, 80);
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("CADASTRO DE USUÁRIO");
+        jPanel10.add(jLabel9);
+        jLabel9.setBounds(0, 0, 1130, 70);
 
         getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 0, 880, 520);
+        jPanel10.setBounds(0, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEstoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkEstoqueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -725,21 +765,20 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
+    private javax.swing.JButton anterior;
+    private javax.swing.JCheckBox checkCadastro;
+    private javax.swing.JCheckBox checkEstoque;
+    private javax.swing.JCheckBox checkFinanceiro;
+    private javax.swing.JCheckBox checkPedidos;
+    private javax.swing.JCheckBox checkProducao;
+    private javax.swing.JCheckBox checkRelatorios;
+    private javax.swing.JTextField codColaborador;
+    private javax.swing.JTextField codigo;
+    private javax.swing.JPasswordField confirmacao;
+    private javax.swing.JButton deletar;
+    private javax.swing.JButton inicio;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboModulos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -752,6 +791,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -760,15 +800,12 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField33;
     private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField35;
@@ -776,7 +813,6 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField37;
     private javax.swing.JTextField jTextField38;
     private javax.swing.JTextField jTextField39;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField40;
     private javax.swing.JTextField jTextField41;
     private javax.swing.JTextField jTextField42;
@@ -786,9 +822,17 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField46;
     private javax.swing.JTextField jTextField47;
     private javax.swing.JTextField jTextField48;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField login;
+    private javax.swing.JTextField nomeColaborador;
+    private javax.swing.JButton novo;
+    private javax.swing.JButton pequisar;
+    private javax.swing.JButton proximo;
+    private javax.swing.JButton sair;
+    private javax.swing.JButton salvar;
+    private javax.swing.JPasswordField senha;
+    private javax.swing.JTable tabTelas;
+    private javax.swing.JTable tabUsuario;
+    private javax.swing.JButton ultimo;
     // End of variables declaration//GEN-END:variables
 
    

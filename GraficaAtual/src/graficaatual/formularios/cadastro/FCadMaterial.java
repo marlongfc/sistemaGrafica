@@ -5,7 +5,8 @@
  */
 package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.cadsatro.MaterialDAO;
+
+import graficaatual.daos.cadastro.MaterialDAO;
 import graficaatual.entidades.Material;
 import graficaatual.pesq.cadastro.CnvMaterial;
 import graficaatual.utilitarios.Componentes;

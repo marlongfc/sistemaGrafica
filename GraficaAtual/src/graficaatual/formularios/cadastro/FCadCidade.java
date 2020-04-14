@@ -5,7 +5,7 @@
  */
 package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.cadsatro.CidadeDAO;
+import graficaatual.daos.cadastro.CidadeDAO;
 import graficaatual.entidades.Cidade;
 import graficaatual.pesq.cadastro.CnvCidade;
 import graficaatual.utilitarios.Componentes;

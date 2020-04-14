@@ -5,7 +5,7 @@
  */
 package graficaatual.daos.financeiro;
 
-import graficaatual.entidades.Banco;
+import graficaatual.entidades.financeiro.Banco;
 import graficaatual.regras.financeiro.BancoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
