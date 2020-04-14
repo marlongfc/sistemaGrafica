@@ -35,11 +35,11 @@ public class Bairro implements Serializable {
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
-
+/*
     @ManyToOne()
     @JoinColumn(name = "logradouro", nullable = false)
     private Logradouro logradouro;
-
+*/
     @Column(name = "dataCadastro", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
@@ -67,6 +67,7 @@ public class Bairro implements Serializable {
         this.codBairro = codBairro;
     }
 
+    /*
     public Logradouro getLogradouro() {
         return logradouro;
     }
@@ -74,7 +75,7 @@ public class Bairro implements Serializable {
     public void setLogradouro(Logradouro logradouro) {
         this.logradouro = logradouro;
     }
-
+*/
     public String getDescricao() {
         return descricao;
     }

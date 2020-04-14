@@ -35,11 +35,11 @@ public class Cidade implements Serializable {
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
-
+/*
     @ManyToOne()
     @JoinColumn(name = "bairro", nullable = false)
     private Bairro bairro;
-
+*/
     @ManyToOne()
     @JoinColumn(name = "logradouro", nullable = false)
     private Logradouro logradouro;
@@ -74,6 +74,8 @@ public class Cidade implements Serializable {
         this.codCidade = codCidade;
     }
 
+    
+    /*
     public Bairro getBairro() {
         return bairro;
     }
@@ -81,7 +83,9 @@ public class Cidade implements Serializable {
     public void setBairro(Bairro bairro) {
         this.bairro = bairro;
     }
-
+*/
+    
+    
     public Integer getCodIBGE() {
         return codIBGE;
     }

@@ -50,7 +50,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         comp2.addCol(0, "codCidade", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Cidade", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
 
@@ -112,6 +112,8 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        codIbge = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1335, 700));
@@ -266,7 +268,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 150, 180, 23);
+        btNovo.setBounds(140, 180, 180, 23);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -276,7 +278,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 150, 180, 39);
+        btSalvar.setBounds(320, 180, 180, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -286,7 +288,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 150, 180, 39);
+        btExcluir.setBounds(500, 180, 180, 39);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -295,7 +297,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 150, 180, 23);
+        btSair.setBounds(680, 180, 180, 23);
 
         tabCidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -328,7 +330,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jScrollPane11.setViewportView(tabCidade);
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 210, 930, 180);
+        jScrollPane11.setBounds(20, 250, 930, 140);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -401,6 +403,12 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jLabel80.setText("Cidade ");
         jPanel18.add(jLabel80);
         jLabel80.setBounds(140, 70, 70, 20);
+
+        jLabel2.setText("Código IBGE");
+        jPanel18.add(jLabel2);
+        jLabel2.setBounds(60, 120, 80, 14);
+        jPanel18.add(codIbge);
+        codIbge.setBounds(60, 140, 170, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -487,6 +495,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             codCidade.setText("" + cidadeDao.getNextItem());
             codCidade.setEnabled(false);
             descCidade.setText("");
+            codIbge.setText("");
             cidade = new Cidade();
             removeLinhas(tabCidade);
         } catch (Exception e) {
@@ -503,8 +512,15 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             } else {
                 cidade.setDataAtualizacao(new Date());
             }
+
+            if ((!codIbge.getText().equals("")) && (!ValidarValor.isNumeric(codIbge.getText()))) {
+
+                throw new Exception("O código do IBGE deve ser numérico!");
+            }
+
             cidade.setCodCidade(Long.parseLong(codCidade.getText()));
             cidade.setDescricao(descCidade.getText());
+            cidade.setCodIBGE(ValidarValor.getInteger(codIbge.getText()));
 
             if (cidadeDao.salvar(cidade) != null) {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -546,11 +562,11 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-            dispose();
+        dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabCidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabCidadeMouseClicked
-     if (evt.getClickCount() > 1) {
+        if (evt.getClickCount() > 1) {
             codCidade.setText(("" + tabCidade.getValueAt(tabCidade.getSelectedRow(), 0)));
             codCidadeFocusLost(null);
             descCidade.requestFocus();
@@ -561,32 +577,32 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         try {
             cnvCidade.ultimo();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_ultimoActionPerformed
 
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvCidade.proximo();
         } catch (Exception e) {
-             e.printStackTrace();
-        }       
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_proximoActionPerformed
 
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvCidade.anterior();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_anteriorActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvCidade.primeiro();
         } catch (Exception e) {
-             e.printStackTrace();
-        }    
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_inicioActionPerformed
 
 
@@ -597,6 +613,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField codCidade;
+    private javax.swing.JTextField codIbge;
     private javax.swing.JTextField descCidade;
     private javax.swing.JButton inicio;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -605,6 +622,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel90;
