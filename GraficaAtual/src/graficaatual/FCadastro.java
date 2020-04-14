@@ -5,6 +5,8 @@
  */
 package graficaatual;
 
+import graficaatual.entidades.ControleAcesso;
+import graficaatual.entidades.Permissao;
 import graficaatual.formularios.cadastro.FCadAcabamento;
 import graficaatual.formularios.cadastro.FCadBairro;
 import graficaatual.formularios.cadastro.FCadCargo;
@@ -18,6 +20,7 @@ import graficaatual.formularios.cadastro.FCadProduto;
 import graficaatual.formularios.cadastro.FCadTurno;
 import graficaatual.formularios.cadastro.FCadUsuario;
 import graficaatual.formularios.financeiro.FCadFormaDePagamento;
+import javax.swing.JButton;
 
 import javax.swing.JOptionPane;
 /**
@@ -38,8 +41,27 @@ public class FCadastro extends javax.swing.JFrame {
         
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        
+        //verificação de acesso as telas
+        acessotela(jBCliente,"FCadCliente");
+        acessotela(jBFornecedor,"FCadFornecedor");
+        acessotela(jBLogradouro,"FCadLogradouro");
+        acessotela(jBBairro,"FCadBairro");
+        acessotela(jBCidade,"FCadCidade");
+        acessotela(jBUsuario,"FCadUsuario");
+        acessotela(jBColaborador,"FCadColaborador");
+        acessotela(jBCargo,"FCadCargo");
+        acessotela(jBTurno,"FCadTurno");
+        acessotela(jBMaterial,"FCadMaterial");
+        acessotela(jBProduto,"FCadProduto");
+        acessotela(jBAcabamento,"FCadAcabamento");
+        acessotela(jBFormaPagamento,"FCadFormaDePagamento");
+        
        
     }
+    
+    
 
     public static FCadastro getInstance() {
         
@@ -84,7 +106,6 @@ public class FCadastro extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
-        deskTop.setPreferredSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 deskTopComponentResized(evt);
@@ -201,7 +222,7 @@ public class FCadastro extends javax.swing.JFrame {
         jBUsuario.setBackground(new java.awt.Color(71, 37, 131));
         jBUsuario.setForeground(new java.awt.Color(255, 255, 255));
         jBUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBUsuario.setText("Usuarios");
+        jBUsuario.setText("Usuários");
         jBUsuario.setBorderPainted(false);
         jBUsuario.setFocusPainted(false);
         jBUsuario.setFocusable(false);
@@ -570,5 +591,14 @@ public class FCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void acessotela(JButton jB, String fCadCliente) {
+        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente);
+        if(p!= null){
+            jB.setEnabled(p.isAcesso());
+        }else{
+            jB.setEnabled(false);
+        }
+    }
 
 }
