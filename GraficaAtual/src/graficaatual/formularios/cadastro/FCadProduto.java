@@ -62,14 +62,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         listaMaterial = ObservableCollections.observableList(new LinkedList<Material>());
         Componentes comp3 = new Componentes(listaMaterial, false, codMaterial, descMaterial, this, jPanel18, descMaterial.getWidth(), 100);
-        comp2.addCol(0, "codMaterial", "Código", 50, Long.class.getName());
-        comp2.addCol(1, "descricao", "Nome do Material", 200, String.class.getName());
-        comp2.bind();
+        comp3.addCol(0, "codMaterial", "Código", 50, Long.class.getName());
+        comp3.addCol(1, "descricao", "Nome do Material", 200, String.class.getName());
+        comp3.bind();
 
-        
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
         limparTela();
+
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
 
     private void limparTela() {
@@ -994,7 +993,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-          dispose();
+        dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
     private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
