@@ -17,15 +17,14 @@ import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
 /**
  *
  * @author Projeto X
  */
-public class FLogin extends javax.swing.JFrame { 
+public class FLogin extends javax.swing.JFrame {
 
     private String erroV = "", sNomeBanco = "";
-    private boolean verConf = true; 
+    private boolean verConf = true;
     private static FLogin instancia;
 
     /**
@@ -47,8 +46,8 @@ public class FLogin extends javax.swing.JFrame {
         habilitaMenus(false);
         this.setLocationRelativeTo(null);
 
-        
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -130,7 +129,7 @@ public class FLogin extends javax.swing.JFrame {
         login.setText("root");
         login.setToolTipText("");
         jPanel2.add(login);
-        login.setBounds(70, 570, 180, 19);
+        login.setBounds(70, 570, 180, 20);
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Senha:");
@@ -140,7 +139,7 @@ public class FLogin extends javax.swing.JFrame {
         senhaUsuario.setText("427623");
         senhaUsuario.setToolTipText("");
         jPanel2.add(senhaUsuario);
-        senhaUsuario.setBounds(70, 590, 180, 19);
+        senhaUsuario.setBounds(70, 590, 180, 20);
 
         jToggleButton1.setBackground(new java.awt.Color(71, 37, 131));
         jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -189,19 +188,19 @@ public class FLogin extends javax.swing.JFrame {
 
         host.setText("localhost");
         jPanel2.add(host);
-        host.setBounds(100, 70, 150, 19);
+        host.setBounds(100, 70, 150, 20);
 
         user.setText("postgres");
         jPanel2.add(user);
-        user.setBounds(100, 110, 150, 19);
+        user.setBounds(100, 110, 150, 20);
 
         porta.setText("5432");
         jPanel2.add(porta);
-        porta.setBounds(100, 90, 150, 19);
+        porta.setBounds(100, 90, 150, 20);
 
         senha.setText("427623");
         jPanel2.add(senha);
-        senha.setBounds(100, 130, 150, 19);
+        senha.setBounds(100, 130, 150, 20);
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Senha:");
@@ -215,7 +214,7 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(banco);
-        banco.setBounds(100, 150, 150, 19);
+        banco.setBounds(100, 150, 150, 20);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 260, 690);
@@ -224,6 +223,11 @@ public class FLogin extends javax.swing.JFrame {
         jBFinanceiro.setForeground(new java.awt.Color(255, 255, 255));
         jBFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/FINANCEIRO SEM FUNDO.png"))); // NOI18N
         jBFinanceiro.setBorderPainted(false);
+        jBFinanceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFinanceiroActionPerformed(evt);
+            }
+        });
         getContentPane().add(jBFinanceiro);
         jBFinanceiro.setBounds(830, 170, 80, 90);
 
@@ -260,7 +264,7 @@ public class FLogin extends javax.swing.JFrame {
             confirmar();
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this,ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -269,7 +273,19 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_sairActionPerformed
 
     private void jBPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPedidosActionPerformed
-       
+        try {
+            FPedido clComp;
+            if (FCadastro.isInicializado() != 1) {
+                clComp = FPedido.getInstance();
+                clComp.setVisible(true);
+            } else {
+                clComp = FPedido.getInstance();
+            }
+            clComp.toFront();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBPedidosActionPerformed
 
     private void bancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bancoActionPerformed
@@ -292,6 +308,22 @@ public class FLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBCadastroActionPerformed
 
+    private void jBFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinanceiroActionPerformed
+           try {
+            FFinanceiro clComp;
+            if (FCadastro.isInicializado() != 1) {
+                clComp = FFinanceiro.getInstance();
+                clComp.setVisible(true);
+            } else {
+                clComp = FFinanceiro.getInstance();
+            }
+            clComp.toFront();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBFinanceiroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,11 +331,11 @@ public class FLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FLogin().setVisible(true);
-                
+
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField banco;
     private javax.swing.JTextField host;
@@ -331,7 +363,6 @@ public class FLogin extends javax.swing.JFrame {
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 
-    
     private void confirmar() throws Exception {
 
         if (erroV.trim().length() > 0) {
@@ -339,10 +370,10 @@ public class FLogin extends javax.swing.JFrame {
             return;
         }
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PesistenceHibernate");
-                    EntityManager em = emf.createEntityManager();
-                    em.close();
-                    emf.close();
-        
+        EntityManager em = emf.createEntityManager();
+        em.close();
+        emf.close();
+
         if (isValidoUsuario()) {
             try {
 
@@ -355,7 +386,7 @@ public class FLogin extends javax.swing.JFrame {
 
                     System.out.println("É Usuário");
                     habilitaMenus(true);
-                  
+
                 }
 
             } catch (Exception e) {
@@ -369,8 +400,7 @@ public class FLogin extends javax.swing.JFrame {
     }
 
     private boolean isValidoUsuario() throws Exception {
-        
-       
+
         String sHost = host.getText();
         String sPorta = porta.getText();
         String sUsr = user.getText();
@@ -413,7 +443,7 @@ public class FLogin extends javax.swing.JFrame {
         jBFinanceiro.setEnabled(b);
         jBPedidos.setEnabled(b);
         jBProducao.setEnabled(b);
-        jBRelatorios.setEnabled(b);            
-     
+        jBRelatorios.setEnabled(b);
+
     }
 }

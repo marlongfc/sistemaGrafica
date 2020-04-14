@@ -9,7 +9,7 @@ import graficaatual.daos.financeiro.BancoDAO;
 import graficaatual.entidades.financeiro.Banco;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
-import java.util.Date; 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,21 +30,32 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     public FCadBanco() {
         initComponents();
 
-        atualizatabela();
-
         listaBanco = ObservableCollections.observableList(new LinkedList<Banco>());
         Componentes comp2 = new Componentes(listaBanco, false, codBanco, descBanco, this, jPanel18, descBanco.getWidth(), 100);
-        comp2.addCol(0, "codBanco", "Código", 50, Long.class.getName());
+        comp2.addCol(0, "codBanco", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Banco", 200, String.class.getName());
+        comp2.addCol(1, "agencia", "Agencia", 80, String.class.getName());
+        comp2.addCol(1, "conta", "Conta", 80, String.class.getName());
         comp2.bind();
+
+        atualizatabela();
+
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
 
     private static FCadBanco instancia;
+    private static FCadBanco instanceCont;
+    private static int initControle;
 
-    public static FCadBanco getInstancia() {
+    public static int isInicializado() {
+        return initControle;
+    }
+
+    public synchronized static FCadBanco getInstancia() {
         if (instancia == null) {
             instancia = new FCadBanco();
+            initControle = 1;
         }
 
         return instancia;
@@ -108,21 +119,22 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         jLabel81 = new javax.swing.JLabel();
         agencia = new javax.swing.JTextField();
 
-        jPanel18.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel18.setLayout(null);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(null);
+        setMinimumSize(new java.awt.Dimension(1100, 700));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
 
-        conta.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                contaFocusLost(evt);
-            }
-        });
+        jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jPanel18.setPreferredSize(new java.awt.Dimension(1100, 700));
+        jPanel18.setLayout(null);
         jPanel18.add(conta);
-        conta.setBounds(750, 90, 190, 20);
+        conta.setBounds(840, 90, 200, 20);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel78.setText("Banco");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(140, 70, 40, 20);
+        jLabel78.setBounds(110, 70, 70, 20);
 
         descBanco.setBackground(new java.awt.Color(255, 255, 204));
         descBanco.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -131,7 +143,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descBanco);
-        descBanco.setBounds(140, 90, 420, 20);
+        descBanco.setBounds(110, 90, 530, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -256,8 +268,9 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 150, 180, 23);
+        btNovo.setBounds(190, 130, 180, 40);
 
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,8 +278,9 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 150, 180, 23);
+        btSalvar.setBounds(370, 130, 180, 40);
 
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,7 +288,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 150, 180, 23);
+        btExcluir.setBounds(550, 130, 180, 40);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -283,7 +297,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 150, 180, 23);
+        btSair.setBounds(730, 130, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -314,9 +328,15 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane11.setViewportView(tab);
+        if (tab.getColumnModel().getColumnCount() > 0) {
+            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(700);
+            tab.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tab.getColumnModel().getColumn(3).setPreferredWidth(150);
+        }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 210, 930, 210);
+        jScrollPane11.setBounds(20, 190, 1020, 200);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -377,18 +397,18 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(280, 440, 430, 40);
+        jPanel20.setBounds(360, 400, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CADASTRO DE BANCO");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 960, 70);
+        jLabel1.setBounds(0, 0, 1100, 70);
 
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel79.setText("Conta");
         jPanel18.add(jLabel79);
-        jLabel79.setBounds(750, 70, 40, 20);
+        jLabel79.setBounds(840, 70, 110, 20);
 
         codBanco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -396,70 +416,57 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(codBanco);
-        codBanco.setBounds(60, 90, 80, 20);
+        codBanco.setBounds(20, 90, 90, 20);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Código");
         jPanel18.add(jLabel80);
-        jLabel80.setBounds(60, 70, 40, 20);
+        jLabel80.setBounds(20, 70, 80, 20);
 
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel81.setText("Agência");
         jPanel18.add(jLabel81);
-        jLabel81.setBounds(560, 70, 90, 20);
-
-        agencia.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                agenciaFocusLost(evt);
-            }
-        });
+        jLabel81.setBounds(640, 70, 90, 20);
         jPanel18.add(agencia);
-        agencia.setBounds(560, 90, 190, 20);
+        agencia.setBounds(640, 90, 200, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 985, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 965, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGap(0, 673, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 673, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void contaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contaFocusLost
-        try {
-            carregaBanco();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_contaFocusLost
-
     private void carregaBanco() throws Exception {
-        banco = bancoDAO.get(ValidarValor.getInt(descBanco.getText()));
+        banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
         if (banco != null) {
             descBanco.setText(banco.getDescricao());
+            agencia.setText(banco.getAgencia());
+            conta.setText(banco.getConta());
         } else {
             descBanco.setText("");
+            agencia.setText("");
+            conta.setText("");
         }
     }
 
 
     private void descBancoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descBancoKeyReleased
-        try {
-            List<Banco> merged = bancoDAO.getList(15, "select e from Banco e where e.descricao order by e.codigo", descBanco.getText().trim().toLowerCase());
+       try {
+            List<Banco> merged = bancoDAO.getList(12,
+                    "select e from Banco e where  lower ( trim(e.descricao) ) like ?1 order by e.codBanco",
+                    descBanco.getText().trim().toLowerCase() + "%");
             listaBanco.clear();
             listaBanco.addAll(merged);
         } catch (Exception e) {
@@ -526,7 +533,16 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        // TODO add your handling code here:
+       try {
+            if (evt.getClickCount() > 1) {              
+                codBanco.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
+                carregaBanco();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_tabMouseClicked
 
     private void finalPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalPessoa1ActionPerformed
@@ -554,11 +570,8 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_codBancoFocusLost
 
-    private void agenciaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_agenciaFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_agenciaFocusLost
-
     private void limpaCampos() {
+    codBanco.setText("");
         descBanco.setText("");
         agencia.setText("");
         conta.setText("");
@@ -569,6 +582,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         descBanco.setEnabled(b);
         agencia.setEnabled(b);
         conta.setEnabled(b);
+        btSalvar.setEnabled(b);
     }
 
     private void setCausa() {

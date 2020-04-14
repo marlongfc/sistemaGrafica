@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.formularios.cadastro;
+package graficaatual.formularios.financeiro;
 
-import graficaatual.daos.cadastro.TurnoDAO;
-import graficaatual.entidades.Turno;
+ 
+import graficaatual.daos.financeiro.FormaDePagamentoDAO;
+import graficaatual.entidades.financeiro.FormaDePagamento;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import java.util.Date;
@@ -20,52 +21,52 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author Moisés
  */
-public class FCadTurno extends javax.swing.JInternalFrame {
+public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
 
-    private Turno turno;
-    private TurnoDAO turnoDao = new TurnoDAO();
+    private FormaDePagamento formaPagamento;
+    private FormaDePagamentoDAO formaPagamentoDAO = new FormaDePagamentoDAO();
 
-    private List<Turno> listaTurno = null;
+    private List<FormaDePagamento> listaForma = null;
 
-    public FCadTurno() {
+    public FCadFormaDePagamento() {
         initComponents();
 
         atualizatabela();
 
-        listaTurno = ObservableCollections.observableList(new LinkedList<Turno>());
-        Componentes comp2 = new Componentes(listaTurno, false, codTurnoo, descTurno, this, jPanel18, descTurno.getWidth(), 100);
-        comp2.addCol(0, "codTurno", "Código", 50, Integer.class.getName());
-        comp2.addCol(1, "descricao", "Turno", 200, String.class.getName());
+        listaForma = ObservableCollections.observableList(new LinkedList<FormaDePagamento>());
+        Componentes comp2 = new Componentes(listaForma, false, codForma, descForma, this, jPanel18, descForma.getWidth(), 100);
+        comp2.addCol(0, "codForma", "Código", 50, Integer.class.getName());
+        comp2.addCol(1, "descricao", "Forma de Pagamento", 200, String.class.getName());
         comp2.bind();
-
+                
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
 
-    private static FCadTurno instancia;
-    private static FCadTurno instanceCont;
+    
+    private static FCadFormaDePagamento instancia;
+    private static FCadFormaDePagamento instanceCont;
     private static int initControle;
 
     public static int isInicializado() {
         return initControle;
     }
 
-    public synchronized static FCadTurno getInstancia() {
+    public synchronized static FCadFormaDePagamento getInstancia() {
         if (instancia == null) {
-            instancia = new FCadTurno();
+            instancia = new FCadFormaDePagamento();
             initControle = 1;
         }
         return instancia;
-    }
+    } 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel18 = new javax.swing.JPanel();
-        codTurnoo = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
-        descTurno = new javax.swing.JTextField();
+        descForma = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jTextField49 = new javax.swing.JTextField();
         jTextField50 = new javax.swing.JTextField();
@@ -111,6 +112,10 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         inicioPessoa1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
+        codForma = new javax.swing.JTextField();
+        jLabel80 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        observacao = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -118,31 +123,22 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(1100, 700));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel18.setMaximumSize(new java.awt.Dimension(999999, 999999));
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
-        codTurnoo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                codTurnooFocusLost(evt);
-            }
-        });
-        jPanel18.add(codTurnoo);
-        codTurnoo.setBounds(30, 90, 110, 20);
-
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel78.setText("Turno");
+        jLabel78.setText("Forma de Pagamento");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(140, 70, 40, 20);
+        jLabel78.setBounds(140, 70, 200, 20);
 
-        descTurno.setBackground(new java.awt.Color(255, 255, 204));
-        descTurno.addKeyListener(new java.awt.event.KeyAdapter() {
+        descForma.setBackground(new java.awt.Color(255, 255, 204));
+        descForma.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                descTurnoKeyReleased(evt);
+                descFormaKeyReleased(evt);
             }
         });
-        jPanel18.add(descTurno);
-        descTurno.setBounds(140, 90, 920, 20);
+        jPanel18.add(descForma);
+        descForma.setBounds(140, 90, 920, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -267,7 +263,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(190, 140, 180, 40);
+        btNovo.setBounds(200, 290, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -277,7 +273,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(370, 140, 180, 40);
+        btSalvar.setBounds(380, 290, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
@@ -287,7 +283,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(550, 140, 180, 40);
+        btExcluir.setBounds(560, 290, 180, 40);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -296,14 +292,14 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(730, 140, 180, 40);
+        btSair.setBounds(740, 290, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Turno"
+                "Código", "Forma de Pagamento"
             }
         ) {
             Class[] types = new Class [] {
@@ -328,12 +324,12 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         });
         jScrollPane11.setViewportView(tab);
         if (tab.getColumnModel().getColumnCount() > 0) {
-            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tab.getColumnModel().getColumn(1).setPreferredWidth(1000);
+            tab.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(700);
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 200, 1040, 300);
+        jScrollPane11.setBounds(40, 340, 1020, 170);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -394,76 +390,87 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(370, 510, 430, 40);
+        jPanel20.setBounds(330, 510, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("CADASTRO DE TURNO");
+        jLabel1.setText("FORMAS DE PAGAMENTO");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1100, 70);
+        jLabel1.setBounds(0, 0, 1340, 70);
 
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel79.setText("Código");
+        jLabel79.setText("Observação");
         jPanel18.add(jLabel79);
-        jLabel79.setBounds(60, 70, 40, 20);
+        jLabel79.setBounds(40, 125, 210, 20);
+
+        codForma.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codFormaFocusLost(evt);
+            }
+        });
+        jPanel18.add(codForma);
+        codForma.setBounds(40, 90, 100, 20);
+
+        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel80.setText("Código");
+        jPanel18.add(jLabel80);
+        jLabel80.setBounds(40, 70, 60, 20);
+
+        observacao.setColumns(20);
+        observacao.setRows(5);
+        jScrollPane1.setViewportView(observacao);
+
+        jPanel18.add(jScrollPane1);
+        jScrollPane1.setBounds(40, 150, 1020, 130);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1335, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 700, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        jPanel18.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void codTurnooFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTurnooFocusLost
-        try {
-            carregaTurno();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_codTurnooFocusLost
-
-    private void carregaTurno() throws Exception {
-        turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-        if (turno != null) {
-            descTurno.setText(turno.getDescricao());
+    private void carregaFormas() throws Exception {
+        formaPagamento = formaPagamentoDAO.get(ValidarValor.getInt(codForma.getText()));
+        if (formaPagamento != null) {
+            descForma.setText(formaPagamento.getDescricao());
+            observacao.setText(formaPagamento.getObservacao());
         } else {
-            descTurno.setText("");
+            descForma.setText(""); 
+            observacao.setText("");
         }
     }
 
 
-    private void descTurnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descTurnoKeyReleased
-        try {
-            List<Turno> merged = turnoDao.getList(12,
-                    "select e from Turno e where  lower ( trim(e.descricao) ) like ?1 order by e.codTurno",
-                    descTurno.getText().trim().toLowerCase() + "%");
-            listaTurno.clear();
-            listaTurno.addAll(merged);
+    private void descFormaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descFormaKeyReleased
+         try {
+            List<FormaDePagamento> merged = formaPagamentoDAO.getList(12,
+                    "select e from FormaDePagamento e where  lower ( trim(e.descricao) ) like ?1 order by e.codForma",
+                    descForma.getText().trim().toLowerCase() + "%");
+            listaForma.clear();
+            listaForma.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Turno. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Forma de Pagamento. Erro: " + e);
         }
-    }//GEN-LAST:event_descTurnoKeyReleased
+    }//GEN-LAST:event_descFormaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            turno = new Turno();
+            formaPagamento = new FormaDePagamento();
             limpaCampos();
             habilitaCampos(true);
-            descTurno.requestFocus();
+            descForma.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -472,19 +479,19 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-            if (turno == null) {
-                turno = new Turno();
+            formaPagamento = formaPagamentoDAO.get(ValidarValor.getInt(codForma.getText()));
+            if (formaPagamento == null) {
+                formaPagamento = new FormaDePagamento();
                 setCausa();
-                turno.setDataCadastro(new Date());
-                turno.setDataAtualizacao(new Date());
-                if (turnoDao.confereTurno(turno)) {
-                    turno = turnoDao.salvar(turno);
-                    codTurnoo.setText(turno.getCodTurno().toString());
-                    turno.setDataAtualizacao(new Date());
+                formaPagamento.setDataCadastro(new Date());
+                formaPagamento.setDataAtualizacao(new Date());
+                if (formaPagamentoDAO.confereFormaPagamento(formaPagamento)) {
+                    formaPagamento = formaPagamentoDAO.salvar(formaPagamento);
+                    codForma.setText(formaPagamento.getCodForma().toString());
+                    formaPagamento.setDataAtualizacao(new Date());
                     btSalvar.setEnabled(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Causa de Morte já Cadastrada");
+                    JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
                 }
             }
             atualizatabela();
@@ -496,15 +503,15 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-            if (turno == null) {
+            formaPagamento = formaPagamentoDAO.get(ValidarValor.getInt(codForma.getText()));
+            if (formaPagamento == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
                 setCausa();
-                turnoDao.delete(turno);
+                formaPagamentoDAO.delete(formaPagamento);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descTurno.requestFocus();
+                descForma.requestFocus();
             }
             atualizatabela();
         } catch (Exception e) {
@@ -517,16 +524,15 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        try {
-            if (evt.getClickCount() > 1) {
-                codTurnoo.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-                carregaTurno();
+         try {
+            if (evt.getClickCount() > 1) {              
+                codForma.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                formaPagamento = formaPagamentoDAO.get(ValidarValor.getInt(codForma.getText()));
+                carregaFormas();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }//GEN-LAST:event_tabMouseClicked
 
     private void finalPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalPessoa1ActionPerformed
@@ -545,30 +551,42 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inicioPessoa1ActionPerformed
 
+    private void codFormaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codFormaFocusLost
+        try {
+            carregaFormas();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_codFormaFocusLost
+
     private void limpaCampos() {
-        codTurnoo.setText("");
-        descTurno.setText("");
+        codForma.setText("");
+        descForma.setText(""); 
+        observacao.setText("");
     }
 
     private void habilitaCampos(boolean b) {
-        codTurnoo.setEnabled(b);
-        descTurno.setEnabled(b);
+        codForma.setEnabled(b);
+        descForma.setEnabled(b); 
+        observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
 
     private void setCausa() {
-        turno.setDescricao(descTurno.getText());
+        formaPagamento.setDescricao(descForma.getText()); 
+        formaPagamento.setObservacao(observacao.getText());
     }
 
     private void atualizatabela() {
         DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<Turno> listaT = turnoDao.getList();
+        List<FormaDePagamento> listaT = formaPagamentoDAO.getList();
         if (listaT.size() > 0) {
             model.setNumRows(0);
-            for (Turno t : listaT) {
+            for (FormaDePagamento f : listaT) {
                 Object o[] = new Object[]{
-                    t.getCodTurno(),
-                    t.getDescricao()};
+                    f.getCodForma(),
+                    f.getDescricao()};
 
                 model.addRow(o);
             }
@@ -583,8 +601,8 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codTurnoo;
-    private javax.swing.JTextField descTurno;
+    private javax.swing.JTextField codForma;
+    private javax.swing.JTextField descForma;
     private javax.swing.JButton finalPessoa1;
     private javax.swing.JButton inicioPessoa1;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -595,6 +613,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
+    private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -608,6 +627,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField50;
@@ -625,6 +645,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
+    private javax.swing.JTextArea observacao;
     private javax.swing.JButton proximoPessoa1;
     private javax.swing.JTable tab;
     // End of variables declaration//GEN-END:variables

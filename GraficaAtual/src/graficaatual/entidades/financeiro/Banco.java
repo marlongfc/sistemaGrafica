@@ -17,8 +17,8 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity(name = "graficaatual.entidades.financeiro.Banco")
-@Table(name = "bancos")
+@Entity//(name = "graficaatual.entidades.financeiro.Banco")
+@Table(name = "banco")
 public class Banco implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
