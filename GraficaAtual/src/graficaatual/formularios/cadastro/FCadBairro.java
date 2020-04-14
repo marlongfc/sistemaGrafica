@@ -507,10 +507,10 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codBairro.setText("" + bairroDao.getNextItem());
-            codBairro.setEnabled(false);
+         //   codBairro.setEnabled(false);
             descBairro.setText("");
-            bairro = new Bairro();
-            removeLinhas(tabBairro);
+            bairro = null;
+          
         } catch (Exception e) {
             e.printStackTrace();
         }

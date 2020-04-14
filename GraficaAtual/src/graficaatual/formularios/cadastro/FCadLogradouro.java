@@ -502,10 +502,10 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codLogradouro.setText("" + logradouroDao.getNextItem());
-            codLogradouro.setEnabled(false);
+           // codLogradouro.setEnabled(false);
             descLogradouro.setText("");
-            logradouro = new Logradouro();
-            removeLinhas(tabLogradouro);
+            logradouro = null;
+         
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -520,11 +520,11 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codCidade.setText("" + cidadeDao.getNextItem());
-            codCidade.setEnabled(false);
+       //     codCidade.setEnabled(false);
             descCidade.setText("");
             codIbge.setText("");
-            cidade = new Cidade();
-            removeLinhas(tabCidade);
+            cidade = null;
+        
         } catch (Exception e) {
             e.printStackTrace();
         }

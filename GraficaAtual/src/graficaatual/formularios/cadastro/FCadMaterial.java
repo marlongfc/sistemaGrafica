@@ -640,7 +640,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codMaterial.setText("" + materialDao.getNextItem());
-            codMaterial.setEnabled(false);
+         //   codMaterial.setEnabled(false);
 
             limparCampos();
 
@@ -651,7 +651,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
     private void limparCampos() {
         descMaterial.setText("");
-        material = new Material();
+        material = null;
 
         comboUnidade.setSelectedIndex(0);
 
@@ -668,8 +668,6 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         precoCustoCompra.setText("0,00");
         precoCustoTotal.setText("0,00");
-
-        removeLinhas(tabMaterial);
 
     }
 

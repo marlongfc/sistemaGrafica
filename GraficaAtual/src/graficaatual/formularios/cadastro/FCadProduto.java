@@ -442,7 +442,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Mão De Obra (m²)");
         jPanel18.add(jLabel3);
-        jLabel3.setBounds(160, 440, 90, 14);
+        jLabel3.setBounds(160, 440, 130, 14);
 
         maoDeObra.setText("0,00");
         maoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -550,7 +550,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         msgMaterial.setForeground(new java.awt.Color(255, 0, 0));
         msgMaterial.setText("* Produto ainda não foi salvo. Informe os valores abaixo e clique em salvar!");
         jPanel18.add(msgMaterial);
-        msgMaterial.setBounds(20, 410, 400, 14);
+        msgMaterial.setBounds(20, 410, 610, 14);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 
@@ -960,7 +960,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codProduto.setText("" + produtoDao.getNextItem());
-            codProduto.setEnabled(false);
+            //   codProduto.setEnabled(false);
             limparCampos();
         } catch (Exception e) {
             e.printStackTrace();
@@ -971,14 +971,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         try {
 
             descProduto.setText("");
-            produto = new Produto();
+            produto = null;
             custoProduto.setText("0,00");
             maoDeObra.setText("0,00");
             custoEmpresa.setText("0,00");
             custoServico.setText("0,00");
             margemLucro.setText("0,00");
             valorUnitario.setText("0,00");
-            removeLinhas(tabProduto);
+            //   removeLinhas(tabProduto);
             removeLinhas(tabComposicao);
 
         } catch (Exception e) {
@@ -1118,12 +1118,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
 
-            Object[] os = new Object[4];
-            os[0] = codMaterial.getText();
-            os[1] = descMaterial.getText();
-            os[2] = material.getPrecoCustoTotal();
-            os[3] = ValidarValor.getDouble(quantidade.getText());
-            os[4] = ((Double) os[3]) * ((Double) os[2]);
+            Object[] os = new Object[6];
+            os[0] = "";
+            os[1] = codMaterial.getText();
+            os[2] = descMaterial.getText();
+            os[3] = material.getPrecoCustoTotal();
+            os[4] = ValidarValor.getDouble(quantidade.getText());
+            os[5] = ((Double) os[3]) * ((Double) os[2]);
 
             model.addRow(os);
 
