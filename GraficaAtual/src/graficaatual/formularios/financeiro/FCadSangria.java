@@ -5,8 +5,8 @@
  */
 package graficaatual.formularios.financeiro;
 
-import graficaatual.daos.financeiro.BancoDAO;
-import graficaatual.entidades.financeiro.Banco;
+import graficaatual.daos.financeiro.SangriaDAO;
+import graficaatual.entidades.financeiro.Sangria;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import java.util.Date;
@@ -18,43 +18,41 @@ import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
- * @author User
+ * @author Moisés
  */
-public class FCadBanco extends javax.swing.JInternalFrame {
+public class FCadSangria extends javax.swing.JInternalFrame {
 
-    private Banco banco;
-    private BancoDAO bancoDAO = new BancoDAO();
+    private Sangria sangria;
+    private SangriaDAO sangriaDAO = new SangriaDAO();
 
-    private List<Banco> listaBanco = null;
+    private List<Sangria> listaSangria = null;
 
-    public FCadBanco() {
+    public FCadSangria() {
         initComponents();
 
-        listaBanco = ObservableCollections.observableList(new LinkedList<Banco>());
-        Componentes comp2 = new Componentes(listaBanco, false, codBanco, descBanco, this, jPanel18, descBanco.getWidth(), 100);
-        comp2.addCol(0, "codBanco", "Código", 50, Integer.class.getName());
-        comp2.addCol(1, "descricao", "Banco", 200, String.class.getName());
-        comp2.addCol(1, "agencia", "Agencia", 80, String.class.getName());
-        comp2.addCol(1, "conta", "Conta", 80, String.class.getName());
-        comp2.bind();
-
         atualizatabela();
+
+        listaSangria = ObservableCollections.observableList(new LinkedList<Sangria>());
+        Componentes comp2 = new Componentes(listaSangria, false, codSangria, descSangria, this, jPanel18, descSangria.getWidth(), 100);
+        comp2.addCol(0, "codSangria", "Código", 50, Long.class.getName());
+        comp2.addCol(1, "descricao", "Sangria", 200, String.class.getName());
+        comp2.bind();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
 
-    private static FCadBanco instancia;
-    private static FCadBanco instanceCont;
+    private static FCadSangria instancia;
+    private static FCadSangria instanceCont;
     private static int initControle;
 
     public static int isInicializado() {
         return initControle;
     }
 
-    public synchronized static FCadBanco getInstancia() {
+    public synchronized static FCadSangria getInstancia() {
         if (instancia == null) {
-            instancia = new FCadBanco();
+            instancia = new FCadSangria();
             initControle = 1;
         }
 
@@ -66,9 +64,8 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel18 = new javax.swing.JPanel();
-        conta = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
-        descBanco = new javax.swing.JTextField();
+        descSangria = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jTextField49 = new javax.swing.JTextField();
         jTextField50 = new javax.swing.JTextField();
@@ -114,10 +111,12 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         inicioPessoa1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
-        codBanco = new javax.swing.JTextField();
+        codSangria = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
-        agencia = new javax.swing.JTextField();
+        valor = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        observacao = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -126,24 +125,21 @@ public class FCadBanco extends javax.swing.JInternalFrame {
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
-        jPanel18.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
-        jPanel18.add(conta);
-        conta.setBounds(840, 90, 200, 20);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel78.setText("Banco");
+        jLabel78.setText("Sangria");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(110, 70, 70, 20);
+        jLabel78.setBounds(140, 70, 290, 20);
 
-        descBanco.setBackground(new java.awt.Color(255, 255, 204));
-        descBanco.addKeyListener(new java.awt.event.KeyAdapter() {
+        descSangria.setBackground(new java.awt.Color(255, 255, 204));
+        descSangria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                descBancoKeyReleased(evt);
+                descSangriaKeyReleased(evt);
             }
         });
-        jPanel18.add(descBanco);
-        descBanco.setBounds(110, 90, 530, 20);
+        jPanel18.add(descSangria);
+        descSangria.setBounds(140, 90, 930, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -268,7 +264,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(190, 130, 180, 40);
+        btNovo.setBounds(190, 290, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -278,7 +274,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(370, 130, 180, 40);
+        btSalvar.setBounds(370, 290, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
@@ -288,7 +284,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(550, 130, 180, 40);
+        btExcluir.setBounds(550, 290, 180, 40);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -297,21 +293,21 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(730, 130, 180, 40);
+        btSair.setBounds(730, 290, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Banco", "Agência", "Conta"
+                "Código", "Sangria", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -329,14 +325,13 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         });
         jScrollPane11.setViewportView(tab);
         if (tab.getColumnModel().getColumnCount() > 0) {
-            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(0).setPreferredWidth(70);
             tab.getColumnModel().getColumn(1).setPreferredWidth(700);
-            tab.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tab.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tab.getColumnModel().getColumn(2).setPreferredWidth(100);
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 190, 1020, 200);
+        jScrollPane11.setBounds(20, 340, 1050, 250);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -397,26 +392,26 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(360, 400, 430, 40);
+        jPanel20.setBounds(370, 600, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("CADASTRO DE BANCO");
+        jLabel1.setText("LANÇAMENTO DE SANGRIA NO CAIXA");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1100, 70);
+        jLabel1.setBounds(0, 0, 1130, 70);
 
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel79.setText("Conta");
+        jLabel79.setText("Observação");
         jPanel18.add(jLabel79);
-        jLabel79.setBounds(840, 70, 110, 20);
+        jLabel79.setBounds(20, 160, 230, 20);
 
-        codBanco.addFocusListener(new java.awt.event.FocusAdapter() {
+        codSangria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codBancoFocusLost(evt);
+                codSangriaFocusLost(evt);
             }
         });
-        jPanel18.add(codBanco);
-        codBanco.setBounds(20, 90, 90, 20);
+        jPanel18.add(codSangria);
+        codSangria.setBounds(20, 90, 120, 20);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Código");
@@ -424,62 +419,75 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         jLabel80.setBounds(20, 70, 80, 20);
 
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Agência");
+        jLabel81.setText("Valor");
         jPanel18.add(jLabel81);
-        jLabel81.setBounds(640, 70, 90, 20);
-        jPanel18.add(agencia);
-        agencia.setBounds(640, 90, 200, 20);
+        jLabel81.setBounds(20, 115, 130, 20);
+
+        valor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                valorFocusLost(evt);
+            }
+        });
+        jPanel18.add(valor);
+        valor.setBounds(20, 135, 160, 20);
+
+        observacao.setColumns(20);
+        observacao.setRows(5);
+        jScrollPane1.setViewportView(observacao);
+
+        jPanel18.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 180, 1050, 96);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1335, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 673, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 673, Short.MAX_VALUE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carregaBanco() throws Exception {
-        banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
-        if (banco != null) {
-            descBanco.setText(banco.getDescricao());
-            agencia.setText(banco.getAgencia());
-            conta.setText(banco.getConta());
+    private void carregaSangria() throws Exception {
+        sangria = sangriaDAO.get(ValidarValor.getInt(codSangria.getText()));
+        if (sangria != null) {
+            descSangria.setText(sangria.getDescricao());
+            valor.setText(ValidarValor.getDouble(sangria.getValor()));
+            observacao.setText(sangria.getObservacao());
         } else {
-            descBanco.setText("");
-            agencia.setText("");
-            conta.setText("");
+            descSangria.setText("");
+            valor.setText("");
+            observacao.setText("");
         }
     }
 
 
-    private void descBancoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descBancoKeyReleased
-       try {
-            List<Banco> merged = bancoDAO.getList(12,
-                    "select e from Banco e where  lower ( trim(e.descricao) ) like ?1 order by e.codBanco",
-                    descBanco.getText().trim().toLowerCase() + "%");
-            listaBanco.clear();
-            listaBanco.addAll(merged);
+    private void descSangriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descSangriaKeyReleased
+        try {
+            List<Sangria> merged = sangriaDAO.getList(12,
+                    "select e from Sangria e where  lower ( trim(e.descricao) ) like ?1 order by e.codSangria",
+                    descSangria.getText().trim().toLowerCase() + "%");
+            listaSangria.clear();
+            listaSangria.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Bancos. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Sangrias. Erro: " + e);
         }
-    }//GEN-LAST:event_descBancoKeyReleased
+    }//GEN-LAST:event_descSangriaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            banco = new Banco();
+            sangria = new Sangria();
             limpaCampos();
             habilitaCampos(true);
-            descBanco.requestFocus();
+            descSangria.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -488,19 +496,19 @@ public class FCadBanco extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
-            if (banco == null) {
-                banco = new Banco();
+            sangria = sangriaDAO.get(ValidarValor.getInt(codSangria.getText()));
+            if (sangria == null) {
+                sangria = new Sangria();
                 setCausa();
-                banco.setDataCadastro(new Date());
-                banco.setDataAtualizacao(new Date());
-                if (bancoDAO.confereBanco(banco)) {
-                    banco = bancoDAO.salvar(banco);
-                    codBanco.setText(banco.getCodBanco().toString());
-                    banco.setDataAtualizacao(new Date());
+                sangria.setDataCadastro(new Date());
+                sangria.setDataAtualizacao(new Date());
+                if (sangriaDAO.confereSangria(sangria)) {
+                    sangria = sangriaDAO.salvar(sangria);
+                    codSangria.setText(sangria.getCodSangria().toString());
+                    sangria.setDataAtualizacao(new Date());
                     btSalvar.setEnabled(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Banco já Cadastrado");
+                    JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
                 }
             }
             atualizatabela();
@@ -512,15 +520,15 @@ public class FCadBanco extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
-            if (banco == null) {
+            sangria = sangriaDAO.get(ValidarValor.getInt(codSangria.getText()));
+            if (sangria == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
                 setCausa();
-                bancoDAO.delete(banco);
+                sangriaDAO.delete(sangria);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descBanco.requestFocus();
+                descSangria.requestFocus();
             }
             atualizatabela();
         } catch (Exception e) {
@@ -535,14 +543,13 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
        try {
             if (evt.getClickCount() > 1) {              
-                codBanco.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
-                carregaBanco();
+                codSangria.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                sangria = sangriaDAO.get(ValidarValor.getInt(codSangria.getText()));
+                carregaSangria();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }//GEN-LAST:event_tabMouseClicked
 
     private void finalPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalPessoa1ActionPerformed
@@ -561,47 +568,50 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inicioPessoa1ActionPerformed
 
-    private void codBancoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codBancoFocusLost
+    private void codSangriaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codSangriaFocusLost
         try {
-            carregaBanco();
+            carregaSangria();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_codBancoFocusLost
+    }//GEN-LAST:event_codSangriaFocusLost
+
+    private void valorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valorFocusLost
 
     private void limpaCampos() {
-    codBanco.setText("");
-        descBanco.setText("");
-        agencia.setText("");
-        conta.setText("");
+        codSangria.setText("");
+        descSangria.setText("");
+        valor.setText("");
+        observacao.setText("");
     }
 
     private void habilitaCampos(boolean b) {
-        codBanco.setEnabled(b);
-        descBanco.setEnabled(b);
-        agencia.setEnabled(b);
-        conta.setEnabled(b);
+        codSangria.setEnabled(b);
+        descSangria.setEnabled(b);
+        valor.setEnabled(b);
+        observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
 
     private void setCausa() {
-        banco.setDescricao(descBanco.getText());
-        banco.setAgencia(agencia.getText());
-        banco.setConta(conta.getText());
+        sangria.setDescricao(descSangria.getText());
+        sangria.setValor(ValidarValor.getDouble(valor.getText()));
+        sangria.setObservacao(observacao.getText());
     }
 
     private void atualizatabela() {
         DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<Banco> listaT = bancoDAO.getList();
+        List<Sangria> listaT = sangriaDAO.getList();
         if (listaT.size() > 0) {
             model.setNumRows(0);
-            for (Banco b : listaT) {
+            for (Sangria s : listaT) {
                 Object o[] = new Object[]{
-                    b.getCodBanco(),
-                    b.getDescricao(),
-                    b.getAgencia(),
-                    b.getConta()};
+                    s.getCodSangria(),
+                    s.getDescricao(),
+                    s.getValor()};
 
                 model.addRow(o);
             }
@@ -611,15 +621,13 @@ public class FCadBanco extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField agencia;
     private javax.swing.JButton anteriorPessoa1;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codBanco;
-    private javax.swing.JTextField conta;
-    private javax.swing.JTextField descBanco;
+    private javax.swing.JTextField codSangria;
+    private javax.swing.JTextField descSangria;
     private javax.swing.JButton finalPessoa1;
     private javax.swing.JButton inicioPessoa1;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -645,6 +653,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField50;
@@ -662,7 +671,9 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
+    private javax.swing.JTextArea observacao;
     private javax.swing.JButton proximoPessoa1;
     private javax.swing.JTable tab;
+    private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }
