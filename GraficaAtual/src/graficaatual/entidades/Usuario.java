@@ -5,16 +5,13 @@
  */
 package graficaatual.entidades;
 
-import graficaatual.utilitarios.TipoPermissao;
-import java.sql.Timestamp;
-import javax.persistence.CascadeType;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,6 +19,7 @@ import javax.persistence.Table;
  *
  * @author ProjetoX
  */
+///
 @Entity
 @Table(name = "usuario")
 public class Usuario implements java.io.Serializable {
@@ -33,12 +31,9 @@ public class Usuario implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codUsuario;
 
-    @Column(nullable = false, length = 30)
-    private Integer nivelAcesso;
-
     @OneToOne()
-    @JoinColumn(name = "pessoa", nullable = false)
-    private Pessoa pessoa;
+    @JoinColumn(name = "colaborador", nullable = false)
+    private Colaborador colaborador;
 
     @Column(nullable = false, length = 30)
     private String login;
@@ -47,43 +42,53 @@ public class Usuario implements java.io.Serializable {
     private String senha;
 
     @Column(name = "DataCadastro", nullable = true)
-    private java.sql.Timestamp data;
+    private Date data;
 
-    @Column(name = "tipoUsuario", nullable = false, columnDefinition = "integer default 2")
-    private Integer tipoUsuario;
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "CodTipo", nullable = true)
-    private TipoPermissao tipoPermissao;
-
-    public Usuario() {
-        this.tipoUsuario = 2;
-    }
+    @Column(name = "acessoCadastro", nullable = true)
+    private Boolean acessoCadastro;
+    
+    @Column(name = "acessoPedido", nullable = true)
+    private Boolean acessoPedido;
+    
+    @Column(name = "acessoRelatorios", nullable = true)
+    private Boolean acessoRelatorios;
+    
+    @Column(name = "acessoFinanceiro", nullable = true)
+    private Boolean acessoFinanceiro;
+    
+    @Column(name = "acessoEstoque", nullable = true)
+    private Boolean acessoEstoque;
+    
+    @Column(name = "acessoProducao", nullable = true)
+    private Boolean acessoProducao;
+    
+    @Column(name = "ativo", nullable = true)
+    private Boolean ativo;
 
     public Integer getCodUsuario() {
         return codUsuario;
     }
 
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    } 
+
     public void setCodUsuario(Integer codUsuario) {
         this.codUsuario = codUsuario;
     }
 
-    public Integer getNivelAcesso() {
-        return nivelAcesso;
+    public Colaborador getColaborador() {
+        return colaborador;
     }
 
-    public void setNivelAcesso(Integer nivelAcesso) {
-        this.nivelAcesso = nivelAcesso;
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
     }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
+   
     public String getLogin() {
         return login;
     }
@@ -100,28 +105,60 @@ public class Usuario implements java.io.Serializable {
         this.senha = senha;
     }
 
-    public Timestamp getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(Timestamp data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
-    public Integer getTipoUsuario() {
-        return tipoUsuario;
+    public Boolean getAcessoCadastro() {
+        return acessoCadastro;
     }
 
-    public void setTipoUsuario(Integer tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setAcessoCadastro(Boolean acessoCadastro) {
+        this.acessoCadastro = acessoCadastro;
     }
 
-    public TipoPermissao getTipoPermissao() {
-        return tipoPermissao;
+    public Boolean getAcessoPedido() {
+        return acessoPedido;
     }
 
-    public void setTipoPermissao(TipoPermissao tipoPermissao) {
-        this.tipoPermissao = tipoPermissao;
+    public void setAcessoPedido(Boolean acessoPedido) {
+        this.acessoPedido = acessoPedido;
+    }
+
+    public Boolean getAcessoRelatorios() {
+        return acessoRelatorios;
+    }
+
+    public void setAcessoRelatorios(Boolean acessoRelatorios) {
+        this.acessoRelatorios = acessoRelatorios;
+    }
+
+    public Boolean getAcessoFinanceiro() {
+        return acessoFinanceiro;
+    }
+
+    public void setAcessoFinanceiro(Boolean acessoFinanceiro) {
+        this.acessoFinanceiro = acessoFinanceiro;
+    }
+
+    public Boolean getAcessoEstoque() {
+        return acessoEstoque;
+    }
+
+    public void setAcessoEstoque(Boolean acessoEstoque) {
+        this.acessoEstoque = acessoEstoque;
+    }
+
+    public Boolean getAcessoProducao() {
+        return acessoProducao;
+    }
+
+    public void setAcessoProducao(Boolean acessoProducao) {
+        this.acessoProducao = acessoProducao;
     }
 
     @Override

@@ -4,15 +4,13 @@
  * and open the template in the editor.
  */
 
-package graficaatual.utilitarios;
+package graficaatual.entidades;
 
 
 
-
-import graficaatual.entidades.Formulario;
-import graficaatual.entidades.Usuario;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,40 +27,47 @@ import javax.persistence.UniqueConstraint;
  * @author Projeto X
  * 
  */
-@Entity
-@Table(name="int_permissao",uniqueConstraints=@UniqueConstraint(columnNames={"CodUsuario","CodFormulario"}))
+@Entity()
+@Table(name="permissao",uniqueConstraints=@UniqueConstraint(columnNames={"usuario","formulario"}))
 public class Permissao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CodPermissao")
     private Integer codigo;
+    
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.PERSIST})
-    @JoinColumn(name="CodUsuario",nullable=false)
+    @JoinColumn(name="usuario",nullable=false)
     private Usuario usuario;
+    
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.PERSIST})
-    @JoinColumn(name="CodFormulario",nullable=false)
+    @JoinColumn(name="formulario")
     private Formulario formulario;
-    @Column(name="DataCadastro",nullable=false)
-    private java.sql.Timestamp data;
-    @Column(name="Acesso",nullable=false)
+    
+    @Column(name="DataCadastro")
+    private Date data;
+    
+    @Column(name="Acesso")
     private boolean acesso=false;
-    @Column(name="Salvar",nullable=false)
-    private boolean salvar=false;
-    @Column(name="Excluir",nullable=false)
-    private boolean excluir=false;
-    @Column(name="Imprimir",nullable=false)
-    private boolean imprimir=false;
+    
+    @Column(name="Salvar")
+    private boolean salvar=true;
+    
+    @Column(name="Excluir")
+    private boolean excluir=true;
+    
+    @Column(name="Imprimir")
+    private boolean imprimir=true;
 
     public Integer getCodigo() {
         return codigo;
     }
 
-    public Timestamp getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(Timestamp data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

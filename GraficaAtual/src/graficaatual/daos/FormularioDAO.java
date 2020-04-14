@@ -1,6 +1,7 @@
 package graficaatual.daos;
 
 import graficaatual.entidades.Formulario;
+import java.util.List;
 
 /**
  *
@@ -50,6 +51,11 @@ public class FormularioDAO extends GenericDAO {
             FvaRetorno.setTitulo(titulo.trim());
             FvaRetorno = saveOrUpdatePojo(FvaRetorno);
         }
+        return FvaRetorno;
+    }
+    
+    public List<Formulario> getFormulario(String modulo) {
+        List<Formulario> FvaRetorno = getPureList(Formulario.class, " select e from Formulario e where e.Modulo=?1 order by e.CodFormulario ", modulo);
         return FvaRetorno;
     }
 

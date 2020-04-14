@@ -6,6 +6,7 @@
 package graficaatual;
 
 import graficaatual.daos.UsuariosDAO;
+import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -385,7 +386,11 @@ public class FLogin extends javax.swing.JFrame {
                 if (us != null) {
 
                     System.out.println("É Usuário");
-                    habilitaMenus(true);
+                    //telas
+                    habilitaMenusUsuario(us);
+                    
+                   //CarregaControle de Acesso
+                   carregaControle(us);
 
                 }
 
@@ -415,7 +420,7 @@ public class FLogin extends javax.swing.JFrame {
         System.out.println("conexão True");
         Statement banco = conexao.createStatement(1004, 1008);
         System.out.println("vai fazer Pesquisa");
-        ResultSet rs = banco.executeQuery("select senha from usuario where login = '" + login.getText().trim() + "'");
+        ResultSet rs = banco.executeQuery("select senha from usuario where ativo = 'true' and login = '" + login.getText().trim() + "'");
         System.out.println("realizou pesquisa");
         if (rs.next()) {
             String str = rs.getString("senha");
@@ -445,5 +450,48 @@ public class FLogin extends javax.swing.JFrame {
         jBProducao.setEnabled(b);
         jBRelatorios.setEnabled(b);
 
+    }
+    
+    private void habilitaMenusUsuario(Usuario us) {
+        if(us.getAcessoCadastro() != null){
+            jBCadastro.setEnabled(us.getAcessoCadastro());
+        }else{
+            jBCadastro.setEnabled(false);
+        }
+        
+        if(us.getAcessoEstoque() != null){
+            jBEstoque.setEnabled(us.getAcessoEstoque());
+        }else{
+            jBEstoque.setEnabled(false);
+        }
+        
+        if(us.getAcessoFinanceiro() != null){
+            jBFinanceiro.setEnabled(us.getAcessoFinanceiro());
+        }else{
+            jBFinanceiro.setEnabled(false);
+        }
+        
+        if(us.getAcessoPedido() != null){
+            jBPedidos.setEnabled(us.getAcessoPedido());
+        }else{
+            jBPedidos.setEnabled(false);
+        }
+        
+        if(us.getAcessoProducao() != null){
+            jBProducao.setEnabled(us.getAcessoProducao());
+        }else{
+            jBProducao.setEnabled(false);
+        }
+        
+        if(us.getAcessoRelatorios() != null){
+            jBRelatorios.setEnabled(us.getAcessoRelatorios());
+        }else{
+        
+        }
+    }
+
+    private void carregaControle(Usuario us) {
+        ControleAcesso.usuario = us;
+        
     }
 }

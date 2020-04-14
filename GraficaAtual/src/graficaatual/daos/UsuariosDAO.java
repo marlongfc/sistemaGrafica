@@ -16,7 +16,7 @@ import java.util.List;
 public class UsuariosDAO extends GenericDAO{
     
     public boolean addUsuario(Usuario usuario) {
-        return savePojo(usuario);
+        return saveOrUpdatePojo(usuario);
     }
 
     public boolean deleteUsuario(Usuario usuario) {
@@ -69,4 +69,24 @@ public class UsuariosDAO extends GenericDAO{
         return getPureList(Usuario.class, "select e from Usuarios e where e.tipoPermissao.codigo >= 5 order by e.nome");
     }
     //
+
+    public boolean verificarLogin(String login) {
+        Integer x= (getPureList(Usuario.class, "select u from Usuario u where u.login=?1", login).size());
+        
+        if(x == null || x<=0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    public boolean verificarColaborador(int codColaborador) {
+        Integer x= (getPureList(Usuario.class, "select u from Usuario u where u.ativo='true' and u.colaborador.codColaborador=?1", codColaborador).size());
+        
+        if(x == null || x<=0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

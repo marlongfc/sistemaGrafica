@@ -19,20 +19,26 @@ import javax.persistence.Table;
  * @author Projeto X
  */
 @Entity
-@Table(name="int_formulario")
+@Table(name="formulario")
 public class Formulario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CodFormulario")
-    private Integer codigo;
-    @Column(name="Formulario",nullable=false,length=150,unique=true)
+    private Integer CodFormulario;
+    @Column(name="Formulario",length=150,unique=true)
     private String formulario;
-    @Column(name="Titulo",length=250,nullable=false)
+    @Column(name="Titulo",length=250)
     private String titulo;
+    @Column(name="Modulo",length=250)
+    private String Modulo;
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getCodFormulario() {
+        return CodFormulario;
+    }
+
+    public void setCodFormulario(Integer CodFormulario) {
+        this.CodFormulario = CodFormulario;
     }
 
     public String getFormulario() {
@@ -51,6 +57,14 @@ public class Formulario implements Serializable {
         this.titulo = titulo;
     }
 
+    public String getModulo() {
+        return Modulo;
+    }
+
+    public void setModulo(String Modulo) {
+        this.Modulo = Modulo;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -60,7 +74,7 @@ public class Formulario implements Serializable {
             return false;
         }
         final Formulario other = (Formulario) obj;
-        if (this.codigo != other.codigo && (this.codigo == null || !this.codigo.equals(other.codigo))) {
+        if (this.CodFormulario != other.CodFormulario && (this.CodFormulario == null || !this.CodFormulario.equals(other.CodFormulario))) {
             return false;
         }
         return true;
@@ -69,7 +83,7 @@ public class Formulario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + (this.codigo != null ? this.codigo.hashCode() : 0);
+        hash = 97 * hash + (this.CodFormulario != null ? this.CodFormulario.hashCode() : 0);
         return hash;
     }
 
