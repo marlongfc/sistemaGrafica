@@ -24,6 +24,9 @@ public class ComposicaoProdutoRNE extends GenericDAO {
         return super.deletePojo(session, composicaoProduto);
     }
     
+    
+    
+    
       public long getNextItem(EntityManager session) throws Exception {
         String q = " select max(e.codComposicaoProduto), max(e.produto) from ComposicaoProduto e ";
 
@@ -32,10 +35,25 @@ public class ComposicaoProdutoRNE extends GenericDAO {
         return ret == null ? 1 : ret + 1;
     }
     
-     public ComposicaoProduto getPorProduto(long codigo, EntityManager session) throws Exception {
-        String sql = " select e from ComposicaoProduto e where e.produto=?1 ";
+      public ComposicaoProduto getPorCodComposicao(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from ComposicaoProduto e where e.codComposicaoProduto=?1 ";
         return getPojoUnique(session, ComposicaoProduto.class, sql, codigo);
     }
+     
+      
+      
+      public ComposicaoProduto getPorMaterial(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from ComposicaoProduto e where e.material=?1 ";
+        return getPojoUnique(session, ComposicaoProduto.class, sql, codigo);
+    }
+      
+     
+      
+     public List<ComposicaoProduto> getListPorProduto(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from ComposicaoProduto e where e.produto=?1 order by e.material.descMaterial asc";
+        return getPureList(session, ComposicaoProduto.class, sql, codigo);
+    }
+     
      
       public List<ComposicaoProduto> getList(EntityManager session) throws Exception {
         String sql = " select e from ComposicaoProduto e order by e.codComposicaoProduto";

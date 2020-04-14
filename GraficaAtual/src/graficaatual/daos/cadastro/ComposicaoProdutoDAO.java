@@ -61,11 +61,26 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
         }
     }
 
-    public ComposicaoProduto getPorProduto(long codigo) throws Exception {
+     public ComposicaoProduto getPorCodComposicao(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
-            return super.getPorProduto(codigo, session);
+            return super.getPorCodComposicao(codigo, session);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.close();
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+    
+    public List<ComposicaoProduto> getListPorProduto(long codigo) throws Exception {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            return super.getListPorProduto(codigo, session);
 
         } catch (Exception e) {
             e.printStackTrace();

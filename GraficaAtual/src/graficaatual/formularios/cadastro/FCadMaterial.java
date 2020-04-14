@@ -5,7 +5,6 @@
  */
 package graficaatual.formularios.cadastro;
 
-
 import graficaatual.daos.cadastro.MaterialDAO;
 import graficaatual.entidades.Material;
 import graficaatual.pesq.cadastro.CnvMaterial;
@@ -52,8 +51,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         comp2.addCol(1, "descricao", "Nome do Material", 200, String.class.getName());
         comp2.bind();
 
-      ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+
         limparTela();
 
     }
@@ -65,6 +64,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         precoFretePeca.setEnabled(false);
 
         limparCampos();
+
+        atualizarTabela();
     }
 
     /**
@@ -438,7 +439,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CADASTRO DE MATERIAL");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 970, 70);
+        jLabel1.setBounds(-110, 0, 1260, 70);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Material");
@@ -552,16 +553,16 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 965, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -593,22 +594,35 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_descMaterialKeyReleased
 
     private void atualizarTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabMaterial.getModel();
+            removeLinhas(tabMaterial);
 
-        DefaultTableModel model = (DefaultTableModel) tabMaterial.getModel();
-        removeLinhas(tabMaterial);
+            List<Material> listaAux = materialDao.getList();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Material m : listaAux) {
+                    Object o[] = new Object[]{
+                        m.getCodMaterial(),
+                        m.getDescricao()};
+                        m.getUnidade();
+                        m.getAltura();
+                        m.getLargura();
+                        m.getPeso();
+                        m.getPrecoFreteMetro();
+                        m.getPrecoFreteQuilo();
+                        m.getPrecoFretePeca();
+                        m.getPrecoCompra();
+                        m.getPrecoCustoTotal();
 
-        List<?> lv;
-
-        lv = cnvMaterial.getLista();
-
-        if (lv != null && !lv.isEmpty()) {
-
-            for (Object o : lv) {
-                Object[] os = (Object[]) o;
-                model.addRow(os);
-                //Colocar tamanho nas colunas
-
+                    model.addRow(o);
+                }
             }
+            tabMaterial.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabMaterial);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de materiais cadastrados. Erro: " + e);
+
         }
     }
 
@@ -742,7 +756,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-           dispose();
+        dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMaterialMouseClicked

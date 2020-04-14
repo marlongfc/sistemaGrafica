@@ -50,8 +50,10 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         comp2.addCol(0, "codBairro", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Bairro", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+
+        limparTela();
     }
 
     /**
@@ -327,6 +329,11 @@ public class FCadBairro extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane11.setViewportView(tabBairro);
+        if (tabBairro.getColumnModel().getColumnCount() > 0) {
+            tabBairro.getColumnModel().getColumn(0).setMinWidth(250);
+            tabBairro.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tabBairro.getColumnModel().getColumn(0).setMaxWidth(250);
+        }
 
         jPanel18.add(jScrollPane11);
         jScrollPane11.setBounds(20, 210, 930, 180);
@@ -396,7 +403,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CADASTRO DE BAIRRO");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 970, 70);
+        jLabel1.setBounds(-30, 0, 1170, 70);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Bairro ");
@@ -411,21 +418,31 @@ public class FCadBairro extends javax.swing.JInternalFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 965, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void limparTela() {
+
+        codBairro.setText("");
+        codBairro.setEnabled(true);
+        descBairro.setText("");
+        bairro = new Bairro();
+        atualizarTabela();
+    }
+
 
     private void codBairroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codBairroFocusLost
         try {
@@ -453,22 +470,26 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_descBairroKeyReleased
 
     private void atualizarTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
+            removeLinhas(tabBairro);
 
-        DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
-        removeLinhas(tabBairro);
+            List<Bairro> listaAux = bairroDao.getList();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Bairro b : listaAux) {
+                    Object o[] = new Object[]{
+                        b.getCodBairro(),
+                        b.getDescricao()};
 
-        List<?> lv;
-
-        lv = cnvBairro.getLista();
-
-        if (lv != null && !lv.isEmpty()) {
-
-            for (Object o : lv) {
-                Object[] os = (Object[]) o;
-                model.addRow(os);
-                //Colocar tamanho nas colunas
-
+                    model.addRow(o);
+                }
             }
+            tabBairro.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabBairro);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de bairros cadastrados. Erro: " + e);
+
         }
     }
 
