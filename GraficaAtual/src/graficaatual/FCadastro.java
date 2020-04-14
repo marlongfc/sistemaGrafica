@@ -5,10 +5,15 @@
  */
 package graficaatual;
 
+import graficaatual.formularios.cadastro.FCadBairro;
 import graficaatual.formularios.cadastro.FCadCargo;
+import graficaatual.formularios.cadastro.FCadCidade;
 import graficaatual.formularios.cadastro.FCadCliente;
 import graficaatual.formularios.cadastro.FCadColaborador;
 import graficaatual.formularios.cadastro.FCadFornecedor;
+import graficaatual.formularios.cadastro.FCadLogradouro;
+import graficaatual.formularios.cadastro.FCadMaterial;
+import graficaatual.formularios.cadastro.FCadProduto;
 import graficaatual.formularios.cadastro.FCadUsuario;
 
 import javax.swing.JOptionPane;
@@ -340,11 +345,37 @@ public class FCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCargoActionPerformed
 
     private void jBBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBairroActionPerformed
-        // TODO add your handling code here:
+        try {
+            deskTop.removeAll();
+            FCadBairro clComp;
+
+            clComp = FCadBairro.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBBairroActionPerformed
 
     private void jBCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCidadeActionPerformed
-        // TODO add your handling code here:
+       try {
+            deskTop.removeAll();
+            FCadCidade clComp;
+
+            clComp = FCadCidade.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBCidadeActionPerformed
 
     private void jBUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUsuarioActionPerformed
@@ -386,11 +417,37 @@ public class FCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBTurnoActionPerformed
 
     private void jBMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMaterialActionPerformed
-        // TODO add your handling code here:
+      try {
+            deskTop.removeAll();
+            FCadMaterial clComp;
+
+            clComp = FCadMaterial.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBMaterialActionPerformed
 
     private void jBProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProdutoActionPerformed
-        // TODO add your handling code here:
+       try {
+            deskTop.removeAll();
+            FCadProduto clComp;
+
+            clComp = FCadProduto.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBProdutoActionPerformed
 
     private void jBAcabamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAcabamentoActionPerformed
@@ -402,7 +459,20 @@ public class FCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBFormaPagamentoActionPerformed
 
     private void jBLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLogradouroActionPerformed
-        // TODO add your handling code here:
+        try {
+            deskTop.removeAll();
+            FCadLogradouro clComp;
+
+            clComp = FCadLogradouro.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBLogradouroActionPerformed
 
     private void jBFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFornecedorActionPerformed

@@ -268,15 +268,17 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jPanel18.add(btNovo);
         btNovo.setBounds(140, 150, 180, 23);
 
-        btSalvar.setText("Salvar/Atualizar");
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
+        btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarActionPerformed(evt);
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 150, 180, 23);
+        btSalvar.setBounds(320, 150, 180, 39);
 
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +286,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 150, 180, 23);
+        btExcluir.setBounds(500, 150, 180, 39);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
