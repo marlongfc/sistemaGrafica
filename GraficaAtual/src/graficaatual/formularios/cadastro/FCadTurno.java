@@ -18,7 +18,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
- * @author User
+ * @author Moisés
  */
 public class FCadTurno extends javax.swing.JInternalFrame {
 
@@ -34,19 +34,27 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
         listaTurno = ObservableCollections.observableList(new LinkedList<Turno>());
         Componentes comp2 = new Componentes(listaTurno, false, codTurnoo, descTurno, this, jPanel18, descTurno.getWidth(), 100);
-        comp2.addCol(0, "codTurno", "Código", 50, Long.class.getName());
+        comp2.addCol(0, "codTurno", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Turno", 200, String.class.getName());
         comp2.bind();
+
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
 
     private static FCadTurno instancia;
+    private static FCadTurno instanceCont;
+    private static int initControle;
 
-    public static FCadTurno getInstancia() {
+    public static int isInicializado() {
+        return initControle;
+    }
+
+    public synchronized static FCadTurno getInstancia() {
         if (instancia == null) {
             instancia = new FCadTurno();
+            initControle = 1;
         }
-
         return instancia;
     }
 
@@ -104,7 +112,14 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(null);
+        setMinimumSize(new java.awt.Dimension(1100, 700));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
+
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setMaximumSize(new java.awt.Dimension(999999, 999999));
+        jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
         codTurnoo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -113,7 +128,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(codTurnoo);
-        codTurnoo.setBounds(60, 90, 80, 20);
+        codTurnoo.setBounds(30, 90, 110, 20);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel78.setText("Turno");
@@ -127,7 +142,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descTurno);
-        descTurno.setBounds(140, 90, 810, 20);
+        descTurno.setBounds(140, 90, 920, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -252,8 +267,9 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 150, 180, 23);
+        btNovo.setBounds(190, 140, 180, 40);
 
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,8 +277,9 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 150, 180, 23);
+        btSalvar.setBounds(370, 140, 180, 40);
 
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +287,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 150, 180, 23);
+        btExcluir.setBounds(550, 140, 180, 40);
 
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -279,7 +296,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 150, 180, 23);
+        btSair.setBounds(730, 140, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -310,9 +327,13 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane11.setViewportView(tab);
+        if (tab.getColumnModel().getColumnCount() > 0) {
+            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(1000);
+        }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 200, 930, 180);
+        jScrollPane11.setBounds(20, 200, 1040, 300);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -373,13 +394,13 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(280, 400, 430, 40);
+        jPanel20.setBounds(370, 510, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CADASTRO DE TURNO");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 970, 70);
+        jLabel1.setBounds(0, 0, 1100, 70);
 
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel79.setText("Código");
@@ -390,22 +411,20 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 965, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 965, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE))
         );
+
+        jPanel18.getAccessibleContext().setAccessibleName("");
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void codTurnooFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codTurnooFocusLost
@@ -429,11 +448,13 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
     private void descTurnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descTurnoKeyReleased
         try {
-            List<Turno> merged = turnoDao.getList(15, "select e from Turno e where e.descricao order by e.codigo", descTurno.getText().trim().toLowerCase());
+            List<Turno> merged = turnoDao.getList(12,
+                    "select e from Turno e where  lower ( trim(e.descricao) ) like ?1 order by e.codTurno",
+                    descTurno.getText().trim().toLowerCase() + "%");
             listaTurno.clear();
             listaTurno.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Turnos. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Turno. Erro: " + e);
         }
     }//GEN-LAST:event_descTurnoKeyReleased
 
@@ -496,7 +517,16 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        // TODO add your handling code here:
+        try {
+            if (evt.getClickCount() > 1) {
+                codTurnoo.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
+                carregaTurno();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_tabMouseClicked
 
     private void finalPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalPessoa1ActionPerformed
@@ -523,6 +553,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private void habilitaCampos(boolean b) {
         codTurnoo.setEnabled(b);
         descTurno.setEnabled(b);
+        btSalvar.setEnabled(b);
     }
 
     private void setCausa() {
