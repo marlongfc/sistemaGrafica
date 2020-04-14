@@ -50,8 +50,10 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         comp2.addCol(0, "codLogradouro", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Logradouro", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+
+        limparTela();
     }
 
     /**
@@ -426,6 +428,16 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparTela() {
+        codLogradouro.setText("");
+        codLogradouro.setEnabled(false);
+        descLogradouro.setText("");
+        logradouro = new Logradouro();
+
+        atualizarTabela();
+    }
+
+
     private void codLogradouroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codLogradouroFocusLost
         try {
             logradouro = logradouroDao.getPorCodigo(ValidarValor.getLong(codLogradouro.getText()));
@@ -451,25 +463,30 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descLogradouroKeyReleased
 
-    private void atualizarTabela() {
+       private void atualizarTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
+            removeLinhas(tabLogradouro);
 
-        DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
-        removeLinhas(tabLogradouro);
+            List<Logradouro> listaAux = logradouroDao.getList();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Logradouro b : listaAux) {
+                    Object o[] = new Object[]{
+                        b.getCodLogradouro(),
+                        b.getDescricao()};
 
-        List<?> lv;
-
-        lv = cnvLogradouro.getLista();
-
-        if (lv != null && !lv.isEmpty()) {
-
-            for (Object o : lv) {
-                Object[] os = (Object[]) o;
-                model.addRow(os);
-                //Colocar tamanho nas colunas
-
+                    model.addRow(o);
+                }
             }
+            tabLogradouro.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabLogradouro);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de logradouros cadastrados. Erro: " + e);
+
         }
     }
+
 
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();

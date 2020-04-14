@@ -52,6 +52,8 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         comp2.bind();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+
+        limparTela();
     }
 
     /**
@@ -304,14 +306,14 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Cidade"
+                "Código", "Cidade", "Código IBGE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -328,6 +330,14 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane11.setViewportView(tabCidade);
+        if (tabCidade.getColumnModel().getColumnCount() > 0) {
+            tabCidade.getColumnModel().getColumn(0).setMinWidth(250);
+            tabCidade.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tabCidade.getColumnModel().getColumn(0).setMaxWidth(250);
+            tabCidade.getColumnModel().getColumn(2).setMinWidth(250);
+            tabCidade.getColumnModel().getColumn(2).setPreferredWidth(250);
+            tabCidade.getColumnModel().getColumn(2).setMaxWidth(250);
+        }
 
         jPanel18.add(jScrollPane11);
         jScrollPane11.setBounds(20, 250, 930, 140);
@@ -434,6 +444,18 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparTela() {
+
+        codCidade.setText("");
+        codCidade.setEnabled(true);
+        descCidade.setText("");
+        codIbge.setText("");
+        cidade = new Cidade();
+
+        atualizarTabela();
+    }
+
+
     private void codCidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCidadeFocusLost
         try {
             cidade = cidadeDao.getPorCodigo(ValidarValor.getLong(codCidade.getText()));
@@ -460,22 +482,27 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_descCidadeKeyReleased
 
     private void atualizarTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
+            removeLinhas(tabCidade);
 
-        DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
-        removeLinhas(tabCidade);
+            List<Cidade> listaAux = cidadeDao.getList();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Cidade b : listaAux) {
+                    Object o[] = new Object[]{
+                        b.getCodCidade(),
+                        b.getDescricao()};
+                        b.getCodIBGE();
 
-        List<?> lv;
-
-        lv = cnvCidade.getLista();
-
-        if (lv != null && !lv.isEmpty()) {
-
-            for (Object o : lv) {
-                Object[] os = (Object[]) o;
-                model.addRow(os);
-                //Colocar tamanho nas colunas
-
+                    model.addRow(o);
+                }
             }
+            tabCidade.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabCidade);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de cidades cadastradas. Erro: " + e);
+
         }
     }
 

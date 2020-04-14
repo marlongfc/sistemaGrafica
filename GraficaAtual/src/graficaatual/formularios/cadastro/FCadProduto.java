@@ -78,6 +78,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         custoProduto.setEditable(false);
         msgMaterial.setVisible(false);
         limparCampos();
+
+        atualizarTabela();
     }
 
     /**
@@ -402,14 +404,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código Material", "Material", "Valor Unitário (R$)", "Quantidade", "Total (R$)"
+                "Cód Composicao", "Código Material", "Material", "Valor Unitário (R$)", "Quantidade", "Total (R$)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -430,6 +432,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel2.setBounds(20, 440, 110, 14);
 
         custoProduto.setText("0,00");
+        custoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                custoProdutoFocusLost(evt);
+            }
+        });
         jPanel18.add(custoProduto);
         custoProduto.setBounds(20, 460, 130, 20);
 
@@ -847,6 +854,24 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_codProdutoFocusLost
 
+    private void carregarCampos(Produto p) {
+
+        codMaterial.setText("");
+        descMaterial.setText("");
+        quantidade.setText("");
+
+        atualizarTabelaComposicao(p);
+
+        custoProduto.setText("" + p.getValorProdutoM2());
+        maoDeObra.setText("" + p.getMaoDeObra());
+        custoEmpresa.setText("" + p.getCustoEmpresa());
+        custoServico.setText("" + p.getCustoTotal());
+        margemLucro.setText("" + p.getMargemLucro());
+        valorUnitario.setText("" + p.getValorUnitario());
+
+    }
+
+
     private void descProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descProdutoKeyReleased
         try {
             List<Produto> merged = produtoDao.getList(15, "select e from Produto e where 1=1 and REPLACE(REPLACE(REPLACE(trim(e.descricao),'.',''),'-',''),' ', '') "
@@ -859,22 +884,65 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_descProdutoKeyReleased
 
     private void atualizarTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
+            removeLinhas(tabProduto);
 
-        DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
-        removeLinhas(tabProduto);
+            List<Produto> listaAux = produtoDao.getList();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Produto p : listaAux) {
+                    Object o[] = new Object[]{
+                        p.getCodProduto(),
+                        p.getDescricao()};
 
-        List<?> lv;
-
-        lv = cnvProduto.getLista();
-
-        if (lv != null && !lv.isEmpty()) {
-
-            for (Object o : lv) {
-                Object[] os = (Object[]) o;
-                model.addRow(os);
-                //Colocar tamanho nas colunas
-
+                    model.addRow(o);
+                }
             }
+            tabProduto.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabProduto);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de produtos cadastrados. Erro: " + e);
+
+        }
+    }
+
+    private void atualizarTabelaComposicao(Produto p) {
+        try {
+
+            DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
+            removeLinhas(tabComposicao);
+
+            List<ComposicaoProduto> listaAux = composicaoDao.getListPorProduto(p.getCodProduto());
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+
+                for (ComposicaoProduto c : listaAux) {
+
+                    if (c.getMaterial() != null) {
+                        Object o[] = new Object[]{
+                            c.getCodComposicaoProduto(),
+                            c.getMaterial().getCodMaterial(),
+                            c.getMaterial().getDescricao()};
+                        c.getMaterial().getUnidade();
+                        c.getMaterial().getAltura();
+                        c.getMaterial().getLargura();
+                        c.getMaterial().getPeso();
+                        c.getMaterial().getPrecoFreteMetro();
+                        c.getMaterial().getPrecoFreteQuilo();
+                        c.getMaterial().getPrecoFretePeca();
+                        c.getMaterial().getPrecoCompra();
+                        c.getMaterial().getPrecoCustoTotal();
+
+                        model.addRow(o);
+                    }
+                }
+            }
+            tabProduto.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabProduto);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar composição do produto. Erro: " + e);
+
         }
     }
 
@@ -976,6 +1044,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             // considerando 0 como sim
             if (op == 0) {
 
+                deletarComposicao();
+
                 produtoDao.delete(produto);
 
                 codProduto.setText("");
@@ -991,6 +1061,15 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
+    private void deletarComposicao() {
+        try {
+
+            for (int i = 0; i < tabComposicao.getRowCount(); i++) {
+                composicaoDao.delete(composicaoDao.getPorCodComposicao((Long) tabComposicao.getValueAt(i, 0)));
+            }
+        } catch (Exception e) {
+        }
+    }
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         dispose();
@@ -1002,10 +1081,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void codMaterialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codMaterialFocusLost
         try {
+            quantidade.setText("0,00");
             material = materialDao.getPorCodigo(ValidarValor.getLong(codMaterial.getText()));
             if (material == null) {
                 descMaterial.setText("");
-                quantidade.setText("0,00");
+            } else {
+                descMaterial.setText(material.getDescricao());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1056,13 +1137,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btAddMaterialActionPerformed
 
     private void maoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maoDeObraFocusLost
-        atualizaCustoMateriais();
+        atualizaCustoServico();
         atualizaValorTotalProduto();
 
     }//GEN-LAST:event_maoDeObraFocusLost
 
     private void custoEmpresaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_custoEmpresaFocusLost
-        atualizaCustoMateriais();
+        atualizaCustoServico();
         atualizaValorTotalProduto();
     }//GEN-LAST:event_custoEmpresaFocusLost
 
@@ -1089,6 +1170,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private void inicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicio1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inicio1ActionPerformed
+
+    private void custoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_custoProdutoFocusLost
+        atualizaCustoServico();
+        atualizaValorTotalProduto();
+    }//GEN-LAST:event_custoProdutoFocusLost
 
     private void atualizaCustoMateriais() {
         DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
@@ -1125,7 +1211,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             custoServico.setText("" + ValidarValor.getDouble(custoProduto.getText()) + ValidarValor.getDouble(maoDeObra.getText()) + ValidarValor.getDouble(custoEmpresa.getText()));
 
         } catch (Exception e) {
-            custoServico.setText("" + custoProduto.getText());
+            custoServico.setText("0,00");
             e.printStackTrace();
         }
     }

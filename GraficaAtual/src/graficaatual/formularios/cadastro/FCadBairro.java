@@ -50,8 +50,10 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         comp2.addCol(0, "codBairro", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Bairro", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+
+        limparTela();
     }
 
     /**
@@ -432,6 +434,16 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparTela() {
+
+        codBairro.setText("");
+        codBairro.setEnabled(true);
+        descBairro.setText("");
+        bairro = new Bairro();
+        atualizarTabela();
+    }
+
+
     private void codBairroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codBairroFocusLost
         try {
             bairro = bairroDao.getPorCodigo(ValidarValor.getLong(codBairro.getText()));
@@ -458,22 +470,26 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_descBairroKeyReleased
 
     private void atualizarTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
+            removeLinhas(tabBairro);
 
-        DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
-        removeLinhas(tabBairro);
+            List<Bairro> listaAux = bairroDao.getList();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Bairro b : listaAux) {
+                    Object o[] = new Object[]{
+                        b.getCodBairro(),
+                        b.getDescricao()};
 
-        List<?> lv;
-
-        lv = cnvBairro.getLista();
-
-        if (lv != null && !lv.isEmpty()) {
-
-            for (Object o : lv) {
-                Object[] os = (Object[]) o;
-                model.addRow(os);
-                //Colocar tamanho nas colunas
-
+                    model.addRow(o);
+                }
             }
+            tabBairro.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabBairro);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de bairros cadastrados. Erro: " + e);
+
         }
     }
 
