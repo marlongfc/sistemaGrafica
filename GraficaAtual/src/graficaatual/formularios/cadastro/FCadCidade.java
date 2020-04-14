@@ -112,6 +112,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jLabel80 = new javax.swing.JLabel();
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setMinimumSize(new java.awt.Dimension(1335, 650));
         jPanel18.setLayout(null);
 
         codCidade.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -393,8 +394,8 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel80);
         jLabel80.setBounds(140, 70, 70, 20);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 965, Short.MAX_VALUE)

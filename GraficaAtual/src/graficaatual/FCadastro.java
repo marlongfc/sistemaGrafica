@@ -90,14 +90,14 @@ public class FCadastro extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Módulo de Cadastros");
         jLabel8.setOpaque(true);
         jPanel1.add(jLabel8);
         jLabel8.setBounds(1, 0, 1140, 70);
 
-        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setBackground(new java.awt.Color(131, 37, 135));
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/teste2.png"))); // NOI18N
         jButton9.setText("Cliente");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
