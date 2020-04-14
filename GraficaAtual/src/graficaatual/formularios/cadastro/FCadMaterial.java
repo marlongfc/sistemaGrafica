@@ -708,15 +708,15 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
             material.setUnidade(comboUnidade.getSelectedIndex());
 
-            material.setAltura(ValidarValor.getDouble(altura.getText()));
-            material.setLargura(ValidarValor.getDouble(largura.getText()));
-            material.setPeso(ValidarValor.getDouble(peso.getText()));
+            material.setAltura(Double.parseDouble(altura.getText().replaceAll(",", ".")));
+            material.setLargura(Double.parseDouble(largura.getText().replaceAll(",", ".")));
+            material.setPeso(Double.parseDouble(peso.getText().replaceAll(",", ".")));
 
-            material.setPrecoFreteMetro(ValidarValor.getDouble(precoFreteM2.getText()));
-            material.setPrecoFreteQuilo(ValidarValor.getDouble(precoFreteKg.getText()));
-            material.setPrecoFretePeca(ValidarValor.getDouble(precoFretePeca.getText()));
-            material.setPrecoCompra(ValidarValor.getDouble(precoCustoCompra.getText()));
-            material.setPrecoCustoTotal(ValidarValor.getDouble(precoCustoTotal.getText()));
+            material.setPrecoFreteMetro(Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")));
+            material.setPrecoFreteQuilo(Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")));
+            material.setPrecoFretePeca(Double.parseDouble(precoFretePeca.getText().replaceAll(",", ".")));
+            material.setPrecoCompra(Double.parseDouble(precoCustoCompra.getText().replaceAll(",", ".")));
+            material.setPrecoCustoTotal(Double.parseDouble(precoCustoTotal.getText().replaceAll(",", ".")));
 
             if (materialDao.salvar(material) != null) {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -741,6 +741,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             // considerando 0 como sim
             if (op == 0) {
 
+                materialDao.delete(material);
                 limparTela();
 
             } else {
@@ -850,13 +851,13 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         try {
             switch (comboUnidade.getSelectedIndex()) {
                 case 0:
-                    precoCustoTotal.setText("" + (ValidarValor.getDouble(precoFreteM2.getText()) + ValidarValor.getDouble(precoCustoCompra.getText())));
+                    precoCustoTotal.setText("" + (Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
                     break;
                 case 1:
-                    precoCustoTotal.setText("" + (ValidarValor.getDouble(precoFreteKg.getText()) + ValidarValor.getDouble(precoCustoCompra.getText())));
+                    precoCustoTotal.setText("" + (Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
                     break;
                 case 2:
-                    precoCustoTotal.setText("" + (ValidarValor.getDouble(precoFretePeca.getText()) + ValidarValor.getDouble(precoCustoCompra.getText())));
+                    precoCustoTotal.setText("" + (Double.parseDouble(precoFretePeca.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
                     break;
                 default:
                     precoCustoTotal.setText("0,00");
