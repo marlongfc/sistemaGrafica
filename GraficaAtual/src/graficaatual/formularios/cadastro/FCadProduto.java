@@ -77,6 +77,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         custoServico.setEditable(false);
         custoProduto.setEditable(false);
         msgMaterial.setVisible(false);
+        
         limparCampos();
 
         atualizarTabela();
@@ -980,16 +981,22 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             descProduto.setText("");
             produto = null;
+            
+            codMaterial.setText("");
+            descMaterial.setText("");
+            material = null;
+            
             custoProduto.setText("0,00");
             maoDeObra.setText("0,00");
             custoEmpresa.setText("0,00");
             custoServico.setText("0,00");
             margemLucro.setText("0,00");
             valorUnitario.setText("0,00");
-           
-            removeLinhas(tabComposicao);
+                     
+            tabComposicao.removeAll();
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -1028,7 +1035,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
                 composicaoProduto.setCodComposicaoProduto(composicaoDao.getNextItem());
                 composicaoProduto.setProduto(produto);
-                composicaoProduto.setMaterial(materialDao.getPorCodigo(Long.parseLong("" + model.getValueAt(i, 0))));
+                composicaoProduto.setMaterial(materialDao.getPorCodigo(Long.parseLong("" + model.getValueAt(i, 1))));
 
             }
 

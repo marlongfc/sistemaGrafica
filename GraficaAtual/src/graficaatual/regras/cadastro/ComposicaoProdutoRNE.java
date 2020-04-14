@@ -50,7 +50,7 @@ public class ComposicaoProdutoRNE extends GenericDAO {
      
       
      public List<ComposicaoProduto> getListPorProduto(long codigo, EntityManager session) throws Exception {
-        String sql = " select e from ComposicaoProduto e where e.produto=?1 order by e.material.descMaterial asc";
+        String sql = " select e from ComposicaoProduto e where e.produto.codProduto=?1 order by e.material.descricao asc";
         return getPureList(session, ComposicaoProduto.class, sql, codigo);
     }
      

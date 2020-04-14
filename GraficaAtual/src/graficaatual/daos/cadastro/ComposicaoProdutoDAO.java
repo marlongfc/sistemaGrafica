@@ -80,7 +80,7 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
-            return super.getListPorProduto(codigo, session);
+            return super.getListPorProduto(codigo, Persistencia.getInstance().getEntityManager());
 
         } catch (Exception e) {
             e.printStackTrace();
