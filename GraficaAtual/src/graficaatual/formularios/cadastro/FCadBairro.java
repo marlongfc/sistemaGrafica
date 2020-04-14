@@ -50,6 +50,8 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         comp2.addCol(0, "codBairro", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Bairro", 200, String.class.getName());
         comp2.bind();
+        
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
 
     /**

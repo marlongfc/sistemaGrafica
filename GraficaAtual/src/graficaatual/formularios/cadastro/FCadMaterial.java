@@ -52,6 +52,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         comp2.addCol(1, "descricao", "Nome do Material", 200, String.class.getName());
         comp2.bind();
 
+      ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        
         limparTela();
 
     }
