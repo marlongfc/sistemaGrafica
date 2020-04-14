@@ -20,8 +20,8 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity(name="graficaatual.entidades.financeiro.Sangria")
-@Table(name = "sangrias")
+@Entity//(name="graficaatual.entidades.financeiro.Sangria")
+@Table(name = "sangria")
 public class Sangria implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,11 +35,7 @@ public class Sangria implements java.io.Serializable {
     private String descricao;
 
     @Column()
-    private Double valor;
-
-    @ManyToOne()
-    @JoinColumn(name = "colaborador", nullable = false)
-    private Colaborador colaborador;
+    private Double valor; 
 
     @Column(length = 300)
     private String observacao;
@@ -78,14 +74,6 @@ public class Sangria implements java.io.Serializable {
 
     public void setValor(Double valor) {
         this.valor = valor;
-    }
-
-    public Colaborador getColaborador() {
-        return colaborador;
-    }
-
-    public void setColaborador(Colaborador colaborador) {
-        this.colaborador = colaborador;
     }
 
     public String getObservacao() {

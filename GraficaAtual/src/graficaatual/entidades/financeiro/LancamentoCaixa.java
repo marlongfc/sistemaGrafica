@@ -20,8 +20,8 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity(name="graficaatual.entidades.financeiro.lancamentoCaixa")
-@Table(name = "lancamentosCaixa")
+@Entity//(name="graficaatual.entidades.financeiro.lancamentoCaixa")
+@Table(name = "lancamentoCaixa")
 public class LancamentoCaixa implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,10 +36,6 @@ public class LancamentoCaixa implements java.io.Serializable {
 
     @Column(nullable = false)
     private Double valor;
-
-    @ManyToOne()
-    @JoinColumn(name = "colaborador", nullable = false)
-    private Colaborador colaborador;
 
     @Column(length = 300)
     private String observacao;
@@ -78,14 +74,6 @@ public class LancamentoCaixa implements java.io.Serializable {
 
     public void setValor(Double valor) {
         this.valor = valor;
-    }
-
-    public Colaborador getColaborador() {
-        return colaborador;
-    }
-
-    public void setColaborador(Colaborador colaborador) {
-        this.colaborador = colaborador;
     }
 
     public String getObservacao() {
