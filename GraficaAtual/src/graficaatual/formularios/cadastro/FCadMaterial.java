@@ -448,7 +448,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Unidade de Medida");
         jPanel18.add(jLabel2);
-        jLabel2.setBounds(60, 120, 110, 14);
+        jLabel2.setBounds(60, 120, 140, 14);
 
         jLabel3.setText("Altura (metros)");
         jPanel18.add(jLabel3);
@@ -456,7 +456,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Largura (metros)");
         jPanel18.add(jLabel4);
-        jLabel4.setBounds(360, 120, 100, 14);
+        jLabel4.setBounds(360, 120, 130, 14);
 
         jLabel5.setText("Peso (Kg)");
         jPanel18.add(jLabel5);
@@ -503,7 +503,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Preço Custo Frete (Kg)");
         jPanel18.add(jLabel7);
-        jLabel7.setBounds(210, 170, 120, 20);
+        jLabel7.setBounds(210, 170, 140, 20);
 
         precoCustoCompra.setText("0.00");
         precoCustoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -526,7 +526,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Preço de Custo Total");
         jPanel18.add(jLabel9);
-        jLabel9.setBounds(660, 170, 120, 14);
+        jLabel9.setBounds(660, 170, 150, 14);
 
         comboUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Metro (m)", "Quilo (kg)", "Peça (pc)" }));
         comboUnidade.addItemListener(new java.awt.event.ItemListener() {
@@ -541,29 +541,28 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(precoFretePeca);
         precoFretePeca.setBounds(360, 190, 130, 20);
 
-        jLabel10.setText("Preço Custo Frete (pc)");
+        jLabel10.setText("Preço Custo Frete (pç)");
         jPanel18.add(jLabel10);
-        jLabel10.setBounds(360, 170, 120, 14);
+        jLabel10.setBounds(360, 170, 140, 14);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1335, Short.MAX_VALUE)
+            .addGap(0, 1319, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 110, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 722, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -643,6 +642,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             //   codMaterial.setEnabled(false);
 
             limparCampos();
+            descMaterial.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -655,19 +655,19 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         comboUnidade.setSelectedIndex(0);
 
-        altura.setText("0,00");
-        largura.setText("0,00");
-        peso.setText("0,00");
+        altura.setText("0.00");
+        largura.setText("0.00");
+        peso.setText("0.00");
 
         precoFreteM2.setEnabled(true);
-        precoFreteM2.setText("0,00");
+        precoFreteM2.setText("0.00");
         precoFreteKg.setEnabled(false);
-        precoFreteKg.setText("0,00");
+        precoFreteKg.setText("0.00");
         precoFretePeca.setEnabled(false);
-        precoFretePeca.setText("0,00");
+        precoFretePeca.setText("0.00");
 
-        precoCustoCompra.setText("0,00");
-        precoCustoTotal.setText("0,00");
+        precoCustoCompra.setText("0.00");
+        precoCustoTotal.setText("0.00");
 
     }
 
@@ -703,27 +703,29 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             } else {
                 material.setDataAtualizacao(new Date());
             }
+            
+               atualizaPrecoCustoTotal();
+            
             material.setCodMaterial(Long.parseLong(codMaterial.getText()));
             material.setDescricao(descMaterial.getText());
 
             material.setUnidade(comboUnidade.getSelectedIndex());
 
-            material.setAltura(Double.parseDouble(altura.getText().replaceAll(",", ".")));
-            material.setLargura(Double.parseDouble(largura.getText().replaceAll(",", ".")));
-            material.setPeso(Double.parseDouble(peso.getText().replaceAll(",", ".")));
+            material.setAltura(ValidarValor.getArredondamento(Double.parseDouble(altura.getText().replaceAll(",", "."))));
+            material.setLargura(ValidarValor.getArredondamento(Double.parseDouble(largura.getText().replaceAll(",", "."))));
+            material.setPeso(ValidarValor.getArredondamento(Double.parseDouble(peso.getText().replaceAll(",", "."))));
 
-            material.setPrecoFreteMetro(Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")));
-            material.setPrecoFreteQuilo(Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")));
-            material.setPrecoFretePeca(Double.parseDouble(precoFretePeca.getText().replaceAll(",", ".")));
-            material.setPrecoCompra(Double.parseDouble(precoCustoCompra.getText().replaceAll(",", ".")));
-            material.setPrecoCustoTotal(Double.parseDouble(precoCustoTotal.getText().replaceAll(",", ".")));
+            material.setPrecoFreteMetro(ValidarValor.getArredondamento(Double.parseDouble(precoFreteM2.getText().replaceAll(",", "."))));
+            material.setPrecoFreteQuilo(ValidarValor.getArredondamento(Double.parseDouble(precoFreteKg.getText().replaceAll(",", "."))));
+            material.setPrecoFretePeca(ValidarValor.getArredondamento(Double.parseDouble(precoFretePeca.getText().replaceAll(",", "."))));
+            material.setPrecoCompra(ValidarValor.getArredondamento(Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
+            material.setPrecoCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(precoCustoTotal.getText().replaceAll(",", "."))));
 
             if (materialDao.salvar(material) != null) {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                limparTela();
             }
 
-            codMaterial.setEnabled(true);
-            atualizarTabela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar material. Erro: " + e);
@@ -816,25 +818,25 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             switch (comboUnidade.getSelectedIndex()) {
                 case 0:
                     precoFreteM2.setEnabled(true);
-                    precoFreteM2.setText("0,00");
+                    precoFreteM2.setText("0.00");
                     precoFreteKg.setEnabled(false);
-                    precoFreteKg.setText("0,00");
+                    precoFreteKg.setText("0.00");
                     precoFretePeca.setEnabled(false);
-                    precoFretePeca.setText("0,00");
+                    precoFretePeca.setText("0.00");
                     break;
                 case 1:
                     precoFreteKg.setEnabled(true);
                     precoFreteM2.setEnabled(false);
-                    precoFreteM2.setText("0,00");
+                    precoFreteM2.setText("0.00");
                     precoFretePeca.setEnabled(false);
-                    precoFretePeca.setText("0,00");
+                    precoFretePeca.setText("0.00");
                     break;
                 case 2:
                     precoFretePeca.setEnabled(true);
                     precoFreteM2.setEnabled(false);
-                    precoFreteM2.setText("0,00");
+                    precoFreteM2.setText("0.00");
                     precoFreteKg.setEnabled(false);
-                    precoFreteKg.setText("0,00");
+                    precoFreteKg.setText("0.00");
                     break;
                 default:
                     break;
@@ -850,23 +852,32 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
     private void atualizaPrecoCustoTotal() {
         try {
+
+            Double preco = 0.00;
+
             switch (comboUnidade.getSelectedIndex()) {
                 case 0:
-                    precoCustoTotal.setText("" + (Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
+
+                    preco = (ValidarValor.getArredondamento((Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", ".")))));
+                    precoCustoTotal.setText("" + preco);
                     break;
                 case 1:
-                    precoCustoTotal.setText("" + (Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
+
+                    preco = (ValidarValor.getArredondamento(Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
+                    precoCustoTotal.setText("" + preco);
                     break;
                 case 2:
-                    precoCustoTotal.setText("" + (Double.parseDouble(precoFretePeca.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
+
+                    preco = (ValidarValor.getArredondamento(Double.parseDouble(precoFretePeca.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
+                    precoCustoTotal.setText("" + preco);
                     break;
                 default:
-                    precoCustoTotal.setText("0,00");
+                    precoCustoTotal.setText("0.00");
                     break;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            precoCustoTotal.setText("0,00");
+            precoCustoTotal.setText("0.00");
         }
     }
 

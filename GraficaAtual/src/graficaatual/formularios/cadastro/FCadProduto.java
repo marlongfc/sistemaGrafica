@@ -158,6 +158,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         btAddMaterial = new javax.swing.JButton();
         msgMaterial = new javax.swing.JLabel();
         removerMaterial = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -220,12 +221,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(codProduto);
-        codProduto.setBounds(60, 90, 80, 20);
+        codProduto.setBounds(20, 90, 100, 20);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel78.setText("Código ");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(60, 70, 60, 20);
+        jLabel78.setBounds(20, 70, 60, 20);
 
         descProduto.setBackground(new java.awt.Color(255, 255, 204));
         descProduto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -234,7 +235,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descProduto);
-        descProduto.setBounds(140, 90, 810, 20);
+        descProduto.setBounds(120, 90, 830, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -427,7 +428,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabComposicao);
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 180, 930, 220);
+        jScrollPane1.setBounds(20, 200, 930, 200);
 
         jLabel2.setText("Custo Produto ( m²)");
         jPanel18.add(jLabel2);
@@ -499,17 +500,17 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Valor Unitário (m²)");
         jPanel18.add(jLabel7);
-        jLabel7.setBounds(780, 440, 150, 15);
+        jLabel7.setBounds(820, 440, 150, 15);
 
         valorUnitario.setBackground(new java.awt.Color(255, 255, 204));
         valorUnitario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         valorUnitario.setText("0.00");
         jPanel18.add(valorUnitario);
-        valorUnitario.setBounds(780, 460, 130, 21);
+        valorUnitario.setBounds(820, 460, 130, 21);
 
         jLabel8.setText("Cód. Material");
         jPanel18.add(jLabel8);
-        jLabel8.setBounds(60, 120, 80, 14);
+        jLabel8.setBounds(20, 120, 80, 14);
 
         codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -517,7 +518,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(codMaterial);
-        codMaterial.setBounds(60, 140, 80, 20);
+        codMaterial.setBounds(20, 140, 100, 20);
 
         descMaterial.setBackground(new java.awt.Color(255, 255, 204));
         descMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -526,7 +527,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descMaterial);
-        descMaterial.setBounds(140, 140, 440, 20);
+        descMaterial.setBounds(120, 140, 360, 20);
 
         jLabel9.setText("Material");
         jPanel18.add(jLabel9);
@@ -534,7 +535,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Quantidade");
         jPanel18.add(jLabel10);
-        jLabel10.setBounds(590, 120, 100, 14);
+        jLabel10.setBounds(490, 120, 110, 14);
 
         quantidade.setText("0.00");
         quantidade.addActionListener(new java.awt.event.ActionListener() {
@@ -543,30 +544,35 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(quantidade);
-        quantidade.setBounds(590, 140, 100, 20);
+        quantidade.setBounds(490, 140, 110, 20);
 
-        btAddMaterial.setText("Adicionar Material Em Composição");
+        btAddMaterial.setText("Adicionar Material");
         btAddMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAddMaterialActionPerformed(evt);
             }
         });
         jPanel18.add(btAddMaterial);
-        btAddMaterial.setBounds(700, 140, 250, 23);
+        btAddMaterial.setBounds(610, 140, 180, 23);
 
         msgMaterial.setForeground(new java.awt.Color(255, 0, 0));
         msgMaterial.setText("* Material adicionado/removido ainda não foi salvo! Informe os valores abaixo e clique em salvar para salvar o produto!");
         jPanel18.add(msgMaterial);
         msgMaterial.setBounds(20, 410, 770, 14);
 
-        removerMaterial.setText("Remover Material Em Composição");
+        removerMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
+        removerMaterial.setText("Remover Material");
         removerMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerMaterialActionPerformed(evt);
             }
         });
         jPanel18.add(removerMaterial);
-        removerMaterial.setBounds(960, 140, 200, 23);
+        removerMaterial.setBounds(800, 140, 150, 39);
+
+        jLabel13.setText("Composição de Materiais do Produto");
+        jPanel18.add(jLabel13);
+        jLabel13.setBounds(20, 170, 210, 30);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 
@@ -986,6 +992,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             limparTela();
             codProduto.setText("" + produtoDao.getNextItem());
+            descProduto.requestFocus();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -999,6 +1006,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             codMaterial.setText("");
             descMaterial.setText("");
+            quantidade.setText("0.00");
             material = null;
 
             custoProduto.setText("0.00");
@@ -1026,15 +1034,17 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 produto.setDataAtualizacao(new Date());
             }
 
+            atualizaValorTotalProduto();
+            
             produto.setCodProduto(Long.parseLong(codProduto.getText()));
             produto.setDescricao(descProduto.getText());
 
-            produto.setValorProdutoM2(Double.parseDouble(custoProduto.getText().replaceAll(",", ".")));
-            produto.setMaoDeObra(Double.parseDouble(maoDeObra.getText().replaceAll(",", ".")));
-            produto.setCustoEmpresa(Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")));
-            produto.setCustoTotal(Double.parseDouble(custoServico.getText().replaceAll(",", ".")));
-            produto.setMargemLucro(Double.parseDouble(margemLucro.getText().replaceAll(",", ".")));
-            produto.setValorUnitario(Double.parseDouble(valorUnitario.getText().replaceAll(",", ".")));
+            produto.setValorProdutoM2(ValidarValor.getArredondamento(Double.parseDouble(custoProduto.getText().replaceAll(",", "."))));
+            produto.setMaoDeObra(ValidarValor.getArredondamento(Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))));
+            produto.setCustoEmpresa(ValidarValor.getArredondamento(Double.parseDouble(custoEmpresa.getText().replaceAll(",", "."))));
+            produto.setCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(custoServico.getText().replaceAll(",", "."))));
+            produto.setMargemLucro(ValidarValor.getArredondamento(Double.parseDouble(margemLucro.getText().replaceAll(",", "."))));
+            produto.setValorUnitario(ValidarValor.getArredondamento(Double.parseDouble(valorUnitario.getText().replaceAll(",", "."))));
 
             if (produtoDao.salvar(produto) != null) {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -1051,16 +1061,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 composicaoProduto.setCodComposicaoProduto(composicaoDao.getNextItem());
                 composicaoProduto.setProduto(produto);
                 composicaoProduto.setMaterial(materialDao.getPorCodigo(Long.parseLong("" + model.getValueAt(i, 1))));
-                composicaoProduto.setQuantidade(Double.parseDouble(quantidade.getText().replaceAll(",", ".")));
+                composicaoProduto.setQuantidade(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 4)).replaceAll(",", "."))));
 
                 composicaoDao.salvar(composicaoProduto);
             }
 
-            msgMaterial.setVisible(false);
-            
-            ////////////////////////////////////////////////////////////////////////////
-            codProduto.setEnabled(true);
-            atualizarTabela();
+           limparTela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar produto. Erro: " + e);
@@ -1105,7 +1111,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-       
+
         limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
@@ -1158,8 +1164,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             os[1] = codMaterial.getText();
             os[2] = descMaterial.getText();
             os[3] = material.getPrecoCustoTotal();
-            os[4] = Double.parseDouble(quantidade.getText().replaceAll(",", "."));
-            os[5] = (Double.parseDouble("" + os[3]) * Double.parseDouble("" + os[4]));
+            os[4] = ValidarValor.getArredondamento(Double.parseDouble(quantidade.getText().replaceAll(",", ".")));
+            os[5] = ValidarValor.getArredondamento((Double.parseDouble("" + os[3]) * Double.parseDouble("" + os[4])));
 
             model.addRow(os);
 
@@ -1167,10 +1173,20 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             atualizaCustoMateriais();
             atualizaValorTotalProduto();
 
+            limparMaterial();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
+
+    private void limparMaterial() {
+        codMaterial.setText("");
+        descMaterial.setText("");
+        quantidade.setText("0.00");
+        material = null;
+    }
+
 
     private void maoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maoDeObraFocusLost
         atualizaCustoServico();
@@ -1228,12 +1244,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Selecione um material na tabela de composição do produto!");
                 } else {
                     tabComposicao.remove(tabComposicao.getSelectedRow());
-                      msgMaterial.setVisible(true);
+                    msgMaterial.setVisible(true);
+                    limparMaterial();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
     }//GEN-LAST:event_removerMaterialActionPerformed
 
@@ -1243,7 +1260,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         Double soma = 0.00;
         try {
             for (i = 0; i < model.getRowCount(); i++) {
-                soma = soma + (Double) model.getValueAt(i, 5);
+                soma = ValidarValor.getArredondamento(soma + (Double) model.getValueAt(i, 5));
             }
             custoProduto.setText("" + soma);
 
@@ -1260,7 +1277,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         try {
             custo = (Double.parseDouble(custoProduto.getText().replaceAll(",", ".")) + Double.parseDouble(maoDeObra.getText().replaceAll(",", ".")) + Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")));
 
-            valorTot = (custo + ((custo * (Double.parseDouble(margemLucro.getText().replaceAll(",", ".")))) / 100));
+            valorTot = ValidarValor.getArredondamento((custo + ((custo * (Double.parseDouble(margemLucro.getText().replaceAll(",", ".")))) / 100)));
 
             valorUnitario.setText("" + valorTot);
         } catch (Exception e) {
@@ -1277,7 +1294,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             Double soma = 0.00;
 
-            soma = ((Double.parseDouble(custoProduto.getText().replaceAll(",", "."))) + (Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))) + (Double.parseDouble(custoEmpresa.getText().replaceAll(",", "."))));
+            soma = ValidarValor.getArredondamento(((Double.parseDouble(custoProduto.getText().replaceAll(",", "."))) + (Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))) + (Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")))));
 
             custoServico.setText(soma.toString());
         } catch (Exception e) {
@@ -1325,6 +1342,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel116;
     private javax.swing.JLabel jLabel117;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
