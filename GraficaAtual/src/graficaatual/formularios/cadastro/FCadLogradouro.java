@@ -463,7 +463,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descLogradouroKeyReleased
 
-       private void atualizarTabela() {
+    private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
             removeLinhas(tabLogradouro);
@@ -487,7 +487,6 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         }
     }
 
-
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
 
@@ -502,10 +501,10 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codLogradouro.setText("" + logradouroDao.getNextItem());
-           // codLogradouro.setEnabled(false);
+            // codLogradouro.setEnabled(false);
             descLogradouro.setText("");
             logradouro = null;
-         
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -562,6 +561,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 

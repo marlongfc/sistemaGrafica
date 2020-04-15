@@ -34,6 +34,9 @@ public class ComposicaoProduto implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "produto")
     private Produto produto;
+    
+     @Column(name = "quantidade", nullable = false)
+    private Double quantidade;
 
     public ComposicaoProduto() {
     }
@@ -61,6 +64,16 @@ public class ComposicaoProduto implements Serializable {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public Double getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Double quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    
 
     @Override
     public int hashCode() {

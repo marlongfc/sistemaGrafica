@@ -568,6 +568,8 @@ public class FCadBairro extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+      
+         limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 

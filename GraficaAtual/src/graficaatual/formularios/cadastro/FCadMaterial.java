@@ -462,7 +462,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel5);
         jLabel5.setBounds(510, 120, 80, 14);
 
-        altura.setText("0,00");
+        altura.setText("0.00");
         altura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 alturaActionPerformed(evt);
@@ -471,7 +471,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(altura);
         altura.setBounds(210, 140, 130, 20);
 
-        largura.setText("0,00");
+        largura.setText("0.00");
         largura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 larguraActionPerformed(evt);
@@ -480,7 +480,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(largura);
         largura.setBounds(360, 140, 130, 20);
 
-        peso.setText("0,00");
+        peso.setText("0.00");
         peso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pesoActionPerformed(evt);
@@ -493,11 +493,11 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel6);
         jLabel6.setBounds(60, 170, 140, 20);
 
-        precoFreteM2.setText("0,00");
+        precoFreteM2.setText("0.00");
         jPanel18.add(precoFreteM2);
         precoFreteM2.setBounds(60, 190, 130, 20);
 
-        precoFreteKg.setText("0,00");
+        precoFreteKg.setText("0.00");
         jPanel18.add(precoFreteKg);
         precoFreteKg.setBounds(210, 190, 130, 20);
 
@@ -505,7 +505,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel7);
         jLabel7.setBounds(210, 170, 120, 20);
 
-        precoCustoCompra.setText("0,00");
+        precoCustoCompra.setText("0.00");
         precoCustoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 precoCustoCompraFocusLost(evt);
@@ -515,7 +515,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         precoCustoCompra.setBounds(510, 190, 130, 20);
 
         precoCustoTotal.setBackground(new java.awt.Color(255, 255, 204));
-        precoCustoTotal.setText("0,00");
+        precoCustoTotal.setText("0.00");
         jPanel18.add(precoCustoTotal);
         precoCustoTotal.setBounds(660, 190, 130, 20);
 
@@ -537,7 +537,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(comboUnidade);
         comboUnidade.setBounds(60, 140, 130, 20);
 
-        precoFretePeca.setText("0,00");
+        precoFretePeca.setText("0.00");
         jPanel18.add(precoFretePeca);
         precoFretePeca.setBounds(360, 190, 130, 20);
 
@@ -605,15 +605,15 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         m.getCodMaterial(),
                         m.getDescricao()};
-                        m.getUnidade();
-                        m.getAltura();
-                        m.getLargura();
-                        m.getPeso();
-                        m.getPrecoFreteMetro();
-                        m.getPrecoFreteQuilo();
-                        m.getPrecoFretePeca();
-                        m.getPrecoCompra();
-                        m.getPrecoCustoTotal();
+                    m.getUnidade();
+                    m.getAltura();
+                    m.getLargura();
+                    m.getPeso();
+                    m.getPrecoFreteMetro();
+                    m.getPrecoFreteQuilo();
+                    m.getPrecoFretePeca();
+                    m.getPrecoCompra();
+                    m.getPrecoCustoTotal();
 
                     model.addRow(o);
                 }
@@ -640,7 +640,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codMaterial.setText("" + materialDao.getNextItem());
-         //   codMaterial.setEnabled(false);
+            //   codMaterial.setEnabled(false);
 
             limparCampos();
 
@@ -755,6 +755,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 

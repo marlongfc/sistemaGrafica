@@ -493,7 +493,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         b.getCodCidade(),
                         b.getDescricao()};
-                        b.getCodIBGE();
+                    b.getCodIBGE();
 
                     model.addRow(o);
                 }
@@ -520,11 +520,11 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codCidade.setText("" + cidadeDao.getNextItem());
-       //     codCidade.setEnabled(false);
+            //     codCidade.setEnabled(false);
             descCidade.setText("");
             codIbge.setText("");
             cidade = null;
-        
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -589,6 +589,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
