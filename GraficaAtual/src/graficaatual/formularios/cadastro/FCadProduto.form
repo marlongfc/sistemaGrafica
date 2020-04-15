@@ -797,7 +797,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btAddMaterial">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Adicionar Material"/>
+                <Property name="text" type="java.lang.String" value="Adicionar "/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAddMaterialActionPerformed"/>
@@ -826,7 +826,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagens/excuir2.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Remover Material"/>
+                <Property name="text" type="java.lang.String" value="Remover "/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerMaterialActionPerformed"/>

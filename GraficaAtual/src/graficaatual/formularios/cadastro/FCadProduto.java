@@ -546,7 +546,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(quantidade);
         quantidade.setBounds(490, 140, 110, 20);
 
-        btAddMaterial.setText("Adicionar Material");
+        btAddMaterial.setText("Adicionar ");
         btAddMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAddMaterialActionPerformed(evt);
@@ -561,7 +561,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         msgMaterial.setBounds(20, 410, 770, 14);
 
         removerMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
-        removerMaterial.setText("Remover Material");
+        removerMaterial.setText("Remover ");
         removerMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerMaterialActionPerformed(evt);
@@ -866,7 +866,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         try {
             produto = produtoDao.getPorCodigo(ValidarValor.getLong(codProduto.getText()));
             if (produto != null) {
-
                 carregarCampos(produto);
             } else {
                 limparCampos();
