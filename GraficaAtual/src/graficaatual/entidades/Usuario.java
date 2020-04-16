@@ -64,6 +64,7 @@ public class Usuario implements java.io.Serializable {
     
     @Column(name = "ativo", nullable = true)
     private Boolean ativo;
+    
 
     public Integer getCodUsuario() {
         return codUsuario;
