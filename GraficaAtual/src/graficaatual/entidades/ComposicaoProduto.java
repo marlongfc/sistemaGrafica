@@ -1,16 +1,13 @@
 package graficaatual.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -29,11 +26,15 @@ public class ComposicaoProduto implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "material")
     private Material material;
-
+/*
     @Id
     @ManyToOne()
     @JoinColumn(name = "produto")
     private Produto produto;
+*/
+
+      @Column(name = "codProduto", nullable = false)
+    private Long produto;
     
      @Column(name = "quantidade", nullable = false)
     private Double quantidade;
@@ -56,7 +57,7 @@ public class ComposicaoProduto implements Serializable {
     public void setMaterial(Material material) {
         this.material = material;
     }
-
+/*
     public Produto getProduto() {
         return produto;
     }
@@ -64,7 +65,17 @@ public class ComposicaoProduto implements Serializable {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+*/
 
+    public Long getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Long produto) {
+        this.produto = produto;
+    }
+    
+    
     public Double getQuantidade() {
         return quantidade;
     }

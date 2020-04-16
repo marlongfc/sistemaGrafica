@@ -583,8 +583,9 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
     private void descMaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descMaterialKeyReleased
         try {
-            List<Material> merged = materialDao.getList(15, "select e from Material e where 1=1 and REPLACE(REPLACE(REPLACE(trim(e.descricao),'.',''),'-',''),' ', '') "
-                    + " like ?1 order by e.descricao", descMaterial.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+            
+            //.trim()
+            List<Material> merged = materialDao.getList(15, "select e from Material e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descMaterial.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
         } catch (Exception e) {
@@ -600,19 +601,21 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             List<Material> listaAux = materialDao.getList();
             if (listaAux.size() > 0) {
                 model.setNumRows(0);
+
                 for (Material m : listaAux) {
+
                     Object o[] = new Object[]{
                         m.getCodMaterial(),
-                        m.getDescricao()};
-                    m.getUnidade();
-                    m.getAltura();
-                    m.getLargura();
-                    m.getPeso();
-                    m.getPrecoFreteMetro();
-                    m.getPrecoFreteQuilo();
-                    m.getPrecoFretePeca();
-                    m.getPrecoCompra();
-                    m.getPrecoCustoTotal();
+                        m.getDescricao(),
+                        m.getUnidade(),
+                        m.getAltura(),
+                        m.getLargura(),
+                        m.getPeso(),
+                        m.getPrecoFreteMetro(),
+                        m.getPrecoFreteQuilo(),
+                        m.getPrecoFretePeca(),
+                        m.getPrecoCompra(),
+                        m.getPrecoCustoTotal()};
 
                     model.addRow(o);
                 }
@@ -703,9 +706,9 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             } else {
                 material.setDataAtualizacao(new Date());
             }
-            
-               atualizaPrecoCustoTotal();
-            
+
+            atualizaPrecoCustoTotal();
+
             material.setCodMaterial(Long.parseLong(codMaterial.getText()));
             material.setDescricao(descMaterial.getText());
 

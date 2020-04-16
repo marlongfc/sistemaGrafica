@@ -9,6 +9,7 @@ package graficaatual.daos.cadastro;
 import graficaatual.entidades.Produto;
 import graficaatual.regras.cadastro.ProdutoRNE;
 import graficaatual.utilitarios.Persistencia;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -18,12 +19,12 @@ import javax.persistence.EntityManager;
  */
 public class ProdutoDAO extends ProdutoRNE {
 
-    public Produto salvar(Produto bairro) throws Exception {
+    public Produto salvar(Produto produto) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         Produto aux = null;
         try {
-            aux = super.salvar(session, bairro);
+            aux = super.salvar(session, produto);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
@@ -103,5 +104,20 @@ public class ProdutoDAO extends ProdutoRNE {
      public List<Produto> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Produto.class, SQL, parametros);
     }
+     
+       public boolean savePojo(EntityManager xSession, Serializable pojo) {
+        boolean FvaRetorno = false;
+        try {
+            pojo = xSession.merge(pojo);
+            FvaRetorno = true;
+        } catch (Exception e) {
+            LogMensagem = "Ocorreu um erro ao tentar salvar a entidade. Erro: " + e;
+            System.out.println("Ocorreu um erro no método savePojo. Erro: " + e);
+            e.printStackTrace();
+        }
+        return FvaRetorno;
+    }
+       
+      
 
 }
