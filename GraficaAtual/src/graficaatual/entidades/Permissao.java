@@ -9,9 +9,7 @@ package graficaatual.entidades;
 
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.UniqueConstraint; 
 
 /**
  *
@@ -36,11 +34,11 @@ public class Permissao implements Serializable {
     @Column(name="CodPermissao")
     private Integer codigo;
     
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name="usuario",nullable=false)
     private Usuario usuario;
     
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name="formulario")
     private Formulario formulario;
     
