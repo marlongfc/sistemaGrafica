@@ -1152,7 +1152,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
             System.out.println("usuario " + usuario.getAcessoCadastro());
             System.out.println("usuario " + usuario.getAcessoPedido());
             setUsuario();
-            usuarioDao.savePojo(session,usuario);
+            usuario =  usuarioDao.saveOrUpdatePojo(session,usuario);
             System.out.println("usuario " + usuario.getAcessoCadastro());
             System.out.println("usuario " + usuario.getAcessoPedido());
 
