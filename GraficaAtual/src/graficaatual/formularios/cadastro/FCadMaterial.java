@@ -882,17 +882,17 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                 case 0:
 
                     preco = (ValidarValor.getArredondamento((Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", ".")))));
-                    precoCustoTotal.setText("" + preco);
+                    precoCustoTotal.setText(ValidarValor.getDouble(preco));
                     break;
                 case 1:
 
                     preco = (ValidarValor.getArredondamento(Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
-                    precoCustoTotal.setText("" + preco);
+                    precoCustoTotal.setText(ValidarValor.getDouble(preco));
                     break;
                 case 2:
 
                     preco = (ValidarValor.getArredondamento(Double.parseDouble(precoFretePeca.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
-                    precoCustoTotal.setText("" + preco);
+                    precoCustoTotal.setText(ValidarValor.getDouble(preco));
                     break;
                 default:
                     precoCustoTotal.setText("0.00");

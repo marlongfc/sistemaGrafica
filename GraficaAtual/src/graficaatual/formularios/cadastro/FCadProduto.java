@@ -74,12 +74,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }
 
     private void limparTela() {
- btNovo.requestFocus();
- 
+        btNovo.requestFocus();
+
         valorUnitario.setEditable(false);
         custoServico.setEditable(false);
         custoProduto.setEditable(false);
         msgMaterial.setVisible(false);
+
+        tabComposicao.removeAll();
 
         limparCampos();
 
@@ -416,7 +418,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, true, false
@@ -726,7 +728,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
@@ -908,12 +910,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         atualizarTabelaComposicao(p);
 
-        custoProduto.setText("" + p.getValorProdutoM2());
-        maoDeObra.setText("" + p.getMaoDeObra());
-        custoEmpresa.setText("" + p.getCustoEmpresa());
-        custoServico.setText("" + p.getCustoTotal());
-        margemLucro.setText("" + p.getMargemLucro());
-        valorUnitario.setText("" + p.getValorUnitario());
+        custoProduto.setText(ValidarValor.getDouble(p.getValorProdutoM2()));
+        maoDeObra.setText(ValidarValor.getDouble(p.getMaoDeObra()));
+        custoEmpresa.setText(ValidarValor.getDouble(p.getCustoEmpresa()));
+        custoServico.setText(ValidarValor.getDouble(p.getCustoTotal()));
+        margemLucro.setText(ValidarValor.getDouble(p.getMargemLucro()));
+        valorUnitario.setText(ValidarValor.getDouble(p.getValorUnitario()));
 
     }
 
@@ -944,12 +946,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         p.getCodProduto(),
                         p.getDescricao(),
-                        p.getValorProdutoM2(),
-                        p.getMaoDeObra(),
-                        p.getCustoEmpresa(),
-                        p.getCustoTotal(),
-                        p.getMargemLucro(),
-                        p.getValorUnitario()};
+                        ValidarValor.getDouble(p.getValorProdutoM2()),
+                        ValidarValor.getDouble(p.getMaoDeObra()),
+                        ValidarValor.getDouble(p.getCustoEmpresa()),
+                        ValidarValor.getDouble(p.getCustoTotal()),
+                        ValidarValor.getDouble(p.getMargemLucro()),
+                        ValidarValor.getDouble(p.getValorUnitario())};
 
                     model.addRow(o);
                 }
@@ -979,9 +981,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                             c.getCodComposicaoProduto(),
                             c.getMaterial().getCodMaterial(),
                             c.getMaterial().getDescricao(),
-                            c.getMaterial().getPrecoCustoTotal(),
-                            c.getQuantidade(),
-                            (c.getMaterial().getPrecoCustoTotal() * c.getQuantidade())};
+                            ValidarValor.getDouble(c.getMaterial().getPrecoCustoTotal()),
+                            ValidarValor.getDouble(c.getQuantidade()),
+                            ValidarValor.getDouble((c.getMaterial().getPrecoCustoTotal() * c.getQuantidade()))};
 
                         model.addRow(o);
                     }
@@ -1008,7 +1010,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            
+
             limparTela();
             codProduto.setText("" + produtoDao.getNextItem());
             descProduto.requestFocus();
@@ -1175,6 +1177,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void btAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddMaterialActionPerformed
         try {
+
+            Boolean contemMaterial = false;
+
             if (codMaterial.getText().equals("") || descMaterial.getText().equals("") || material == null) {
                 throw new Exception("Selecione um material válido!");
             }
@@ -1185,26 +1190,57 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
 
-            Object[] os = new Object[6];
-            os[0] = "";
-            os[1] = codMaterial.getText();
-            os[2] = descMaterial.getText();
-            os[3] = material.getPrecoCustoTotal();
-            os[4] = ValidarValor.getArredondamento(Double.parseDouble(quantidade.getText().replaceAll(",", ".")));
-            os[5] = ValidarValor.getArredondamento((Double.parseDouble("" + os[3]) * Double.parseDouble("" + os[4])));
+            for (int i = 0; i < model.getRowCount(); i++) {
+                if (Long.parseLong(codMaterial.getText()) == (Long) model.getValueAt(i, 1)) {
 
-            model.addRow(os);
+                    contemMaterial = true;
+                }
+            }
 
-            msgMaterial.setVisible(true);
-            atualizaCustoMateriais();
-            atualizaValorTotalProduto();
+            if (contemMaterial) {
+                throw new Exception("Material já está adicionado, altere somente sua quantidade na tabela de materiais!");
+            } else {
 
-            limparMaterial();
+                Object[] os = new Object[6];
+                os[0] = "";
+                os[1] = codMaterial.getText();
+                os[2] = descMaterial.getText();
+                os[3] = ValidarValor.getDouble(material.getPrecoCustoTotal());
+                os[4] = ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(quantidade.getText().replaceAll(",", "."))));
+                os[5] = ValidarValor.getDouble(ValidarValor.getArredondamento((Double.parseDouble("" + os[3]) * Double.parseDouble("" + os[4]))));
 
+                model.addRow(os);
+
+                msgMaterial.setVisible(true);
+
+                atualizaCustoMateriais();
+                atualizaValorTotalProduto();
+
+                limparMaterial();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
+
+    private void editaQuantidadeTabela() {
+
+        try {
+            int i = tabComposicao.getSelectedRow();
+            Double valor = 0.0;
+
+            DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
+
+            valor = ValidarValor.getArredondamento((Double.parseDouble("" + model.getValueAt(i, 3)) * Double.parseDouble("" + model.getValueAt(i, 4))));
+
+            model.setValueAt(ValidarValor.getDouble(valor), i, 5);
+            atualizaCustoMateriais();
+            atualizaValorTotalProduto();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void limparMaterial() {
         codMaterial.setText("");
@@ -1270,6 +1306,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 if (tabComposicao.getSelectedRow() < 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um material na tabela de composição do produto!");
                 } else {
+                    
+                   System.out.println("tamanho lista :" +tabComposicao.getRowCount());                 
+                     System.out.println("linha selecionada :" +tabComposicao.getSelectedRow());
+                                      
                     tabComposicao.remove(tabComposicao.getSelectedRow());
                     msgMaterial.setVisible(true);
                     limparMaterial();
@@ -1300,9 +1340,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         Double soma = 0.00;
         try {
             for (i = 0; i < model.getRowCount(); i++) {
-                soma = ValidarValor.getArredondamento(soma + (Double) model.getValueAt(i, 5));
+                soma = ValidarValor.getArredondamento(soma + (ValidarValor.getDouble((String) model.getValueAt(i, 5))));
             }
-            custoProduto.setText("" + soma);
+            custoProduto.setText(ValidarValor.getDouble(soma));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1319,9 +1359,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             valorTot = ValidarValor.getArredondamento((custo + ((custo * (Double.parseDouble(margemLucro.getText().replaceAll(",", ".")))) / 100)));
 
-            valorUnitario.setText("" + valorTot);
+            valorUnitario.setText(ValidarValor.getDouble(valorTot));
         } catch (Exception e) {
-            valorUnitario.setText("" + custoProduto.getText());
+            valorUnitario.setText(custoProduto.getText());
             e.printStackTrace();
 
         }
@@ -1336,7 +1376,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             soma = ValidarValor.getArredondamento(((Double.parseDouble(custoProduto.getText().replaceAll(",", "."))) + (Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))) + (Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")))));
 
-            custoServico.setText(soma.toString());
+            custoServico.setText(ValidarValor.getDouble(soma));
         } catch (Exception e) {
             custoServico.setText("0.00");
             e.printStackTrace();

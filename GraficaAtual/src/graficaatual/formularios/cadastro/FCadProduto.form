@@ -539,9 +539,9 @@
                         <Column editable="false" title="  " type="java.lang.Long"/>
                         <Column editable="false" title="C&#xf3;digo Material" type="java.lang.Long"/>
                         <Column editable="false" title="Material" type="java.lang.String"/>
-                        <Column editable="false" title="Valor Unit&#xe1;rio (R$)" type="java.lang.Object"/>
-                        <Column editable="true" title="Quantidade" type="java.lang.Double"/>
-                        <Column editable="false" title="Total (R$)" type="java.lang.Double"/>
+                        <Column editable="false" title="Valor Unit&#xe1;rio (R$)" type="java.lang.String"/>
+                        <Column editable="true" title="Quantidade" type="java.lang.String"/>
+                        <Column editable="false" title="Total (R$)" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1269,12 +1269,12 @@
                               <Table columnCount="8" rowCount="0">
                                 <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                                 <Column editable="false" title="Produto" type="java.lang.String"/>
-                                <Column editable="false" title="Custo Produto (m&#xb2;)" type="java.lang.Double"/>
-                                <Column editable="false" title="M&#xe3;o de Obra (m&#xb2;)" type="java.lang.Double"/>
-                                <Column editable="false" title="Custo Empresa (m&#xb2; / hora)" type="java.lang.Double"/>
-                                <Column editable="false" title="Custo Servi&#xe7;o (m&#xb2;)" type="java.lang.Double"/>
-                                <Column editable="false" title="Margem de Lucro (%)" type="java.lang.Double"/>
-                                <Column editable="false" title="Valor Unit&#xe1;rio" type="java.lang.Double"/>
+                                <Column editable="false" title="Custo Produto (m&#xb2;)" type="java.lang.String"/>
+                                <Column editable="false" title="M&#xe3;o de Obra (m&#xb2;)" type="java.lang.String"/>
+                                <Column editable="false" title="Custo Empresa (m&#xb2; / hora)" type="java.lang.String"/>
+                                <Column editable="false" title="Custo Servi&#xe7;o (m&#xb2;)" type="java.lang.String"/>
+                                <Column editable="false" title="Margem de Lucro (%)" type="java.lang.String"/>
+                                <Column editable="false" title="Valor Unit&#xe1;rio" type="java.lang.String"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
