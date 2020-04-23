@@ -27,6 +27,9 @@ public class Logradouro implements Serializable {
     @Column(name = "codLogradouro")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codLogradouro;
+    
+     @Column(name = "tipo", nullable = true)
+    private  int tipo;
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
@@ -66,6 +69,15 @@ public class Logradouro implements Serializable {
         this.descricao = descricao;
     }
 
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+    
+    
     public Date getDataCadastro() {
         return dataCadastro;
     }
