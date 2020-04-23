@@ -261,6 +261,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +269,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 150, 180, 23);
+        btNovo.setBounds(140, 150, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -290,6 +291,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(500, 150, 180, 39);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,7 +299,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 150, 180, 23);
+        btSair.setBounds(680, 150, 180, 39);
 
         tabLogradouro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -328,6 +330,11 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane11.setViewportView(tabLogradouro);
+        if (tabLogradouro.getColumnModel().getColumnCount() > 0) {
+            tabLogradouro.getColumnModel().getColumn(0).setMinWidth(250);
+            tabLogradouro.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tabLogradouro.getColumnModel().getColumn(0).setMaxWidth(250);
+        }
 
         jPanel18.add(jScrollPane11);
         jScrollPane11.setBounds(20, 210, 930, 180);
@@ -428,8 +435,9 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparTela() {
+        btNovo.requestFocus();
         codLogradouro.setText("");
-        codLogradouro.setEnabled(false);
+        //  codLogradouro.setEnabled(false);
         descLogradouro.setText("");
         logradouro = new Logradouro();
 
@@ -453,10 +461,11 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
     private void descLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descLogradouroKeyReleased
         try {
-            List<Logradouro> merged = logradouroDao.getList(15, "select e from Logradouro e where 1=1 and REPLACE(REPLACE(REPLACE(trim(e.descricao),'.',''),'-',''),' ', '') "
-                    + " like ?1 order by e.descricao", descLogradouro.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+
+            List<Logradouro> merged = logradouroDao.getList(15, "select e from Logradouro e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descLogradouro.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
+
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar logradouros. Erro: " + e);
         }
@@ -502,6 +511,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             codLogradouro.setText("" + logradouroDao.getNextItem());
             // codLogradouro.setEnabled(false);
             descLogradouro.setText("");
+            descLogradouro.requestFocus();
             logradouro = null;
 
         } catch (Exception e) {
@@ -525,8 +535,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
             }
 
-            codLogradouro.setEnabled(true);
-            atualizarTabela();
+            limparTela();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar logradouro. Erro: " + e);
@@ -544,11 +553,9 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             // considerando 0 como sim
             if (op == 0) {
 
-                logradouroDao.delete(logradouro);
-                codLogradouro.setText("");
-                descLogradouro.setText("");
-                atualizarTabela();
-
+                if (logradouroDao.delete(logradouro)) {
+                    limparTela();
+                }
             } else {
                 return;
             }

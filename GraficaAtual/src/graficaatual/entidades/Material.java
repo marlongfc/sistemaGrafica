@@ -34,10 +34,10 @@ public class Material implements Serializable {
     @Column(name = "unidade", nullable = false)
     private int unidade;
 
-    @Column(name = "precoCompra", nullable = true)
+    @Column(name = "precocompra", nullable = true)
     private Double precoCompra;
     
-    @Column(name = "precoCustoTotal", nullable = false)
+    @Column(name = "precocustototal", nullable = false)
     private Double precoCustoTotal;
 
     @Column(name = "precoFreteMetro", nullable = true)

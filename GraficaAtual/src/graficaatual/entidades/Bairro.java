@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -34,11 +32,7 @@ public class Bairro implements Serializable {
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
-/*
-    @ManyToOne()
-    @JoinColumn(name = "logradouro", nullable = false)
-    private Logradouro logradouro;
-*/
+
     @Column(name = "dataCadastro", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
@@ -66,15 +60,6 @@ public class Bairro implements Serializable {
         this.codBairro = codBairro;
     }
 
-    /*
-    public Logradouro getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(Logradouro logradouro) {
-        this.logradouro = logradouro;
-    }
-*/
     public String getDescricao() {
         return descricao;
     }

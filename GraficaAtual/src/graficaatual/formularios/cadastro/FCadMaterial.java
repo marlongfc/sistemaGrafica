@@ -58,6 +58,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     }
 
     private void limparTela() {
+        btNovo.requestFocus();
         codMaterial.setEnabled(true);
         codMaterial.setText("");
         precoFreteKg.setEnabled(false);
@@ -292,6 +293,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,7 +301,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 250, 180, 23);
+        btNovo.setBounds(140, 250, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -321,6 +323,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(500, 250, 180, 39);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,7 +331,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 250, 180, 23);
+        btSair.setBounds(680, 250, 180, 39);
 
         tabMaterial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -583,8 +586,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
     private void descMaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descMaterialKeyReleased
         try {
-            
-            //.trim()
+
             List<Material> merged = materialDao.getList(15, "select e from Material e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descMaterial.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
@@ -607,15 +609,15 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         m.getCodMaterial(),
                         m.getDescricao(),
-                        m.getUnidade(),
-                        m.getAltura(),
-                        m.getLargura(),
-                        m.getPeso(),
-                        m.getPrecoFreteMetro(),
-                        m.getPrecoFreteQuilo(),
-                        m.getPrecoFretePeca(),
-                        m.getPrecoCompra(),
-                        m.getPrecoCustoTotal()};
+                        getDescricaoUnidade(m.getUnidade()),
+                        ValidarValor.getDouble(m.getAltura()),
+                        ValidarValor.getDouble(m.getLargura()),
+                        ValidarValor.getDouble(m.getPeso()),
+                        ValidarValor.getDouble(m.getPrecoFreteMetro()),
+                        ValidarValor.getDouble(m.getPrecoFreteQuilo()),
+                        ValidarValor.getDouble(m.getPrecoFretePeca()),
+                        ValidarValor.getDouble(m.getPrecoCompra()),
+                        ValidarValor.getDouble(m.getPrecoCustoTotal())};
 
                     model.addRow(o);
                 }
@@ -625,6 +627,23 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             removeLinhas(tabMaterial);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de materiais cadastrados. Erro: " + e);
 
+        }
+    }
+
+    private String getDescricaoUnidade(int op) {
+
+        switch (op) {
+            case 0:
+                return "Metro (m)";
+
+            case 1:
+                return "Quilo (kg)";
+
+            case 2:
+                return "Peça (pc)";
+
+            default:
+                return "";
         }
     }
 
@@ -641,6 +660,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
+            descMaterial.requestFocus();
             codMaterial.setText("" + materialDao.getNextItem());
             //   codMaterial.setEnabled(false);
 
@@ -681,19 +701,19 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             descMaterial.setText(m.getDescricao());
             comboUnidade.setSelectedIndex(m.getUnidade());
 
-            altura.setText("" + m.getAltura());
-            largura.setText("" + m.getLargura());
-            peso.setText("" + m.getPeso());
+            altura.setText(ValidarValor.getDouble(m.getAltura()));
+            largura.setText(ValidarValor.getDouble(m.getLargura()));
+            peso.setText(ValidarValor.getDouble(m.getPeso()));
 
             precoFreteM2.setEnabled(m.getUnidade() == 0);
-            precoFreteM2.setText("" + m.getPrecoFreteMetro());
+            precoFreteM2.setText(ValidarValor.getDouble(m.getPrecoFreteMetro()));
             precoFreteKg.setEnabled(m.getUnidade() == 1);
-            precoFreteKg.setText("" + m.getPrecoFreteQuilo());
+            precoFreteKg.setText(ValidarValor.getDouble(m.getPrecoFreteQuilo()));
             precoFretePeca.setEnabled(m.getUnidade() == 2);
-            precoFretePeca.setText("" + m.getPrecoFretePeca());
+            precoFretePeca.setText(ValidarValor.getDouble(m.getPrecoFretePeca()));
 
-            precoCustoCompra.setText("" + m.getPrecoCompra());
-            precoCustoTotal.setText("" + m.getPrecoCustoTotal());
+            precoCustoCompra.setText(ValidarValor.getDouble(m.getPrecoCompra()));
+            precoCustoTotal.setText(ValidarValor.getDouble(m.getPrecoCustoTotal()));
         }
     }
 

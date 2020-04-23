@@ -12,14 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
  *
- * @author ProjetoX
+ * @author Marlon
  */
 @Entity
 @Table(name = "cidade")
@@ -34,15 +32,8 @@ public class Cidade implements Serializable {
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
-/*
-    @ManyToOne()
-    @JoinColumn(name = "bairro", nullable = false)
-    private Bairro bairro;
-*/
-    @ManyToOne()
-    @JoinColumn(name = "logradouro", nullable = false)
-    private Logradouro logradouro;
 
+ 
     @Column(name = "codIBGE", nullable = true)
     private Integer codIBGE;
 
@@ -91,14 +82,6 @@ public class Cidade implements Serializable {
 
     public void setCodIBGE(Integer codIBGE) {
         this.codIBGE = codIBGE;
-    }
-
-    public Logradouro getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(Logradouro logradouro) {
-        this.logradouro = logradouro;
     }
 
     public String getDescricao() {

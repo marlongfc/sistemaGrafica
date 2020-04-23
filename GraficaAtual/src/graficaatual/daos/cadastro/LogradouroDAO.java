@@ -35,21 +35,23 @@ public class LogradouroDAO extends LogradouroRNE {
 
     }
 
-    public void delete(Logradouro l) throws Exception {
+    public boolean delete(Logradouro l) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
+        Boolean del = false;
+        
         try {
-
-            super.excluir(session, l);
+            del = super.excluir(session, l);
             session.getTransaction().commit();
 
         } catch (Exception e) {
+            del = false;
             session.getTransaction().rollback();
             throw e;
 
         } finally {
             session.close();
+            return del;
         }
     }
 

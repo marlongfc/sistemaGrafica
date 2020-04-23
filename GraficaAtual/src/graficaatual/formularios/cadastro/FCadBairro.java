@@ -54,6 +54,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
         limparTela();
+         btNovo.requestFocus();
     }
 
     /**
@@ -262,6 +263,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,7 +271,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 150, 180, 23);
+        btNovo.setBounds(140, 150, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -291,6 +293,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(500, 150, 180, 39);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +301,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 150, 180, 23);
+        btSair.setBounds(680, 150, 180, 39);
 
         tabBairro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -434,6 +437,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparTela() {
+        btNovo.requestFocus();
 
         codBairro.setText("");
         codBairro.setEnabled(true);
@@ -459,10 +463,10 @@ public class FCadBairro extends javax.swing.JInternalFrame {
 
     private void descBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descBairroKeyReleased
         try {
-            List<Bairro> merged = bairroDao.getList(15, "select e from Bairro e where 1=1 and REPLACE(REPLACE(REPLACE(trim(e.descricao),'.',''),'-',''),' ', '') "
-                    + " like ?1 order by e.descricao", descBairro.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+            List<Bairro> merged = bairroDao.getList(15, "select e from Bairro e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descBairro.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
+
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar bairros. Erro: " + e);
         }
@@ -506,10 +510,11 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
             codBairro.setText("" + bairroDao.getNextItem());
-         //   codBairro.setEnabled(false);
+            //   codBairro.setEnabled(false);
             descBairro.setText("");
+            descBairro.requestFocus();
             bairro = null;
-          
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -567,8 +572,8 @@ public class FCadBairro extends javax.swing.JInternalFrame {
 
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-      
-         limparTela();
+
+        limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 

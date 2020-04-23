@@ -263,6 +263,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +271,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 180, 180, 23);
+        btNovo.setBounds(140, 180, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -292,6 +293,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(500, 180, 180, 39);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,7 +301,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 180, 180, 23);
+        btSair.setBounds(680, 180, 180, 39);
 
         tabCidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -444,6 +446,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparTela() {
+        btNovo.requestFocus();
 
         codCidade.setText("");
         codCidade.setEnabled(true);
@@ -460,9 +463,11 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             cidade = cidadeDao.getPorCodigo(ValidarValor.getLong(codCidade.getText()));
             if (cidade != null) {
                 descCidade.setText(cidade.getDescricao());
+                codIbge.setText("" + cidade.getCodIBGE());
             } else {
                 cidade = new Cidade();
                 descCidade.setText("");
+                codIbge.setText("");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -471,10 +476,11 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
     private void descCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCidadeKeyReleased
         try {
-            List<Cidade> merged = cidadeDao.getList(15, "select e from Cidade e where 1=1 and REPLACE(REPLACE(REPLACE(trim(e.descricao),'.',''),'-',''),' ', '') "
-                    + " like ?1 order by e.descricao", descCidade.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+
+            List<Cidade> merged = cidadeDao.getList(15, "select e from Cidade e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descCidade.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
+
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar cidades. Erro: " + e);
         }
@@ -521,6 +527,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             codCidade.setText("" + cidadeDao.getNextItem());
             //     codCidade.setEnabled(false);
             descCidade.setText("");
+            descCidade.requestFocus();
             codIbge.setText("");
             cidade = null;
 

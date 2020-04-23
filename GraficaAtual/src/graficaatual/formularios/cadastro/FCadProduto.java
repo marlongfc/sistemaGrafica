@@ -42,46 +42,47 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private List<Produto> lista = null;
     private List<Material> listaMaterial = null;
     private CnvProduto cnvProduto = new CnvProduto();
-    
+
     private static FCadProduto instancia;
-    
+
     public static FCadProduto getInstancia() {
         if (instancia == null) {
             instancia = new FCadProduto();
         }
-        
+
         return instancia;
     }
-    
+
     public FCadProduto() {
         initComponents();
-        
+
         lista = ObservableCollections.observableList(new LinkedList<Produto>());
         Componentes comp2 = new Componentes(lista, false, codProduto, descProduto, this, jPanel18, descProduto.getWidth(), 100);
         comp2.addCol(0, "codProduto", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Produto", 200, String.class.getName());
         comp2.bind();
-        
+
         listaMaterial = ObservableCollections.observableList(new LinkedList<Material>());
         Componentes comp3 = new Componentes(listaMaterial, false, codMaterial, descMaterial, this, jPanel18, descMaterial.getWidth(), 100);
         comp3.addCol(0, "codMaterial", "Código", 50, Long.class.getName());
         comp3.addCol(1, "descricao", "Nome do Material", 200, String.class.getName());
         comp3.bind();
-        
+
         limparTela();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
-    
+
     private void limparTela() {
-        
+ btNovo.requestFocus();
+ 
         valorUnitario.setEditable(false);
         custoServico.setEditable(false);
         custoProduto.setEditable(false);
         msgMaterial.setVisible(false);
-        
+
         limparCampos();
-        
+
         atualizarTabela();
     }
 
@@ -355,6 +356,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +364,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 500, 180, 23);
+        btNovo.setBounds(140, 500, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -384,6 +386,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(500, 500, 180, 39);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -391,7 +394,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 500, 180, 23);
+        btSair.setBounds(680, 500, 180, 39);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -562,6 +565,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(quantidade);
         quantidade.setBounds(490, 140, 110, 20);
 
+        btAddMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
         btAddMaterial.setText("Adicionar ");
         btAddMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -569,14 +573,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btAddMaterial);
-        btAddMaterial.setBounds(610, 140, 180, 23);
+        btAddMaterial.setBounds(610, 140, 180, 39);
 
         msgMaterial.setForeground(new java.awt.Color(255, 0, 0));
         msgMaterial.setText("* Material adicionado/removido ainda não foi salvo! Informe os valores abaixo e clique em salvar para salvar o produto!");
         jPanel18.add(msgMaterial);
         msgMaterial.setBounds(20, 410, 770, 14);
 
-        removerMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
+        removerMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REMOVER2.png"))); // NOI18N
         removerMaterial.setText("Remover ");
         removerMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -886,50 +890,53 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             } else {
                 limparCampos();
             }
-            
+
             atualizarTabela();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_codProdutoFocusLost
-    
+
     private void carregarCampos(Produto p) {
-        
+
         descProduto.setText(p.getDescricao());
-        
+
         codMaterial.setText("");
         descMaterial.setText("");
         quantidade.setText("");
-        
+
         atualizarTabelaComposicao(p);
-        
+
         custoProduto.setText("" + p.getValorProdutoM2());
         maoDeObra.setText("" + p.getMaoDeObra());
         custoEmpresa.setText("" + p.getCustoEmpresa());
         custoServico.setText("" + p.getCustoTotal());
         margemLucro.setText("" + p.getMargemLucro());
         valorUnitario.setText("" + p.getValorUnitario());
-        
+
     }
-    
+
 
     private void descProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descProdutoKeyReleased
         try {
-            List<Produto> merged = produtoDao.getList(15, "select e from Produto e where 1=1 and REPLACE(REPLACE(REPLACE(trim(e.descricao),'.',''),'-',''),' ', '') "
-                    + " like ?1 order by e.descricao", descProduto.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+
+            List<Produto> merged = produtoDao.getList(15, "select e from Produto e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descProduto.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
+
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar produtos. Erro: " + e);
         }
+
+
     }//GEN-LAST:event_descProdutoKeyReleased
-    
+
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
             removeLinhas(tabProduto);
-            
+
             List<Produto> listaAux = produtoDao.getList();
             if (listaAux.size() > 0) {
                 model.setNumRows(0);
@@ -943,7 +950,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                         p.getCustoTotal(),
                         p.getMargemLucro(),
                         p.getValorUnitario()};
-                    
+
                     model.addRow(o);
                 }
             }
@@ -951,22 +958,22 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             removeLinhas(tabProduto);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de produtos cadastrados. Erro: " + e);
-            
+
         }
     }
-    
+
     private void atualizarTabelaComposicao(Produto p) {
         try {
-            
+
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
             tabComposicao.removeAll();
-            
+
             List<ComposicaoProduto> listaAux = composicaoDao.getListPorProduto(p.getCodProduto());
             if (listaAux.size() > 0) {
                 model.setNumRows(0);
-                
+
                 for (ComposicaoProduto c : listaAux) {
-                    
+
                     if (c.getMaterial() != null) {
                         Object o[] = new Object[]{
                             c.getCodComposicaoProduto(),
@@ -975,7 +982,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                             c.getMaterial().getPrecoCustoTotal(),
                             c.getQuantidade(),
                             (c.getMaterial().getPrecoCustoTotal() * c.getQuantidade())};
-                        
+
                         model.addRow(o);
                     }
                 }
@@ -984,20 +991,20 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             tabComposicao.removeAll();
             JOptionPane.showMessageDialog(null, "Erro ao atualizar composição do produto. Erro: " + e);
-            
+
         }
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
@@ -1009,38 +1016,38 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btNovoActionPerformed
-    
+
     private void limparCampos() {
         try {
-            
+
             descProduto.setText("");
             produto = null;
-            
+
             codMaterial.setText("");
             descMaterial.setText("");
             quantidade.setText("0.00");
             material = null;
-            
+
             custoProduto.setText("0.00");
             maoDeObra.setText("0.00");
             custoEmpresa.setText("0.00");
             custoServico.setText("0.00");
             margemLucro.setText("0.00");
             valorUnitario.setText("0.00");
-            
+
             tabComposicao.removeAll();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        
+
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            
+
             if (produto == null) {
                 produto = new Produto();
                 produto.setDataCadastro(new Date());
@@ -1048,43 +1055,43 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             } else {
                 produto.setDataAtualizacao(new Date());
             }
-            
+
             atualizaValorTotalProduto();
-            
+
             produto.setCodProduto(Long.parseLong(codProduto.getText()));
             produto.setDescricao(descProduto.getText());
-            
+
             produto.setValorProdutoM2(ValidarValor.getArredondamento(Double.parseDouble(custoProduto.getText().replaceAll(",", "."))));
             produto.setMaoDeObra(ValidarValor.getArredondamento(Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))));
             produto.setCustoEmpresa(ValidarValor.getArredondamento(Double.parseDouble(custoEmpresa.getText().replaceAll(",", "."))));
             produto.setCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(custoServico.getText().replaceAll(",", "."))));
             produto.setMargemLucro(ValidarValor.getArredondamento(Double.parseDouble(margemLucro.getText().replaceAll(",", "."))));
             produto.setValorUnitario(ValidarValor.getArredondamento(Double.parseDouble(valorUnitario.getText().replaceAll(",", "."))));
-            
+
             produto = produtoDao.saveOrUpdatePojo(session, produto);
-            
+
             if (produto != null) {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
             }
 
             //salvar composição ////////////
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
-            
+
             for (int i = 0; i < model.getRowCount(); i++) {
-                
+
                 composicaoProduto = new ComposicaoProduto();
 
                 //  composicaoProduto.setCodComposicaoProduto(composicaoDao.getNextItem());
                 composicaoProduto.setProduto(Long.parseLong(codProduto.getText()));
                 composicaoProduto.setMaterial(materialDao.getPorCodigo(Long.parseLong("" + model.getValueAt(i, 1))));
                 composicaoProduto.setQuantidade(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 4)).replaceAll(",", "."))));
-                
+
                 composicaoDao.savePojo(session, composicaoProduto);
             }
-            
+
             session.getTransaction().commit();
             session.close();
-            
+
             limparTela();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1102,25 +1109,25 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             // considerando 0 como sim
             if (op == 0) {
-                
+
                 deletarComposicao();
-                
+
                 produtoDao.delete(produto);
-                
+
                 limparTela();
-                
+
             } else {
                 return;
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir produto. Erro: " + e);
         }
     }//GEN-LAST:event_btExcluirActionPerformed
-    
+
     private void deletarComposicao() {
         try {
-            
+
             for (int i = 0; i < tabComposicao.getRowCount(); i++) {
                 composicaoDao.delete(composicaoDao.getPorCodComposicao(Long.parseLong("" + tabComposicao.getValueAt(i, 0))));
             }
@@ -1130,7 +1137,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        
+
         limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
@@ -1154,12 +1161,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_codMaterialFocusLost
 
     private void descMaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descMaterialKeyReleased
+
         try {
-            List<Material> merged = materialDao.getList(15, "select e from Material e where 1=1 and REPLACE(REPLACE(REPLACE(trim(e.descricao),'.',''),'-',''),' ', '') "
-                    + " like ?1 order by e.descricao", descMaterial.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+
+            List<Material> merged = materialDao.getList(15, "select e from Material e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descMaterial.getText().trim().toLowerCase() + "%"));
             listaMaterial.clear();
             listaMaterial.addAll(merged);
-            
             quantidade.setText("0.00");
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar materials. Erro: " + e);
@@ -1171,13 +1178,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             if (codMaterial.getText().equals("") || descMaterial.getText().equals("") || material == null) {
                 throw new Exception("Selecione um material válido!");
             }
-            
+
             if (quantidade.getText().equals("0.00") || Double.parseDouble(quantidade.getText().replaceAll(",", ".")) <= 0) {
                 throw new Exception("Informe a quantidade do material !");
             }
-            
+
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
-            
+
             Object[] os = new Object[6];
             os[0] = "";
             os[1] = codMaterial.getText();
@@ -1185,27 +1192,27 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             os[3] = material.getPrecoCustoTotal();
             os[4] = ValidarValor.getArredondamento(Double.parseDouble(quantidade.getText().replaceAll(",", ".")));
             os[5] = ValidarValor.getArredondamento((Double.parseDouble("" + os[3]) * Double.parseDouble("" + os[4])));
-            
+
             model.addRow(os);
-            
+
             msgMaterial.setVisible(true);
             atualizaCustoMateriais();
             atualizaValorTotalProduto();
-            
+
             limparMaterial();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
-    
+
     private void limparMaterial() {
         codMaterial.setText("");
         descMaterial.setText("");
         quantidade.setText("0.00");
         material = null;
     }
-    
+
 
     private void maoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maoDeObraFocusLost
         atualizaCustoServico();
@@ -1226,7 +1233,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         if (evt.getClickCount() > 1) {
             codProduto.setText(tabProduto.getValueAt(tabProduto.getSelectedRow(), 0).toString());
             codProdutoFocusLost(null);
-            
+
             jTabbedPane1.setSelectedIndex(0);
             codProduto.requestFocus();
         }
@@ -1270,7 +1277,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
     }//GEN-LAST:event_removerMaterialActionPerformed
 
@@ -1283,10 +1290,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             codMaterial.setText(tabComposicao.getValueAt(tabComposicao.getSelectedRow(), 1).toString());
             codMaterialFocusLost(null);
             quantidade.setText(tabComposicao.getValueAt(tabComposicao.getSelectedRow(), 4).toString());
-           
+
         }
     }//GEN-LAST:event_tabComposicaoMouseClicked
-    
+
     private void atualizaCustoMateriais() {
         DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
         int i = 0;
@@ -1296,39 +1303,39 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 soma = ValidarValor.getArredondamento(soma + (Double) model.getValueAt(i, 5));
             }
             custoProduto.setText("" + soma);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             custoProduto.setText("0.00");
         }
     }
-    
+
     private void atualizaValorTotalProduto() {
-        
+
         Double custo = 0.00;
         Double valorTot = 0.00;
         try {
             custo = (Double.parseDouble(custoProduto.getText().replaceAll(",", ".")) + Double.parseDouble(maoDeObra.getText().replaceAll(",", ".")) + Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")));
-            
+
             valorTot = ValidarValor.getArredondamento((custo + ((custo * (Double.parseDouble(margemLucro.getText().replaceAll(",", ".")))) / 100)));
-            
+
             valorUnitario.setText("" + valorTot);
         } catch (Exception e) {
             valorUnitario.setText("" + custoProduto.getText());
             e.printStackTrace();
-            
+
         }
     }
-    
+
     private void atualizaCustoServico() {
         try {
-            
+
             custoServico.setText("");
-            
+
             Double soma = 0.00;
-            
+
             soma = ValidarValor.getArredondamento(((Double.parseDouble(custoProduto.getText().replaceAll(",", "."))) + (Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))) + (Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")))));
-            
+
             custoServico.setText(soma.toString());
         } catch (Exception e) {
             custoServico.setText("0.00");
