@@ -81,7 +81,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         custoProduto.setEditable(false);
         msgMaterial.setVisible(false);
 
-        tabComposicao.removeAll();
+        removeLinhas(tabComposicao);
 
         limparCampos();
 
@@ -1302,15 +1302,17 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void removerMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerMaterialActionPerformed
         try {
+               DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
+            int i = tabComposicao.getSelectedRow();
+            
             if (tabComposicao.getRowCount() > 0) {
-                if (tabComposicao.getSelectedRow() < 0) {
+                if (i < 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um material na tabela de composição do produto!");
                 } else {
+                                                          
+                    model.removeRow(i);
                     
-                   System.out.println("tamanho lista :" +tabComposicao.getRowCount());                 
-                     System.out.println("linha selecionada :" +tabComposicao.getSelectedRow());
-                                      
-                    tabComposicao.remove(tabComposicao.getSelectedRow());
+                    tabComposicao.setModel(model);
                     msgMaterial.setVisible(true);
                     limparMaterial();
                 }

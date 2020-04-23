@@ -29,7 +29,7 @@ public class Logradouro implements Serializable {
     private Long codLogradouro;
     
      @Column(name = "tipo", nullable = true)
-    private  int tipo;
+    private  Integer tipo;
 
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
