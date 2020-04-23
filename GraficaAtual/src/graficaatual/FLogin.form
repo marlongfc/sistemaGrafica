@@ -77,7 +77,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/PEDIDOS SEM FUNDO.png"/>
+          <Image iconType="3" name="/imagens/PEDIDO2.png"/>
         </Property>
         <Property name="borderPainted" type="boolean" value="false"/>
       </Properties>

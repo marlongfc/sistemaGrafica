@@ -97,7 +97,7 @@ public class FLogin extends javax.swing.JFrame {
 
         jBPedidos.setBackground(new java.awt.Color(255, 255, 255));
         jBPedidos.setForeground(new java.awt.Color(255, 255, 255));
-        jBPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDOS SEM FUNDO.png"))); // NOI18N
+        jBPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDO2.png"))); // NOI18N
         jBPedidos.setBorderPainted(false);
         jBPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
