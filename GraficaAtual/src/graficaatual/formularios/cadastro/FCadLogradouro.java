@@ -114,6 +114,8 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        comboTipo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1335, 700));
@@ -143,7 +145,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descLogradouro);
-        descLogradouro.setBounds(140, 90, 810, 20);
+        descLogradouro.setBounds(320, 90, 630, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -306,14 +308,14 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Logradouro"
+                "Código", "Tipo", "Logradouro"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -334,6 +336,9 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             tabLogradouro.getColumnModel().getColumn(0).setMinWidth(250);
             tabLogradouro.getColumnModel().getColumn(0).setPreferredWidth(250);
             tabLogradouro.getColumnModel().getColumn(0).setMaxWidth(250);
+            tabLogradouro.getColumnModel().getColumn(1).setMinWidth(250);
+            tabLogradouro.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tabLogradouro.getColumnModel().getColumn(1).setMaxWidth(250);
         }
 
         jPanel18.add(jScrollPane11);
@@ -409,7 +414,15 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Logradouro: ");
         jPanel18.add(jLabel80);
-        jLabel80.setBounds(140, 70, 70, 20);
+        jLabel80.setBounds(320, 70, 170, 20);
+
+        jLabel2.setText("Tipo");
+        jPanel18.add(jLabel2);
+        jLabel2.setBounds(150, 70, 150, 14);
+
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua", "Avenida", "Praça", "Travessa", "Rodovia","Quadra", "Anel Rodoviário", "Beco", "Chácara", "Comunidade", "Condomínio", "Distrito", "Estrada", "Estacionamento", "Favela", "Fazenda", "Largo", "Lagoa", "Loteamento", "Lote", "Morro", "Passagem", "Ponte","Rancho", "Sítio", "Vila"  }));
+        jPanel18.add(comboTipo);
+        comboTipo.setBounds(140, 90, 180, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -437,9 +450,10 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void limparTela() {
         btNovo.requestFocus();
         codLogradouro.setText("");
+        comboTipo.setSelectedIndex(0);
         //  codLogradouro.setEnabled(false);
         descLogradouro.setText("");
-        logradouro = new Logradouro();
+        logradouro = null;
 
         atualizarTabela();
     }
@@ -453,6 +467,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             } else {
                 logradouro = new Logradouro();
                 descLogradouro.setText("");
+                comboTipo.setSelectedIndex(logradouro.getTipo());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -482,6 +497,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                 for (Logradouro b : listaAux) {
                     Object o[] = new Object[]{
                         b.getCodLogradouro(),
+                        buscaDescricaoTipoLogradouro(b.getTipo()),
                         b.getDescricao()};
 
                     model.addRow(o);
@@ -493,6 +509,75 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de logradouros cadastrados. Erro: " + e);
 
         }
+    }
+
+    private String buscaDescricaoTipoLogradouro(int tipo) {
+        try {
+
+            switch (tipo) {
+
+                case 0:
+                    return "Rua";
+                case 1:
+                    return "Praça";
+                case 2:
+                    return "Avenida";
+                case 3:
+                    return "Travessa";
+                case 4:
+                    return "Rodovia";
+                case 5:
+                    return "Anel Rodoviário";
+                case 6:
+                    return "Quadra";
+                case 7:
+                    return "Beco";
+                    case 8:
+                    return "Campo";
+                case 9:
+                    return "Chácara";
+                case 10:
+                    return "Comunidade";
+                case 11:
+                    return "Condomínio";
+                case 12:
+                    return "Distrito";
+                case 13:
+                    return "Estrada";
+                case 14:
+                    return "Estacionamento";
+                case 15:
+                    return "Favela";
+                case 16:
+                    return "Fazenda";
+                case 17:
+                    return "Largo";
+                case 18:
+                    return "Lagoa";
+                case 19:
+                    return "Loteamento";
+                case 20:
+                    return "Lote";
+                case 21:
+                    return "Morro";
+                case 22:
+                    return "Passagem";
+                case 23:
+                    return "Ponte";
+                case 24:
+                    return "Rancho";
+                case 25:
+                    return "Sítio";
+                case 26:
+                    return "Vila";
+                    
+                    default: return "";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static void removeLinhas(JTable table) {
@@ -508,11 +593,10 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
+
+            limparTela();
             codLogradouro.setText("" + logradouroDao.getNextItem());
-            // codLogradouro.setEnabled(false);
-            descLogradouro.setText("");
-            descLogradouro.requestFocus();
-            logradouro = null;
+            comboTipo.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -619,6 +703,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField codLogradouro;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JTextField descLogradouro;
     private javax.swing.JButton inicio;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -627,6 +712,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel90;

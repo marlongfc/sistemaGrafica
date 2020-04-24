@@ -81,7 +81,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         custoProduto.setEditable(false);
         msgMaterial.setVisible(false);
 
-        tabComposicao.removeAll();
+        removeLinhas(tabComposicao);
 
         limparCampos();
 
@@ -240,7 +240,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descProduto);
-        descProduto.setBounds(120, 90, 830, 20);
+        descProduto.setBounds(120, 90, 890, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -366,7 +366,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 500, 180, 39);
+        btNovo.setBounds(110, 510, 200, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -376,7 +376,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 500, 180, 39);
+        btSalvar.setBounds(310, 510, 200, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -386,7 +386,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 500, 180, 39);
+        btExcluir.setBounds(510, 510, 200, 39);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
@@ -396,7 +396,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 500, 180, 39);
+        btSair.setBounds(710, 510, 200, 39);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -444,16 +444,16 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabComposicao);
         if (tabComposicao.getColumnModel().getColumnCount() > 0) {
-            tabComposicao.getColumnModel().getColumn(0).setResizable(false);
             tabComposicao.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tabComposicao.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 200, 930, 200);
+        jScrollPane1.setBounds(20, 200, 990, 200);
 
         jLabel2.setText("Custo Produto ( m²)");
         jPanel18.add(jLabel2);
-        jLabel2.setBounds(20, 440, 110, 14);
+        jLabel2.setBounds(20, 440, 150, 14);
 
         custoProduto.setText("0.00");
         custoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -462,11 +462,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(custoProduto);
-        custoProduto.setBounds(20, 460, 130, 20);
+        custoProduto.setBounds(20, 460, 150, 20);
 
         jLabel3.setText("Mão De Obra (m²)");
         jPanel18.add(jLabel3);
-        jLabel3.setBounds(160, 440, 130, 14);
+        jLabel3.setBounds(180, 440, 150, 14);
 
         maoDeObra.setText("0.00");
         maoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -475,7 +475,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(maoDeObra);
-        maoDeObra.setBounds(160, 460, 130, 20);
+        maoDeObra.setBounds(180, 460, 150, 20);
 
         custoEmpresa.setText("0.00");
         custoEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -489,24 +489,24 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(custoEmpresa);
-        custoEmpresa.setBounds(300, 460, 130, 20);
+        custoEmpresa.setBounds(340, 460, 150, 20);
 
         jLabel4.setText("Custo Empresa ( m² / hora)");
         jPanel18.add(jLabel4);
-        jLabel4.setBounds(300, 440, 140, 14);
+        jLabel4.setBounds(340, 440, 160, 14);
 
         jLabel5.setText("Custo do Serviço m²");
         jPanel18.add(jLabel5);
-        jLabel5.setBounds(440, 440, 140, 14);
+        jLabel5.setBounds(500, 440, 170, 14);
 
         custoServico.setBackground(new java.awt.Color(255, 255, 204));
         custoServico.setText("0.00");
         jPanel18.add(custoServico);
-        custoServico.setBounds(440, 460, 130, 20);
+        custoServico.setBounds(500, 460, 150, 20);
 
         jLabel6.setText("Margem de Lucro (%)");
         jPanel18.add(jLabel6);
-        jLabel6.setBounds(580, 440, 130, 14);
+        jLabel6.setBounds(660, 440, 170, 14);
 
         margemLucro.setBackground(new java.awt.Color(255, 255, 204));
         margemLucro.setText("0");
@@ -516,18 +516,18 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(margemLucro);
-        margemLucro.setBounds(580, 460, 130, 20);
+        margemLucro.setBounds(660, 460, 150, 20);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Valor Unitário (m²)");
         jPanel18.add(jLabel7);
-        jLabel7.setBounds(820, 440, 150, 15);
+        jLabel7.setBounds(850, 440, 160, 15);
 
         valorUnitario.setBackground(new java.awt.Color(255, 255, 204));
         valorUnitario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         valorUnitario.setText("0.00");
         jPanel18.add(valorUnitario);
-        valorUnitario.setBounds(820, 460, 130, 21);
+        valorUnitario.setBounds(850, 460, 160, 21);
 
         jLabel8.setText("Cód. Material");
         jPanel18.add(jLabel8);
@@ -575,7 +575,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btAddMaterial);
-        btAddMaterial.setBounds(610, 140, 180, 39);
+        btAddMaterial.setBounds(660, 140, 170, 39);
 
         msgMaterial.setForeground(new java.awt.Color(255, 0, 0));
         msgMaterial.setText("* Material adicionado/removido ainda não foi salvo! Informe os valores abaixo e clique em salvar para salvar o produto!");
@@ -590,7 +590,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(removerMaterial);
-        removerMaterial.setBounds(800, 140, 150, 39);
+        removerMaterial.setBounds(830, 140, 180, 39);
 
         jLabel13.setText("Composição de Materiais do Produto");
         jPanel18.add(jLabel13);
@@ -872,7 +872,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1309, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1302,15 +1302,17 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void removerMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerMaterialActionPerformed
         try {
+               DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
+            int i = tabComposicao.getSelectedRow();
+            
             if (tabComposicao.getRowCount() > 0) {
-                if (tabComposicao.getSelectedRow() < 0) {
+                if (i < 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um material na tabela de composição do produto!");
                 } else {
+                                                          
+                    model.removeRow(i);
                     
-                   System.out.println("tamanho lista :" +tabComposicao.getRowCount());                 
-                     System.out.println("linha selecionada :" +tabComposicao.getSelectedRow());
-                                      
-                    tabComposicao.remove(tabComposicao.getSelectedRow());
+                    tabComposicao.setModel(model);
                     msgMaterial.setVisible(true);
                     limparMaterial();
                 }
