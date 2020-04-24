@@ -444,8 +444,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabComposicao);
         if (tabComposicao.getColumnModel().getColumnCount() > 0) {
-            tabComposicao.getColumnModel().getColumn(0).setResizable(false);
             tabComposicao.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tabComposicao.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
         jPanel18.add(jScrollPane1);
