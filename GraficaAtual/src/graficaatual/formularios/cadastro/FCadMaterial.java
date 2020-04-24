@@ -155,6 +155,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.setPreferredSize(new java.awt.Dimension(1335, 700));
         jPanel18.setLayout(null);
 
+        codMaterial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codMaterialFocusLost(evt);
@@ -375,7 +376,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 300, 930, 190);
+        jScrollPane11.setBounds(20, 330, 930, 250);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -436,7 +437,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(280, 500, 430, 40);
+        jPanel20.setBounds(280, 600, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -465,6 +466,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel5);
         jLabel5.setBounds(510, 120, 80, 14);
 
+        altura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         altura.setText("0,00");
         altura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,6 +476,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(altura);
         altura.setBounds(210, 140, 130, 20);
 
+        largura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         largura.setText("0,00");
         largura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,6 +486,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(largura);
         largura.setBounds(360, 140, 130, 20);
 
+        peso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         peso.setText("0,00");
         peso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,6 +500,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel6);
         jLabel6.setBounds(60, 170, 140, 20);
 
+        precoFreteM2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoFreteM2.setText("0,00");
         precoFreteM2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,6 +510,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(precoFreteM2);
         precoFreteM2.setBounds(60, 190, 130, 20);
 
+        precoFreteKg.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoFreteKg.setText("0,00");
         jPanel18.add(precoFreteKg);
         precoFreteKg.setBounds(210, 190, 130, 20);
@@ -513,6 +519,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel7);
         jLabel7.setBounds(210, 170, 140, 20);
 
+        precoCustoCompra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoCustoCompra.setText("0,00");
         precoCustoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -528,9 +535,10 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         precoCustoCompra.setBounds(510, 190, 130, 20);
 
         precoCustoTotal.setBackground(new java.awt.Color(255, 255, 204));
+        precoCustoTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoCustoTotal.setText("0,00");
         jPanel18.add(precoCustoTotal);
-        precoCustoTotal.setBounds(660, 190, 130, 20);
+        precoCustoTotal.setBounds(680, 190, 130, 20);
 
         jLabel8.setText("Preço Compra");
         jPanel18.add(jLabel8);
@@ -539,7 +547,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Preço de Custo Total");
         jPanel18.add(jLabel9);
-        jLabel9.setBounds(660, 170, 150, 14);
+        jLabel9.setBounds(680, 170, 160, 14);
 
         comboUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Metro (m)", "Quilo (kg)", "Peça (pc)" }));
         comboUnidade.addItemListener(new java.awt.event.ItemListener() {
@@ -550,6 +558,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(comboUnidade);
         comboUnidade.setBounds(60, 140, 130, 20);
 
+        precoFretePeca.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoFretePeca.setText("0,00");
         jPanel18.add(precoFretePeca);
         precoFretePeca.setBounds(360, 190, 130, 20);
@@ -616,6 +625,19 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
                 for (Material m : listaAux) {
 
+                    Double frete = null;
+
+                    switch (m.getUnidade()) {
+                        case 0:
+                            frete = m.getPrecoFreteMetro();
+                        case 1:
+                            frete = m.getPrecoFreteQuilo();
+                        case 3:
+                            frete = m.getPrecoFretePeca();
+                        default:
+                            frete = 0.00;
+                    }
+
                     Object o[] = new Object[]{
                         m.getCodMaterial(),
                         m.getDescricao(),
@@ -623,11 +645,10 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                         ValidarValor.getDouble(m.getAltura()),
                         ValidarValor.getDouble(m.getLargura()),
                         ValidarValor.getDouble(m.getPeso()),
-                        ValidarValor.getDouble(m.getPrecoFreteMetro()),
-                        ValidarValor.getDouble(m.getPrecoFreteQuilo()),
-                        ValidarValor.getDouble(m.getPrecoFretePeca()),
+                        ValidarValor.getDouble(frete),
                         ValidarValor.getDouble(m.getPrecoCompra()),
-                        ValidarValor.getDouble(m.getPrecoCustoTotal())};
+                        ValidarValor.getDouble(m.getPrecoCustoTotal())
+                    };
 
                     model.addRow(o);
                 }

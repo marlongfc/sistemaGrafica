@@ -125,6 +125,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jPanel18.setMinimumSize(new java.awt.Dimension(1335, 700));
         jPanel18.setLayout(null);
 
+        codCidade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codCidade.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codCidadeFocusLost(evt);
@@ -271,7 +272,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 180, 180, 39);
+        btNovo.setBounds(140, 200, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -281,7 +282,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 180, 180, 39);
+        btSalvar.setBounds(320, 200, 180, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -291,7 +292,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 180, 180, 39);
+        btExcluir.setBounds(500, 200, 180, 39);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
@@ -301,7 +302,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 180, 180, 39);
+        btSair.setBounds(680, 200, 180, 39);
 
         tabCidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -342,7 +343,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 250, 930, 140);
+        jScrollPane11.setBounds(20, 280, 930, 220);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -403,7 +404,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         );
 
         jPanel18.add(jPanel20);
-        jPanel20.setBounds(280, 400, 430, 40);
+        jPanel20.setBounds(280, 530, 430, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -419,6 +420,8 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jLabel2.setText("Código IBGE");
         jPanel18.add(jLabel2);
         jLabel2.setBounds(60, 120, 80, 14);
+
+        codIbge.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel18.add(codIbge);
         codIbge.setBounds(60, 140, 170, 20);
 
