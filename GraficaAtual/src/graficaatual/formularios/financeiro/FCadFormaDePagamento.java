@@ -5,7 +5,6 @@
  */
 package graficaatual.formularios.financeiro;
 
- 
 import graficaatual.daos.financeiro.FormaDePagamentoDAO;
 import graficaatual.entidades.financeiro.FormaDePagamento;
 import graficaatual.utilitarios.Componentes;
@@ -14,6 +13,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -22,44 +22,43 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author Moisés
  */
 public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
-
+    
     private FormaDePagamento formaPagamento;
     private FormaDePagamentoDAO formaPagamentoDAO = new FormaDePagamentoDAO();
-
+    
     private List<FormaDePagamento> listaForma = null;
-
+    
     public FCadFormaDePagamento() {
         initComponents();
-
+        
         atualizatabela();
-
+        
         listaForma = ObservableCollections.observableList(new LinkedList<FormaDePagamento>());
         Componentes comp2 = new Componentes(listaForma, false, codForma, descForma, this, jPanel18, descForma.getWidth(), 100);
         comp2.addCol(0, "codForma", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Forma de Pagamento", 200, String.class.getName());
         comp2.bind();
-                
+        
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
+        
     }
-
     
     private static FCadFormaDePagamento instancia;
     private static FCadFormaDePagamento instanceCont;
     private static int initControle;
-
+    
     public static int isInicializado() {
         return initControle;
     }
-
+    
     public synchronized static FCadFormaDePagamento getInstancia() {
         if (instancia == null) {
             instancia = new FCadFormaDePagamento();
             initControle = 1;
         }
         return instancia;
-    } 
-
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -256,6 +255,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,6 +285,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(560, 290, 180, 40);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -447,14 +448,14 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             descForma.setText(formaPagamento.getDescricao());
             observacao.setText(formaPagamento.getObservacao());
         } else {
-            descForma.setText(""); 
+            descForma.setText("");
             observacao.setText("");
         }
     }
-
+    
 
     private void descFormaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descFormaKeyReleased
-         try {
+        try {
             List<FormaDePagamento> merged = formaPagamentoDAO.getList(12,
                     "select e from FormaDePagamento e where  lower ( trim(e.descricao) ) like ?1 order by e.codForma",
                     descForma.getText().trim().toLowerCase() + "%");
@@ -471,7 +472,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descForma.requestFocus();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -495,7 +496,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
                 }
             }
             atualizatabela();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -524,8 +525,8 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-         try {
-            if (evt.getClickCount() > 1) {              
+        try {
+            if (evt.getClickCount() > 1) {
                 codForma.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
                 formaPagamento = formaPagamentoDAO.get(ValidarValor.getInt(codForma.getText()));
                 carregaFormas();
@@ -559,39 +560,57 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_codFormaFocusLost
-
+    
     private void limpaCampos() {
         codForma.setText("");
-        descForma.setText(""); 
+        descForma.setText("");
         observacao.setText("");
     }
-
+    
     private void habilitaCampos(boolean b) {
         codForma.setEnabled(b);
-        descForma.setEnabled(b); 
+        descForma.setEnabled(b);
         observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-
+    
     private void setCausa() {
-        formaPagamento.setDescricao(descForma.getText()); 
+        formaPagamento.setDescricao(descForma.getText());
         formaPagamento.setObservacao(observacao.getText());
     }
-
-    private void atualizatabela() {
-        DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<FormaDePagamento> listaT = formaPagamentoDAO.getList();
-        if (listaT.size() > 0) {
-            model.setNumRows(0);
-            for (FormaDePagamento f : listaT) {
-                Object o[] = new Object[]{
-                    f.getCodForma(),
-                    f.getDescricao()};
-
-                model.addRow(o);
-            }
+    
+    public static void removeLinhas(JTable table) {
+        int n = table.getRowCount();
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            model.removeRow(i);
         }
-        tab.setModel(model);
+    }
+    
+    private void atualizatabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tab.getModel();
+            removeLinhas(tab);
+            List<FormaDePagamento> listaT = formaPagamentoDAO.getList();
+            if (listaT.size() > 0) {
+                model.setNumRows(0);
+                for (FormaDePagamento f : listaT) {
+                    Object o[] = new Object[]{
+                        f.getCodForma(),
+                        f.getDescricao()};
+                    
+                    model.addRow(o);
+                }
+            }
+            tab.setModel(model);
+            
+        } catch (Exception e) {
+            removeLinhas(tab);
+            e.printStackTrace();
+        }
+        
     }
 
 

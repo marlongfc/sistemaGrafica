@@ -36,6 +36,10 @@ public class AcabamentoRNE extends GenericDAO {
      public List<Acabamento> getListNome(EntityManager session, Acabamento a) {
         return getPureList(session, Acabamento.class, "select e from Acabamento e where e.descricao  = '" + a.getDescricao() + "' ");
     }
+     
+      public Acabamento getByDescricao(EntityManager session, String desc) {
+        return getPojoUnique(session, Acabamento.class, "select e from Acabamento e where e.descricao  = '" + desc + "' ");
+    }
 
     public boolean confereAcabamento(EntityManager session, Acabamento a) {
         List<Acabamento> aux = getListNome(session, a);

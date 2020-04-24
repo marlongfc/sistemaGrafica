@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.daos.cadastro;
+package graficaatual.daos.pedido;
 
- 
- 
- 
-import graficaatual.entidades.Acabamento;
-import graficaatual.regras.cadastro.AcabamentoRNE;
+  
+import graficaatual.entidades.pedido.ItemOrcamento;
+import graficaatual.regras.pedido.ItemOrcamentoRNE;
 import graficaatual.utilitarios.Persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,18 +16,19 @@ import javax.persistence.EntityManager;
  *
  * @author Moisés
  */
-public class AcabamentoDAO extends AcabamentoRNE {
+public class ItemOrcamentoDAO extends ItemOrcamentoRNE {
 
-    public Acabamento salvar(Acabamento a) throws Exception {
+    public ItemOrcamento salvar(ItemOrcamento item) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Acabamento aux = null;
+        ItemOrcamento aux = null;
         try {
-            aux = super.salvar(session, a);
+            aux = super.salvar(session, item);
             session.getTransaction().commit();
             return aux;
         } catch (Exception e) {
             session.getTransaction().rollback();
+            e.printStackTrace();
             throw e;
         } finally {
             session.close();
@@ -37,7 +36,7 @@ public class AcabamentoDAO extends AcabamentoRNE {
         }
     }
 
-    public Acabamento altera(Acabamento obj) {
+    public ItemOrcamento altera(ItemOrcamento obj) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             session.getTransaction().begin();
@@ -52,11 +51,15 @@ public class AcabamentoDAO extends AcabamentoRNE {
         return null;
     }
 
-    public void delete(Acabamento a) throws Exception {
+    public void delete(ItemOrcamento o) throws Exception {
+
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
         try {
-            super.excluir(session, a);
+
+            super.excluir(session, o);
             session.getTransaction().commit();
+
         } catch (Exception e) {
             session.getTransaction().rollback();
             throw e;
@@ -66,9 +69,9 @@ public class AcabamentoDAO extends AcabamentoRNE {
         }
     }
 
-    public Acabamento get(int codigo) {
+    public ItemOrcamento get(int codigo) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Acabamento aux;
+        ItemOrcamento aux;
         try {
             aux = super.get(codigo, session);
             return aux;
@@ -79,9 +82,9 @@ public class AcabamentoDAO extends AcabamentoRNE {
         return null;
     }
 
-    public List<Acabamento> getList() {
+    public List<ItemOrcamento> getList() {
          EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        List<Acabamento> aux;
+        List<ItemOrcamento> aux;
         try {
             aux = super.getList(session);
             return aux;
@@ -92,10 +95,10 @@ public class AcabamentoDAO extends AcabamentoRNE {
         return null;
     }
 
-    public Acabamento getList(int cod) {
+    public ItemOrcamento getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            Acabamento aux = super.getPojo(Acabamento.class, cod);
+            ItemOrcamento aux = super.getPojo(ItemOrcamento.class, cod);
             return aux;
         } catch (Exception e) {
         } finally {
@@ -103,34 +106,9 @@ public class AcabamentoDAO extends AcabamentoRNE {
         }
         return null;
     }
-    
-    public Acabamento getByDescricao(String desc) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        Acabamento aux;
-        try {
-            aux = super.getByDescricao(session, desc);
-            return aux;
-        } catch (Exception e) {
-        } finally {
-            session.close();
-        }
-        return null;
-    }
-    
 
-    public List<Acabamento> getList(int NRegistros, String SQL, Object... parametros) {
-        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Acabamento.class, SQL, parametros);
-    }
-    
-     public boolean confereAcabamento(Acabamento a) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-        try {
-            return super.confereAcabamento(session, a);
-        } catch (Exception e) {
-            return false;
-        } finally {
-            session.close();
-        }
+    public List<ItemOrcamento> getList(int NRegistros, String SQL, Object... parametros) {
+        return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, ItemOrcamento.class, SQL, parametros);
     }
 
 }

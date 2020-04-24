@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -21,44 +22,44 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author Moisés
  */
 public class FCadSangria extends javax.swing.JInternalFrame {
-
+    
     private Sangria sangria;
     private SangriaDAO sangriaDAO = new SangriaDAO();
-
+    
     private List<Sangria> listaSangria = null;
-
+    
     public FCadSangria() {
         initComponents();
-
+        
         atualizatabela();
-
+        
         listaSangria = ObservableCollections.observableList(new LinkedList<Sangria>());
         Componentes comp2 = new Componentes(listaSangria, false, codSangria, descSangria, this, jPanel18, descSangria.getWidth(), 100);
         comp2.addCol(0, "codSangria", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Sangria", 200, String.class.getName());
         comp2.bind();
-
+        
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
+        
     }
-
+    
     private static FCadSangria instancia;
     private static FCadSangria instanceCont;
     private static int initControle;
-
+    
     public static int isInicializado() {
         return initControle;
     }
-
+    
     public synchronized static FCadSangria getInstancia() {
         if (instancia == null) {
             instancia = new FCadSangria();
             initControle = 1;
         }
-
+        
         return instancia;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -257,6 +258,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,6 +288,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(550, 290, 180, 40);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,7 +471,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
             observacao.setText("");
         }
     }
-
+    
 
     private void descSangriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descSangriaKeyReleased
         try {
@@ -488,7 +491,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descSangria.requestFocus();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -512,7 +515,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
                 }
             }
             atualizatabela();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -541,8 +544,8 @@ public class FCadSangria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-       try {
-            if (evt.getClickCount() > 1) {              
+        try {
+            if (evt.getClickCount() > 1) {
                 codSangria.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
                 sangria = sangriaDAO.get(ValidarValor.getInt(codSangria.getText()));
                 carregaSangria();
@@ -580,14 +583,14 @@ public class FCadSangria extends javax.swing.JInternalFrame {
     private void valorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_valorFocusLost
-
+    
     private void limpaCampos() {
         codSangria.setText("");
         descSangria.setText("");
         valor.setText("");
         observacao.setText("");
     }
-
+    
     private void habilitaCampos(boolean b) {
         codSangria.setEnabled(b);
         descSangria.setEnabled(b);
@@ -595,28 +598,45 @@ public class FCadSangria extends javax.swing.JInternalFrame {
         observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-
+    
     private void setCausa() {
         sangria.setDescricao(descSangria.getText());
         sangria.setValor(ValidarValor.getDouble(valor.getText()));
         sangria.setObservacao(observacao.getText());
     }
-
-    private void atualizatabela() {
-        DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<Sangria> listaT = sangriaDAO.getList();
-        if (listaT.size() > 0) {
-            model.setNumRows(0);
-            for (Sangria s : listaT) {
-                Object o[] = new Object[]{
-                    s.getCodSangria(),
-                    s.getDescricao(),
-                    s.getValor()};
-
-                model.addRow(o);
-            }
+    
+    public static void removeLinhas(JTable table) {
+        int n = table.getRowCount();
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            model.removeRow(i);
         }
-        tab.setModel(model);
+    }
+    
+    private void atualizatabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tab.getModel();
+            removeLinhas(tab);
+            
+            List<Sangria> listaT = sangriaDAO.getList();
+            if (listaT.size() > 0) {
+                model.setNumRows(0);
+                for (Sangria s : listaT) {
+                    Object o[] = new Object[]{
+                        s.getCodSangria(),
+                        s.getDescricao(),
+                        s.getValor()};
+                    
+                    model.addRow(o);
+                }
+            }
+            tab.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tab);
+            e.printStackTrace();
+        }
     }
 
 

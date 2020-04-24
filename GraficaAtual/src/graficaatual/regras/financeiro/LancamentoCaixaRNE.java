@@ -29,7 +29,7 @@ public class LancamentoCaixaRNE extends GenericDAO {
     }
 
     public List<LancamentoCaixa> getList(EntityManager session) throws Exception {
-        return super.getPureList(session, LancamentoCaixa.class, "Select e from LancametoCaixa e order by e.codLancamento");
+        return super.getPureList(session, LancamentoCaixa.class, "Select e from LancamentoCaixa e order by e.codLancamento");
     }  
     
       public List<LancamentoCaixa> getListNome(EntityManager session, LancamentoCaixa lan) {

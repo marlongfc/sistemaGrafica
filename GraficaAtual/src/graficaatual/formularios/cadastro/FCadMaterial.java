@@ -465,7 +465,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel5);
         jLabel5.setBounds(510, 120, 80, 14);
 
-        altura.setText("0.00");
+        altura.setText("0,00");
         altura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 alturaActionPerformed(evt);
@@ -474,7 +474,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(altura);
         altura.setBounds(210, 140, 130, 20);
 
-        largura.setText("0.00");
+        largura.setText("0,00");
         largura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 larguraActionPerformed(evt);
@@ -483,7 +483,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(largura);
         largura.setBounds(360, 140, 130, 20);
 
-        peso.setText("0.00");
+        peso.setText("0,00");
         peso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pesoActionPerformed(evt);
@@ -496,11 +496,16 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel6);
         jLabel6.setBounds(60, 170, 140, 20);
 
-        precoFreteM2.setText("0.00");
+        precoFreteM2.setText("0,00");
+        precoFreteM2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precoFreteM2ActionPerformed(evt);
+            }
+        });
         jPanel18.add(precoFreteM2);
         precoFreteM2.setBounds(60, 190, 130, 20);
 
-        precoFreteKg.setText("0.00");
+        precoFreteKg.setText("0,00");
         jPanel18.add(precoFreteKg);
         precoFreteKg.setBounds(210, 190, 130, 20);
 
@@ -508,17 +513,22 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel7);
         jLabel7.setBounds(210, 170, 140, 20);
 
-        precoCustoCompra.setText("0.00");
+        precoCustoCompra.setText("0,00");
         precoCustoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 precoCustoCompraFocusLost(evt);
+            }
+        });
+        precoCustoCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precoCustoCompraActionPerformed(evt);
             }
         });
         jPanel18.add(precoCustoCompra);
         precoCustoCompra.setBounds(510, 190, 130, 20);
 
         precoCustoTotal.setBackground(new java.awt.Color(255, 255, 204));
-        precoCustoTotal.setText("0.00");
+        precoCustoTotal.setText("0,00");
         jPanel18.add(precoCustoTotal);
         precoCustoTotal.setBounds(660, 190, 130, 20);
 
@@ -540,7 +550,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(comboUnidade);
         comboUnidade.setBounds(60, 140, 130, 20);
 
-        precoFretePeca.setText("0.00");
+        precoFretePeca.setText("0,00");
         jPanel18.add(precoFretePeca);
         precoFretePeca.setBounds(360, 190, 130, 20);
 
@@ -678,19 +688,19 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         comboUnidade.setSelectedIndex(0);
 
-        altura.setText("0.00");
-        largura.setText("0.00");
-        peso.setText("0.00");
+        altura.setText("0,00");
+        largura.setText("0,00");
+        peso.setText("0,00");
 
         precoFreteM2.setEnabled(true);
-        precoFreteM2.setText("0.00");
+        precoFreteM2.setText("0,00");
         precoFreteKg.setEnabled(false);
-        precoFreteKg.setText("0.00");
+        precoFreteKg.setText("0,00");
         precoFretePeca.setEnabled(false);
-        precoFretePeca.setText("0.00");
+        precoFretePeca.setText("0,00");
 
-        precoCustoCompra.setText("0.00");
-        precoCustoTotal.setText("0.00");
+        precoCustoCompra.setText("0,00");
+        precoCustoTotal.setText("0,00");
 
     }
 
@@ -841,25 +851,25 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             switch (comboUnidade.getSelectedIndex()) {
                 case 0:
                     precoFreteM2.setEnabled(true);
-                    precoFreteM2.setText("0.00");
+                    precoFreteM2.setText("0,00");
                     precoFreteKg.setEnabled(false);
-                    precoFreteKg.setText("0.00");
+                    precoFreteKg.setText("0,00");
                     precoFretePeca.setEnabled(false);
-                    precoFretePeca.setText("0.00");
+                    precoFretePeca.setText("0,00");
                     break;
                 case 1:
                     precoFreteKg.setEnabled(true);
                     precoFreteM2.setEnabled(false);
-                    precoFreteM2.setText("0.00");
+                    precoFreteM2.setText("0,00");
                     precoFretePeca.setEnabled(false);
-                    precoFretePeca.setText("0.00");
+                    precoFretePeca.setText("0,00");
                     break;
                 case 2:
                     precoFretePeca.setEnabled(true);
                     precoFreteM2.setEnabled(false);
-                    precoFreteM2.setText("0.00");
+                    precoFreteM2.setText("0,00");
                     precoFreteKg.setEnabled(false);
-                    precoFreteKg.setText("0.00");
+                    precoFreteKg.setText("0,00");
                     break;
                 default:
                     break;
@@ -872,6 +882,14 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void precoCustoCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precoCustoCompraFocusLost
         atualizaPrecoCustoTotal();
     }//GEN-LAST:event_precoCustoCompraFocusLost
+
+    private void precoFreteM2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoFreteM2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precoFreteM2ActionPerformed
+
+    private void precoCustoCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoCustoCompraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precoCustoCompraActionPerformed
 
     private void atualizaPrecoCustoTotal() {
         try {
@@ -895,12 +913,12 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                     precoCustoTotal.setText(ValidarValor.getDouble(preco));
                     break;
                 default:
-                    precoCustoTotal.setText("0.00");
+                    precoCustoTotal.setText("0,00");
                     break;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            precoCustoTotal.setText("0.00");
+            precoCustoTotal.setText("0,00");
         }
     }
 

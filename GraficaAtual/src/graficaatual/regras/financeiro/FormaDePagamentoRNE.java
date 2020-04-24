@@ -31,9 +31,13 @@ public class FormaDePagamentoRNE extends GenericDAO {
     public List<FormaDePagamento> getList(EntityManager session) throws Exception {
         return super.getPureList(session, FormaDePagamento.class, "Select e from FormaDePagamento e order by e.codForma");
     }
-    
-     public List<FormaDePagamento> getListNome(EntityManager session, FormaDePagamento forma) {
+
+    public List<FormaDePagamento> getListNome(EntityManager session, FormaDePagamento forma) {
         return getPureList(session, FormaDePagamento.class, "select e from FormaDePagamento e where e.descricao  = '" + forma.getDescricao() + "' ");
+    }
+
+    public FormaDePagamento getByDescricao(EntityManager session, String desc) {
+        return getPojoUnique(session, FormaDePagamento.class, "select e from FormaDePagamento e where e.descricao  = '" + desc + "' ");
     }
 
     public boolean confereFormaPagamento(EntityManager session, FormaDePagamento forma) {

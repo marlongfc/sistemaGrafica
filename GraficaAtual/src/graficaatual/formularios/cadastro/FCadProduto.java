@@ -455,7 +455,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel2);
         jLabel2.setBounds(20, 440, 150, 14);
 
-        custoProduto.setText("0.00");
+        custoProduto.setText("0,00");
         custoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 custoProdutoFocusLost(evt);
@@ -468,7 +468,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel3);
         jLabel3.setBounds(180, 440, 150, 14);
 
-        maoDeObra.setText("0.00");
+        maoDeObra.setText("0,00");
         maoDeObra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 maoDeObraFocusLost(evt);
@@ -477,7 +477,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(maoDeObra);
         maoDeObra.setBounds(180, 460, 150, 20);
 
-        custoEmpresa.setText("0.00");
+        custoEmpresa.setText("0,00");
         custoEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 custoEmpresaFocusLost(evt);
@@ -500,7 +500,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel5.setBounds(500, 440, 170, 14);
 
         custoServico.setBackground(new java.awt.Color(255, 255, 204));
-        custoServico.setText("0.00");
+        custoServico.setText("0,00");
         jPanel18.add(custoServico);
         custoServico.setBounds(500, 460, 150, 20);
 
@@ -525,7 +525,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         valorUnitario.setBackground(new java.awt.Color(255, 255, 204));
         valorUnitario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        valorUnitario.setText("0.00");
+        valorUnitario.setText("0,00");
         jPanel18.add(valorUnitario);
         valorUnitario.setBounds(850, 460, 160, 21);
 
@@ -558,7 +558,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel10);
         jLabel10.setBounds(490, 120, 110, 14);
 
-        quantidade.setText("0.00");
+        quantidade.setText("0,00");
         quantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quantidadeActionPerformed(evt);
@@ -1027,15 +1027,15 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             codMaterial.setText("");
             descMaterial.setText("");
-            quantidade.setText("0.00");
+            quantidade.setText("0,00");
             material = null;
 
-            custoProduto.setText("0.00");
-            maoDeObra.setText("0.00");
-            custoEmpresa.setText("0.00");
-            custoServico.setText("0.00");
-            margemLucro.setText("0.00");
-            valorUnitario.setText("0.00");
+            custoProduto.setText("0,00");
+            maoDeObra.setText("0,00");
+            custoEmpresa.setText("0,00");
+            custoServico.setText("0,00");
+            margemLucro.setText("0,00");
+            valorUnitario.setText("0,00");
 
             tabComposicao.removeAll();
 
@@ -1150,7 +1150,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void codMaterialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codMaterialFocusLost
         try {
-            quantidade.setText("0.00");
+            quantidade.setText("0,00");
             material = materialDao.getPorCodigo(ValidarValor.getLong(codMaterial.getText()));
             if (material == null) {
                 descMaterial.setText("");
@@ -1169,7 +1169,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             List<Material> merged = materialDao.getList(15, "select e from Material e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descMaterial.getText().trim().toLowerCase() + "%"));
             listaMaterial.clear();
             listaMaterial.addAll(merged);
-            quantidade.setText("0.00");
+            quantidade.setText("0,00");
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar materials. Erro: " + e);
         }
@@ -1184,7 +1184,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 throw new Exception("Selecione um material válido!");
             }
 
-            if (quantidade.getText().equals("0.00") || Double.parseDouble(quantidade.getText().replaceAll(",", ".")) <= 0) {
+            if (quantidade.getText().equals("0,00") || Double.parseDouble(quantidade.getText().replaceAll(",", ".")) <= 0) {
                 throw new Exception("Informe a quantidade do material !");
             }
 
@@ -1245,7 +1245,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private void limparMaterial() {
         codMaterial.setText("");
         descMaterial.setText("");
-        quantidade.setText("0.00");
+        quantidade.setText("0,00");
         material = null;
     }
 
@@ -1348,7 +1348,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
-            custoProduto.setText("0.00");
+            custoProduto.setText("0,00");
         }
     }
 
@@ -1380,7 +1380,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             custoServico.setText(ValidarValor.getDouble(soma));
         } catch (Exception e) {
-            custoServico.setText("0.00");
+            custoServico.setText("0,00");
             e.printStackTrace();
         }
     }

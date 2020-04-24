@@ -5,8 +5,6 @@
  */
 package graficaatual.daos.financeiro;
 
- 
- 
 import graficaatual.entidades.financeiro.FormaDePagamento;
 import graficaatual.regras.financeiro.FormaDePagamentoRNE;
 import graficaatual.utilitarios.Persistencia;
@@ -82,8 +80,21 @@ public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
         return null;
     }
 
+    public FormaDePagamento getByDescricao(String desc) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        FormaDePagamento aux;
+        try {
+            aux = super.getByDescricao(session, desc);
+            return aux;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
     public List<FormaDePagamento> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
         List<FormaDePagamento> aux;
         try {
             aux = super.getList(session);
@@ -110,8 +121,8 @@ public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
     public List<FormaDePagamento> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, FormaDePagamento.class, SQL, parametros);
     }
-    
-     public boolean confereFormaPagamento(FormaDePagamento f) {
+
+    public boolean confereFormaPagamento(FormaDePagamento f) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             return super.confereFormaPagamento(session, f);

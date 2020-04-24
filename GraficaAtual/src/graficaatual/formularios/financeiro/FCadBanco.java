@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -21,15 +22,15 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author User
  */
 public class FCadBanco extends javax.swing.JInternalFrame {
-
+    
     private Banco banco;
     private BancoDAO bancoDAO = new BancoDAO();
-
+    
     private List<Banco> listaBanco = null;
-
+    
     public FCadBanco() {
         initComponents();
-
+        
         listaBanco = ObservableCollections.observableList(new LinkedList<Banco>());
         Componentes comp2 = new Componentes(listaBanco, false, codBanco, descBanco, this, jPanel18, descBanco.getWidth(), 100);
         comp2.addCol(0, "codBanco", "Código", 50, Integer.class.getName());
@@ -37,30 +38,30 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         comp2.addCol(1, "agencia", "Agencia", 80, String.class.getName());
         comp2.addCol(1, "conta", "Conta", 80, String.class.getName());
         comp2.bind();
-
+        
         atualizatabela();
-
+        
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
+        
     }
-
+    
     private static FCadBanco instancia;
     private static FCadBanco instanceCont;
     private static int initControle;
-
+    
     public static int isInicializado() {
         return initControle;
     }
-
+    
     public synchronized static FCadBanco getInstancia() {
         if (instancia == null) {
             instancia = new FCadBanco();
             initControle = 1;
         }
-
+        
         return instancia;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,6 +262,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,6 +292,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(550, 130, 180, 40);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -460,10 +463,10 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             conta.setText("");
         }
     }
-
+    
 
     private void descBancoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descBancoKeyReleased
-       try {
+        try {
             List<Banco> merged = bancoDAO.getList(12,
                     "select e from Banco e where  lower ( trim(e.descricao) ) like ?1 order by e.codBanco",
                     descBanco.getText().trim().toLowerCase() + "%");
@@ -480,7 +483,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descBanco.requestFocus();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -504,7 +507,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
                 }
             }
             atualizatabela();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -533,8 +536,8 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-       try {
-            if (evt.getClickCount() > 1) {              
+        try {
+            if (evt.getClickCount() > 1) {
                 codBanco.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
                 banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
                 carregaBanco();
@@ -569,14 +572,14 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_codBancoFocusLost
-
+    
     private void limpaCampos() {
-    codBanco.setText("");
+        codBanco.setText("");
         descBanco.setText("");
         agencia.setText("");
         conta.setText("");
     }
-
+    
     private void habilitaCampos(boolean b) {
         codBanco.setEnabled(b);
         descBanco.setEnabled(b);
@@ -584,29 +587,46 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         conta.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-
+    
     private void setCausa() {
         banco.setDescricao(descBanco.getText());
         banco.setAgencia(agencia.getText());
         banco.setConta(conta.getText());
     }
-
-    private void atualizatabela() {
-        DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<Banco> listaT = bancoDAO.getList();
-        if (listaT.size() > 0) {
-            model.setNumRows(0);
-            for (Banco b : listaT) {
-                Object o[] = new Object[]{
-                    b.getCodBanco(),
-                    b.getDescricao(),
-                    b.getAgencia(),
-                    b.getConta()};
-
-                model.addRow(o);
-            }
+    
+    public static void removeLinhas(JTable table) {
+        int n = table.getRowCount();
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            model.removeRow(i);
         }
-        tab.setModel(model);
+    }
+    
+    private void atualizatabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tab.getModel();
+            removeLinhas(tab);
+            List<Banco> listaT = bancoDAO.getList();
+            if (listaT.size() > 0) {
+                model.setNumRows(0);
+                for (Banco b : listaT) {
+                    Object o[] = new Object[]{
+                        b.getCodBanco(),
+                        b.getDescricao(),
+                        b.getAgencia(),
+                        b.getConta()};
+                    
+                    model.addRow(o);
+                }
+            }
+            tab.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tab);
+            e.printStackTrace();
+        }
+        
     }
 
 
