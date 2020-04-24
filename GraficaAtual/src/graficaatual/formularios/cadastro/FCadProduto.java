@@ -1339,7 +1339,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private void atualizaCustoMateriais() {
         DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
         int i = 0;
-        Double soma = 0,00;
+        Double soma = 0.00;
         try {
             for (i = 0; i < model.getRowCount(); i++) {
                 soma = ValidarValor.getArredondamento(soma + (ValidarValor.getDouble((String) model.getValueAt(i, 5))));
@@ -1354,8 +1354,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void atualizaValorTotalProduto() {
 
-        Double custo = 0,00;
-        Double valorTot = 0,00;
+        Double custo = 0.00;
+        Double valorTot = 0.00;
         try {
             custo = (Double.parseDouble(custoProduto.getText().replaceAll(",", ".")) + Double.parseDouble(maoDeObra.getText().replaceAll(",", ".")) + Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")));
 
@@ -1374,7 +1374,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             custoServico.setText("");
 
-            Double soma = 0,00;
+            Double soma = 0.00;
 
             soma = ValidarValor.getArredondamento(((Double.parseDouble(custoProduto.getText().replaceAll(",", "."))) + (Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))) + (Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")))));
 
