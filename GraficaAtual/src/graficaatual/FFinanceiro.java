@@ -74,7 +74,7 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDOS COM FUNDO.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/FINANCEIRO COM FUNDO.jpg"))); // NOI18N
         deskTop.add(jLabel1);
         jLabel1.setBounds(280, 90, 550, 510);
 
