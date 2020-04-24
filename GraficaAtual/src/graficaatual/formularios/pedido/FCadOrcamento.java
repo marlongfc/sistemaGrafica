@@ -5,22 +5,33 @@
  */
 package graficaatual.formularios.pedido;
 
+import graficaatual.daos.cadastro.AcabamentoDAO;
 import graficaatual.daos.pedido.OrcamentoDAO;
 import graficaatual.daos.cadastro.ClienteDAO;
 import graficaatual.daos.cadastro.ProdutoDAO;
+import graficaatual.daos.financeiro.FormaDePagamentoDAO;
+import graficaatual.daos.pedido.ItemOrcamentoDAO;
+import graficaatual.entidades.Acabamento;
 import graficaatual.entidades.Cliente;
 import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.Produto;
-import graficaatual.entidades.itemDoOrcamento;
+import graficaatual.entidades.financeiro.FormaDePagamento;
+import graficaatual.entidades.pedido.ItemOrcamento;
 import graficaatual.utilitarios.Componentes;
+import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -32,27 +43,37 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private Orcamento orcamento;
     private OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
 
+    private ItemOrcamento itemOrcamento;
+    private ItemOrcamentoDAO itemOrcaDAO = new ItemOrcamentoDAO();
+
     private Cliente cliente;
     private ClienteDAO clientedao = new ClienteDAO();
 
+    private FormaDePagamento formaPagamento;
+    private FormaDePagamentoDAO formaPagamentoDao = new FormaDePagamentoDAO();
+
+    private Acabamento acabamento;
+    private AcabamentoDAO acabamentoDao = new AcabamentoDAO();
+
     private Produto produto;
     private ProdutoDAO produtoDAO = new ProdutoDAO();
-    
-   // private itemDoOrcamento  
 
     private List<Cliente> listaCliente = null;
     private List<Produto> listaProduto = null;
 
     private List<Integer> listaQtdProd = null;
     private List<Double> listaDescontoProd = null;
+
+    private List<FormaDePagamento> listaFormaPagamento;
+    private List<Acabamento> listaAcabamento;
     
-    
+    Double totalGlobal=0.00;
 
     public FCadOrcamento() {
         initComponents();
 
         listaCliente = ObservableCollections.observableList(new LinkedList<Cliente>());
-        Componentes comp1 = new Componentes(listaCliente, false, validadeProposta, descCliente, jPanel18, jPanel1, descCliente.getWidth(), 100);
+        Componentes comp1 = new Componentes(listaCliente, false, codCliente, descCliente, jPanel18, jPanel18, descCliente.getWidth(), 100);
         comp1.addCol(0, "codCliente", "Código", 50, Long.class.getName());
         comp1.addCol(1, "pessoa.nome", "Nome", 200, String.class.getName());
         comp1.bind();
@@ -62,7 +83,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         comp2.addCol(0, "codProduto", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Produto", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
@@ -70,7 +91,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private static FCadOrcamento instancia;
     private static FCadOrcamento instanceCont;
     private static int initControle;
-    
+
     public static int isInicializado() {
         return initControle;
     }
@@ -83,7 +104,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         return instancia;
     }
- 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -132,7 +152,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         codOrcamento = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
         jLabel82 = new javax.swing.JLabel();
-        validadeProposta = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         descProduto = new javax.swing.JTextField();
         codProduto = new javax.swing.JTextField();
@@ -142,55 +161,60 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         valorUnitario = new javax.swing.JTextField();
         quantidadeProduto = new javax.swing.JTextField();
         jLabel86 = new javax.swing.JLabel();
-        jLabel87 = new javax.swing.JLabel();
-        descontoProduto = new javax.swing.JTextField();
         btNovoItem = new javax.swing.JButton();
         btAdicionarItem = new javax.swing.JButton();
         btRemoverItem = new javax.swing.JButton();
         jLabel88 = new javax.swing.JLabel();
         valortotalProduto = new javax.swing.JTextField();
-        checkAprovado = new javax.swing.JCheckBox();
+        jLabel109 = new javax.swing.JLabel();
+        medidaProduto = new javax.swing.JTextField();
+        jLabel115 = new javax.swing.JLabel();
+        unidadeProduto = new javax.swing.JTextField();
+        jLabel116 = new javax.swing.JLabel();
+        comboAcabamento = new javax.swing.JComboBox<>();
+        checkSituacao = new javax.swing.JCheckBox();
         labelAprovado = new javax.swing.JLabel();
         btSalvarOrca = new javax.swing.JButton();
         btNovoOrca = new javax.swing.JButton();
         btExcluirOrca = new javax.swing.JButton();
-        valorTotal1 = new javax.swing.JTextField();
+        descontoGeral = new javax.swing.JTextField();
         jLabel89 = new javax.swing.JLabel();
         jLabel104 = new javax.swing.JLabel();
         jLabel105 = new javax.swing.JLabel();
-        valorTotal2 = new javax.swing.JTextField();
+        acrescimoGeral = new javax.swing.JTextField();
         jLabel106 = new javax.swing.JLabel();
-        valorTotal3 = new javax.swing.JTextField();
+        totalGeralOrc = new javax.swing.JTextField();
         dataOrc = new javax.swing.JFormattedTextField();
         jLabel107 = new javax.swing.JLabel();
         jLabel108 = new javax.swing.JLabel();
-        codCliente1 = new javax.swing.JTextField();
-        prazoEntrega = new javax.swing.JTextField();
+        codCliente = new javax.swing.JTextField();
         jLabel110 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel111 = new javax.swing.JLabel();
-        valorUnitario1 = new javax.swing.JTextField();
+        clienteSecundario = new javax.swing.JTextField();
         jLabel112 = new javax.swing.JLabel();
-        valorUnitario2 = new javax.swing.JTextField();
+        telefoneSecundario = new javax.swing.JTextField();
         jLabel113 = new javax.swing.JLabel();
-        valorUnitario3 = new javax.swing.JTextField();
+        enderecoSecundario = new javax.swing.JTextField();
         jLabel114 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboTipoEntrega = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
-        jCheckBox12 = new javax.swing.JCheckBox();
+        checkCaixariaAcabamento = new javax.swing.JCheckBox();
+        checkPloterRecorte = new javax.swing.JCheckBox();
+        checkProjeto = new javax.swing.JCheckBox();
+        checkPlotagem = new javax.swing.JCheckBox();
+        checkImpDigital = new javax.swing.JCheckBox();
+        checkAcabImpressao = new javax.swing.JCheckBox();
+        checkCriacao = new javax.swing.JCheckBox();
+        checkSerralheria = new javax.swing.JCheckBox();
+        checkEntrega = new javax.swing.JCheckBox();
+        checkPintura = new javax.swing.JCheckBox();
+        checkCorteRouter = new javax.swing.JCheckBox();
+        checkFaturamento = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        comboFormaPag = new javax.swing.JComboBox<>();
+        validadeProposta = new javax.swing.JFormattedTextField();
+        prazoEntrega = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
 
@@ -211,7 +235,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel78.setText("Cliente");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(140, 90, 130, 20);
+        jLabel78.setBounds(120, 90, 150, 20);
 
         descCliente.setBackground(new java.awt.Color(255, 255, 204));
         descCliente.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -369,13 +393,13 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jScrollPane11.setViewportView(tabProdutos);
         if (tabProdutos.getColumnModel().getColumnCount() > 0) {
             tabProdutos.getColumnModel().getColumn(0).setPreferredWidth(70);
-            tabProdutos.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tabProdutos.getColumnModel().getColumn(2).setPreferredWidth(700);
+            tabProdutos.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tabProdutos.getColumnModel().getColumn(2).setPreferredWidth(600);
             tabProdutos.getColumnModel().getColumn(3).setPreferredWidth(80);
             tabProdutos.getColumnModel().getColumn(4).setPreferredWidth(100);
             tabProdutos.getColumnModel().getColumn(5).setPreferredWidth(150);
-            tabProdutos.getColumnModel().getColumn(6).setPreferredWidth(80);
-            tabProdutos.getColumnModel().getColumn(7).setPreferredWidth(80);
+            tabProdutos.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tabProdutos.getColumnModel().getColumn(7).setPreferredWidth(100);
         }
 
         jPanel18.add(jScrollPane11);
@@ -403,36 +427,30 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel82.setText("Validade da Proposta");
         jPanel18.add(jLabel82);
-        jLabel82.setBounds(180, 130, 140, 20);
-
-        validadeProposta.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                validadePropostaFocusLost(evt);
-            }
-        });
-        jPanel18.add(validadeProposta);
-        validadeProposta.setBounds(180, 150, 100, 20);
+        jLabel82.setBounds(190, 130, 140, 20);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
         jPanel1.setLayout(null);
 
         descProduto.setBackground(new java.awt.Color(255, 255, 204));
+        descProduto.setEnabled(false);
         descProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 descProdutoKeyReleased(evt);
             }
         });
         jPanel1.add(descProduto);
-        descProduto.setBounds(90, 40, 790, 20);
+        descProduto.setBounds(80, 40, 510, 20);
 
+        codProduto.setEnabled(false);
         codProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codProdutoFocusLost(evt);
             }
         });
         jPanel1.add(codProduto);
-        codProduto.setBounds(10, 40, 80, 20);
+        codProduto.setBounds(10, 40, 70, 20);
 
         jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel83.setText("Cód. Produto");
@@ -447,43 +465,33 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel85.setText("Valor Unitário");
         jPanel1.add(jLabel85);
-        jLabel85.setBounds(10, 70, 80, 20);
+        jLabel85.setBounds(590, 20, 90, 20);
 
+        valorUnitario.setEnabled(false);
         valorUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 valorUnitarioFocusLost(evt);
             }
         });
         jPanel1.add(valorUnitario);
-        valorUnitario.setBounds(10, 90, 100, 20);
+        valorUnitario.setBounds(590, 40, 100, 20);
 
+        quantidadeProduto.setEnabled(false);
         quantidadeProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 quantidadeProdutoFocusLost(evt);
             }
         });
         jPanel1.add(quantidadeProduto);
-        quantidadeProduto.setBounds(120, 90, 100, 20);
+        quantidadeProduto.setBounds(691, 40, 100, 20);
 
         jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel86.setText("Quantidade");
         jPanel1.add(jLabel86);
-        jLabel86.setBounds(120, 70, 80, 20);
-
-        jLabel87.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel87.setText("Desconto");
-        jPanel1.add(jLabel87);
-        jLabel87.setBounds(230, 70, 80, 20);
-
-        descontoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                descontoProdutoFocusLost(evt);
-            }
-        });
-        jPanel1.add(descontoProduto);
-        descontoProduto.setBounds(230, 90, 100, 20);
+        jLabel86.setBounds(691, 20, 90, 20);
 
         btNovoItem.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        btNovoItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovoItem.setText("Novo Produto");
         btNovoItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -491,7 +499,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(btNovoItem);
-        btNovoItem.setBounds(450, 70, 130, 40);
+        btNovoItem.setBounds(420, 70, 160, 40);
 
         btAdicionarItem.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         btAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
@@ -518,25 +526,54 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jLabel88.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel88.setText("Valor Total Produto");
         jPanel1.add(jLabel88);
-        jLabel88.setBounds(340, 70, 120, 20);
+        jLabel88.setBounds(792, 20, 110, 20);
 
+        valortotalProduto.setEnabled(false);
         valortotalProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 valortotalProdutoFocusLost(evt);
             }
         });
         jPanel1.add(valortotalProduto);
-        valortotalProduto.setBounds(340, 90, 100, 20);
+        valortotalProduto.setBounds(792, 40, 110, 20);
+
+        jLabel109.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel109.setText("Medida");
+        jPanel1.add(jLabel109);
+        jLabel109.setBounds(10, 70, 80, 20);
+
+        medidaProduto.setEnabled(false);
+        jPanel1.add(medidaProduto);
+        medidaProduto.setBounds(10, 90, 90, 20);
+
+        jLabel115.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel115.setText("Unidade");
+        jPanel1.add(jLabel115);
+        jLabel115.setBounds(110, 70, 80, 20);
+
+        unidadeProduto.setEnabled(false);
+        jPanel1.add(unidadeProduto);
+        unidadeProduto.setBounds(110, 90, 90, 20);
+
+        jLabel116.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel116.setText("Acabamento");
+        jPanel1.add(jLabel116);
+        jLabel116.setBounds(210, 70, 90, 20);
+
+        comboAcabamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        comboAcabamento.setEnabled(false);
+        jPanel1.add(comboAcabamento);
+        comboAcabamento.setBounds(210, 90, 200, 20);
 
         jPanel18.add(jPanel1);
         jPanel1.setBounds(40, 175, 910, 120);
 
-        checkAprovado.setBackground(new java.awt.Color(204, 0, 0));
-        checkAprovado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        checkAprovado.setForeground(new java.awt.Color(255, 255, 255));
-        checkAprovado.setText("Aprovado");
-        jPanel18.add(checkAprovado);
-        checkAprovado.setBounds(840, 70, 100, 23);
+        checkSituacao.setBackground(new java.awt.Color(204, 0, 0));
+        checkSituacao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        checkSituacao.setForeground(new java.awt.Color(255, 255, 255));
+        checkSituacao.setText("Aprovado");
+        jPanel18.add(checkSituacao);
+        checkSituacao.setBounds(840, 70, 100, 23);
 
         labelAprovado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         labelAprovado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -553,6 +590,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(btSalvarOrca);
         btSalvarOrca.setBounds(310, 625, 180, 40);
 
+        btNovoOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovoOrca.setText("Novo Orçamento");
         btNovoOrca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -572,13 +610,13 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluirOrca);
         btExcluirOrca.setBounds(490, 625, 180, 40);
 
-        valorTotal1.addFocusListener(new java.awt.event.FocusAdapter() {
+        descontoGeral.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                valorTotal1FocusLost(evt);
+                descontoGeralFocusLost(evt);
             }
         });
-        jPanel18.add(valorTotal1);
-        valorTotal1.setBounds(690, 490, 100, 20);
+        jPanel18.add(descontoGeral);
+        descontoGeral.setBounds(690, 490, 100, 20);
 
         jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel89.setText("Desconto Geral");
@@ -595,26 +633,24 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel105);
         jLabel105.setBounds(800, 470, 100, 20);
 
-        valorTotal2.addFocusListener(new java.awt.event.FocusAdapter() {
+        acrescimoGeral.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                valorTotal2FocusLost(evt);
+                acrescimoGeralFocusLost(evt);
             }
         });
-        jPanel18.add(valorTotal2);
-        valorTotal2.setBounds(800, 490, 100, 20);
+        jPanel18.add(acrescimoGeral);
+        acrescimoGeral.setBounds(800, 490, 100, 20);
 
         jLabel106.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel106.setText("Total Geral do Orçamento");
         jPanel18.add(jLabel106);
-        jLabel106.setBounds(690, 510, 140, 20);
+        jLabel106.setBounds(690, 510, 220, 20);
+        jPanel18.add(totalGeralOrc);
+        totalGeralOrc.setBounds(690, 530, 130, 20);
 
-        valorTotal3.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorTotal3FocusLost(evt);
-            }
-        });
-        jPanel18.add(valorTotal3);
-        valorTotal3.setBounds(690, 530, 130, 20);
+        try{
+            dataOrc = new JFormattedTextField(new MaskFormatter("##/##/####"));
+        }catch(Exception e){};
         jPanel18.add(dataOrc);
         dataOrc.setBounds(40, 150, 120, 20);
 
@@ -628,26 +664,18 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel108);
         jLabel108.setBounds(40, 130, 140, 20);
 
-        codCliente1.addFocusListener(new java.awt.event.FocusAdapter() {
+        codCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codCliente1FocusLost(evt);
+                codClienteFocusLost(evt);
             }
         });
-        jPanel18.add(codCliente1);
-        codCliente1.setBounds(40, 110, 80, 20);
-
-        prazoEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                prazoEntregaFocusLost(evt);
-            }
-        });
-        jPanel18.add(prazoEntrega);
-        prazoEntrega.setBounds(300, 150, 100, 20);
+        jPanel18.add(codCliente);
+        codCliente.setBounds(40, 110, 80, 20);
 
         jLabel110.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel110.setText("Prazo de Entrega");
         jPanel18.add(jLabel110);
-        jLabel110.setBounds(300, 130, 140, 20);
+        jLabel110.setBounds(340, 130, 140, 20);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Forma de Entrega", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 11))); // NOI18N
@@ -657,49 +685,31 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jLabel111.setText("Cliente");
         jPanel2.add(jLabel111);
         jLabel111.setBounds(10, 15, 80, 20);
-
-        valorUnitario1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorUnitario1FocusLost(evt);
-            }
-        });
-        jPanel2.add(valorUnitario1);
-        valorUnitario1.setBounds(10, 35, 420, 20);
+        jPanel2.add(clienteSecundario);
+        clienteSecundario.setBounds(10, 35, 420, 20);
 
         jLabel112.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel112.setText("Telefone");
         jPanel2.add(jLabel112);
         jLabel112.setBounds(430, 15, 70, 20);
-
-        valorUnitario2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorUnitario2FocusLost(evt);
-            }
-        });
-        jPanel2.add(valorUnitario2);
-        valorUnitario2.setBounds(430, 35, 200, 20);
+        jPanel2.add(telefoneSecundario);
+        telefoneSecundario.setBounds(430, 35, 200, 20);
 
         jLabel113.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel113.setText("Endereço");
         jPanel2.add(jLabel113);
         jLabel113.setBounds(10, 55, 150, 20);
-
-        valorUnitario3.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorUnitario3FocusLost(evt);
-            }
-        });
-        jPanel2.add(valorUnitario3);
-        valorUnitario3.setBounds(10, 75, 420, 20);
+        jPanel2.add(enderecoSecundario);
+        enderecoSecundario.setBounds(10, 75, 420, 20);
 
         jLabel114.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel114.setText("Tipo de Entrega");
         jPanel2.add(jLabel114);
         jLabel114.setBounds(430, 55, 90, 20);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Interna", "Externa" }));
-        jPanel2.add(jComboBox1);
-        jComboBox1.setBounds(430, 75, 200, 20);
+        comboTipoEntrega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Interna", "Externa" }));
+        jPanel2.add(comboTipoEntrega);
+        comboTipoEntrega.setBounds(430, 75, 200, 20);
 
         jPanel18.add(jPanel2);
         jPanel2.setBounds(40, 425, 640, 130);
@@ -708,69 +718,104 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas"));
         jPanel3.setLayout(null);
 
-        jCheckBox1.setText("Caixaria Acabamento");
-        jPanel3.add(jCheckBox1);
-        jCheckBox1.setBounds(270, 40, 130, 23);
+        checkCaixariaAcabamento.setBackground(new java.awt.Color(255, 255, 255));
+        checkCaixariaAcabamento.setText("Caixaria Acabamento");
+        jPanel3.add(checkCaixariaAcabamento);
+        checkCaixariaAcabamento.setBounds(270, 40, 130, 23);
 
-        jCheckBox6.setText("Ploter Recorte");
-        jPanel3.add(jCheckBox6);
-        jCheckBox6.setBounds(780, 20, 100, 23);
+        checkPloterRecorte.setBackground(new java.awt.Color(255, 255, 255));
+        checkPloterRecorte.setText("Ploter Recorte");
+        jPanel3.add(checkPloterRecorte);
+        checkPloterRecorte.setBounds(780, 20, 120, 23);
 
-        jCheckBox7.setText("Projeto");
-        jPanel3.add(jCheckBox7);
-        jCheckBox7.setBounds(140, 20, 61, 23);
+        checkProjeto.setBackground(new java.awt.Color(255, 255, 255));
+        checkProjeto.setText("Projeto");
+        jPanel3.add(checkProjeto);
+        checkProjeto.setBounds(140, 20, 120, 23);
 
-        jCheckBox8.setText("Plotagem");
-        jPanel3.add(jCheckBox8);
-        jCheckBox8.setBounds(270, 20, 81, 23);
+        checkPlotagem.setBackground(new java.awt.Color(255, 255, 255));
+        checkPlotagem.setText("Plotagem");
+        jPanel3.add(checkPlotagem);
+        checkPlotagem.setBounds(270, 20, 130, 23);
 
-        jCheckBox9.setText("Impressão Digital");
-        jPanel3.add(jCheckBox9);
-        jCheckBox9.setBounds(450, 20, 140, 23);
+        checkImpDigital.setBackground(new java.awt.Color(255, 255, 255));
+        checkImpDigital.setText("Impressão Digital");
+        jPanel3.add(checkImpDigital);
+        checkImpDigital.setBounds(450, 20, 140, 23);
 
-        jCheckBox10.setText("Acabamento Impressão");
-        jPanel3.add(jCheckBox10);
-        jCheckBox10.setBounds(600, 20, 150, 23);
+        checkAcabImpressao.setBackground(new java.awt.Color(255, 255, 255));
+        checkAcabImpressao.setText("Acabamento Impressão");
+        jPanel3.add(checkAcabImpressao);
+        checkAcabImpressao.setBounds(600, 20, 150, 23);
 
-        jCheckBox2.setText("Criação");
-        jPanel3.add(jCheckBox2);
-        jCheckBox2.setBounds(10, 20, 61, 23);
+        checkCriacao.setBackground(new java.awt.Color(255, 255, 255));
+        checkCriacao.setText("Criação");
+        jPanel3.add(checkCriacao);
+        checkCriacao.setBounds(10, 20, 100, 23);
 
-        jCheckBox3.setText("Serralheria");
-        jPanel3.add(jCheckBox3);
-        jCheckBox3.setBounds(10, 40, 80, 23);
+        checkSerralheria.setBackground(new java.awt.Color(255, 255, 255));
+        checkSerralheria.setText("Serralheria");
+        jPanel3.add(checkSerralheria);
+        checkSerralheria.setBounds(10, 40, 100, 23);
 
-        jCheckBox4.setText("Instalação Entrega");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+        checkEntrega.setBackground(new java.awt.Color(255, 255, 255));
+        checkEntrega.setText("Instalação Entrega");
+        checkEntrega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
+                checkEntregaActionPerformed(evt);
             }
         });
-        jPanel3.add(jCheckBox4);
-        jCheckBox4.setBounds(780, 40, 120, 23);
+        jPanel3.add(checkEntrega);
+        checkEntrega.setBounds(780, 40, 120, 23);
 
-        jCheckBox5.setText("Pintura");
-        jPanel3.add(jCheckBox5);
-        jCheckBox5.setBounds(140, 40, 70, 23);
+        checkPintura.setBackground(new java.awt.Color(255, 255, 255));
+        checkPintura.setText("Pintura");
+        jPanel3.add(checkPintura);
+        checkPintura.setBounds(140, 40, 120, 23);
 
-        jCheckBox11.setText("Corte Router");
-        jPanel3.add(jCheckBox11);
-        jCheckBox11.setBounds(450, 40, 100, 23);
+        checkCorteRouter.setBackground(new java.awt.Color(255, 255, 255));
+        checkCorteRouter.setText("Corte Router");
+        checkCorteRouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCorteRouterActionPerformed(evt);
+            }
+        });
+        jPanel3.add(checkCorteRouter);
+        checkCorteRouter.setBounds(450, 40, 140, 23);
 
-        jCheckBox12.setText("Faturamento");
-        jPanel3.add(jCheckBox12);
-        jCheckBox12.setBounds(600, 40, 100, 23);
+        checkFaturamento.setBackground(new java.awt.Color(255, 255, 255));
+        checkFaturamento.setText("Faturamento");
+        jPanel3.add(checkFaturamento);
+        checkFaturamento.setBounds(600, 40, 150, 23);
 
         jPanel18.add(jPanel3);
         jPanel3.setBounds(40, 555, 910, 70);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         jButton1.setText("Sair");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel18.add(jButton1);
         jButton1.setBounds(670, 625, 180, 40);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel18.add(jComboBox4);
-        jComboBox4.setBounds(690, 445, 260, 20);
+        comboFormaPag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        jPanel18.add(comboFormaPag);
+        comboFormaPag.setBounds(690, 445, 260, 20);
+
+        try{
+            validadeProposta = new JFormattedTextField(new MaskFormatter("##/##/####"));
+        }catch(Exception e){};
+        jPanel18.add(validadeProposta);
+        validadeProposta.setBounds(190, 150, 120, 20);
+
+        try{
+            prazoEntrega = new JFormattedTextField(new MaskFormatter("##/##/####"));
+        }catch(Exception e){};
+        jPanel18.add(prazoEntrega);
+        prazoEntrega.setBounds(340, 150, 120, 20);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -831,77 +876,120 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void valorTotal3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorTotal3FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorTotal3FocusLost
-
-    private void valorTotal2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorTotal2FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorTotal2FocusLost
-
-    private void valorTotal1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorTotal1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorTotal1FocusLost
-
     private void btExcluirOrcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirOrcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btExcluirOrcaActionPerformed
 
     private void btNovoOrcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoOrcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btNovoOrcaActionPerformed
-
-    private void btSalvarOrcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarOrcaActionPerformed
-        try{
-            EntityManager session = Persistencia.getInstance().getSessionComBegin();
-            if(orcamento != null){
-                if (listaProduto != null || listaProduto.isEmpty()){
-                    orcamento = orcamentoDAO.get(ValidarValor.getInt((codOrcamento.getText())));
-                    if(orcamento == null){
-                        orcamento = new Orcamento();
-
-                        setOrcamento(); //verificar
-                        orcamento = orcamentoDAO.salvar(session, orcamento);
-
-                        for (int i = 0; i < listaProduto.size(); i++) {
-                            //setListas();
-                        }
-                    }
-
-                }
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btSalvarOrcaActionPerformed
-
-    private void valortotalProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valortotalProdutoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valortotalProdutoFocusLost
-
-    private void btRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverItemActionPerformed
         try {
-            produto = produtoDAO.getPorCodigo(ValidarValor.getLong(codProduto.getText()));
-
-            if (produto == null) {
-                JOptionPane.showMessageDialog(this, "Favor Selecionar um Produto. ");
-            } else {
-                if (listaProduto != null || listaProduto.isEmpty()) {
-                    int i = listaProduto.indexOf(produto);
-                    listaQtdProd.remove(i);
-                    listaDescontoProd.remove(i);
-                    listaProduto.remove(produto);
-                }
-            }
-            atualizatabelaProdutos();
+            orcamento = new Orcamento();
+            limpaCampos();
+            adicionarComboFormaPagamento();
+            adicionarComboAcabamento();
+            descCliente.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }//GEN-LAST:event_btNovoOrcaActionPerformed
+
+    private void btSalvarOrcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarOrcaActionPerformed
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
+            if (orcamento == null) {
+                orcamento = new Orcamento();
+                setOrcamento();
+                orcamento.setDataCadastro(new Date());
+                orcamento.setDataAtualizacao(new Date());
+
+                orcamento = orcamentoDAO.salvar(session, orcamento);
+
+                if (orcamento != null) {
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                }
+
+                DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
+                int i = 0;
+
+                for (i = 0; i < model.getRowCount(); i++) {
+
+                    itemOrcamento = new ItemOrcamento();
+
+                    itemOrcamento.setProduto(produto);
+
+                    itemOrcamento.setOrcamento(orcamento);
+
+                    itemOrcaDAO.salvar(session, itemOrcamento);
+
+                }
+
+            }
+            session.getTransaction().commit();
+            session.close();
+            limpaCampos();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            session.close();
+        }
+
+
+    }//GEN-LAST:event_btSalvarOrcaActionPerformed
+
+    private void btRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverItemActionPerformed
+        try {
+            if (tabProdutos.getRowCount() > 0) {
+                if (tabProdutos.getSelectedRow() < 0) {
+                    JOptionPane.showMessageDialog(null, "Selecione um produto para exclusão!");
+                } else {
+                    tabProdutos.remove(tabProdutos.getSelectedRow());
+                    limpaCamposProduto();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }//GEN-LAST:event_btRemoverItemActionPerformed
 
     private void btAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarItemActionPerformed
+
         try {
+            if (codProduto.getText().equals("") || descProduto.getText().equals("") || produto == null) {
+                JOptionPane.showMessageDialog(this, "Favor Selecionar um Produto. ");
+            }
+
+            if (quantidadeProduto.getText().equals("0,00") || ValidarValor.getDouble(quantidadeProduto.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Favor Informar a quantidade. ");
+            }
+            Double vl, vt;
+
+            vl = Double.parseDouble(valorUnitario.getText().replaceAll(",", "."));
+            vt = Double.parseDouble(valortotalProduto.getText().replaceAll(",", "."));
+
+            DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
+
+            Object[] os = new Object[8];
+            os[0] = codProduto.getText();
+            os[1] = quantidadeProduto.getText();
+            os[2] = descProduto.getText();
+            os[3] = medidaProduto.getText();
+            os[4] = unidadeProduto.getText();
+            os[5] = comboAcabamento.getSelectedIndex();
+            os[6] = vl;
+            os[7] = vt;
+
+            model.addRow(os);
+            
+             calculaPreçoTotalOrcamentoSemDesconto();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*try {
             produto = produtoDAO.getPorCodigo(ValidarValor.getLong(codProduto.getText()));
             if (produto == null) {
                 JOptionPane.showMessageDialog(this, "Favor Inserir um Produto.");
@@ -916,14 +1004,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_btAdicionarItemActionPerformed
 
     private void btNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoItemActionPerformed
         try {
             produto = new Produto();
             limpaCamposProduto();
-            habilitaCampos(true);
+            habilitaCamposProduto(true);
             descProduto.requestFocus();
 
         } catch (Exception e) {
@@ -931,12 +1019,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btNovoItemActionPerformed
 
-    private void descontoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoProdutoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descontoProdutoFocusLost
-
     private void quantidadeProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantidadeProdutoFocusLost
-        // TODO add your handling code here:
+        calculaPrecoTotalProduto();
     }//GEN-LAST:event_quantidadeProdutoFocusLost
 
     private void valorUnitarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorUnitarioFocusLost
@@ -954,22 +1038,15 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     private void descProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descProdutoKeyReleased
         try {
-            List<Produto> merged = produtoDAO.getList(15, "select e from Produto e where e.descricao order by e.codigo", descProduto.getText().trim().toLowerCase());
+            List<Produto> merged = produtoDAO.getList(12,
+                    "select e from Produto e where  lower ( trim(e.descricao) ) like ?1 order by e.codProduto",
+                    descProduto.getText().trim().toLowerCase() + "%");
             listaProduto.clear();
             listaProduto.addAll(merged);
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar Produto. Erro: " + e);
         }
     }//GEN-LAST:event_descProdutoKeyReleased
-
-    private void validadePropostaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_validadePropostaFocusLost
-        try {
-            carregaCliente();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_validadePropostaFocusLost
 
     private void codOrcamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codOrcamentoFocusLost
         try {
@@ -981,13 +1058,21 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_codOrcamentoFocusLost
 
     private void tabProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProdutosMouseClicked
-        // TODO add your handling code here:
+        try {
+            if (evt.getClickCount() > 1) {
+                codProduto.setText(tabProdutos.getValueAt(tabProdutos.getSelectedRow(), 0).toString());
+                produto = produtoDAO.getPorCodigo(ValidarValor.getInt(codProduto.getText()));
+                carregaTabProd();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_tabProdutosMouseClicked
 
     private void descClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descClienteKeyReleased
         try {
             List<Cliente> merged = clientedao.getList(12,
-                    "select e from Cliente e where  lower ( trim(e.descricao) ) like ?1 order by e.codCliente",
+                    "select e from Cliente e where  lower ( trim(e.pessoa.nome) ) like ?1 order by e.codCliente",
                     descCliente.getText().trim().toLowerCase() + "%");
             listaCliente.clear();
             listaCliente.addAll(merged);
@@ -996,54 +1081,102 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descClienteKeyReleased
 
-    private void codCliente1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCliente1FocusLost
-       try {
+    private void codClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codClienteFocusLost
+        try {
             carregaCliente();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_codCliente1FocusLost
+    }//GEN-LAST:event_codClienteFocusLost
 
-    private void prazoEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prazoEntregaFocusLost
+    private void checkEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEntregaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_prazoEntregaFocusLost
+    }//GEN-LAST:event_checkEntregaActionPerformed
 
-    private void valorUnitario1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorUnitario1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorUnitario1FocusLost
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void valorUnitario2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorUnitario2FocusLost
+    private void checkCorteRouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCorteRouterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_valorUnitario2FocusLost
+    }//GEN-LAST:event_checkCorteRouterActionPerformed
 
-    private void valorUnitario3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorUnitario3FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorUnitario3FocusLost
+    private void valortotalProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valortotalProdutoFocusLost
+       
+    }//GEN-LAST:event_valortotalProdutoFocusLost
 
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+    private void descontoGeralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoGeralFocusLost
+        calculaPreçoTotalOrcamentoComDesconto();
+    }//GEN-LAST:event_descontoGeralFocusLost
+
+    private void acrescimoGeralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_acrescimoGeralFocusLost
+        calculaPreçoTotalOrcamentoComDesconto();
+    }//GEN-LAST:event_acrescimoGeralFocusLost
 
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
         if (orcamento != null) {
-            carregaCliente();
-            carregaProduto();
-            
+
         } else {
             limpaCamposProduto();
         }
     }
-    
-     private void carregaTudo() throws Exception {
-         carregaOrcamento();
-         carregaCliente();
-         carregaProduto();
-     }
+
+    private void carregaTudo() throws Exception {
+        carregaOrcamento();
+        carregaCliente();
+        carregaProduto();
+        carregaComboFormaPagamento();
+        carregaComboAcabamento();
+    }
+
+    private void carregaComboFormaPagamento() {
+        try {
+            formaPagamento = orcamento.getFormaPagamento();
+            listaFormaPagamento = formaPagamentoDao.getList();
+
+            comboFormaPag.removeAllItems();
+
+            int x = 0;
+
+            for (int i = 0; i < listaFormaPagamento.size(); i++) {
+                comboFormaPag.addItem(listaFormaPagamento.get(i).getDescricao());
+                if (formaPagamento.getDescricao().equals(listaFormaPagamento.get(i).getDescricao())) {
+                    x = i;
+                }
+            }
+            comboFormaPag.setSelectedIndex(x);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void carregaComboAcabamento() {
+        try {
+            acabamento = orcamento.getAcabamento();
+            listaAcabamento = acabamentoDao.getList();
+
+            comboAcabamento.removeAllItems();
+
+            int x = 0;
+
+            for (int i = 0; i < listaAcabamento.size(); i++) {
+                comboAcabamento.addItem(listaAcabamento.get(i).getDescricao());
+                if (acabamento.getDescricao().equals(listaAcabamento.get(i).getDescricao())) {
+                    x = i;
+                }
+            }
+            comboAcabamento.setSelectedIndex(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private void carregaCliente() throws Exception {
-        cliente = clientedao.get(ValidarValor.getLong(validadeProposta.getText()));
+        cliente = clientedao.get(ValidarValor.getLong(codCliente.getText()));
         if (cliente != null) {
             descCliente.setText(cliente.getPessoa().getNome());
         } else {
@@ -1057,8 +1190,21 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             descProduto.setText(produto.getDescricao());
             valorUnitario.setText(ValidarValor.getDouble(produto.getValorUnitario()));
         } else {
-            descProduto.setText("");
-            valorUnitario.setText("");
+            limpaCamposProduto();
+        }
+    }
+
+    private void carregaTabProd() throws Exception {
+        produto = produtoDAO.getPorCodigo(ValidarValor.getLong(codProduto.getText()));
+        if (produto != null) {
+            descProduto.setText(produto.getDescricao());
+            valorUnitario.setText(ValidarValor.getDouble(produto.getValorUnitario()));
+            quantidadeProduto.setText(orcamento.getQuantProd().toString());
+            valortotalProduto.setText(ValidarValor.getDouble(orcamento.getValorTotal()));
+            medidaProduto.setText(orcamento.getMedida());
+            unidadeProduto.setText(orcamento.getUnidade());
+            orcamento.setAcabamento(acabamentoDao.getByDescricao(comboAcabamento.getSelectedItem().toString()));
+
         }
     }
 
@@ -1067,28 +1213,112 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         descProduto.setText("");
         valorUnitario.setText("");
         quantidadeProduto.setText("");
-        descontoProduto.setText("");
         valortotalProduto.setText("");
+        medidaProduto.setText("");
+        unidadeProduto.setText("");
+        comboAcabamento.setSelectedIndex(0);
     }
 
-    private void habilitaCampos(boolean b) {
+    private void limpaCampos() {
+        codOrcamento.setText("");
+        codCliente.setText("");
+        descCliente.setText("");
+        checkSituacao.setSelected(false);
+        dataOrc.setText("");
+        validadeProposta.setText("");
+        prazoEntrega.setText("");
+        limpaCamposProduto();
+        tabProdutos.removeAll();
+        clienteSecundario.setText("");
+        telefoneSecundario.setText("");
+        enderecoSecundario.setText("");
+        comboTipoEntrega.setSelectedIndex(0);
+        comboFormaPag.setSelectedIndex(0);
+        descontoGeral.setText("");
+        acrescimoGeral.setText("");
+        totalGeralOrc.setText("");
+        desmarcarChecksSetores();
+
+    }
+
+    private void desmarcarChecksSetores() {
+        checkCriacao.setSelected(false);
+        checkSerralheria.setSelected(false);
+        checkProjeto.setSelected(false);
+        checkPintura.setSelected(false);
+        checkPlotagem.setSelected(false);
+        checkCaixariaAcabamento.setSelected(false);
+        checkImpDigital.setSelected(false);
+        checkCorteRouter.setSelected(false);
+        checkAcabImpressao.setSelected(false);
+        checkFaturamento.setSelected(false);
+        checkPloterRecorte.setSelected(false);
+        checkEntrega.setSelected(false);
+
+    }
+
+    private void adicionarComboFormaPagamento() {
+        comboFormaPag.removeAllItems();
+        listaFormaPagamento = formaPagamentoDao.getList();
+        for (FormaDePagamento x : listaFormaPagamento) {
+            comboFormaPag.addItem(x.getDescricao());
+        }
+    }
+
+    private void adicionarComboAcabamento() {
+        comboAcabamento.removeAllItems();
+        listaAcabamento = acabamentoDao.getList();
+        for (Acabamento x : listaAcabamento) {
+            comboAcabamento.addItem(x.getDescricao());
+        }
+    }
+
+    private void habilitaCamposProduto(boolean b) {
         codProduto.setEnabled(b);
         descProduto.setEnabled(b);
         valorUnitario.setEnabled(b);
         quantidadeProduto.setEnabled(b);
-        descontoProduto.setEnabled(b);
         valortotalProduto.setEnabled(b);
+        medidaProduto.setEnabled(b);
+        unidadeProduto.setEnabled(b);
+        comboAcabamento.setEnabled(b);
     }
 
-    private void setCausa() {
-        produto.setDescricao(descProduto.getText());
-        produto.setValorUnitario(ValidarValor.getDouble(valorUnitario.getText()));
+    private void setOrcamento() {
+        orcamento.setSituacao(checkSituacao.isSelected());
+        orcamento.setCliente(cliente);
+        orcamento.setDataOrcamento(Data.getDateSQL(dataOrc.getText()));
+        orcamento.setValidadeOrcamento(Data.getDateSQL(validadeProposta.getText()));
+        orcamento.setPrazoEntrega(Data.getDateSQL(prazoEntrega.getText()));
+        orcamento.setProduto(produto);
+        orcamento.setQuantProd(ValidarValor.getInt(quantidadeProduto.getText()));
+        orcamento.setValorTotalProduto(ValidarValor.getDouble(valortotalProduto.getText()));
+        orcamento.setMedida(medidaProduto.getText());
+        orcamento.setUnidade(unidadeProduto.getText());
+        orcamento.setAcabamento(acabamentoDao.getByDescricao(comboAcabamento.getSelectedItem().toString()));
+        orcamento.setClienteSecundario(clienteSecundario.getText());
+        orcamento.setTelefoneSecundario(telefoneSecundario.getText());
+        orcamento.setEnderecoSecundario(enderecoSecundario.getText());
+        orcamento.setTipoDeEntrega(comboTipoEntrega.getSelectedIndex());
+        orcamento.setFormaPagamento(formaPagamentoDao.getByDescricao(comboFormaPag.getSelectedItem().toString()));
+        orcamento.setDescontoGeral(ValidarValor.getDouble(descontoGeral.getText()));
+        orcamento.setAcrescimoGeral(ValidarValor.getDouble(acrescimoGeral.getText()));
+        orcamento.setValorTotal(ValidarValor.getDouble(totalGeralOrc.getText()));
+        orcamento.setCheckCriacao(checkCriacao.isSelected());
+        orcamento.setCheckSerralheria(checkSerralheria.isSelected());
+        orcamento.setCheckProjeto(checkProjeto.isSelected());
+        orcamento.setCheckPintura(checkPintura.isSelected());
+        orcamento.setCheckPlotagem(checkPlotagem.isSelected());
+        orcamento.setCheckCaixariaAcabamento(checkCaixariaAcabamento.isSelected());
+        orcamento.setCheckImpressaoDigital(checkImpDigital.isSelected());
+        orcamento.setCheckRouter(checkCorteRouter.isSelected());
+        orcamento.setCheckAcabamentoImp(checkAcabImpressao.isSelected());
+        orcamento.setCheckFaturamento(checkFaturamento.isSelected());
+        orcamento.setCheckPloterRecorte(checkPloterRecorte.isSelected());
+        orcamento.setCheckEntrega(checkEntrega.isSelected());
+
     }
 
-    private void setOrcamento(){
-        orcamento.setCliente(cliente);                
-    }
-    
     private void atualizatabelaProdutos() {
         DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
         if (listaProduto.size() > 0) {
@@ -1112,38 +1342,99 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         tabProdutos.setModel(model);
     }
 
+    private void calculaPrecoTotalProduto() {
+        try {
+
+            if (quantidadeProduto.getText() != null && !"0".equals(quantidadeProduto.getText())) {
+
+                valortotalProduto.setText(ValidarValor.getDouble((ValidarValor.getDouble(valorUnitario.getText()) * ValidarValor.getDouble(quantidadeProduto.getText()))));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void calculaPreçoTotalOrcamentoSemDesconto() {
+        try {
+
+            if (valortotalProduto.getText() != null && !"0".equals(valortotalProduto.getText())) {
+
+               Double vlrProd = ValidarValor.getDouble(valortotalProduto.getText());
+               Double acre = ValidarValor.getDouble(acrescimoGeral.getText());
+               Double desco = ValidarValor.getDouble(descontoGeral.getText());                
+                
+              Double tot = ((vlrProd + acre) - desco);                
+             
+                
+               totalGlobal = totalGlobal + tot;
+               
+               totalGeralOrc.setText(ValidarValor.getDouble(totalGlobal));
+                
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void calculaPreçoTotalOrcamentoComDesconto() {
+        try {
+
+            if (valortotalProduto.getText() != null && !"0".equals(valortotalProduto.getText())) {
+
+               Double vlrProd = ValidarValor.getDouble(valortotalProduto.getText());
+               Double acre = ValidarValor.getDouble(acrescimoGeral.getText());
+               Double desco = ValidarValor.getDouble(descontoGeral.getText());  
+              Double t = ValidarValor.getDouble(totalGeralOrc.getText());
+              
+               totalGlobal = t - desco + acre;
+               
+               totalGeralOrc.setText(ValidarValor.getDouble(totalGlobal));
+                
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField acrescimoGeral;
     private javax.swing.JButton btAdicionarItem;
     private javax.swing.JButton btExcluirOrca;
     private javax.swing.JButton btNovoItem;
     private javax.swing.JButton btNovoOrca;
     private javax.swing.JButton btRemoverItem;
     private javax.swing.JButton btSalvarOrca;
-    private javax.swing.JCheckBox checkAprovado;
-    private javax.swing.JTextField codCliente1;
+    private javax.swing.JCheckBox checkAcabImpressao;
+    private javax.swing.JCheckBox checkCaixariaAcabamento;
+    private javax.swing.JCheckBox checkCorteRouter;
+    private javax.swing.JCheckBox checkCriacao;
+    private javax.swing.JCheckBox checkEntrega;
+    private javax.swing.JCheckBox checkFaturamento;
+    private javax.swing.JCheckBox checkImpDigital;
+    private javax.swing.JCheckBox checkPintura;
+    private javax.swing.JCheckBox checkPlotagem;
+    private javax.swing.JCheckBox checkPloterRecorte;
+    private javax.swing.JCheckBox checkProjeto;
+    private javax.swing.JCheckBox checkSerralheria;
+    private javax.swing.JCheckBox checkSituacao;
+    private javax.swing.JTextField clienteSecundario;
+    private javax.swing.JTextField codCliente;
     private javax.swing.JTextField codOrcamento;
     private javax.swing.JTextField codProduto;
+    private javax.swing.JComboBox<String> comboAcabamento;
+    private javax.swing.JComboBox<String> comboFormaPag;
+    private javax.swing.JComboBox<String> comboTipoEntrega;
     private javax.swing.JFormattedTextField dataOrc;
     private javax.swing.JTextField descCliente;
     private javax.swing.JTextField descProduto;
-    private javax.swing.JTextField descontoProduto;
+    private javax.swing.JTextField descontoGeral;
+    private javax.swing.JTextField enderecoSecundario;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox12;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -1154,11 +1445,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel106;
     private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel108;
+    private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel111;
     private javax.swing.JLabel jLabel112;
     private javax.swing.JLabel jLabel113;
     private javax.swing.JLabel jLabel114;
+    private javax.swing.JLabel jLabel115;
+    private javax.swing.JLabel jLabel116;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel82;
@@ -1166,7 +1460,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
-    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel90;
@@ -1206,17 +1499,15 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
     private javax.swing.JLabel labelAprovado;
-    private javax.swing.JTextField prazoEntrega;
+    private javax.swing.JTextField medidaProduto;
+    private javax.swing.JFormattedTextField prazoEntrega;
     private javax.swing.JTextField quantidadeProduto;
     private javax.swing.JTable tabProdutos;
-    private javax.swing.JTextField validadeProposta;
-    private javax.swing.JTextField valorTotal1;
-    private javax.swing.JTextField valorTotal2;
-    private javax.swing.JTextField valorTotal3;
+    private javax.swing.JTextField telefoneSecundario;
+    private javax.swing.JTextField totalGeralOrc;
+    private javax.swing.JTextField unidadeProduto;
+    private javax.swing.JFormattedTextField validadeProposta;
     private javax.swing.JTextField valorUnitario;
-    private javax.swing.JTextField valorUnitario1;
-    private javax.swing.JTextField valorUnitario2;
-    private javax.swing.JTextField valorUnitario3;
     private javax.swing.JTextField valortotalProduto;
     // End of variables declaration//GEN-END:variables
 }

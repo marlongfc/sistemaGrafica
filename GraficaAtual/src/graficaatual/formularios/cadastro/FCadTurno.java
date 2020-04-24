@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -21,35 +22,35 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author Moisés
  */
 public class FCadTurno extends javax.swing.JInternalFrame {
-
+    
     private Turno turno;
     private TurnoDAO turnoDao = new TurnoDAO();
-
+    
     private List<Turno> listaTurno = null;
-
+    
     public FCadTurno() {
         initComponents();
-
+        
         atualizatabela();
-
+        
         listaTurno = ObservableCollections.observableList(new LinkedList<Turno>());
         Componentes comp2 = new Componentes(listaTurno, false, codTurnoo, descTurno, this, jPanel18, descTurno.getWidth(), 100);
         comp2.addCol(0, "codTurno", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Turno", 200, String.class.getName());
         comp2.bind();
-
+        
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
+        
     }
-
+    
     private static FCadTurno instancia;
     private static FCadTurno instanceCont;
     private static int initControle;
-
+    
     public static int isInicializado() {
         return initControle;
     }
-
+    
     public synchronized static FCadTurno getInstancia() {
         if (instancia == null) {
             instancia = new FCadTurno();
@@ -57,7 +58,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -260,6 +261,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +291,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(550, 140, 180, 40);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -435,7 +438,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_codTurnooFocusLost
-
+    
     private void carregaTurno() throws Exception {
         turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
         if (turno != null) {
@@ -444,7 +447,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             descTurno.setText("");
         }
     }
-
+    
 
     private void descTurnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descTurnoKeyReleased
         try {
@@ -464,7 +467,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descTurno.requestFocus();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -488,7 +491,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
                 }
             }
             atualizatabela();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -521,7 +524,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             if (evt.getClickCount() > 1) {
                 codTurnoo.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
                 turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-                carregaTurno();
+                carregaTurno(); 
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -544,36 +547,53 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private void inicioPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioPessoa1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inicioPessoa1ActionPerformed
-
+    
     private void limpaCampos() {
         codTurnoo.setText("");
         descTurno.setText("");
     }
-
+    
     private void habilitaCampos(boolean b) {
         codTurnoo.setEnabled(b);
         descTurno.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-
+    
     private void setCausa() {
         turno.setDescricao(descTurno.getText());
     }
-
-    private void atualizatabela() {
-        DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<Turno> listaT = turnoDao.getList();
-        if (listaT.size() > 0) {
-            model.setNumRows(0);
-            for (Turno t : listaT) {
-                Object o[] = new Object[]{
-                    t.getCodTurno(),
-                    t.getDescricao()};
-
-                model.addRow(o);
-            }
+    
+    public static void removeLinhas(JTable table) {
+        int n = table.getRowCount();
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            model.removeRow(i);
         }
-        tab.setModel(model);
+    }
+    
+    private void atualizatabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tab.getModel();
+            removeLinhas(tab);
+            List<Turno> listaT = turnoDao.getList();
+            if (listaT.size() > 0) {
+                model.setNumRows(0);
+                for (Turno t : listaT) {
+                    Object o[] = new Object[]{
+                        t.getCodTurno(),
+                        t.getDescricao()};
+                    
+                    model.addRow(o);
+                }
+            }
+            tab.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tab);
+            e.printStackTrace();
+        }
+        
     }
 
 

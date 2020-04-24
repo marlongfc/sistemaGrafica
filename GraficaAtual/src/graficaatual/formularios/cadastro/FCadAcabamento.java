@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -257,6 +258,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
 
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,6 +288,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluir);
         btExcluir.setBounds(550, 290, 180, 40);
 
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -471,7 +474,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
             acabamento = acabamentoDAO.get(ValidarValor.getInt(codAcabamento.getText()));
             if (acabamento == null) {
                 acabamento = new Acabamento();
-                setCausa();
+                setAcabamento();
                 acabamento.setDataCadastro(new Date());
                 acabamento.setDataAtualizacao(new Date());
                 if (acabamentoDAO.confereAcabamento(acabamento)) {
@@ -497,7 +500,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
             if (acabamento == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setCausa();
+                setAcabamento();
                 acabamentoDAO.delete(acabamento);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
@@ -515,7 +518,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         try {
-            if (evt.getClickCount() > 1) {              
+            if (evt.getClickCount() > 1) {
                 codAcabamento.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
                 acabamento = acabamentoDAO.get(ValidarValor.getInt(codAcabamento.getText()));
                 carregaAcabamento();
@@ -564,25 +567,42 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
 
-    private void setCausa() {
+    private void setAcabamento() {
         acabamento.setDescricao(descAcabamento.getText());
         acabamento.setObservacao(observacao.getText());
     }
 
-    private void atualizatabela() {
-        DefaultTableModel model = (DefaultTableModel) tab.getModel();
-        List<Acabamento> listaT = acabamentoDAO.getList();
-        if (listaT.size() > 0) {
-            model.setNumRows(0);
-            for (Acabamento a : listaT) {
-                Object o[] = new Object[]{
-                    a.getCodAcabamento(),
-                    a.getDescricao()};
+    public static void removeLinhas(JTable table) {
+        int n = table.getRowCount();
 
-                model.addRow(o);
-            }
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        for (int i = n - 1; i >= 0; i--) {
+            model.removeRow(i);
         }
-        tab.setModel(model);
+    }
+
+    private void atualizatabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tab.getModel();
+            removeLinhas(tab);
+            List<Acabamento> listaT = acabamentoDAO.getList();
+            if (listaT.size() > 0) {
+                model.setNumRows(0);
+                for (Acabamento a : listaT) {
+                    Object o[] = new Object[]{
+                        a.getCodAcabamento(),
+                        a.getDescricao()};
+
+                    model.addRow(o);
+                }
+            }
+            tab.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tab);
+            e.printStackTrace();
+        }
+
     }
 
 

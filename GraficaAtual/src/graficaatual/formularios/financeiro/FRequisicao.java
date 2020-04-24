@@ -5,8 +5,9 @@
  */
 package graficaatual.formularios.financeiro;
 
-import graficaatual.daos.financeiro.LancamentoCaixaDAO;
-import graficaatual.entidades.financeiro.LancamentoCaixa;
+
+import graficaatual.daos.financeiro.RequisicaoFinanceiraDAO;
+import graficaatual.entidades.financeiro.RequisicaoFinanceira;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import java.util.Date;
@@ -21,52 +22,52 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author Moisés
  */
-public class FCadLancamento extends javax.swing.JInternalFrame {
-
-    private LancamentoCaixa lancamento;
-    private LancamentoCaixaDAO lancamentoDAO = new LancamentoCaixaDAO();
-
-    private List<LancamentoCaixa> listaLancamento = null;
-
-    public FCadLancamento() {
+public class FRequisicao extends javax.swing.JInternalFrame {
+    
+    private RequisicaoFinanceira requisicao;
+    private RequisicaoFinanceiraDAO requisicaoDAO = new RequisicaoFinanceiraDAO();
+    
+    private List<RequisicaoFinanceira> listaRequisicao = null;
+    
+    public FRequisicao() {
         initComponents();
-
+        
         atualizatabela();
-
-        listaLancamento = ObservableCollections.observableList(new LinkedList<LancamentoCaixa>());
-        Componentes comp2 = new Componentes(listaLancamento, false, codLancamento, descLancamento, this, jPanel18, descLancamento.getWidth(), 100);
-        comp2.addCol(0, "codLancamento", "Código", 50, Integer.class.getName());
-        comp2.addCol(1, "descricao", "Lançamento", 200, String.class.getName());
+        
+        listaRequisicao = ObservableCollections.observableList(new LinkedList<RequisicaoFinanceira>());
+        Componentes comp2 = new Componentes(listaRequisicao, false, codRequisicao, descRequisicao, this, jPanel18, descRequisicao.getWidth(), 100);
+        comp2.addCol(0, "codRequisicao", "Código", 50, Long.class.getName());
+        comp2.addCol(1, "descricao", "Requisição", 200, String.class.getName());
         comp2.bind();
-
+        
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
+        
     }
-
-    private static FCadLancamento instancia;
-    private static FCadLancamento instanceCont;
+    
+    private static FRequisicao instancia;
+    private static FRequisicao instanceCont;
     private static int initControle;
-
+    
     public static int isInicializado() {
         return initControle;
     }
-
-    public synchronized static FCadLancamento getInstancia() {
+    
+    public synchronized static FRequisicao getInstancia() {
         if (instancia == null) {
-            instancia = new FCadLancamento();
+            instancia = new FRequisicao();
             initControle = 1;
         }
-
+        
         return instancia;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel18 = new javax.swing.JPanel();
         jLabel78 = new javax.swing.JLabel();
-        descLancamento = new javax.swing.JTextField();
+        descRequisicao = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jTextField49 = new javax.swing.JTextField();
         jTextField50 = new javax.swing.JTextField();
@@ -112,7 +113,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         inicioPessoa1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
-        codLancamento = new javax.swing.JTextField();
+        codRequisicao = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
         valor = new javax.swing.JTextField();
@@ -126,22 +127,21 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
-        jPanel18.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel78.setText("Lançamento");
+        jLabel78.setText("Requisição");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(140, 70, 130, 20);
+        jLabel78.setBounds(140, 70, 290, 20);
 
-        descLancamento.setBackground(new java.awt.Color(255, 255, 204));
-        descLancamento.addKeyListener(new java.awt.event.KeyAdapter() {
+        descRequisicao.setBackground(new java.awt.Color(255, 255, 204));
+        descRequisicao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                descLancamentoKeyReleased(evt);
+                descRequisicaoKeyReleased(evt);
             }
         });
-        jPanel18.add(descLancamento);
-        descLancamento.setBounds(140, 90, 900, 20);
+        jPanel18.add(descRequisicao);
+        descRequisicao.setBounds(140, 90, 930, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -304,7 +304,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Lançamento", "Valor"
+                "Código", "Requisição", "Valor"
             }
         ) {
             Class[] types = new Class [] {
@@ -335,7 +335,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 350, 1020, 250);
+        jScrollPane11.setBounds(20, 340, 1050, 250);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -400,22 +400,22 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("LANÇAMENTO NO CAIXA");
+        jLabel1.setText("REQUISIÇÃO DE RETIRADA");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1100, 70);
+        jLabel1.setBounds(0, 0, 1130, 70);
 
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel79.setText("Observação");
         jPanel18.add(jLabel79);
         jLabel79.setBounds(20, 160, 230, 20);
 
-        codLancamento.addFocusListener(new java.awt.event.FocusAdapter() {
+        codRequisicao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codLancamentoFocusLost(evt);
+                codRequisicaoFocusLost(evt);
             }
         });
-        jPanel18.add(codLancamento);
-        codLancamento.setBounds(20, 90, 120, 20);
+        jPanel18.add(codRequisicao);
+        codRequisicao.setBounds(20, 90, 120, 20);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Código");
@@ -440,59 +440,59 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(observacao);
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 180, 1020, 96);
+        jScrollPane1.setBounds(20, 180, 1050, 96);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1344, Short.MAX_VALUE)
+            .addGap(0, 1335, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 673, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 673, Short.MAX_VALUE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carregaLancamento() throws Exception {
-        lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
-        if (lancamento != null) {
-            descLancamento.setText(lancamento.getDescricao());
-            valor.setText(ValidarValor.getDouble(lancamento.getValor()));
-            observacao.setText(lancamento.getObservacao());
+    private void carregaRequisicao() throws Exception {
+        requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
+        if (requisicao != null) {
+            descRequisicao.setText(requisicao.getDescricao());
+            valor.setText(ValidarValor.getDouble(requisicao.getValor()));
+            observacao.setText(requisicao.getObservacao());
         } else {
-            descLancamento.setText("");
+            descRequisicao.setText("");
             valor.setText("");
             observacao.setText("");
         }
     }
+    
 
-
-    private void descLancamentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descLancamentoKeyReleased
+    private void descRequisicaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descRequisicaoKeyReleased
         try {
-            List<LancamentoCaixa> merged = lancamentoDAO.getList(15,
-                    "select e from LancamentoCaixa e where  lower ( trim(e.descricao) ) like ?1 order by e.descricao",
-                    descLancamento.getText().trim().toLowerCase() + "%");
-            listaLancamento.clear();
-            listaLancamento.addAll(merged);
+            List<RequisicaoFinanceira> merged = requisicaoDAO.getList(12,
+                    "select e from RequisicaoFinanceira e where  lower ( trim(e.descricao) ) like ?1 order by e.codRequisicao",
+                    descRequisicao.getText().trim().toLowerCase() + "%");
+            listaRequisicao.clear();
+            listaRequisicao.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Lançamento. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Requisições. Erro: " + e);
         }
-    }//GEN-LAST:event_descLancamentoKeyReleased
+    }//GEN-LAST:event_descRequisicaoKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            lancamento = new LancamentoCaixa();
+            requisicao = new RequisicaoFinanceira();
             limpaCampos();
             habilitaCampos(true);
-            descLancamento.requestFocus();
-
+            descRequisicao.requestFocus();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -500,23 +500,23 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
-            if (lancamento == null) {
-                lancamento = new LancamentoCaixa();
-                setLancamento();
-                lancamento.setDataCadastro(new Date());
-                lancamento.setDataAtualizacao(new Date());
-                if (lancamentoDAO.confereLancamento(lancamento)) {
-                    lancamento = lancamentoDAO.salvar(lancamento);
-                    codLancamento.setText(lancamento.getCodLancamento().toString());
-                    lancamento.setDataAtualizacao(new Date());
+            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
+            if (requisicao == null) {
+                requisicao = new RequisicaoFinanceira();
+                setCausa();
+                requisicao.setDataCadastro(new Date());
+                requisicao.setDataAtualizacao(new Date());
+                if (requisicaoDAO.confereRequisicao(requisicao)) {
+                    requisicao = requisicaoDAO.salvar(requisicao);
+                    codRequisicao.setText(requisicao.getCodRequisicao().toString());
+                    requisicao.setDataAtualizacao(new Date());
                     btSalvar.setEnabled(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
+                    JOptionPane.showMessageDialog(this, "Requisição já Cadastrada");
                 }
             }
             atualizatabela();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -524,15 +524,15 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
-            if (lancamento == null) {
+            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
+            if (requisicao == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setLancamento();
-                lancamentoDAO.delete(lancamento);
+                setCausa();
+                requisicaoDAO.delete(requisicao);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descLancamento.requestFocus();
+                descRequisicao.requestFocus();
             }
             atualizatabela();
         } catch (Exception e) {
@@ -547,9 +547,9 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         try {
             if (evt.getClickCount() > 1) {
-                codLancamento.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
-                carregaLancamento();
+                codRequisicao.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
+                carregaRequisicao();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -572,63 +572,64 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inicioPessoa1ActionPerformed
 
-    private void codLancamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codLancamentoFocusLost
+    private void codRequisicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codRequisicaoFocusLost
         try {
-            carregaLancamento();
+            carregaRequisicao();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_codLancamentoFocusLost
+    }//GEN-LAST:event_codRequisicaoFocusLost
 
     private void valorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_valorFocusLost
-
+    
     private void limpaCampos() {
-        codLancamento.setText("");
-        descLancamento.setText("");
+        codRequisicao.setText("");
+        descRequisicao.setText("");
         valor.setText("");
         observacao.setText("");
     }
-
+    
     private void habilitaCampos(boolean b) {
-        codLancamento.setEnabled(b);
-        descLancamento.setEnabled(b);
+        codRequisicao.setEnabled(b);
+        descRequisicao.setEnabled(b);
         valor.setEnabled(b);
         observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-
-    private void setLancamento() {
-        lancamento.setDescricao(descLancamento.getText());
-        lancamento.setValor(ValidarValor.getDouble(valor.getText()));
-        lancamento.setObservacao(observacao.getText());
+    
+    private void setCausa() {
+        requisicao.setDescricao(descRequisicao.getText());
+        requisicao.setValor(ValidarValor.getDouble(valor.getText()));
+        requisicao.setObservacao(observacao.getText());
     }
-
+    
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-
+        
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-
+        
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-
+    
     private void atualizatabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
             removeLinhas(tab);
-            List<LancamentoCaixa> listaT = lancamentoDAO.getList();
+            
+            List<RequisicaoFinanceira> listaT = requisicaoDAO.getList();
             if (listaT.size() > 0) {
                 model.setNumRows(0);
-                for (LancamentoCaixa l : listaT) {
+                for (RequisicaoFinanceira r : listaT) {
                     Object o[] = new Object[]{
-                        l.getCodLancamento(),
-                        l.getDescricao(),
-                        l.getValor()};
-
+                        r.getCodRequisicao(),
+                        r.getDescricao(),
+                        r.getValor()};
+                    
                     model.addRow(o);
                 }
             }
@@ -646,8 +647,8 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codLancamento;
-    private javax.swing.JTextField descLancamento;
+    private javax.swing.JTextField codRequisicao;
+    private javax.swing.JTextField descRequisicao;
     private javax.swing.JButton finalPessoa1;
     private javax.swing.JButton inicioPessoa1;
     private javax.swing.JComboBox<String> jComboBox3;
