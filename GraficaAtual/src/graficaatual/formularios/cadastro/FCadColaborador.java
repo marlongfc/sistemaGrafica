@@ -28,9 +28,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -88,7 +90,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         comp1.bind();
         
         listaColaboradorCPF = ObservableCollections.observableList(new LinkedList<Colaborador>());
-        Componentes comp2 = new Componentes(listaColaboradorCPF, false, codigo, cnpj, this, jPanel10, cnpj.getWidth(), 100);
+        Componentes comp2 = new Componentes(listaColaboradorCPF, false, codigo, cpf, this, jPanel10, cpf.getWidth(), 100);
         comp2.addCol(0, "codColaborador", " Código ", 50, Integer.class.getName());
         comp2.addCol(1, "pessoa.cnpj", " CPF/CNPJ ", 100, String.class.getName());
         comp2.addCol(2, "pessoa.nome", " Nome ", 200, String.class.getName());
@@ -118,7 +120,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         comp6.addCol(1, "descricao", "Nome", 200, String.class.getName());
         comp6.bind();
         
-        
+        habilitaCampos(false);
         atualizaTabelaColaborador();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         
@@ -169,16 +171,33 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         codCidade = new javax.swing.JTextField();
         descCidade = new javax.swing.JTextField();
         cep = new javax.swing.JTextField();
+        try{     cep = new JFormattedTextField(     new MaskFormatter("##.###-###"));     ((JFormattedTextField) cep).setFocusLostBehavior(0); }catch(Exception e){}
         uf = new javax.swing.JTextField();
-        cnpj = new javax.swing.JTextField();
+        cpf = new javax.swing.JTextField();
+        try {                cpf = new JFormattedTextField(                         new MaskFormatter("###.###.###-##"));                 ((JFormattedTextField) cpf).setFocusLostBehavior(0);                      } catch (Exception e) {         }
         nome = new javax.swing.JTextField();
         dataNascimento = new javax.swing.JTextField();
+        try{
+            dataNascimento = new JFormattedTextField(
+                new MaskFormatter("##/##/####"));
+            ((JFormattedTextField) dataNascimento).setFocusLostBehavior(0);
+        }catch(Exception e){}
         email = new javax.swing.JTextField();
         telefone = new javax.swing.JTextField();
         codCargo = new javax.swing.JTextField();
         descCargo = new javax.swing.JTextField();
         dtInicioContrato = new javax.swing.JTextField();
+        try{
+            dtInicioContrato = new JFormattedTextField(
+                new MaskFormatter("##/##/####"));
+            ((JFormattedTextField) dtInicioContrato).setFocusLostBehavior(0);
+        }catch(Exception e){}
         dtFimContrato = new javax.swing.JTextField();
+        try{
+            dtFimContrato = new JFormattedTextField(
+                new MaskFormatter("##/##/####"));
+            ((JFormattedTextField) dtFimContrato).setFocusLostBehavior(0);
+        }catch(Exception e){}
         ctps = new javax.swing.JTextField();
         salario = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
@@ -226,6 +245,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         setTitle("Cadastro de Colaborador");
         setMinimumSize(new java.awt.Dimension(1100, 700));
         setPreferredSize(new java.awt.Dimension(1100, 700));
+        setRequestFocusEnabled(false);
         getContentPane().setLayout(null);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
@@ -250,7 +270,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codLogradouro);
-        codLogradouro.setBounds(40, 240, 80, 19);
+        codLogradouro.setBounds(40, 240, 80, 20);
 
         descLogradouro.setBackground(new java.awt.Color(255, 255, 204));
         descLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -259,9 +279,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descLogradouro);
-        descLogradouro.setBounds(120, 240, 720, 19);
+        descLogradouro.setBounds(120, 240, 720, 20);
         jPanel10.add(numero);
-        numero.setBounds(840, 240, 160, 19);
+        numero.setBounds(840, 240, 160, 20);
 
         codBairro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -269,7 +289,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codBairro);
-        codBairro.setBounds(40, 280, 80, 19);
+        codBairro.setBounds(40, 280, 80, 20);
 
         descBairro.setBackground(new java.awt.Color(255, 255, 204));
         descBairro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -278,9 +298,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descBairro);
-        descBairro.setBounds(120, 280, 720, 19);
+        descBairro.setBounds(120, 280, 720, 20);
         jPanel10.add(complemento);
-        complemento.setBounds(840, 280, 160, 19);
+        complemento.setBounds(840, 280, 160, 20);
 
         codCidade.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -288,7 +308,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codCidade);
-        codCidade.setBounds(40, 320, 80, 19);
+        codCidade.setBounds(40, 320, 80, 20);
 
         descCidade.setBackground(new java.awt.Color(255, 255, 204));
         descCidade.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -297,20 +317,20 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descCidade);
-        descCidade.setBounds(120, 320, 640, 19);
+        descCidade.setBounds(120, 320, 640, 20);
         jPanel10.add(cep);
-        cep.setBounds(840, 320, 160, 19);
+        cep.setBounds(840, 320, 160, 20);
         jPanel10.add(uf);
-        uf.setBounds(760, 320, 80, 19);
+        uf.setBounds(760, 320, 80, 20);
 
-        cnpj.setBackground(new java.awt.Color(255, 255, 204));
-        cnpj.addKeyListener(new java.awt.event.KeyAdapter() {
+        cpf.setBackground(new java.awt.Color(255, 255, 204));
+        cpf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                cnpjKeyReleased(evt);
+                cpfKeyReleased(evt);
             }
         });
-        jPanel10.add(cnpj);
-        cnpj.setBounds(640, 90, 280, 20);
+        jPanel10.add(cpf);
+        cpf.setBounds(640, 90, 250, 20);
 
         nome.setBackground(new java.awt.Color(255, 255, 204));
         nome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -321,11 +341,11 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         jPanel10.add(nome);
         nome.setBounds(120, 90, 520, 20);
         jPanel10.add(dataNascimento);
-        dataNascimento.setBounds(780, 130, 140, 19);
+        dataNascimento.setBounds(760, 130, 120, 20);
         jPanel10.add(email);
-        email.setBounds(30, 130, 610, 19);
+        email.setBounds(30, 130, 610, 20);
         jPanel10.add(telefone);
-        telefone.setBounds(640, 130, 140, 19);
+        telefone.setBounds(640, 130, 120, 20);
 
         codCargo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -342,58 +362,68 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descCargo);
-        descCargo.setBounds(100, 170, 350, 19);
+        descCargo.setBounds(100, 170, 350, 20);
         jPanel10.add(dtInicioContrato);
-        dtInicioContrato.setBounds(640, 170, 140, 19);
+        dtInicioContrato.setBounds(640, 170, 120, 20);
         jPanel10.add(dtFimContrato);
-        dtFimContrato.setBounds(780, 170, 140, 19);
+        dtFimContrato.setBounds(760, 170, 120, 20);
         jPanel10.add(ctps);
-        ctps.setBounds(450, 170, 190, 19);
+        ctps.setBounds(450, 170, 190, 20);
 
+        salario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         salario.setText("0,00");
         jPanel10.add(salario);
-        salario.setBounds(920, 170, 130, 19);
+        salario.setBounds(880, 170, 130, 20);
 
+        jLabel23.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel23.setText("UF");
         jPanel10.add(jLabel23);
         jLabel23.setBounds(760, 300, 50, 20);
 
+        jLabel22.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel22.setText("CEP");
         jPanel10.add(jLabel22);
         jLabel22.setBounds(840, 300, 160, 20);
 
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Código");
         jPanel10.add(jLabel13);
         jLabel13.setBounds(30, 70, 80, 20);
 
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Observação: ");
         jPanel10.add(jLabel15);
         jLabel15.setBounds(20, 350, 100, 20);
 
+        jLabel16.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("Número");
         jPanel10.add(jLabel16);
         jLabel16.setBounds(840, 220, 110, 20);
 
+        jLabel18.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel18.setText("Bairro");
         jPanel10.add(jLabel18);
         jLabel18.setBounds(120, 260, 100, 20);
 
+        jLabel19.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Logradouro ");
         jPanel10.add(jLabel19);
         jLabel19.setBounds(120, 220, 100, 20);
 
+        jLabel20.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("Complemento ");
         jPanel10.add(jLabel20);
         jLabel20.setBounds(840, 260, 110, 20);
 
+        jLabel21.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel21.setText("Codigo");
         jPanel10.add(jLabel21);
@@ -402,73 +432,87 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço:"));
         jPanel10.add(jLabel14);
-        jLabel14.setBounds(20, 200, 1040, 150);
+        jLabel14.setBounds(20, 200, 1000, 150);
 
+        jLabel28.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel28.setText("CPF");
         jPanel10.add(jLabel28);
         jLabel28.setBounds(640, 70, 80, 20);
 
+        jLabel29.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel29.setText("Email");
         jPanel10.add(jLabel29);
         jLabel29.setBounds(30, 110, 80, 20);
 
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Telefone");
         jPanel10.add(jLabel9);
         jLabel9.setBounds(640, 110, 90, 20);
 
+        jLabel46.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel46.setText("Data Nascimento");
         jPanel10.add(jLabel46);
-        jLabel46.setBounds(780, 110, 140, 20);
+        jLabel46.setBounds(760, 110, 140, 20);
 
+        jLabel71.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel71.setText("Nome");
         jPanel10.add(jLabel71);
         jLabel71.setBounds(120, 70, 80, 20);
 
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("Cargo");
         jPanel10.add(jLabel12);
         jLabel12.setBounds(100, 150, 80, 20);
 
+        jLabel27.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel27.setText("Data de Início");
         jPanel10.add(jLabel27);
         jLabel27.setBounds(640, 150, 130, 20);
 
+        jLabel24.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel24.setText("Data de Fim");
         jPanel10.add(jLabel24);
-        jLabel24.setBounds(780, 150, 130, 20);
+        jLabel24.setBounds(760, 150, 130, 20);
 
+        jLabel26.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel26.setText("CTPS");
         jPanel10.add(jLabel26);
         jLabel26.setBounds(450, 150, 80, 20);
 
+        jLabel72.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel72.setText("Salário");
         jPanel10.add(jLabel72);
-        jLabel72.setBounds(920, 150, 150, 20);
+        jLabel72.setBounds(880, 150, 150, 20);
 
+        jLabel25.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel25.setText("Cidade");
         jPanel10.add(jLabel25);
         jLabel25.setBounds(120, 300, 100, 20);
 
+        jLabel30.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel30.setText("Codigo");
         jPanel10.add(jLabel30);
         jLabel30.setBounds(40, 300, 80, 20);
 
+        jLabel45.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel45.setText("Codigo");
         jPanel10.add(jLabel45);
         jLabel45.setBounds(40, 260, 80, 20);
 
+        jLabel47.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel47.setText("Codigo");
         jPanel10.add(jLabel47);
@@ -485,7 +529,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         jScrollPane4.setViewportView(obs);
 
         jPanel10.add(jScrollPane4);
-        jScrollPane4.setBounds(20, 370, 1040, 60);
+        jScrollPane4.setBounds(20, 370, 1000, 60);
 
         tabColaborador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -518,7 +562,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(tabColaborador);
 
         jPanel10.add(jScrollPane3);
-        jScrollPane3.setBounds(20, 490, 1040, 140);
+        jScrollPane3.setBounds(20, 490, 1000, 140);
 
         inicio.setText("||<<");
         inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -527,7 +571,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(inicio);
-        inicio.setBounds(410, 630, 62, 30);
+        inicio.setBounds(390, 630, 57, 30);
 
         anterior.setText("<<");
         anterior.addActionListener(new java.awt.event.ActionListener() {
@@ -536,7 +580,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(anterior);
-        anterior.setBounds(470, 630, 54, 30);
+        anterior.setBounds(450, 630, 49, 30);
 
         proximo.setText(">>");
         proximo.addActionListener(new java.awt.event.ActionListener() {
@@ -545,7 +589,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(proximo);
-        proximo.setBounds(520, 630, 54, 30);
+        proximo.setBounds(500, 630, 49, 30);
 
         ultimo.setText(">>||");
         ultimo.addActionListener(new java.awt.event.ActionListener() {
@@ -554,8 +598,10 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(ultimo);
-        ultimo.setBounds(570, 630, 62, 30);
+        ultimo.setBounds(550, 630, 57, 30);
 
+        novo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         novo.setText("Novo Cadastro");
         novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -563,8 +609,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(novo);
-        novo.setBounds(190, 440, 180, 40);
+        novo.setBounds(170, 440, 180, 40);
 
+        salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         salvar.setText("Salvar/Atualizar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -573,8 +620,9 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(370, 440, 180, 40);
+        salvar.setBounds(350, 440, 180, 40);
 
+        inativar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         inativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         inativar.setText("Inativar");
         inativar.addActionListener(new java.awt.event.ActionListener() {
@@ -583,8 +631,10 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(inativar);
-        inativar.setBounds(550, 440, 180, 40);
+        inativar.setBounds(530, 440, 180, 40);
 
+        sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         sair.setText("Sair");
         sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,7 +642,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(730, 440, 180, 40);
+        sair.setBounds(710, 440, 180, 40);
 
         ativo.setBackground(new java.awt.Color(255, 0, 51));
         ativo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -605,7 +655,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(ativo);
-        ativo.setBounds(920, 90, 130, 20);
+        ativo.setBounds(890, 90, 130, 20);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -692,17 +742,17 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descCidadeKeyReleased
 
-    private void cnpjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cnpjKeyReleased
+    private void cpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfKeyReleased
         try {
             List<Colaborador> merged = colaboradorDao.getList(15, "select e from Colaborador e where "
                     + "  REPLACE(REPLACE(REPLACE(trim(e.pessoa.cnpj),'.',''),'-',''),' ', '') like ?1 order by e.pessoa.cnpj", 
-                        cnpj.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
+                        cpf.getText().trim().toLowerCase().replace(".", "").replace("-", "").trim() + "%");
             listaColaboradorCPF.clear();
             listaColaboradorCPF.addAll(merged);
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar Colaboador. Erro: " + e);
         }
-    }//GEN-LAST:event_cnpjKeyReleased
+    }//GEN-LAST:event_cpfKeyReleased
 
     private void nomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeKeyReleased
         try {
@@ -730,6 +780,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         if (evt.getClickCount() > 1) {
             codigo.setText(("" + tabColaborador.getValueAt(tabColaborador.getSelectedRow(), 0)));
             codigoFocusLost(null);
+            habilitaCampos(true);
         }
     }//GEN-LAST:event_tabColaboradorMouseClicked
 
@@ -793,13 +844,15 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         bairro= null;
         logradouro= null;
         limpaCamposColaborador();
-        cnpj.requestFocus();
+        habilitaCampos(true);
+        cpf.requestFocus();
     }//GEN-LAST:event_novoActionPerformed
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         try {
             salvarColaborador();
             atualizaTabelaColaborador();
+            habilitaCampos(false);
             JOptionPane.showMessageDialog(this, " Cadastro realizado com Sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -819,7 +872,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
                     pessoa.setDataAtualizacao(new Date());
                 } else {
                     colaborador = new Colaborador();
-                    pessoa = pessoaDao.getByCnpj(cnpj.getText());
+                    pessoa = pessoaDao.getByCnpj(cpf.getText());
                     if (pessoa == null) {
                         pessoa = new Pessoa();
                     }
@@ -830,7 +883,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
                 }
             } else {
                 colaborador = new Colaborador();
-                pessoa = pessoaDao.getByCnpj(cnpj.getText());
+                pessoa = pessoaDao.getByCnpj(cpf.getText());
                 if (pessoa == null) {
                     pessoa = new Pessoa();
                 }
@@ -891,6 +944,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
                 if (resp == 0) {
                     inativarColaborador();
                     atualizaTabelaColaborador();
+                    habilitaCampos(false);
                 }
             } else {
                 throw new Exception(" Por Favor, Selecione um Colaborador.");
@@ -928,7 +982,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
       
     private void limpaCamposPessoa() {
 
-        cnpj.setText("");
+        cpf.setText("");
         nome.setText("");
         email.setText("");
         telefone.setText("");
@@ -1011,7 +1065,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         bairro = colaborador.getPessoa().getBairro();
         cidade = colaborador.getPessoa().getCidade();
         if (pessoa != null) {
-            cnpj.setText(pessoa.getCnpj());
+            cpf.setText(pessoa.getCnpj());
             nome.setText(pessoa.getNome());
             email.setText(pessoa.getEmail());
             telefone.setText(pessoa.getTelefone());
@@ -1059,7 +1113,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     private void setPessoa() {        
        
         pessoa.setTipoPessoa(1);
-        pessoa.setCnpj(cnpj.getText());
+        pessoa.setCnpj(cpf.getText());
         pessoa.setInscMunicipal("");
         pessoa.setNome(nome.getText());
         pessoa.setInscEstadual("");
@@ -1144,7 +1198,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     private void limpaCamposColaborador() {
         ativo.setSelected(true);
         codigo.setText("");
-        cnpj.setText("");
+        cpf.setText("");
         nome.setText("");
         codCargo.setText("");
         descCargo.setText("");
@@ -1168,18 +1222,45 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         obs.setText("");
 
     }
+    
+    private void habilitaCampos(boolean b) {
+        ativo.setEnabled(b);
+        codigo.setEnabled(b);
+        cpf.setEnabled(b);
+        nome.setEnabled(b);
+        codCargo.setEnabled(b);
+        descCargo.setEnabled(b);
+        email.setEnabled(b);
+        ctps.setEnabled(b);
+        dataNascimento.setEnabled(b);
+        telefone.setEnabled(b);
+        dtInicioContrato.setEnabled(b);
+        dtFimContrato.setEnabled(b);
+        salario.setEnabled(b);
+        codLogradouro.setEnabled(b);
+        descLogradouro.setEnabled(b);
+        numero.setEnabled(b);
+        codBairro.setEnabled(b);
+        descBairro.setEnabled(b);
+        complemento.setEnabled(b);
+        codCidade.setEnabled(b);
+        descCidade.setEnabled(b);
+        uf.setEnabled(b);
+        cep.setEnabled(b);
+        obs.setEnabled(b);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
     private javax.swing.JCheckBox ativo;
     private javax.swing.JTextField cep;
-    private javax.swing.JTextField cnpj;
     private javax.swing.JTextField codBairro;
     private javax.swing.JTextField codCargo;
     private javax.swing.JTextField codCidade;
     private javax.swing.JTextField codLogradouro;
     private javax.swing.JTextField codigo;
     private javax.swing.JTextField complemento;
+    private javax.swing.JTextField cpf;
     private javax.swing.JTextField ctps;
     private javax.swing.JTextField dataNascimento;
     private javax.swing.JTextField descBairro;

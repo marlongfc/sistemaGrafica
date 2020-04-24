@@ -63,6 +63,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         comp2.addCol(1, "descricao", "Descrição", 100, String.class.getName());
         comp2.bind();     
         
+        habilitaCampos(false);
         atualizaTabela();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
@@ -181,6 +182,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel10.add(codTurno);
         codTurno.setBounds(60, 140, 90, 20);
 
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel15.setText("Funções: ");
         jPanel10.add(jLabel15);
@@ -193,7 +195,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descCargo);
-        descCargo.setBounds(150, 100, 890, 19);
+        descCargo.setBounds(150, 100, 890, 20);
 
         descTurno.setBackground(new java.awt.Color(255, 255, 204));
         descTurno.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -211,31 +213,31 @@ public class FCadCargo extends javax.swing.JInternalFrame {
 
         jTextField34.setBackground(new java.awt.Color(255, 255, 204));
         jPanel11.add(jTextField34);
-        jTextField34.setBounds(340, 30, 310, 19);
+        jTextField34.setBounds(340, 30, 310, 20);
 
         jTextField35.setBackground(new java.awt.Color(255, 255, 204));
         jPanel11.add(jTextField35);
-        jTextField35.setBounds(160, 50, 490, 19);
+        jTextField35.setBounds(160, 50, 490, 20);
         jPanel11.add(jTextField36);
-        jTextField36.setBounds(120, 160, 80, 19);
+        jTextField36.setBounds(120, 160, 80, 20);
         jPanel11.add(jTextField37);
-        jTextField37.setBounds(200, 160, 470, 19);
+        jTextField37.setBounds(200, 160, 470, 20);
         jPanel11.add(jTextField38);
-        jTextField38.setBounds(780, 160, 140, 19);
+        jTextField38.setBounds(780, 160, 140, 20);
         jPanel11.add(jTextField39);
-        jTextField39.setBounds(120, 180, 80, 19);
+        jTextField39.setBounds(120, 180, 80, 20);
         jPanel11.add(jTextField40);
-        jTextField40.setBounds(200, 180, 470, 19);
+        jTextField40.setBounds(200, 180, 470, 20);
         jPanel11.add(jTextField41);
-        jTextField41.setBounds(780, 180, 140, 19);
+        jTextField41.setBounds(780, 180, 140, 20);
         jPanel11.add(jTextField42);
-        jTextField42.setBounds(120, 200, 80, 19);
+        jTextField42.setBounds(120, 200, 80, 20);
         jPanel11.add(jTextField43);
-        jTextField43.setBounds(200, 200, 310, 19);
+        jTextField43.setBounds(200, 200, 310, 20);
         jPanel11.add(jTextField44);
-        jTextField44.setBounds(780, 200, 140, 19);
+        jTextField44.setBounds(780, 200, 140, 20);
         jPanel11.add(jTextField45);
-        jTextField45.setBounds(580, 200, 90, 19);
+        jTextField45.setBounds(580, 200, 90, 20);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Física", "Juridica" }));
         jPanel11.add(jComboBox2);
@@ -301,11 +303,11 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel11.add(jLabel42);
         jLabel42.setBounds(80, 30, 80, 20);
         jPanel11.add(jTextField46);
-        jTextField46.setBounds(790, 70, 130, 19);
+        jTextField46.setBounds(790, 70, 130, 20);
         jPanel11.add(jTextField47);
-        jTextField47.setBounds(790, 30, 130, 19);
+        jTextField47.setBounds(790, 30, 130, 20);
         jPanel11.add(jTextField48);
-        jTextField48.setBounds(790, 50, 130, 19);
+        jTextField48.setBounds(790, 50, 130, 20);
 
         jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel43.setText("Nome/Razão Socia: ");
@@ -327,6 +329,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel10.add(jScrollPane4);
         jScrollPane4.setBounds(60, 190, 980, 70);
 
+        jLabel46.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel46.setText("CRM");
         jPanel10.add(jLabel46);
@@ -339,7 +342,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(inicio);
-        inicio.setBounds(450, 630, 62, 25);
+        inicio.setBounds(420, 620, 57, 30);
 
         anterior.setText("<<");
         anterior.addActionListener(new java.awt.event.ActionListener() {
@@ -348,7 +351,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(anterior);
-        anterior.setBounds(510, 630, 54, 25);
+        anterior.setBounds(480, 620, 49, 30);
 
         proximo.setText(">>");
         proximo.addActionListener(new java.awt.event.ActionListener() {
@@ -357,7 +360,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(proximo);
-        proximo.setBounds(560, 630, 54, 25);
+        proximo.setBounds(530, 620, 49, 30);
 
         ultimo.setText(">>||");
         ultimo.addActionListener(new java.awt.event.ActionListener() {
@@ -366,8 +369,10 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(ultimo);
-        ultimo.setBounds(610, 630, 62, 25);
+        ultimo.setBounds(580, 620, 57, 30);
 
+        novo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         novo.setText("Novo Cadastro");
         novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +382,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel10.add(novo);
         novo.setBounds(200, 370, 180, 40);
 
+        salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         salvar.setText("Salvar/Atualizar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -387,6 +393,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel10.add(salvar);
         salvar.setBounds(380, 370, 180, 40);
 
+        deletar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         deletar.setText("Deletar");
         deletar.addActionListener(new java.awt.event.ActionListener() {
@@ -395,8 +402,10 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(deletar);
-        deletar.setBounds(560, 370, 180, 40);
+        deletar.setBounds(560, 370, 180, 39);
 
+        sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         sair.setText("Sair");
         sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -447,6 +456,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel10.add(codigo);
         codigo.setBounds(60, 100, 90, 20);
 
+        jLabel16.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("Especificações: ");
         jPanel10.add(jLabel16);
@@ -459,12 +469,13 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel10.add(jScrollPane5);
         jScrollPane5.setBounds(60, 290, 980, 70);
 
+        jLabel47.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel47.setText("Cargo");
         jPanel10.add(jLabel47);
         jLabel47.setBounds(150, 80, 60, 20);
         jPanel10.add(crm);
-        crm.setBounds(680, 140, 360, 19);
+        crm.setBounds(680, 140, 360, 20);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -472,16 +483,19 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel10.add(jLabel1);
         jLabel1.setBounds(0, 0, 1100, 70);
 
+        jLabel48.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel48.setText("Código ");
         jPanel10.add(jLabel48);
         jLabel48.setBounds(60, 80, 90, 20);
 
+        jLabel49.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel49.setText("Código ");
         jPanel10.add(jLabel49);
         jLabel49.setBounds(60, 120, 90, 20);
 
+        jLabel50.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel50.setText("Turno ");
         jPanel10.add(jLabel50);
@@ -584,6 +598,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         cargo = new Cargo();
         turno= new Turno();
         limpaCampos();
+        habilitaCampos(true);
         descCargo.requestFocus();
     }//GEN-LAST:event_novoActionPerformed
 
@@ -591,6 +606,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         try {
             salvar();
             atualizaTabela();
+            habilitaCampos(false);
             JOptionPane.showMessageDialog(this, " Cadastro realizado com Sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -640,6 +656,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
                     cargoDao.deletePojo(cargo);
                     limpaCampos();
                     atualizaTabela();
+                    habilitaCampos(false);
                 }
             } else {
                 throw new Exception(" Por Favor, Selecione um Cargo.");
@@ -657,6 +674,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
     private void tabCargoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabCargoMouseClicked
        if (evt.getClickCount() > 1) {
             codigo.setText(("" + tabCargo.getValueAt(tabCargo.getSelectedRow(), 0)));
+            habilitaCampos(true);
             codigoFocusLost(null);
         }
     }//GEN-LAST:event_tabCargoMouseClicked
@@ -752,6 +770,16 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         crm.setText("");
         funcao.setText("");
         especificacao.setText("");
+    }
+    
+    private void habilitaCampos(boolean b) {
+        codigo.setEnabled(b);
+        descCargo.setEnabled(b);
+        codTurno.setEnabled(b);
+        descTurno.setEnabled(b);
+        crm.setEnabled(b);
+        funcao.setEnabled(b);
+        especificacao.setEnabled(b);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

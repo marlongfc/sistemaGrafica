@@ -5,15 +5,8 @@
  */
 package graficaatual.entidades;
 
-import graficaatual.daos.FormularioDAO;
 import graficaatual.daos.PermissaoDAO;
 import graficaatual.entidades.Usuario;
-import java.awt.Component;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 /**
  *

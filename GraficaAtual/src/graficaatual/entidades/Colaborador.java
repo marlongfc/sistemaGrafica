@@ -5,7 +5,6 @@
  */
 package graficaatual.entidades;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;

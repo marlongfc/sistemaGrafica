@@ -78,11 +78,11 @@ public class FLogin extends javax.swing.JFrame {
         jBEstoque = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Gráfica Atual");
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(2400, 1200));
+        setMaximumSize(new java.awt.Dimension(1060, 720));
         setMinimumSize(new java.awt.Dimension(1060, 720));
         setName("FLogin"); // NOI18N
         setSize(new java.awt.Dimension(1060, 720));
@@ -143,6 +143,7 @@ public class FLogin extends javax.swing.JFrame {
         senhaUsuario.setBounds(70, 590, 180, 20);
 
         jToggleButton1.setBackground(new java.awt.Color(71, 37, 131));
+        jToggleButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/senha2.png"))); // NOI18N
         jToggleButton1.setText("Confirmar");
@@ -153,10 +154,12 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jToggleButton1);
-        jToggleButton1.setBounds(10, 630, 140, 36);
+        jToggleButton1.setBounds(10, 630, 130, 36);
 
         sair.setBackground(new java.awt.Color(71, 37, 131));
+        sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setForeground(new java.awt.Color(255, 255, 255));
+        sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         sair.setText("Sair");
         sair.setBorderPainted(false);
         sair.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +168,7 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(sair);
-        sair.setBounds(150, 630, 100, 36);
+        sair.setBounds(140, 630, 110, 36);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("IP:");
@@ -195,7 +198,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(user);
         user.setBounds(100, 110, 150, 20);
 
-        porta.setText("5432");
+        porta.setText("5433");
         jPanel2.add(porta);
         porta.setBounds(100, 90, 150, 20);
 
@@ -270,7 +273,7 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
-        dispose();
+       System.exit(0);
     }//GEN-LAST:event_sairActionPerformed
 
     private void jBPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPedidosActionPerformed
@@ -391,7 +394,8 @@ public class FLogin extends javax.swing.JFrame {
                     
                    //CarregaControle de Acesso
                    carregaControle(us);
-
+                   login.setEditable(false);
+                   senhaUsuario.setEditable(false);
                 }
 
             } catch (Exception e) {
