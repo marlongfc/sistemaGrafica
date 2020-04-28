@@ -239,6 +239,11 @@ public class FLogin extends javax.swing.JFrame {
         jBRelatorios.setForeground(new java.awt.Color(255, 255, 255));
         jBRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/RELATORIOS  SEM FUNDO.png"))); // NOI18N
         jBRelatorios.setBorderPainted(false);
+        jBRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRelatoriosActionPerformed(evt);
+            }
+        });
         getContentPane().add(jBRelatorios);
         jBRelatorios.setBounds(620, 40, 80, 100);
 
@@ -327,6 +332,22 @@ public class FLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
     }//GEN-LAST:event_jBFinanceiroActionPerformed
+
+    private void jBRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRelatoriosActionPerformed
+       try {
+            FRelatorio clComp;
+            if (FRelatorio.isInicializado() != 1) {
+                clComp = FRelatorio.getInstance();
+                clComp.setVisible(true);
+            } else {
+                clComp = FRelatorio.getInstance();
+            }
+            clComp.toFront();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBRelatoriosActionPerformed
 
     /**
      * @param args the command line arguments
