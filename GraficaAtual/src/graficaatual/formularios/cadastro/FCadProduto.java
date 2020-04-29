@@ -50,51 +50,51 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private List<Material> listaMaterial = null;
     private CnvProduto cnvProduto = new CnvProduto();
     private String FvaFiguraProduto = "";
-    
+
     private static FCadProduto instancia;
-    
+
     public static FCadProduto getInstancia() {
         if (instancia == null) {
             instancia = new FCadProduto();
         }
-        
+
         return instancia;
     }
-    
+
     public FCadProduto() {
         initComponents();
-        
+
         lista = ObservableCollections.observableList(new LinkedList<Produto>());
         Componentes comp2 = new Componentes(lista, false, codProduto, descProduto, this, jPanel18, descProduto.getWidth(), 100);
         comp2.addCol(0, "codProduto", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Produto", 200, String.class.getName());
         comp2.bind();
-        
+
         listaMaterial = ObservableCollections.observableList(new LinkedList<Material>());
         Componentes comp3 = new Componentes(listaMaterial, false, codMaterial, descMaterial, this, jPanel18, descMaterial.getWidth(), 100);
         comp3.addCol(0, "codMaterial", "Código", 50, Long.class.getName());
         comp3.addCol(1, "descricao", "Nome do Material", 200, String.class.getName());
         comp3.bind();
-        
+
         limparTela();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
-    
+
     private void limparTela() {
-        
+
         codProduto.setText("");
         btNovo.requestFocus();
-        
+
         valorUnitario.setEditable(false);
         custoServico.setEditable(false);
         custoProduto.setEditable(false);
         msgMaterial.setVisible(false);
-        
+
         removeLinhas(tabComposicao);
-        
+
         limparCampos();
-        
+
         atualizarTabela();
     }
 
@@ -175,6 +175,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         removerMaterial = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         imagem = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -252,7 +253,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descProduto);
-        descProduto.setBounds(120, 90, 630, 20);
+        descProduto.setBounds(120, 90, 570, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -465,7 +466,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 300, 990, 210);
+        jScrollPane1.setBounds(20, 310, 990, 200);
 
         jLabel2.setText("Custo Produto ( m²)");
         jPanel18.add(jLabel2);
@@ -553,7 +554,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Cód. Material");
         jPanel18.add(jLabel8);
-        jLabel8.setBounds(20, 220, 80, 14);
+        jLabel8.setBounds(20, 200, 80, 14);
 
         codMaterial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -562,7 +563,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(codMaterial);
-        codMaterial.setBounds(20, 240, 100, 20);
+        codMaterial.setBounds(20, 220, 100, 20);
 
         descMaterial.setBackground(new java.awt.Color(255, 255, 204));
         descMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -571,15 +572,15 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descMaterial);
-        descMaterial.setBounds(120, 240, 360, 20);
+        descMaterial.setBounds(120, 220, 450, 20);
 
         jLabel9.setText("Material");
         jPanel18.add(jLabel9);
-        jLabel9.setBounds(140, 220, 100, 14);
+        jLabel9.setBounds(140, 200, 100, 14);
 
         jLabel10.setText("Quantidade");
         jPanel18.add(jLabel10);
-        jLabel10.setBounds(490, 220, 110, 14);
+        jLabel10.setBounds(580, 200, 110, 14);
 
         quantidade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         quantidade.setText("0,00");
@@ -589,7 +590,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(quantidade);
-        quantidade.setBounds(490, 240, 110, 20);
+        quantidade.setBounds(580, 220, 110, 20);
 
         btAddMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
         btAddMaterial.setText("Adicionar ");
@@ -599,7 +600,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btAddMaterial);
-        btAddMaterial.setBounds(660, 240, 170, 39);
+        btAddMaterial.setBounds(340, 250, 170, 39);
 
         msgMaterial.setForeground(new java.awt.Color(255, 0, 0));
         msgMaterial.setText("* Material adicionado/removido ainda não foi salvo! Informe os valores abaixo e clique em salvar para salvar o produto!");
@@ -614,20 +615,23 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(removerMaterial);
-        removerMaterial.setBounds(830, 240, 180, 39);
+        removerMaterial.setBounds(510, 250, 180, 39);
 
         jLabel13.setText("Composição de Materiais do Produto");
         jPanel18.add(jLabel13);
-        jLabel13.setBounds(20, 275, 210, 20);
+        jLabel13.setBounds(20, 285, 210, 20);
 
-        imagem.setText("Inserir Imagem do Produto");
         imagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imagemActionPerformed(evt);
             }
         });
         jPanel18.add(imagem);
-        imagem.setBounds(760, 90, 250, 130);
+        imagem.setBounds(720, 90, 290, 200);
+
+        jLabel14.setText("Imagem do Produto");
+        jPanel18.add(jLabel14);
+        jLabel14.setBounds(720, 70, 250, 14);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 
@@ -925,56 +929,56 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             } else {
                 limparCampos();
             }
-            
+
             atualizarTabela();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_codProdutoFocusLost
-    
+
     private void carregarCampos(Produto p) {
-        
+
         descProduto.setText(p.getDescricao());
         if (p.getImagemProduto() != null) {
             criarImage(p.getImagemProduto(), p.getNomeImagem());
         }
-        
+
         codMaterial.setText("");
         descMaterial.setText("");
         quantidade.setText("");
-        
+
         atualizarTabelaComposicao(p);
-        
+
         custoProduto.setText(ValidarValor.getDouble(p.getValorProdutoM2()));
         maoDeObra.setText(ValidarValor.getDouble(p.getMaoDeObra()));
         custoEmpresa.setText(ValidarValor.getDouble(p.getCustoEmpresa()));
         custoServico.setText(ValidarValor.getDouble(p.getCustoTotal()));
         margemLucro.setText(ValidarValor.getDouble(p.getMargemLucro()));
         valorUnitario.setText(ValidarValor.getDouble(p.getValorUnitario()));
-        
+
     }
-    
+
 
     private void descProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descProdutoKeyReleased
         try {
-            
+
             List<Produto> merged = produtoDao.getList(15, "select e from Produto e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descProduto.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
-            
+
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar produtos. Erro: " + e);
         }
-        
+
 
     }//GEN-LAST:event_descProdutoKeyReleased
-    
+
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
             removeLinhas(tabProduto);
-            
+
             List<Produto> listaAux = produtoDao.getList();
             if (listaAux.size() > 0) {
                 model.setNumRows(0);
@@ -988,7 +992,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                         ValidarValor.getDouble(p.getCustoTotal()),
                         ValidarValor.getDouble(p.getMargemLucro()),
                         ValidarValor.getDouble(p.getValorUnitario())};
-                    
+
                     model.addRow(o);
                 }
             }
@@ -996,22 +1000,23 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             removeLinhas(tabProduto);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de produtos cadastrados. Erro: " + e);
-            
+
         }
     }
-    
+
     private void atualizarTabelaComposicao(Produto p) {
         try {
-            
+
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
             tabComposicao.removeAll();
-            
+
             List<ComposicaoProduto> listaAux = composicaoDao.getListPorProduto(p.getCodProduto());
+
             if (listaAux.size() > 0) {
                 model.setNumRows(0);
-                
+
                 for (ComposicaoProduto c : listaAux) {
-                    
+
                     if (c.getMaterial() != null) {
                         Object o[] = new Object[]{
                             c.getCodComposicaoProduto(),
@@ -1020,7 +1025,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                             ValidarValor.getDouble(c.getMaterial().getPrecoCustoTotal()),
                             ValidarValor.getDouble(c.getQuantidade()),
                             ValidarValor.getDouble((c.getMaterial().getPrecoCustoTotal() * c.getQuantidade()))};
-                        
+
                         model.addRow(o);
                     }
                 }
@@ -1029,24 +1034,24 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             tabComposicao.removeAll();
             JOptionPane.showMessageDialog(null, "Erro ao atualizar composição do produto. Erro: " + e);
-            
+
         }
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            
+
             limparTela();
             codProduto.setText("" + produtoDao.getNextItem());
             descProduto.requestFocus();
@@ -1054,39 +1059,39 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btNovoActionPerformed
-    
+
     private void limparCampos() {
         try {
-            
+
             descProduto.setText("");
             produto = null;
             imagem.setIcon(null);
-            
+
             codMaterial.setText("");
             descMaterial.setText("");
             quantidade.setText("0,00");
             material = null;
-            
+
             custoProduto.setText("0,00");
             maoDeObra.setText("0,00");
             custoEmpresa.setText("0,00");
             custoServico.setText("0,00");
             margemLucro.setText("0,00");
             valorUnitario.setText("0,00");
-            
+
             tabComposicao.removeAll();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        
+
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
-            
+
             if (produto == null) {
                 produto = new Produto();
                 produto.setDataCadastro(new Date());
@@ -1094,21 +1099,21 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             } else {
                 produto.setDataAtualizacao(new Date());
             }
-            
+
             atualizaValorTotalProduto();
-            
+
             produto.setCodProduto(Long.parseLong(codProduto.getText()));
             produto.setDescricao(descProduto.getText());
             produto.setNomeImagem("imgProduto" + codProduto.getText() + ".jpg");
             produto.setImagemProduto(getByteImage());
-            
+
             produto.setValorProdutoM2(ValidarValor.getArredondamento(Double.parseDouble(custoProduto.getText().replaceAll(",", "."))));
             produto.setMaoDeObra(ValidarValor.getArredondamento(Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))));
             produto.setCustoEmpresa(ValidarValor.getArredondamento(Double.parseDouble(custoEmpresa.getText().replaceAll(",", "."))));
             produto.setCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(custoServico.getText().replaceAll(",", "."))));
             produto.setMargemLucro(ValidarValor.getArredondamento(Double.parseDouble(margemLucro.getText().replaceAll(",", "."))));
             produto.setValorUnitario(ValidarValor.getArredondamento(Double.parseDouble(valorUnitario.getText().replaceAll(",", "."))));
-            
+
             produto = produtoDao.saveOrUpdatePojo(session, produto);
 
             //     if (produto != null) {
@@ -1116,12 +1121,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             //      }
             //salvar composição ////////////
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
-            
+
             for (int i = 0; i < model.getRowCount(); i++) {
-                
-                ComposicaoProduto c = composicaoDao.getPorCodComposicao(Long.parseLong("" + model.getValueAt(i, 0)));
+
+                ComposicaoProduto c = composicaoDao.getPorCodComposicao(Long.parseLong("" + (model.getValueAt(i, 0) == null ? 0 : model.getValueAt(i, 0).equals("") ? 0 : (model.getValueAt(i, 0)))));
                 if (c == null) {
-                    
+
                     composicaoProduto = new ComposicaoProduto();
                 } else {
                     composicaoProduto = c;
@@ -1131,10 +1136,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 composicaoProduto.setProduto(Long.parseLong(codProduto.getText()));
                 composicaoProduto.setMaterial(materialDao.getPorCodigo(Long.parseLong("" + model.getValueAt(i, 1))));
                 composicaoProduto.setQuantidade(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 4)).replaceAll(",", "."))));
-                
+
                 composicaoDao.saveOrUpdatePojo(session, composicaoProduto);
             }
-            
+
             session.getTransaction().commit();
             session.close();
 
@@ -1159,26 +1164,26 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             // considerando 0 como sim
             if (op == 0) {
-                
+
                 deletarComposicao();
-                
+
                 produtoDao.delete(produto);
-                
+
                 limparTela();
-                
+
             } else {
                 return;
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir produto. Erro: " + e);
         }
     }//GEN-LAST:event_btExcluirActionPerformed
-    
+
     private void deletarComposicao() {
         try {
-            
-            for (int i = 0; i < tabComposicao.getRowCount(); i++) {
+
+            for (int i = 0; i == tabComposicao.getRowCount(); i++) {
                 composicaoDao.delete(composicaoDao.getPorCodComposicao(Long.parseLong("" + tabComposicao.getValueAt(i, 0))));
             }
         } catch (Exception e) {
@@ -1187,7 +1192,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        
+
         limparTela();
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
@@ -1211,9 +1216,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_codMaterialFocusLost
 
     private void descMaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descMaterialKeyReleased
-        
+
         try {
-            
+
             List<Material> merged = materialDao.getList(15, "select e from Material e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descMaterial.getText().trim().toLowerCase() + "%"));
             listaMaterial.clear();
             listaMaterial.addAll(merged);
@@ -1225,83 +1230,83 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void btAddMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddMaterialActionPerformed
         try {
-            
+
             Boolean contemMaterial = false;
-            
+
             if (codMaterial.getText().equals("") || descMaterial.getText().equals("") || material == null) {
                 JOptionPane.showMessageDialog(null, "Selecione um material válido!");
                 return;
             }
-            
+
             if (quantidade.getText().equals("0,00") || Double.parseDouble(quantidade.getText().replaceAll(",", ".")) <= 0) {
                 JOptionPane.showMessageDialog(null, "Informe a quantidade do material !");
                 return;
             }
-            
+
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
-            
+
             for (int i = 0; i < model.getRowCount(); i++) {
-                if (Long.parseLong(codMaterial.getText()) == (Long) model.getValueAt(i, 1)) {
-                    
+                if (Long.parseLong(codMaterial.getText()) == (Long.parseLong("" + model.getValueAt(i, 1)))) {
+
                     contemMaterial = true;
                 }
             }
-            
+
             if (contemMaterial) {
                 JOptionPane.showMessageDialog(null, "Material já está adicionado, altere somente sua quantidade na tabela composição de materiais! \n "
                         + " \n Clique na coluna QUANTIDADE, digite o novo valor e aperte ENTER!");
-                
+
                 limparMaterial();
             } else {
-                
+
                 Object[] os = new Object[6];
                 os[0] = "";
                 os[1] = codMaterial.getText();
                 os[2] = descMaterial.getText();
                 os[3] = ValidarValor.getDouble(material.getPrecoCustoTotal());
                 os[4] = ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(quantidade.getText().replaceAll(",", "."))));
-                os[5] = ValidarValor.getDouble(ValidarValor.getArredondamento((Double.parseDouble("" + os[3]) * Double.parseDouble("" + os[4]))));
-                
+                os[5] = ValidarValor.getDouble(ValidarValor.getArredondamento((Double.parseDouble(("" + os[3]).replaceAll(",", ".")) * Double.parseDouble(("" + os[4]).replaceAll(",", ".")))));
+
                 model.addRow(os);
-                
+
                 msgMaterial.setVisible(true);
-                
+
                 atualizaCustoMateriais();
                 atualizaValorTotalProduto();
-                
+
                 limparMaterial();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
-    
+
     private void editaQuantidadeTabela() {
-        
+
         try {
             int i = tabComposicao.getSelectedRow();
             Double valor = 0.0;
-            
+
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
-            
+
             valor = ValidarValor.getArredondamento((Double.parseDouble(("" + model.getValueAt(i, 3)).replaceAll(",", ".")) * Double.parseDouble(("" + model.getValueAt(i, 4)).replaceAll(",", "."))));
-            
+
             model.setValueAt(ValidarValor.getDouble(valor), i, 5);
             atualizaCustoMateriais();
             atualizaValorTotalProduto();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     private void limparMaterial() {
         codMaterial.setText("");
         descMaterial.setText("");
         quantidade.setText("0,00");
         material = null;
     }
-    
+
 
     private void maoDeObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maoDeObraFocusLost
         atualizaCustoServico();
@@ -1320,11 +1325,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void tabProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProdutoMouseClicked
         if (evt.getClickCount() > 1) {
-            limparTela();
-            
+
             codProduto.setText(tabProduto.getValueAt(tabProduto.getSelectedRow(), 0).toString());
             codProdutoFocusLost(null);
-            
+
             jTabbedPane1.setSelectedIndex(0);
             codProduto.requestFocus();
         }
@@ -1359,14 +1363,29 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
             int i = tabComposicao.getSelectedRow();
-            
+
             if (tabComposicao.getRowCount() > 0) {
                 if (i < 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um material na tabela de composição do produto!");
                 } else {
-                    
+
+                    Long cod = Long.parseLong("" + (model.getValueAt(i, 0) == null ? 0 : model.getValueAt(i, 0).equals("") ? 0 : (model.getValueAt(i, 0))));
+
+                    if (cod > 0) {
+
+                        ComposicaoProduto c = composicaoDao.getPorCodComposicao(cod);
+
+                        if (c != null) {
+                            composicaoDao.delete(c);
+                        }
+                    }
+
                     model.removeRow(i);
                     
+                    atualizaCustoMateriais();
+                    atualizaCustoServico();
+                    atualizaValorTotalProduto();
+
                     tabComposicao.setModel(model);
                     msgMaterial.setVisible(true);
                     limparMaterial();
@@ -1374,7 +1393,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
     }//GEN-LAST:event_removerMaterialActionPerformed
 
@@ -1387,9 +1406,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             codMaterial.setText(tabComposicao.getValueAt(tabComposicao.getSelectedRow(), 1).toString());
             codMaterialFocusLost(null);
             quantidade.setText(tabComposicao.getValueAt(tabComposicao.getSelectedRow(), 4).toString());
-            
+
         }
-        
+
         editaQuantidadeTabela();
     }//GEN-LAST:event_tabComposicaoMouseClicked
 
@@ -1403,9 +1422,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_imagemActionPerformed
 
     private void tabComposicaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabComposicaoMouseExited
-        editaQuantidadeTabela();
+
     }//GEN-LAST:event_tabComposicaoMouseExited
-    
+
     private void buscaFigura() {
         FvaFiguraProduto = (FvaFiguraProduto.equals("")) ? "\\" : FvaFiguraProduto;
         JFileChooser chose = new JFileChooser(FvaFiguraProduto);
@@ -1419,7 +1438,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                         || fname.endsWith(".png")
                         || f.isDirectory();
             }
-            
+
             public String getDescription() {
                 return "Arquivos .GIF, .JPEG, .JPG e .PNG";
             }
@@ -1429,7 +1448,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             setImageIcon(chose.getSelectedFile().getPath());
         }
     }
-    
+
     private void setImageIcon(String path) {
         FvaFiguraProduto = "";
         imagem.setIcon(null);
@@ -1440,9 +1459,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             imagem.setIcon(img);
             imagem.setToolTipText(FvaFiguraProduto);
         }
-        
+
     }
-    
+
     private byte[] getByteImage() {
         try {
             if (FvaFiguraProduto.trim().length() > 0) {
@@ -1461,19 +1480,19 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
         return null;
     }
-    
+
     private void criarImage(byte[] bytes, String nomeImg) {
         try {
-            
+
             String nome = "";
             if (nomeImg == null) {
                 nome = "";
             } else {
                 nome = nomeImg;
             }
-            
+
             if (nome.length() > 0) {
-                
+
                 byte[] imgBytes = bytes;
                 FileOutputStream fos = new FileOutputStream(nome);
                 fos.write(imgBytes);
@@ -1489,7 +1508,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             System.out.println("Ocorreu um erro ao tentar criar imagem. Erro: " + e);
         }
     }
-    
+
     private void atualizaCustoMateriais() {
         DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
         int i = 0;
@@ -1499,39 +1518,39 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 soma = ValidarValor.getArredondamento(soma + (ValidarValor.getDouble((String) model.getValueAt(i, 5))));
             }
             custoProduto.setText(ValidarValor.getDouble(soma));
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             custoProduto.setText("0,00");
         }
     }
-    
+
     private void atualizaValorTotalProduto() {
-        
+
         Double custo = 0.00;
         Double valorTot = 0.00;
         try {
             custo = (Double.parseDouble(custoProduto.getText().replaceAll(",", ".")) + Double.parseDouble(maoDeObra.getText().replaceAll(",", ".")) + Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")));
-            
+
             valorTot = ValidarValor.getArredondamento((custo + ((custo * (Double.parseDouble(margemLucro.getText().replaceAll(",", ".")))) / 100)));
-            
+
             valorUnitario.setText(ValidarValor.getDouble(valorTot));
         } catch (Exception e) {
             valorUnitario.setText(custoProduto.getText());
             e.printStackTrace();
-            
+
         }
     }
-    
+
     private void atualizaCustoServico() {
         try {
-            
+
             custoServico.setText("");
-            
+
             Double soma = 0.00;
-            
+
             soma = ValidarValor.getArredondamento(((Double.parseDouble(custoProduto.getText().replaceAll(",", "."))) + (Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))) + (Double.parseDouble(custoEmpresa.getText().replaceAll(",", ".")))));
-            
+
             custoServico.setText(ValidarValor.getDouble(soma));
         } catch (Exception e) {
             custoServico.setText("0,00");
@@ -1580,6 +1599,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel117;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
