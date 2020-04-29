@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -33,11 +32,10 @@ public class Produto implements Serializable {
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
 
-    
     @JoinColumn(name = "composicaoProduto", nullable = false)
     private ComposicaoProduto composicaoProduto;
 
-    @Column(name = "valorProdutoM2", nullable = true, length = 10)
+    @Column(name = "valorProdutoM2", nullable = true)
     private Double valorProdutoM2;
 
     @Column(name = "maoDeObra", nullable = true)
@@ -54,6 +52,12 @@ public class Produto implements Serializable {
 
     @Column(name = "margemLucro", nullable = true)
     private Double margemLucro;
+
+    @Column(name = "nomeImagem", nullable = true, length = 40)
+    private String nomeImagem;
+
+    @Column(name = "imagemProduto", nullable = true)
+    private byte[] imagemProduto;
 
     @Column(name = "dataCadastro", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -113,8 +117,14 @@ public class Produto implements Serializable {
     public void setComposicaoProduto(ComposicaoProduto composicaoProduto) {
         this.composicaoProduto = composicaoProduto;
     }
-    
-    
+
+    public byte[] getImagemProduto() {
+        return imagemProduto;
+    }
+
+    public void setImagemProduto(byte[] imagemProduto) {
+        this.imagemProduto = imagemProduto;
+    }
 
     public Double getValorUnitario() {
         return valorUnitario;
@@ -147,6 +157,16 @@ public class Produto implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
+    }
+    
+    
 
     public Date getDataCadastro() {
         return dataCadastro;
