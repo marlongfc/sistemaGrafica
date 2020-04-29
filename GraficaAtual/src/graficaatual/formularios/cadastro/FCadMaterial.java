@@ -61,8 +61,6 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         btNovo.requestFocus();
         codMaterial.setEnabled(true);
         codMaterial.setText("");
-        precoFreteKg.setEnabled(false);
-        precoFretePeca.setEnabled(false);
 
         limparCampos();
 
@@ -468,6 +466,11 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         altura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         altura.setText("0,00");
+        altura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                alturaFocusLost(evt);
+            }
+        });
         altura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 alturaActionPerformed(evt);
@@ -478,6 +481,11 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         largura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         largura.setText("0,00");
+        largura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                larguraFocusLost(evt);
+            }
+        });
         largura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 larguraActionPerformed(evt);
@@ -488,6 +496,11 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         peso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         peso.setText("0,00");
+        peso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pesoFocusLost(evt);
+            }
+        });
         peso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pesoActionPerformed(evt);
@@ -502,6 +515,11 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         precoFreteM2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoFreteM2.setText("0,00");
+        precoFreteM2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                precoFreteM2FocusLost(evt);
+            }
+        });
         precoFreteM2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precoFreteM2ActionPerformed(evt);
@@ -512,6 +530,11 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         precoFreteKg.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoFreteKg.setText("0,00");
+        precoFreteKg.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                precoFreteKgFocusLost(evt);
+            }
+        });
         jPanel18.add(precoFreteKg);
         precoFreteKg.setBounds(210, 190, 130, 20);
 
@@ -560,6 +583,11 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         precoFretePeca.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         precoFretePeca.setText("0,00");
+        precoFretePeca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                precoFretePecaFocusLost(evt);
+            }
+        });
         jPanel18.add(precoFretePeca);
         precoFretePeca.setBounds(360, 190, 130, 20);
 
@@ -708,6 +736,9 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         material = null;
 
         comboUnidade.setSelectedIndex(0);
+        altura.setEnabled(true);
+        largura.setEnabled(true);
+        peso.setEnabled(false);
 
         altura.setText("0,00");
         largura.setText("0,00");
@@ -871,14 +902,20 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         try {
             switch (comboUnidade.getSelectedIndex()) {
                 case 0:
+                    altura.setEnabled(true);
+                    largura.setEnabled(true);
                     precoFreteM2.setEnabled(true);
                     precoFreteM2.setText("0,00");
+                    peso.setEnabled(false);
                     precoFreteKg.setEnabled(false);
                     precoFreteKg.setText("0,00");
                     precoFretePeca.setEnabled(false);
                     precoFretePeca.setText("0,00");
                     break;
                 case 1:
+                    peso.setEnabled(true);
+                    altura.setEnabled(false);
+                    largura.setEnabled(false);
                     precoFreteKg.setEnabled(true);
                     precoFreteM2.setEnabled(false);
                     precoFreteM2.setText("0,00");
@@ -887,6 +924,9 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                     break;
                 case 2:
                     precoFretePeca.setEnabled(true);
+                    peso.setEnabled(false);
+                    altura.setEnabled(false);
+                    largura.setEnabled(false);
                     precoFreteM2.setEnabled(false);
                     precoFreteM2.setText("0,00");
                     precoFreteKg.setEnabled(false);
@@ -912,6 +952,30 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_precoCustoCompraActionPerformed
 
+    private void precoFreteM2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precoFreteM2FocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_precoFreteM2FocusLost
+
+    private void precoFreteKgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precoFreteKgFocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_precoFreteKgFocusLost
+
+    private void precoFretePecaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precoFretePecaFocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_precoFretePecaFocusLost
+
+    private void alturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alturaFocusLost
+         atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_alturaFocusLost
+
+    private void larguraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_larguraFocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_larguraFocusLost
+
+    private void pesoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesoFocusLost
+       atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_pesoFocusLost
+
     private void atualizaPrecoCustoTotal() {
         try {
 
@@ -920,12 +984,16 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             switch (comboUnidade.getSelectedIndex()) {
                 case 0:
 
-                    preco = (ValidarValor.getArredondamento((Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", ".")))));
+                    Double custoPorTamanho = (Double.parseDouble(altura.getText().replaceAll(",", ".")) * Double.parseDouble(largura.getText().replaceAll(",", ".")) * Double.parseDouble(precoFreteM2.getText().replaceAll(",", ".")));
+
+                    preco = (ValidarValor.getArredondamento((custoPorTamanho + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", ".")))));
                     precoCustoTotal.setText(ValidarValor.getDouble(preco));
                     break;
                 case 1:
 
-                    preco = (ValidarValor.getArredondamento(Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
+                    Double custoPorQuilo = (Double.parseDouble(peso.getText().replaceAll(",", ".")) * Double.parseDouble(precoFreteKg.getText().replaceAll(",", ".")));
+
+                    preco = (ValidarValor.getArredondamento(custoPorQuilo + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
                     precoCustoTotal.setText(ValidarValor.getDouble(preco));
                     break;
                 case 2:
