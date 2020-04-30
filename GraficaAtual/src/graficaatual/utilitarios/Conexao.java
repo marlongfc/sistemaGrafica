@@ -1,6 +1,5 @@
 package graficaatual.utilitarios;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,8 +32,8 @@ public class Conexao {
         ip = ip.trim().equals("") ? "localhost" : ip;
 
         String url = "jdbc:postgresql://" + ip + ":" + p.GAPorta + "/" + db;
-        //String use="postgres";
-        String use = p.GAUserName;
+        String use="postgres";
+        //String use = p.GAUserName;
         String sen = p.GAPassword;
         
         System.out.println(" ------------- "+url);
