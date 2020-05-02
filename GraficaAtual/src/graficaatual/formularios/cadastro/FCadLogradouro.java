@@ -626,6 +626,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                 logradouro.setDataAtualizacao(new Date());
             }
             logradouro.setCodLogradouro(Long.parseLong(codLogradouro.getText()));
+            logradouro.setTipo(comboTipo.getSelectedIndex());
             logradouro.setDescricao(descLogradouro.getText());
 
             if (logradouroDao.salvar(logradouro) != null) {
