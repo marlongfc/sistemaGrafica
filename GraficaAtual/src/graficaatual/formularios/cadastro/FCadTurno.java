@@ -123,6 +123,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
+        codTurnoo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codTurnoo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codTurnooFocusLost(evt);
@@ -478,7 +479,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
             if (turno == null) {
                 turno = new Turno();
-                setCausa();
+                setTurno();
                 turno.setDataCadastro(new Date());
                 turno.setDataAtualizacao(new Date());
                 if (turnoDao.confereTurno(turno)) {
@@ -490,6 +491,8 @@ public class FCadTurno extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Causa de Morte já Cadastrada");
                 }
             }
+            setTurno();
+            turnoDao.salvar(turno);
             atualizatabela();
             
         } catch (Exception e) {
@@ -503,7 +506,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             if (turno == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setCausa();
+                setTurno();
                 turnoDao.delete(turno);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
@@ -559,7 +562,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
     
-    private void setCausa() {
+    private void setTurno() {
         turno.setDescricao(descTurno.getText());
     }
     
