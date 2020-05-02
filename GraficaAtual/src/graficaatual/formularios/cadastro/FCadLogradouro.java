@@ -427,7 +427,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jPanel18.add(comboTipo);
         comboTipo.setBounds(140, 90, 180, 20);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -726,7 +726,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                     + "                    then 'Quadra'"
                     + "                when 7"
                     + "                    then 'Beco'"
-                    + "                    when 8"
+                    + "                when 8"
                     + "                    then 'Campo'"
                     + "                when 9"
                     + "                    then 'Chácara'"
@@ -763,8 +763,10 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                     + "                when 25"
                     + "                    then 'Sítio'"
                     + "                when 26"
-                    + "                    then 'Vila' End) as tipo"
-                    + "from logradouro e";
+                    + "                    then 'Vila'"
+                    + "                when null"
+                    + "                    then '' End) as tipo "
+                    + " from logradouro e order by e.descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/logradouro.jasper", "RELATÓRIO DE LOGRADOUROS", null, sql);
 

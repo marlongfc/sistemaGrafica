@@ -64,8 +64,10 @@
                 when 25
                     then 'Sítio'
                 when 26
-                    then 'Vila' End) as tipo
-from logradouro e]]>
+                    then 'Vila'
+	     when null
+                    then ''  End) as tipo
+ from logradouro e]]>
 	</queryString>
 	<field name="codlogradouro" class="java.lang.Long"/>
 	<field name="descricao" class="java.lang.String"/>
