@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="69"/>
+	<property name="ireport.y" value="74"/>
+	<parameter name="entidade" class="java.lang.String"/>
+	<parameter name="endereco" class="java.lang.String"/>
+	<parameter name="cidade" class="java.lang.String"/>
+	<parameter name="inscricaoEstadualCnpj" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="telefone1" class="java.lang.String"/>
+	<parameter name="telefone2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select codcidade, descricao
+from cidade]]>
+	</queryString>
+	<field name="codcidade" class="java.lang.Long"/>
+	<field name="descricao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="122" height="65" uuid="f93c2158-c84e-4746-b1fa-1e3d2aefcacd"/>
+			</image>
+			<textField>
+				<reportElement x="343" y="0" width="212" height="13" forecolor="#4A2680" uuid="16061d3a-b3e6-4527-a8a8-c4293b4a04c1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{entidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="13" width="212" height="13" forecolor="#4A2680" uuid="75a8b6b3-ab97-40fe-8bc1-9b5fdb12f1d7"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="26" width="212" height="13" forecolor="#4A2680" uuid="f46b3c8b-f05e-4db5-878e-d22cd460ce21"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{inscricaoEstadualCnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="39" width="150" height="13" forecolor="#4A2680" uuid="925ec833-b92d-4b1f-9450-d90438f860a1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="52" width="70" height="13" forecolor="#4A2680" uuid="3d9cd888-1bc1-4acc-8803-688fb61c4f49"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telefone1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="52" width="75" height="13" forecolor="#4A2680" uuid="f1f09d4d-8e56-447b-af97-2372aa38dd0a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telefone2}+" / "]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="14" forecolor="#4A2680" uuid="0bd01ddd-7155-4417-90f1-bdd2cce2c383"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE CIDADES]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="60" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="1d372bf9-655a-4aee-ac06-c2731f453f02"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="60" y="0" width="495" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="61edc835-9c80-411b-8b12-19258d44cf7b"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5" lineColor="#660066"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIDADES]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="60" height="13" backcolor="#E6E7E9" uuid="a7fa6c82-9c5a-4f66-aa1a-2dbaa63199cd"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codcidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="60" y="0" width="495" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="bd04eebe-e22f-40c5-8adf-163293c8dbf8"/>
+				<box leftPadding="4">
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="42" uuid="d6c4c9ad-d162-4b46-8ede-a4a222f696a3"/>
+			</textField>
+			<textField>
+				<reportElement x="455" y="29" width="100" height="13" forecolor="#4A2680" uuid="b9709721-a6cf-4dfe-a73a-e9aa230f6265"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
