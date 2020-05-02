@@ -15,6 +15,7 @@ import graficaatual.pesq.cadastro.CnvProduto;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
@@ -220,6 +221,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         inicio1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1335, 700));
@@ -792,7 +794,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
 
         jPanel21.add(jScrollPane12);
-        jScrollPane12.setBounds(20, 100, 930, 310);
+        jScrollPane12.setBounds(20, 100, 930, 290);
 
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -853,7 +855,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         );
 
         jPanel21.add(jPanel23);
-        jPanel23.setBounds(280, 430, 430, 40);
+        jPanel23.setBounds(280, 410, 430, 40);
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -864,6 +866,15 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel12.setText("Produtos Cadastrados");
         jPanel21.add(jLabel12);
         jLabel12.setBounds(20, 80, 210, 14);
+
+        jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel21.add(jButton1);
+        jButton1.setBounds(410, 460, 130, 30);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1381,7 +1392,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     }
 
                     model.removeRow(i);
-                    
+
                     atualizaCustoMateriais();
                     atualizaCustoServico();
                     atualizaValorTotalProduto();
@@ -1424,6 +1435,23 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private void tabComposicaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabComposicaoMouseExited
 
     }//GEN-LAST:event_tabComposicaoMouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            String sql = "select e.codproduto as codproduto, e.descricao as descricao, "
+                    + " (Cast(e.valorprodutom2 as Decimal(10, 2))) as valorprodutom2, (Cast(e.maodeobra as Decimal(10, 2))) as maodeobra, "
+                    + " (Cast(e.custoempresa as Decimal(10, 2))) as custoempresa, (Cast(e.custototal as Decimal(10, 2))) as custototal,"
+                    + " (Cast(e.margemlucro as Decimal(10, 2))) as margemlucro, "
+                    + " (Cast(e.valorunitario as Decimal(10, 2))) as valorunitario from produto e order by e.descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/produto.jasper", "RELATÓRIO DE PRODUTOS", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void buscaFigura() {
         FvaFiguraProduto = (FvaFiguraProduto.equals("")) ? "\\" : FvaFiguraProduto;
@@ -1574,6 +1602,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descProduto;
     private javax.swing.JButton imagem;
     private javax.swing.JButton inicio1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;

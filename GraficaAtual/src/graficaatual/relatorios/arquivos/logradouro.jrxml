@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="373"/>
+	<property name="ireport.x" value="75"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="entidade" class="java.lang.String"/>
 	<parameter name="endereco" class="java.lang.String"/>
@@ -11,12 +11,65 @@
 	<parameter name="telefone1" class="java.lang.String"/>
 	<parameter name="telefone2" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select codlogradouro, descricao, tipo
-from logradouro]]>
+		<![CDATA[select codlogradouro, descricao, (Case (e.tipo)    when 0
+                    then 'Rua'
+                when 1
+                    then 'Praça'
+                when 2
+                    then 'Avenida'
+                when 3
+                    then 'Travessa'
+                when 4
+                    then 'Rodovia'
+                when 5
+                    then 'Anel Rodoviário'
+                when 6
+                    then 'Quadra'
+                when 7
+                    then 'Beco'
+                    when 8
+                    then 'Campo'
+                when 9
+                    then 'Chácara'
+                when 10
+                    then 'Comunidade'
+                when 11
+                    then 'Condomínio'
+                when 12
+                    then 'Distrito'
+                when 13
+                    then 'Estrada'
+                when 14
+                    then 'Estacionamento'
+                when 15
+                    then 'Favela'
+                when 16
+                    then 'Fazenda'
+                when 17
+                    then 'Largo'
+                when 18
+                    then 'Lagoa'
+                when 19
+                    then 'Loteamento'
+                when 20
+                    then 'Lote'
+                when 21
+                    then 'Morro'
+                when 22
+                    then 'Passagem'
+                when 23
+                    then 'Ponte'
+                when 24
+                    then 'Rancho'
+                when 25
+                    then 'Sítio'
+                when 26
+                    then 'Vila' End) as tipo
+from logradouro e]]>
 	</queryString>
 	<field name="codlogradouro" class="java.lang.Long"/>
 	<field name="descricao" class="java.lang.String"/>
-	<field name="tipo" class="java.lang.Integer"/>
+	<field name="tipo" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -154,7 +207,7 @@ from logradouro]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tipo} == null ? "Rua":$F{tipo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipo} ]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="187" y="0" width="368" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="bd04eebe-e22f-40c5-8adf-163293c8dbf8"/>

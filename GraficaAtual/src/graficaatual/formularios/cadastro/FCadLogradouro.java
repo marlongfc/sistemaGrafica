@@ -10,6 +10,7 @@ import graficaatual.entidades.Logradouro;
 import graficaatual.pesq.cadastro.CnvLogradouro;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -116,6 +117,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jLabel80 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1335, 700));
@@ -425,6 +427,15 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jPanel18.add(comboTipo);
         comboTipo.setBounds(140, 90, 180, 20);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(jButton1);
+        jButton1.setBounds(400, 560, 150, 23);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -533,7 +544,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                     return "Quadra";
                 case 7:
                     return "Beco";
-                    case 8:
+                case 8:
                     return "Campo";
                 case 9:
                     return "Chácara";
@@ -571,8 +582,9 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                     return "Sítio";
                 case 26:
                     return "Vila";
-                    
-                    default: return "";
+
+                default:
+                    return "";
             }
 
         } catch (Exception e) {
@@ -696,6 +708,74 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_inicioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            String sql = "select codlogradouro, descricao, (Case (e.tipo)    when 0"
+                    + "                    then 'Rua'"
+                    + "                when 1"
+                    + "                    then 'Praça'"
+                    + "                when 2"
+                    + "                    then 'Avenida'"
+                    + "                when 3"
+                    + "                    then 'Travessa'"
+                    + "                when 4"
+                    + "                    then 'Rodovia'"
+                    + "                when 5"
+                    + "                    then 'Anel Rodoviário'"
+                    + "                when 6"
+                    + "                    then 'Quadra'"
+                    + "                when 7"
+                    + "                    then 'Beco'"
+                    + "                    when 8"
+                    + "                    then 'Campo'"
+                    + "                when 9"
+                    + "                    then 'Chácara'"
+                    + "                when 10"
+                    + "                    then 'Comunidade'"
+                    + "                when 11"
+                    + "                    then 'Condomínio'"
+                    + "                when 12"
+                    + "                    then 'Distrito'"
+                    + "                when 13"
+                    + "                    then 'Estrada'"
+                    + "                when 14"
+                    + "                    then 'Estacionamento'"
+                    + "                when 15"
+                    + "                    then 'Favela'"
+                    + "                when 16"
+                    + "                    then 'Fazenda'"
+                    + "                when 17"
+                    + "                    then 'Largo'"
+                    + "                when 18"
+                    + "                    then 'Lagoa'"
+                    + "                when 19"
+                    + "                    then 'Loteamento'"
+                    + "                when 20"
+                    + "                    then 'Lote'"
+                    + "                when 21"
+                    + "                    then 'Morro'"
+                    + "                when 22"
+                    + "                    then 'Passagem'"
+                    + "                when 23"
+                    + "                    then 'Ponte'"
+                    + "                when 24"
+                    + "                    then 'Rancho'"
+                    + "                when 25"
+                    + "                    then 'Sítio'"
+                    + "                when 26"
+                    + "                    then 'Vila' End) as tipo"
+                    + "from logradouro e";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/logradouro.jasper", "RELATÓRIO DE LOGRADOUROS", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de logradouros! \n " + e);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
@@ -707,6 +787,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JTextField descLogradouro;
     private javax.swing.JButton inicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;

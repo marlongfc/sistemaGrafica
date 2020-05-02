@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="1729"/>
+	<property name="ireport.x" value="860"/>
 	<property name="ireport.y" value="288"/>
 	<parameter name="entidade" class="java.lang.String"/>
 	<parameter name="endereco" class="java.lang.String"/>
@@ -11,24 +11,17 @@
 	<parameter name="telefone1" class="java.lang.String"/>
 	<parameter name="telefone2" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select *
-from produto]]>
+		<![CDATA[select e.codproduto as codproduto, e.descricao as descricao, (Cast(e.valorprodutom2 as Decimal(10, 2))) as valorprodutom2, (Cast(e.maodeobra as Decimal(10, 2))) as maodeobra, (Cast(e.custoempresa as Decimal(10, 2))) as custoempresa, (Cast(e.custototal as Decimal(10, 2))) as custototal, (Cast(e.margemlucro as Decimal(10, 2))) as margemlucro,
+(Cast(e.valorunitario as Decimal(10, 2))) as valorunitario from produto e order by e.descricao asc]]>
 	</queryString>
 	<field name="codproduto" class="java.lang.Long"/>
-	<field name="composicaoproduto" class="java.lang.Object"/>
-	<field name="custoempresa" class="java.lang.Double"/>
-	<field name="custototal" class="java.lang.Double"/>
-	<field name="dataatualizacao" class="java.sql.Date"/>
-	<field name="datacadastro" class="java.sql.Date"/>
 	<field name="descricao" class="java.lang.String"/>
-	<field name="maodeobra" class="java.lang.Double"/>
-	<field name="margemlucro" class="java.lang.Double"/>
-	<field name="usuarioatualizacao" class="java.lang.String"/>
-	<field name="usuariocadastro" class="java.lang.String"/>
-	<field name="valorprodutom2" class="java.lang.Double"/>
-	<field name="valorunitario" class="java.lang.Double"/>
-	<field name="imagemproduto" class="java.lang.Object"/>
-	<field name="nomeimagem" class="java.lang.String"/>
+	<field name="valorprodutom2" class="java.math.BigDecimal"/>
+	<field name="maodeobra" class="java.math.BigDecimal"/>
+	<field name="custoempresa" class="java.math.BigDecimal"/>
+	<field name="custototal" class="java.math.BigDecimal"/>
+	<field name="margemlucro" class="java.math.BigDecimal"/>
+	<field name="valorunitario" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
