@@ -5,16 +5,12 @@
  */
 package graficaatual;
 
-import graficaatual.formularios.cadastro.FCadAcabamento;
-import graficaatual.formularios.cadastro.FCadCargo;
-import graficaatual.formularios.cadastro.FCadCliente;
-import graficaatual.formularios.cadastro.FCadColaborador;
-import graficaatual.formularios.cadastro.FCadFornecedor;
-import graficaatual.formularios.cadastro.FCadTurno;
-import graficaatual.formularios.cadastro.FCadUsuario;
-import graficaatual.formularios.financeiro.FCadFormaDePagamento;
+
+import graficaatual.entidades.ControleAcesso;
+import graficaatual.entidades.Permissao;
 import graficaatual.formularios.financeiro.FRequisicao;
 import graficaatual.formularios.pedido.FCadOrcamento;
+import javax.swing.JButton;
 
 import javax.swing.JOptionPane;
 
@@ -35,7 +31,12 @@ public class FPedido extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-
+        
+        //verificação de acesso as telas
+        acessotela(jBOrcamento,"FCadOrcamento");
+        acessotela(jbPedido,"FCadOrcamento");
+        acessotela(jbRequisicao,"FCadRequisicao");
+  
     }
 
     public static FPedido getInstance() {
@@ -101,7 +102,7 @@ public class FPedido extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBOrcamento);
-        jBOrcamento.setBounds(0, 180, 220, 30);
+        jBOrcamento.setBounds(30, 180, 190, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
         jPanel1.add(jLabel3);
@@ -121,7 +122,7 @@ public class FPedido extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbPedido);
-        jbPedido.setBounds(0, 220, 220, 30);
+        jbPedido.setBounds(30, 220, 190, 30);
 
         jbSair.setBackground(new java.awt.Color(71, 37, 131));
         jbSair.setForeground(new java.awt.Color(255, 255, 255));
@@ -137,7 +138,7 @@ public class FPedido extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbSair);
-        jbSair.setBounds(0, 310, 220, 30);
+        jbSair.setBounds(30, 300, 190, 30);
 
         jbRequisicao.setBackground(new java.awt.Color(71, 37, 131));
         jbRequisicao.setForeground(new java.awt.Color(255, 255, 255));
@@ -153,7 +154,7 @@ public class FPedido extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbRequisicao);
-        jbRequisicao.setBounds(0, 260, 220, 30);
+        jbRequisicao.setBounds(30, 260, 190, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,7 +164,7 @@ public class FPedido extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleName("FCadastro");
@@ -241,5 +242,12 @@ public class FPedido extends javax.swing.JFrame {
     private javax.swing.JButton jbRequisicao;
     private javax.swing.JButton jbSair;
     // End of variables declaration//GEN-END:variables
-
+private void acessotela(JButton jB, String fCadCliente) {
+        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente,"PEDIDO");
+        if(p!= null){
+            jB.setEnabled(p.isAcesso());
+        }else{
+            jB.setEnabled(false);
+        }
+    }
 }

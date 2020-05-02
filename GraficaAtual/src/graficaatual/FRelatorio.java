@@ -31,8 +31,8 @@ public class FRelatorio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
        
         //verificação de acesso as telas
-        //acessotela(jBParametros,"FCadParametros");
-        //acessotela(jBTextoPadrao,"FCadTextoPadro");       
+        acessotela(jBParametros,"FCadParametros");
+        acessotela(jBTextoPadrao,"FCadTextoPadro");       
     }
     
     
@@ -85,7 +85,7 @@ public class FRelatorio extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBParametros);
-        jBParametros.setBounds(30, 620, 180, 30);
+        jBParametros.setBounds(30, 230, 180, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
         jPanel1.add(jLabel3);
@@ -106,7 +106,7 @@ public class FRelatorio extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBTextoPadrao);
-        jBTextoPadrao.setBounds(30, 580, 180, 30);
+        jBTextoPadrao.setBounds(30, 190, 180, 30);
 
         jBSair.setBackground(new java.awt.Color(71, 37, 131));
         jBSair.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -123,7 +123,7 @@ public class FRelatorio extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBSair);
-        jBSair.setBounds(30, 660, 180, 30);
+        jBSair.setBounds(30, 270, 180, 30);
 
         deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -196,7 +196,7 @@ public class FRelatorio extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void acessotela(JButton jB, String fCadCliente) {
-        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente);
+        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente,"RELATORIO");
         if(p!= null){
             jB.setEnabled(p.isAcesso());
         }else{

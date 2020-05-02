@@ -24,8 +24,8 @@ public class ControleAcesso {
         return pedao.getPermissaoFormulario(usuario.getCodUsuario(), formulario);
     }
 
-    public static Permissao getPermissaoFormulario(String formulario) {
-        return pedao.getPermissaoFormulario(usuario.getCodUsuario(), formulario);
+    public static Permissao getPermissaoFormulario(String formulario,String modulo) {
+        return pedao.getPermissaoFormulario(usuario.getCodUsuario(), formulario,modulo);
     }
 
 

@@ -83,6 +83,7 @@
         <Component class="javax.swing.JTextField" name="codLogradouro">
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="codLogradouroFocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codLogradouroActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -101,7 +102,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="130" y="250" width="680" height="-1"/>
+              <AbsoluteConstraints x="300" y="250" width="510" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -283,6 +284,24 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="430" y="180" width="280" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="comboTipo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Rua&quot;, &quot;Avenida&quot;, &quot;Pra&#xe7;a&quot;, &quot;Travessa&quot;, &quot;Rodovia&quot;,&quot;Quadra&quot;, &quot;Anel Rodovi&#xe1;rio&quot;, &quot;Beco&quot;, &quot;Ch&#xe1;cara&quot;, &quot;Comunidade&quot;, &quot;Condom&#xed;nio&quot;, &quot;Distrito&quot;, &quot;Estrada&quot;, &quot;Estacionamento&quot;, &quot;Favela&quot;, &quot;Fazenda&quot;, &quot;Largo&quot;, &quot;Lagoa&quot;, &quot;Loteamento&quot;, &quot;Lote&quot;, &quot;Morro&quot;, &quot;Passagem&quot;, &quot;Ponte&quot;,&quot;Rancho&quot;, &quot;S&#xed;tio&quot;, &quot;Vila&quot;  })" type="code"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTipoActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="130" y="250" width="170" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

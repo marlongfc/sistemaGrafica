@@ -41,7 +41,9 @@ public class PermissaoDAO extends GenericDAO {
         return getPureList(Permissao.class, SQL,parametros);
     }
 
-    public Permissao getPermissaoFormulario(Integer codUsuario, String formulario) {
-         return getPurePojoUnique(Permissao.class, "select e from Permissao e where e.usuario.codUsuario=?1 and e.formulario.formulario=?2",codUsuario,formulario);
+    public Permissao getPermissaoFormulario(Integer codUsuario, String formulario,String modulo) {
+         return getPurePojoUnique(Permissao.class, "select e from Permissao e where e.usuario.codUsuario=?1"
+                 + " and e.formulario.formulario=?2"
+                 + " and e.formulario.Modulo = ?3",codUsuario,formulario,modulo);
     }
 }

@@ -21,6 +21,7 @@ import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -215,6 +216,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         comboFormaPag = new javax.swing.JComboBox<>();
         validadeProposta = new javax.swing.JFormattedTextField();
         prazoEntrega = new javax.swing.JFormattedTextField();
+        jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
 
@@ -590,7 +592,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvarOrca);
-        btSalvarOrca.setBounds(310, 625, 180, 40);
+        btSalvarOrca.setBounds(241, 625, 180, 40);
 
         btNovoOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovoOrca.setText("Novo Orçamento");
@@ -600,7 +602,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovoOrca);
-        btNovoOrca.setBounds(130, 625, 180, 40);
+        btNovoOrca.setBounds(60, 625, 180, 40);
 
         btExcluirOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluirOrca.setText("Excluir Orçamento");
@@ -610,7 +612,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluirOrca);
-        btExcluirOrca.setBounds(490, 625, 180, 40);
+        btExcluirOrca.setBounds(422, 625, 180, 40);
 
         descontoGeral.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         descontoGeral.setText("0,00");
@@ -799,14 +801,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel3.setBounds(40, 555, 910, 70);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
-        jButton1.setText("Sair");
+        jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel18.add(jButton1);
-        jButton1.setBounds(670, 625, 180, 40);
+        jButton1.setBounds(603, 625, 180, 40);
 
         comboFormaPag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         jPanel18.add(comboFormaPag);
@@ -823,6 +825,16 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }catch(Exception e){};
         jPanel18.add(prazoEntrega);
         prazoEntrega.setBounds(340, 150, 120, 20);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(jButton2);
+        jButton2.setBounds(783, 625, 140, 40);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1104,7 +1116,19 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_checkEntregaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
+                try {
+            String sql = "select e.codproduto as codproduto, e.descricao as descricao, "
+                    + " (Cast(e.valorprodutom2 as Decimal(10, 2))) as valorprodutom2, (Cast(e.maodeobra as Decimal(10, 2))) as maodeobra, "
+                    + " (Cast(e.custoempresa as Decimal(10, 2))) as custoempresa, (Cast(e.custototal as Decimal(10, 2))) as custototal,"
+                    + " (Cast(e.margemlucro as Decimal(10, 2))) as margemlucro, "
+                    + " (Cast(e.valorunitario as Decimal(10, 2))) as valorunitario from produto e order by e.descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/produto.jasper", "RELATÓRIO DE PRODUTOS", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void checkCorteRouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCorteRouterActionPerformed
@@ -1122,6 +1146,10 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private void acrescimoGeralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_acrescimoGeralFocusLost
         calculaPreçoTotalOrcamentoComDesconto();
     }//GEN-LAST:event_acrescimoGeralFocusLost
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
@@ -1443,6 +1471,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descontoGeral;
     private javax.swing.JTextField enderecoSecundario;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;

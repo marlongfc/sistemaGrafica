@@ -175,6 +175,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
                 new MaskFormatter("##.###-###"));
             ((JFormattedTextField) cep).setFocusLostBehavior(0);
         }catch(Exception e){}
+        comboTipo = new javax.swing.JComboBox<>();
         uf = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -315,7 +316,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descLogradouro);
-        descLogradouro.setBounds(130, 240, 650, 20);
+        descLogradouro.setBounds(300, 240, 480, 20);
         jPanel10.add(numero);
         numero.setBounds(780, 240, 250, 20);
 
@@ -356,6 +357,15 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         descCidade.setBounds(130, 320, 650, 20);
         jPanel10.add(cep);
         cep.setBounds(880, 320, 150, 20);
+
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua", "Avenida", "Praça", "Travessa", "Rodovia","Quadra", "Anel Rodoviário", "Beco", "Chácara", "Comunidade", "Condomínio", "Distrito", "Estrada", "Estacionamento", "Favela", "Fazenda", "Largo", "Lagoa", "Loteamento", "Lote", "Morro", "Passagem", "Ponte","Rancho", "Sítio", "Vila"  }));
+        comboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoActionPerformed(evt);
+            }
+        });
+        jPanel10.add(comboTipo);
+        comboTipo.setBounds(130, 240, 170, 20);
         jPanel10.add(uf);
         uf.setBounds(780, 320, 100, 20);
 
@@ -1128,6 +1138,10 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tipoPessoaItemStateChanged
 
+    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoActionPerformed
+
   
     
     private void inativar() throws Exception {
@@ -1216,6 +1230,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             numero.setText(pessoa.getNumCasa());
             codBairro.setText(pessoa.getBairro().getCodBairro().toString());
             descBairro.setText(pessoa.getBairro().getDescricao());
+            comboTipo.setSelectedIndex(pessoa.getLogradouro().getTipo());
             complemento.setText(pessoa.getComplemento());
             codCidade.setText(pessoa.getCidade().getCodCidade().toString());
             descCidade.setText(pessoa.getCidade().getDescricao());
@@ -1281,9 +1296,11 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         if (logradouro != null) {
             codLogradouro.setText(logradouro.getCodLogradouro().toString());
             descLogradouro.setText(logradouro.getDescricao());
+            comboTipo.setSelectedIndex(logradouro.getTipo());
         } else {
             codLogradouro.setText("");
             descLogradouro.setText("");
+            comboTipo.setSelectedIndex(0);
         }
     }
 
@@ -1353,7 +1370,8 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         uf.setText("");
         cep.setText("");
         obs.setText("");
-
+        comboTipo.setSelectedIndex(0);
+       
     }
     
     private void habilitaCampos(boolean b) {
@@ -1393,6 +1411,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codCidade;
     private javax.swing.JTextField codLogradouro;
     private javax.swing.JTextField codigo;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JTextField complemento;
     private javax.swing.JTextField contato;
     private javax.swing.JTextField cpf;

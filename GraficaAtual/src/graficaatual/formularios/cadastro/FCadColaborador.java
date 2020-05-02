@@ -200,6 +200,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         }catch(Exception e){}
         ctps = new javax.swing.JTextField();
         salario = new javax.swing.JTextField();
+        comboTipo = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -279,7 +280,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descLogradouro);
-        descLogradouro.setBounds(120, 240, 720, 20);
+        descLogradouro.setBounds(290, 240, 550, 20);
         jPanel10.add(numero);
         numero.setBounds(840, 240, 160, 20);
 
@@ -374,6 +375,15 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         salario.setText("0,00");
         jPanel10.add(salario);
         salario.setBounds(880, 170, 130, 20);
+
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua", "Avenida", "Praça", "Travessa", "Rodovia","Quadra", "Anel Rodoviário", "Beco", "Chácara", "Comunidade", "Condomínio", "Distrito", "Estrada", "Estacionamento", "Favela", "Fazenda", "Largo", "Lagoa", "Loteamento", "Lote", "Morro", "Passagem", "Ponte","Rancho", "Sítio", "Vila"  }));
+        comboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoActionPerformed(evt);
+            }
+        });
+        jPanel10.add(comboTipo);
+        comboTipo.setBounds(120, 240, 170, 20);
 
         jLabel23.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -837,6 +847,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ultimoActionPerformed
 
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
+        comboTipo.setSelectedIndex(0);
         pessoa = new Pessoa();
         cargo = new Cargo();
         colaborador= new Colaborador();
@@ -979,6 +990,10 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_ativoItemStateChanged
 
+    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoActionPerformed
+
       
     private void limpaCamposPessoa() {
 
@@ -1072,6 +1087,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             dataNascimento.setText(Data.getDateParse(pessoa.getDataNascimento(), Data.FORMAT_DATA));
             codLogradouro.setText(pessoa.getLogradouro().getCodLogradouro().toString());
             descLogradouro.setText(pessoa.getLogradouro().getDescricao());
+            comboTipo.setSelectedIndex(pessoa.getLogradouro().getTipo());   
             numero.setText(pessoa.getNumCasa());
             codBairro.setText(pessoa.getBairro().getCodBairro().toString());
             descBairro.setText(pessoa.getBairro().getDescricao());
@@ -1136,9 +1152,11 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         if (logradouro != null) {
             codLogradouro.setText(logradouro.getCodLogradouro().toString());
             descLogradouro.setText(logradouro.getDescricao());
+            comboTipo.setSelectedIndex(logradouro.getTipo());
         } else {
             codLogradouro.setText("");
             descLogradouro.setText("");
+            comboTipo.setSelectedIndex(0);
         }
     }
 
@@ -1259,6 +1277,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codCidade;
     private javax.swing.JTextField codLogradouro;
     private javax.swing.JTextField codigo;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JTextField complemento;
     private javax.swing.JTextField cpf;
     private javax.swing.JTextField ctps;

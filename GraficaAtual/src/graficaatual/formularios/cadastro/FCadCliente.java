@@ -206,6 +206,7 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         nomeFantasia = new javax.swing.JTextField();
         limite = new javax.swing.JTextField();
         contato = new javax.swing.JTextField();
+        comboTipo = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -284,6 +285,11 @@ public class FCadCliente extends javax.swing.JInternalFrame {
                 codLogradouroFocusLost(evt);
             }
         });
+        codLogradouro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codLogradouroActionPerformed(evt);
+            }
+        });
         jPanel10.add(codLogradouro);
         codLogradouro.setBounds(50, 250, 80, 20);
 
@@ -294,7 +300,7 @@ public class FCadCliente extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(descLogradouro);
-        descLogradouro.setBounds(130, 250, 680, 20);
+        descLogradouro.setBounds(300, 250, 510, 20);
         jPanel10.add(numero);
         numero.setBounds(810, 250, 190, 20);
 
@@ -377,6 +383,15 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         contato.setToolTipText("");
         jPanel10.add(contato);
         contato.setBounds(430, 180, 280, 20);
+
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua", "Avenida", "Praça", "Travessa", "Rodovia","Quadra", "Anel Rodoviário", "Beco", "Chácara", "Comunidade", "Condomínio", "Distrito", "Estrada", "Estacionamento", "Favela", "Fazenda", "Largo", "Lagoa", "Loteamento", "Lote", "Morro", "Passagem", "Ponte","Rancho", "Sítio", "Vila"  }));
+        comboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoActionPerformed(evt);
+            }
+        });
+        jPanel10.add(comboTipo);
+        comboTipo.setBounds(130, 250, 170, 20);
 
         jLabel23.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1009,6 +1024,14 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cpfKeyReleased
 
+    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoActionPerformed
+
+    private void codLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codLogradouroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codLogradouroActionPerformed
+
   
     
     private void inativar() throws Exception {
@@ -1093,6 +1116,7 @@ public class FCadCliente extends javax.swing.JInternalFrame {
             dataNascimento.setText(Data.getDateParse(pessoa.getDataNascimento(), Data.FORMAT_DATA_BR));
             codLogradouro.setText(pessoa.getLogradouro().getCodLogradouro().toString());
             descLogradouro.setText(pessoa.getLogradouro().getDescricao());
+            comboTipo.setSelectedIndex(pessoa.getLogradouro().getTipo());
             numero.setText(pessoa.getNumCasa());
             codBairro.setText(pessoa.getBairro().getCodBairro().toString());
             descBairro.setText(pessoa.getBairro().getDescricao());
@@ -1164,9 +1188,11 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         if (logradouro != null) {
             codLogradouro.setText(logradouro.getCodLogradouro().toString());
             descLogradouro.setText(logradouro.getDescricao());
+        comboTipo.setSelectedIndex(logradouro.getTipo());
         } else {
             codLogradouro.setText("");
             descLogradouro.setText("");
+            comboTipo.setSelectedIndex(0);
         }
     }
 
@@ -1213,7 +1239,7 @@ public class FCadCliente extends javax.swing.JInternalFrame {
 
   
     private void limpaCampos() {
-        
+        comboTipo.setSelectedIndex(0);    
         codigo.setText("");
         tipoPessoa.setSelectedIndex(0);
         cnpj.setVisible(false);
@@ -1284,6 +1310,7 @@ public class FCadCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codCidade;
     private javax.swing.JTextField codLogradouro;
     private javax.swing.JTextField codigo;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JTextField complemento;
     private javax.swing.JTextField contato;
     private javax.swing.JTextField cpf;

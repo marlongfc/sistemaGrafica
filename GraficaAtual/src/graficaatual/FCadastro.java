@@ -630,7 +630,7 @@ public class FCadastro extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void acessotela(JButton jB, String fCadCliente) {
-        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente);
+        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente,"CADASTRO");
         if(p!= null){
             jB.setEnabled(p.isAcesso());
         }else{
