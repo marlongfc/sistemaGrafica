@@ -13,6 +13,7 @@ import graficaatual.formularios.cadastro.FCadFornecedor;
 import graficaatual.formularios.cadastro.FCadTurno;
 import graficaatual.formularios.cadastro.FCadUsuario;
 import graficaatual.formularios.financeiro.FCadFormaDePagamento;
+import graficaatual.formularios.financeiro.FRequisicao;
 import graficaatual.formularios.pedido.FCadOrcamento;
 
 import javax.swing.JOptionPane;
@@ -53,14 +54,16 @@ public class FPedido extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
-        jBCliente = new javax.swing.JButton();
+        jBOrcamento = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jBFornecedor = new javax.swing.JButton();
-        jBLogradouro = new javax.swing.JButton();
+        jbPedido = new javax.swing.JButton();
+        jbSair = new javax.swing.JButton();
+        jbRequisicao = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
         setBackground(new java.awt.Color(255, 255, 255));
+        setExtendedState(6);
         setMinimumSize(null);
         setName("FCadastro"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1310, 750));
@@ -84,57 +87,73 @@ public class FPedido extends javax.swing.JFrame {
         jPanel1.add(deskTop);
         deskTop.setBounds(220, 10, 1070, 700);
 
-        jBCliente.setBackground(new java.awt.Color(71, 37, 131));
-        jBCliente.setForeground(new java.awt.Color(255, 255, 255));
-        jBCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBCliente.setText("Orçamento");
-        jBCliente.setBorderPainted(false);
-        jBCliente.setFocusPainted(false);
-        jBCliente.setFocusable(false);
-        jBCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBCliente.addActionListener(new java.awt.event.ActionListener() {
+        jBOrcamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBOrcamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBOrcamento.setText("Orçamento");
+        jBOrcamento.setBorderPainted(false);
+        jBOrcamento.setFocusPainted(false);
+        jBOrcamento.setFocusable(false);
+        jBOrcamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBClienteActionPerformed(evt);
+                jBOrcamentoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBCliente);
-        jBCliente.setBounds(0, 180, 220, 30);
+        jPanel1.add(jBOrcamento);
+        jBOrcamento.setBounds(0, 180, 220, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(60, 20, 120, 110);
 
-        jBFornecedor.setBackground(new java.awt.Color(71, 37, 131));
-        jBFornecedor.setForeground(new java.awt.Color(255, 255, 255));
-        jBFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBFornecedor.setText("Pedido");
-        jBFornecedor.setBorderPainted(false);
-        jBFornecedor.setFocusPainted(false);
-        jBFornecedor.setFocusable(false);
-        jBFornecedor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBFornecedor.addActionListener(new java.awt.event.ActionListener() {
+        jbPedido.setBackground(new java.awt.Color(71, 37, 131));
+        jbPedido.setForeground(new java.awt.Color(255, 255, 255));
+        jbPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jbPedido.setText("Pedido");
+        jbPedido.setBorderPainted(false);
+        jbPedido.setFocusPainted(false);
+        jbPedido.setFocusable(false);
+        jbPedido.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBFornecedorActionPerformed(evt);
+                jbPedidoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBFornecedor);
-        jBFornecedor.setBounds(0, 220, 220, 30);
+        jPanel1.add(jbPedido);
+        jbPedido.setBounds(0, 220, 220, 30);
 
-        jBLogradouro.setBackground(new java.awt.Color(71, 37, 131));
-        jBLogradouro.setForeground(new java.awt.Color(255, 255, 255));
-        jBLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBLogradouro.setText("Requisição");
-        jBLogradouro.setBorderPainted(false);
-        jBLogradouro.setFocusPainted(false);
-        jBLogradouro.setFocusable(false);
-        jBLogradouro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBLogradouro.addActionListener(new java.awt.event.ActionListener() {
+        jbSair.setBackground(new java.awt.Color(71, 37, 131));
+        jbSair.setForeground(new java.awt.Color(255, 255, 255));
+        jbSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jbSair.setText("Sair");
+        jbSair.setBorderPainted(false);
+        jbSair.setFocusPainted(false);
+        jbSair.setFocusable(false);
+        jbSair.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLogradouroActionPerformed(evt);
+                jbSairActionPerformed(evt);
             }
         });
-        jPanel1.add(jBLogradouro);
-        jBLogradouro.setBounds(0, 260, 220, 30);
+        jPanel1.add(jbSair);
+        jbSair.setBounds(0, 310, 220, 30);
+
+        jbRequisicao.setBackground(new java.awt.Color(71, 37, 131));
+        jbRequisicao.setForeground(new java.awt.Color(255, 255, 255));
+        jbRequisicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jbRequisicao.setText("Requisição");
+        jbRequisicao.setBorderPainted(false);
+        jbRequisicao.setFocusPainted(false);
+        jbRequisicao.setFocusable(false);
+        jbRequisicao.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbRequisicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRequisicaoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbRequisicao);
+        jbRequisicao.setBounds(0, 260, 220, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,11 +176,11 @@ public class FPedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deskTopComponentResized
 
-    private void jBLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLogradouroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBLogradouroActionPerformed
+    private void jbSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSairActionPerformed
 
-    private void jBFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFornecedorActionPerformed
+    private void jbPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPedidoActionPerformed
         try {
             deskTop.removeAll();
             FCadOrcamento clComp;
@@ -176,9 +195,9 @@ public class FPedido extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBFornecedorActionPerformed
+    }//GEN-LAST:event_jbPedidoActionPerformed
 
-    private void jBClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBClienteActionPerformed
+    private void jBOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrcamentoActionPerformed
         try {
             deskTop.removeAll();
             FCadOrcamento clComp;
@@ -193,16 +212,34 @@ public class FPedido extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBClienteActionPerformed
+    }//GEN-LAST:event_jBOrcamentoActionPerformed
+
+    private void jbRequisicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRequisicaoActionPerformed
+        try {
+            deskTop.removeAll();
+            FRequisicao clComp;
+
+            clComp = FRequisicao.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jbRequisicaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
-    private javax.swing.JButton jBCliente;
-    private javax.swing.JButton jBFornecedor;
-    private javax.swing.JButton jBLogradouro;
+    private javax.swing.JButton jBOrcamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbPedido;
+    private javax.swing.JButton jbRequisicao;
+    private javax.swing.JButton jbSair;
     // End of variables declaration//GEN-END:variables
 
 }

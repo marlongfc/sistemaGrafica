@@ -49,15 +49,17 @@ public class FFinanceiro extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
-        jBCliente = new javax.swing.JButton();
+        jBLancamento = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jBFornecedor = new javax.swing.JButton();
-        jBLogradouro = new javax.swing.JButton();
-        jBLogradouro1 = new javax.swing.JButton();
+        jBSangria = new javax.swing.JButton();
+        jBSair = new javax.swing.JButton();
+        jBBanco = new javax.swing.JButton();
+        jBFormaPagamento = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
         setBackground(new java.awt.Color(255, 255, 255));
+        setExtendedState(6);
         setMinimumSize(null);
         setName("FCadastro"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1310, 750));
@@ -81,73 +83,89 @@ public class FFinanceiro extends javax.swing.JFrame {
         jPanel1.add(deskTop);
         deskTop.setBounds(220, 10, 1070, 700);
 
-        jBCliente.setBackground(new java.awt.Color(71, 37, 131));
-        jBCliente.setForeground(new java.awt.Color(255, 255, 255));
-        jBCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBCliente.setText("Lançamento de Caixa");
-        jBCliente.setBorderPainted(false);
-        jBCliente.setFocusPainted(false);
-        jBCliente.setFocusable(false);
-        jBCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBCliente.addActionListener(new java.awt.event.ActionListener() {
+        jBLancamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBLancamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBLancamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBLancamento.setText("Lançamento de Caixa");
+        jBLancamento.setBorderPainted(false);
+        jBLancamento.setFocusPainted(false);
+        jBLancamento.setFocusable(false);
+        jBLancamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBLancamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBClienteActionPerformed(evt);
+                jBLancamentoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBCliente);
-        jBCliente.setBounds(0, 180, 220, 30);
+        jPanel1.add(jBLancamento);
+        jBLancamento.setBounds(0, 180, 220, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(60, 20, 120, 110);
 
-        jBFornecedor.setBackground(new java.awt.Color(71, 37, 131));
-        jBFornecedor.setForeground(new java.awt.Color(255, 255, 255));
-        jBFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBFornecedor.setText("Sangrias");
-        jBFornecedor.setBorderPainted(false);
-        jBFornecedor.setFocusPainted(false);
-        jBFornecedor.setFocusable(false);
-        jBFornecedor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBFornecedor.addActionListener(new java.awt.event.ActionListener() {
+        jBSangria.setBackground(new java.awt.Color(71, 37, 131));
+        jBSangria.setForeground(new java.awt.Color(255, 255, 255));
+        jBSangria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBSangria.setText("Sangrias");
+        jBSangria.setBorderPainted(false);
+        jBSangria.setFocusPainted(false);
+        jBSangria.setFocusable(false);
+        jBSangria.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBSangria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBFornecedorActionPerformed(evt);
+                jBSangriaActionPerformed(evt);
             }
         });
-        jPanel1.add(jBFornecedor);
-        jBFornecedor.setBounds(0, 220, 220, 30);
+        jPanel1.add(jBSangria);
+        jBSangria.setBounds(0, 220, 220, 30);
 
-        jBLogradouro.setBackground(new java.awt.Color(71, 37, 131));
-        jBLogradouro.setForeground(new java.awt.Color(255, 255, 255));
-        jBLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBLogradouro.setText("Formas de Pagamento");
-        jBLogradouro.setBorderPainted(false);
-        jBLogradouro.setFocusPainted(false);
-        jBLogradouro.setFocusable(false);
-        jBLogradouro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBLogradouro.addActionListener(new java.awt.event.ActionListener() {
+        jBSair.setBackground(new java.awt.Color(71, 37, 131));
+        jBSair.setForeground(new java.awt.Color(255, 255, 255));
+        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBSair.setText("Sair");
+        jBSair.setBorderPainted(false);
+        jBSair.setFocusPainted(false);
+        jBSair.setFocusable(false);
+        jBSair.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLogradouroActionPerformed(evt);
+                jBSairActionPerformed(evt);
             }
         });
-        jPanel1.add(jBLogradouro);
-        jBLogradouro.setBounds(0, 300, 220, 30);
+        jPanel1.add(jBSair);
+        jBSair.setBounds(0, 350, 220, 30);
 
-        jBLogradouro1.setBackground(new java.awt.Color(71, 37, 131));
-        jBLogradouro1.setForeground(new java.awt.Color(255, 255, 255));
-        jBLogradouro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
-        jBLogradouro1.setText("Bancos");
-        jBLogradouro1.setBorderPainted(false);
-        jBLogradouro1.setFocusPainted(false);
-        jBLogradouro1.setFocusable(false);
-        jBLogradouro1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBLogradouro1.addActionListener(new java.awt.event.ActionListener() {
+        jBBanco.setBackground(new java.awt.Color(71, 37, 131));
+        jBBanco.setForeground(new java.awt.Color(255, 255, 255));
+        jBBanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBBanco.setText("Bancos");
+        jBBanco.setBorderPainted(false);
+        jBBanco.setFocusPainted(false);
+        jBBanco.setFocusable(false);
+        jBBanco.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLogradouro1ActionPerformed(evt);
+                jBBancoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBLogradouro1);
-        jBLogradouro1.setBounds(0, 260, 220, 30);
+        jPanel1.add(jBBanco);
+        jBBanco.setBounds(0, 260, 220, 30);
+
+        jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBFormaPagamento.setText("Formas de Pagamento");
+        jBFormaPagamento.setBorderPainted(false);
+        jBFormaPagamento.setFocusPainted(false);
+        jBFormaPagamento.setFocusable(false);
+        jBFormaPagamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFormaPagamentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBFormaPagamento);
+        jBFormaPagamento.setBounds(0, 300, 220, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,24 +188,11 @@ public class FFinanceiro extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deskTopComponentResized
 
-    private void jBLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLogradouroActionPerformed
-        try {
-            deskTop.removeAll();
-            FCadFormaDePagamento clComp;
+    private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSairActionPerformed
 
-            clComp = FCadFormaDePagamento.getInstancia();
-            deskTop.add(clComp);
-            clComp.setVisible(true);
-            deskTop.add(jLabel1);
-            jLabel1.setVisible(true);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-        }
-    }//GEN-LAST:event_jBLogradouroActionPerformed
-
-    private void jBFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFornecedorActionPerformed
+    private void jBSangriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSangriaActionPerformed
         try {
             deskTop.removeAll();
             FCadSangria clComp;
@@ -202,9 +207,9 @@ public class FFinanceiro extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBFornecedorActionPerformed
+    }//GEN-LAST:event_jBSangriaActionPerformed
 
-    private void jBClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBClienteActionPerformed
+    private void jBLancamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLancamentoActionPerformed
         try {
             deskTop.removeAll();
             FCadLancamento clComp;
@@ -219,10 +224,10 @@ public class FFinanceiro extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBClienteActionPerformed
+    }//GEN-LAST:event_jBLancamentoActionPerformed
 
-    private void jBLogradouro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLogradouro1ActionPerformed
-       try {
+    private void jBBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBancoActionPerformed
+        try {
             deskTop.removeAll();
             FCadBanco clComp;
 
@@ -236,14 +241,32 @@ public class FFinanceiro extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBLogradouro1ActionPerformed
+    }//GEN-LAST:event_jBBancoActionPerformed
+
+    private void jBFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFormaPagamentoActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadFormaDePagamento clComp;
+
+            clComp = FCadFormaDePagamento.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBFormaPagamentoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
-    private javax.swing.JButton jBCliente;
-    private javax.swing.JButton jBFornecedor;
-    private javax.swing.JButton jBLogradouro;
-    private javax.swing.JButton jBLogradouro1;
+    private javax.swing.JButton jBBanco;
+    private javax.swing.JButton jBFormaPagamento;
+    private javax.swing.JButton jBLancamento;
+    private javax.swing.JButton jBSair;
+    private javax.swing.JButton jBSangria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

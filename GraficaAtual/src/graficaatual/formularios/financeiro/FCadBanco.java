@@ -5,6 +5,7 @@
  */
 package graficaatual.formularios.financeiro;
 
+import graficaatual.daos.cadastro.BairroDAO;
 import graficaatual.daos.financeiro.BancoDAO;
 import graficaatual.entidades.financeiro.Banco;
 import graficaatual.utilitarios.Componentes;
@@ -413,6 +414,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel79);
         jLabel79.setBounds(840, 70, 110, 20);
 
+        codBanco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codBanco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codBancoFocusLost(evt);
@@ -494,7 +496,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             banco = bancoDAO.get(ValidarValor.getInt(codBanco.getText()));
             if (banco == null) {
                 banco = new Banco();
-                setCausa();
+                setBanco();
                 banco.setDataCadastro(new Date());
                 banco.setDataAtualizacao(new Date());
                 if (bancoDAO.confereBanco(banco)) {
@@ -506,6 +508,8 @@ public class FCadBanco extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Banco já Cadastrado");
                 }
             }
+            setBanco();
+            bancoDAO.salvar(banco);
             atualizatabela();
             
         } catch (Exception e) {
@@ -519,7 +523,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             if (banco == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setCausa();
+                setBanco();
                 bancoDAO.delete(banco);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
@@ -588,7 +592,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
     
-    private void setCausa() {
+    private void setBanco() {
         banco.setDescricao(descBanco.getText());
         banco.setAgencia(agencia.getText());
         banco.setConta(conta.getText());

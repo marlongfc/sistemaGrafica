@@ -404,6 +404,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel79);
         jLabel79.setBounds(40, 125, 210, 20);
 
+        codForma.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codForma.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codFormaFocusLost(evt);
@@ -483,7 +484,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             formaPagamento = formaPagamentoDAO.get(ValidarValor.getInt(codForma.getText()));
             if (formaPagamento == null) {
                 formaPagamento = new FormaDePagamento();
-                setCausa();
+                setForma();
                 formaPagamento.setDataCadastro(new Date());
                 formaPagamento.setDataAtualizacao(new Date());
                 if (formaPagamentoDAO.confereFormaPagamento(formaPagamento)) {
@@ -495,6 +496,8 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
                 }
             }
+            setForma();
+            formaPagamentoDAO.salvar(formaPagamento);
             atualizatabela();
             
         } catch (Exception e) {
@@ -508,7 +511,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             if (formaPagamento == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setCausa();
+                setForma();
                 formaPagamentoDAO.delete(formaPagamento);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
@@ -574,7 +577,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
     
-    private void setCausa() {
+    private void setForma() {
         formaPagamento.setDescricao(descForma.getText());
         formaPagamento.setObservacao(observacao.getText());
     }

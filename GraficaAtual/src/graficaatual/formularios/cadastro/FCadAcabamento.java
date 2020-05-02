@@ -401,6 +401,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel79);
         jLabel79.setBounds(30, 120, 220, 20);
 
+        codAcabamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codAcabamento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codAcabamentoFocusLost(evt);
@@ -486,6 +487,8 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
                 }
             }
+            setAcabamento();
+            acabamentoDAO.salvar(acabamento);
             limpaCampos();
             atualizatabela();
 

@@ -411,6 +411,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel1);
         jLabel1.setBounds(0, 0, 1330, 70);
 
+        codOrcamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codOrcamento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codOrcamentoFocusLost(evt);
@@ -443,6 +444,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel1.add(descProduto);
         descProduto.setBounds(80, 40, 510, 20);
 
+        codProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codProduto.setEnabled(false);
         codProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -610,6 +612,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluirOrca);
         btExcluirOrca.setBounds(490, 625, 180, 40);
 
+        descontoGeral.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        descontoGeral.setText("0,00");
         descontoGeral.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 descontoGeralFocusLost(evt);
@@ -633,6 +637,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel105);
         jLabel105.setBounds(800, 470, 100, 20);
 
+        acrescimoGeral.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        acrescimoGeral.setText("0,00");
         acrescimoGeral.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 acrescimoGeralFocusLost(evt);
@@ -664,6 +670,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel108);
         jLabel108.setBounds(40, 130, 140, 20);
 
+        codCliente.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codClienteFocusLost(evt);
@@ -721,32 +728,32 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkCaixariaAcabamento.setBackground(new java.awt.Color(255, 255, 255));
         checkCaixariaAcabamento.setText("Caixaria Acabamento");
         jPanel3.add(checkCaixariaAcabamento);
-        checkCaixariaAcabamento.setBounds(270, 40, 130, 23);
+        checkCaixariaAcabamento.setBounds(260, 40, 130, 23);
 
         checkPloterRecorte.setBackground(new java.awt.Color(255, 255, 255));
         checkPloterRecorte.setText("Ploter Recorte");
         jPanel3.add(checkPloterRecorte);
-        checkPloterRecorte.setBounds(780, 20, 120, 23);
+        checkPloterRecorte.setBounds(760, 20, 120, 23);
 
         checkProjeto.setBackground(new java.awt.Color(255, 255, 255));
         checkProjeto.setText("Projeto");
         jPanel3.add(checkProjeto);
-        checkProjeto.setBounds(140, 20, 120, 23);
+        checkProjeto.setBounds(130, 20, 120, 23);
 
         checkPlotagem.setBackground(new java.awt.Color(255, 255, 255));
         checkPlotagem.setText("Plotagem");
         jPanel3.add(checkPlotagem);
-        checkPlotagem.setBounds(270, 20, 130, 23);
+        checkPlotagem.setBounds(260, 20, 130, 23);
 
         checkImpDigital.setBackground(new java.awt.Color(255, 255, 255));
         checkImpDigital.setText("Impressão Digital");
         jPanel3.add(checkImpDigital);
-        checkImpDigital.setBounds(450, 20, 140, 23);
+        checkImpDigital.setBounds(440, 20, 140, 23);
 
         checkAcabImpressao.setBackground(new java.awt.Color(255, 255, 255));
         checkAcabImpressao.setText("Acabamento Impressão");
         jPanel3.add(checkAcabImpressao);
-        checkAcabImpressao.setBounds(600, 20, 150, 23);
+        checkAcabImpressao.setBounds(590, 20, 170, 23);
 
         checkCriacao.setBackground(new java.awt.Color(255, 255, 255));
         checkCriacao.setText("Criação");
@@ -766,12 +773,12 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(checkEntrega);
-        checkEntrega.setBounds(780, 40, 120, 23);
+        checkEntrega.setBounds(760, 40, 140, 23);
 
         checkPintura.setBackground(new java.awt.Color(255, 255, 255));
         checkPintura.setText("Pintura");
         jPanel3.add(checkPintura);
-        checkPintura.setBounds(140, 40, 120, 23);
+        checkPintura.setBounds(130, 40, 120, 23);
 
         checkCorteRouter.setBackground(new java.awt.Color(255, 255, 255));
         checkCorteRouter.setText("Corte Router");
@@ -781,12 +788,12 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(checkCorteRouter);
-        checkCorteRouter.setBounds(450, 40, 140, 23);
+        checkCorteRouter.setBounds(440, 40, 140, 23);
 
         checkFaturamento.setBackground(new java.awt.Color(255, 255, 255));
         checkFaturamento.setText("Faturamento");
         jPanel3.add(checkFaturamento);
-        checkFaturamento.setBounds(600, 40, 150, 23);
+        checkFaturamento.setBounds(590, 40, 150, 23);
 
         jPanel18.add(jPanel3);
         jPanel3.setBounds(40, 555, 910, 70);
@@ -927,6 +934,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
             session.getTransaction().commit();
             session.close();
+            setOrcamento();
+            orcamentoDAO.salvar(orcamento);
             limpaCampos();
 
         } catch (Exception e) {

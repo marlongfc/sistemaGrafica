@@ -408,6 +408,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel79);
         jLabel79.setBounds(20, 160, 230, 20);
 
+        codSangria.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codSangria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codSangriaFocusLost(evt);
@@ -502,7 +503,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
             sangria = sangriaDAO.get(ValidarValor.getInt(codSangria.getText()));
             if (sangria == null) {
                 sangria = new Sangria();
-                setCausa();
+                setSangria();
                 sangria.setDataCadastro(new Date());
                 sangria.setDataAtualizacao(new Date());
                 if (sangriaDAO.confereSangria(sangria)) {
@@ -514,6 +515,8 @@ public class FCadSangria extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
                 }
             }
+            setSangria();
+            sangriaDAO.salvar(sangria);
             atualizatabela();
             
         } catch (Exception e) {
@@ -527,7 +530,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
             if (sangria == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setCausa();
+                setSangria();
                 sangriaDAO.delete(sangria);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
@@ -599,7 +602,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
     
-    private void setCausa() {
+    private void setSangria() {
         sangria.setDescricao(descSangria.getText());
         sangria.setValor(ValidarValor.getDouble(valor.getText()));
         sangria.setObservacao(observacao.getText());
