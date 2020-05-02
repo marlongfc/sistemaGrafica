@@ -409,6 +409,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel79);
         jLabel79.setBounds(20, 160, 230, 20);
 
+        codLancamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codLancamento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codLancamentoFocusLost(evt);
@@ -515,6 +516,8 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
                 }
             }
+            setLancamento();
+            lancamentoDAO.salvar(lancamento);
             atualizatabela();
 
         } catch (Exception e) {

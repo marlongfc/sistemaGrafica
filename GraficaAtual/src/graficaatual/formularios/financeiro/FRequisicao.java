@@ -409,6 +409,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel79);
         jLabel79.setBounds(20, 160, 230, 20);
 
+        codRequisicao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codRequisicao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codRequisicaoFocusLost(evt);
@@ -503,7 +504,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
             if (requisicao == null) {
                 requisicao = new RequisicaoFinanceira();
-                setCausa();
+                setRequisicao();
                 requisicao.setDataCadastro(new Date());
                 requisicao.setDataAtualizacao(new Date());
                 if (requisicaoDAO.confereRequisicao(requisicao)) {
@@ -515,6 +516,8 @@ public class FRequisicao extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Requisição já Cadastrada");
                 }
             }
+            setRequisicao();
+            requisicaoDAO.salvar(requisicao);
             atualizatabela();
             
         } catch (Exception e) {
@@ -528,7 +531,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             if (requisicao == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setCausa();
+                setRequisicao();
                 requisicaoDAO.delete(requisicao);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
@@ -600,7 +603,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
     
-    private void setCausa() {
+    private void setRequisicao() {
         requisicao.setDescricao(descRequisicao.getText());
         requisicao.setValor(ValidarValor.getDouble(valor.getText()));
         requisicao.setObservacao(observacao.getText());
