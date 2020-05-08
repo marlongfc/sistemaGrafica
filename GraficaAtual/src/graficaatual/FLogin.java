@@ -122,6 +122,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(71, 37, 131));
         jPanel2.setLayout(null);
 
+        jLabel4.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Login:");
         jPanel2.add(jLabel4);
@@ -132,6 +133,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(login);
         login.setBounds(70, 570, 180, 20);
 
+        jLabel5.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Senha:");
         jPanel2.add(jLabel5);
@@ -143,7 +145,7 @@ public class FLogin extends javax.swing.JFrame {
         senhaUsuario.setBounds(70, 590, 180, 20);
 
         jToggleButton1.setBackground(new java.awt.Color(71, 37, 131));
-        jToggleButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jToggleButton1.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/senha2.png"))); // NOI18N
         jToggleButton1.setText("Confirmar");
@@ -157,7 +159,7 @@ public class FLogin extends javax.swing.JFrame {
         jToggleButton1.setBounds(10, 630, 130, 36);
 
         sair.setBackground(new java.awt.Color(71, 37, 131));
-        sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        sair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         sair.setForeground(new java.awt.Color(255, 255, 255));
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         sair.setText("Sair");

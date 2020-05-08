@@ -71,9 +71,9 @@ public class FRelatorio extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jBParametros.setBackground(new java.awt.Color(71, 37, 131));
-        jBParametros.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBParametros.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBParametros.setForeground(new java.awt.Color(255, 255, 255));
-        jBParametros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBParametros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         jBParametros.setText("Parâmetros");
         jBParametros.setBorderPainted(false);
         jBParametros.setFocusPainted(false);
@@ -92,9 +92,9 @@ public class FRelatorio extends javax.swing.JFrame {
         jLabel3.setBounds(60, 20, 120, 110);
 
         jBTextoPadrao.setBackground(new java.awt.Color(71, 37, 131));
-        jBTextoPadrao.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBTextoPadrao.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBTextoPadrao.setForeground(new java.awt.Color(255, 255, 255));
-        jBTextoPadrao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBTextoPadrao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         jBTextoPadrao.setText("Texto Padrão ");
         jBTextoPadrao.setBorderPainted(false);
         jBTextoPadrao.setFocusPainted(false);
@@ -109,9 +109,9 @@ public class FRelatorio extends javax.swing.JFrame {
         jBTextoPadrao.setBounds(30, 190, 180, 30);
 
         jBSair.setBackground(new java.awt.Color(71, 37, 131));
-        jBSair.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jBSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBSair.setForeground(new java.awt.Color(255, 255, 255));
-        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         jBSair.setText("  SAIR");
         jBSair.setBorderPainted(false);
         jBSair.setFocusPainted(false);

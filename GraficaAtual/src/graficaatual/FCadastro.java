@@ -108,9 +108,9 @@ public class FCadastro extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jBCliente.setBackground(new java.awt.Color(71, 37, 131));
-        jBCliente.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBCliente.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBCliente.setForeground(new java.awt.Color(255, 255, 255));
-        jBCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes2.png"))); // NOI18N
         jBCliente.setText("Cliente");
         jBCliente.setBorderPainted(false);
         jBCliente.setFocusPainted(false);
@@ -129,9 +129,9 @@ public class FCadastro extends javax.swing.JFrame {
         jLabel3.setBounds(60, 20, 120, 110);
 
         jBCargo.setBackground(new java.awt.Color(71, 37, 131));
-        jBCargo.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBCargo.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBCargo.setForeground(new java.awt.Color(255, 255, 255));
-        jBCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cargo2.png"))); // NOI18N
         jBCargo.setText("Cargo");
         jBCargo.setBorderPainted(false);
         jBCargo.setFocusPainted(false);
@@ -146,9 +146,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBCargo.setBounds(30, 420, 180, 30);
 
         jBFornecedor.setBackground(new java.awt.Color(71, 37, 131));
-        jBFornecedor.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBFornecedor.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBFornecedor.setForeground(new java.awt.Color(255, 255, 255));
-        jBFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fornecedor2.png"))); // NOI18N
         jBFornecedor.setText("Fornecedor");
         jBFornecedor.setBorderPainted(false);
         jBFornecedor.setFocusPainted(false);
@@ -163,9 +163,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBFornecedor.setBounds(30, 180, 180, 30);
 
         jBLogradouro.setBackground(new java.awt.Color(71, 37, 131));
-        jBLogradouro.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBLogradouro.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBLogradouro.setForeground(new java.awt.Color(255, 255, 255));
-        jBLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Endereco2.png"))); // NOI18N
         jBLogradouro.setText("Logradouro");
         jBLogradouro.setBorderPainted(false);
         jBLogradouro.setFocusPainted(false);
@@ -180,9 +180,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBLogradouro.setBounds(30, 220, 180, 30);
 
         jBBairro.setBackground(new java.awt.Color(71, 37, 131));
-        jBBairro.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBBairro.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBBairro.setForeground(new java.awt.Color(255, 255, 255));
-        jBBairro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBBairro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Endereco2.png"))); // NOI18N
         jBBairro.setText("Bairro");
         jBBairro.setBorderPainted(false);
         jBBairro.setFocusPainted(false);
@@ -197,9 +197,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBBairro.setBounds(30, 260, 180, 30);
 
         jBCidade.setBackground(new java.awt.Color(71, 37, 131));
-        jBCidade.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBCidade.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBCidade.setForeground(new java.awt.Color(255, 255, 255));
-        jBCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Endereco2.png"))); // NOI18N
         jBCidade.setText("Cidade");
         jBCidade.setBorderPainted(false);
         jBCidade.setFocusPainted(false);
@@ -214,9 +214,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBCidade.setBounds(30, 300, 180, 30);
 
         jBUsuario.setBackground(new java.awt.Color(71, 37, 131));
-        jBUsuario.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBUsuario.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        jBUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/usuario2.png"))); // NOI18N
         jBUsuario.setText("Usuários");
         jBUsuario.setBorderPainted(false);
         jBUsuario.setFocusPainted(false);
@@ -231,9 +231,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBUsuario.setBounds(30, 340, 180, 30);
 
         jBColaborador.setBackground(new java.awt.Color(71, 37, 131));
-        jBColaborador.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBColaborador.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBColaborador.setForeground(new java.awt.Color(255, 255, 255));
-        jBColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/colaborador2.png"))); // NOI18N
         jBColaborador.setText("Colaborador");
         jBColaborador.setBorderPainted(false);
         jBColaborador.setFocusPainted(false);
@@ -248,9 +248,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBColaborador.setBounds(30, 380, 180, 30);
 
         jBTurno.setBackground(new java.awt.Color(71, 37, 131));
-        jBTurno.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBTurno.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBTurno.setForeground(new java.awt.Color(255, 255, 255));
-        jBTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/turno2.png"))); // NOI18N
         jBTurno.setText("Turno");
         jBTurno.setBorderPainted(false);
         jBTurno.setFocusPainted(false);
@@ -265,9 +265,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBTurno.setBounds(30, 460, 180, 30);
 
         jBMaterial.setBackground(new java.awt.Color(71, 37, 131));
-        jBMaterial.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBMaterial.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBMaterial.setForeground(new java.awt.Color(255, 255, 255));
-        jBMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/material2.png"))); // NOI18N
         jBMaterial.setText("Material");
         jBMaterial.setBorderPainted(false);
         jBMaterial.setFocusPainted(false);
@@ -282,9 +282,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBMaterial.setBounds(30, 500, 180, 30);
 
         jBProduto.setBackground(new java.awt.Color(71, 37, 131));
-        jBProduto.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBProduto.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBProduto.setForeground(new java.awt.Color(255, 255, 255));
-        jBProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produto2.png"))); // NOI18N
         jBProduto.setText("Produtos");
         jBProduto.setBorderPainted(false);
         jBProduto.setFocusPainted(false);
@@ -299,9 +299,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBProduto.setBounds(30, 540, 180, 30);
 
         jBAcabamento.setBackground(new java.awt.Color(71, 37, 131));
-        jBAcabamento.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBAcabamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBAcabamento.setForeground(new java.awt.Color(255, 255, 255));
-        jBAcabamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBAcabamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/acabamento2.png"))); // NOI18N
         jBAcabamento.setText("Acabamentos");
         jBAcabamento.setBorderPainted(false);
         jBAcabamento.setFocusPainted(false);
@@ -316,9 +316,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBAcabamento.setBounds(30, 580, 180, 30);
 
         jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
-        jBFormaPagamento.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBFormaPagamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
-        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
         jBFormaPagamento.setText("Forma de Pagamento");
         jBFormaPagamento.setBorderPainted(false);
         jBFormaPagamento.setFocusPainted(false);
@@ -333,9 +333,9 @@ public class FCadastro extends javax.swing.JFrame {
         jBFormaPagamento.setBounds(30, 620, 180, 30);
 
         jBSair.setBackground(new java.awt.Color(71, 37, 131));
-        jBSair.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jBSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBSair.setForeground(new java.awt.Color(255, 255, 255));
-        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         jBSair.setText("  SAIR");
         jBSair.setBorderPainted(false);
         jBSair.setFocusPainted(false);
