@@ -169,14 +169,25 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         codMaterial = new javax.swing.JTextField();
         descMaterial = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        quantidade = new javax.swing.JTextField();
         btAddMaterial = new javax.swing.JButton();
         msgMaterial = new javax.swing.JLabel();
         removerMaterial = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         imagem = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        metragemLinear = new javax.swing.JTextField();
+        largura = new javax.swing.JTextField();
+        unidade = new javax.swing.JTextField();
+        peso = new javax.swing.JTextField();
+        litro = new javax.swing.JTextField();
+        altura = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -484,7 +495,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(custoProduto);
         custoProduto.setBounds(20, 570, 150, 20);
 
-        jLabel3.setText("Mão De Obra (m²)");
+        jLabel3.setText("Mão De Obra (custo / hora)");
         jPanel18.add(jLabel3);
         jLabel3.setBounds(180, 550, 150, 14);
 
@@ -556,7 +567,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Cód. Material");
         jPanel18.add(jLabel8);
-        jLabel8.setBounds(20, 200, 80, 14);
+        jLabel8.setBounds(20, 150, 80, 14);
 
         codMaterial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -565,7 +576,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(codMaterial);
-        codMaterial.setBounds(20, 220, 100, 20);
+        codMaterial.setBounds(20, 170, 100, 20);
 
         descMaterial.setBackground(new java.awt.Color(255, 255, 204));
         descMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -574,25 +585,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descMaterial);
-        descMaterial.setBounds(120, 220, 450, 20);
+        descMaterial.setBounds(120, 170, 570, 20);
 
         jLabel9.setText("Material");
         jPanel18.add(jLabel9);
-        jLabel9.setBounds(140, 200, 100, 14);
-
-        jLabel10.setText("Quantidade");
-        jPanel18.add(jLabel10);
-        jLabel10.setBounds(580, 200, 110, 14);
-
-        quantidade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        quantidade.setText("0,00");
-        quantidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quantidadeActionPerformed(evt);
-            }
-        });
-        jPanel18.add(quantidade);
-        quantidade.setBounds(580, 220, 110, 20);
+        jLabel9.setBounds(140, 150, 100, 14);
 
         btAddMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
         btAddMaterial.setText("Adicionar ");
@@ -634,6 +631,64 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel14.setText("Imagem do Produto");
         jPanel18.add(jLabel14);
         jLabel14.setBounds(720, 70, 250, 14);
+
+        metragemLinear.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        metragemLinear.setText("0,00");
+        jPanel18.add(metragemLinear);
+        metragemLinear.setBounds(20, 220, 110, 20);
+
+        largura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        largura.setText("0,00");
+        jPanel18.add(largura);
+        largura.setBounds(150, 220, 80, 20);
+
+        unidade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        unidade.setText("0");
+        jPanel18.add(unidade);
+        unidade.setBounds(340, 220, 110, 20);
+
+        peso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        peso.setText("0,00");
+        jPanel18.add(peso);
+        peso.setBounds(460, 220, 110, 20);
+
+        litro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        litro.setText("0,00");
+        jPanel18.add(litro);
+        litro.setBounds(580, 220, 110, 20);
+
+        altura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        altura.setText("0,00");
+        jPanel18.add(altura);
+        altura.setBounds(240, 220, 80, 20);
+
+        jTextField6.setText("X");
+        jPanel18.add(jTextField6);
+        jTextField6.setBounds(230, 220, 20, 20);
+
+        jLabel10.setText("Metragem (linear)");
+        jPanel18.add(jLabel10);
+        jLabel10.setBounds(20, 200, 110, 14);
+
+        jLabel15.setText("Largura");
+        jPanel18.add(jLabel15);
+        jLabel15.setBounds(150, 200, 80, 14);
+
+        jLabel16.setText("Altura");
+        jPanel18.add(jLabel16);
+        jLabel16.setBounds(240, 200, 80, 14);
+
+        jLabel17.setText("Unidades");
+        jPanel18.add(jLabel17);
+        jLabel17.setBounds(340, 200, 70, 14);
+
+        jLabel18.setText("Peso");
+        jPanel18.add(jLabel18);
+        jLabel18.setBounds(460, 200, 80, 14);
+
+        jLabel19.setText("Litros");
+        jPanel18.add(jLabel19);
+        jLabel19.setBounds(580, 200, 80, 14);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 
@@ -1208,13 +1263,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quantidadeActionPerformed
-
     private void codMaterialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codMaterialFocusLost
         try {
-            quantidade.setText("0,00");
+
             material = materialDao.getPorCodigo(ValidarValor.getLong(codMaterial.getText()));
             if (material == null) {
                 descMaterial.setText("");
@@ -1225,6 +1276,116 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }        // 
     }//GEN-LAST:event_codMaterialFocusLost
+
+    private void habilitaCamposMedidas(Material m) {
+        try {
+
+            if (m == null) {
+
+                metragemLinear.setEnabled(false);
+                largura.setEnabled(false);
+                altura.setEnabled(false);
+                unidade.setEnabled(false);
+                peso.setEnabled(false);
+                litro.setEnabled(false);
+
+                limparMedidas();
+
+            } else {
+
+                int u = m.getUnidadeMedida();
+
+                switch (u) {
+                    case 0:
+                        //metro linear
+
+                        metragemLinear.setEnabled(true);
+                        largura.setEnabled(false);
+                        altura.setEnabled(false);
+                        unidade.setEnabled(false);
+                        peso.setEnabled(false);
+                        litro.setEnabled(false);
+
+                        limparMedidas();
+
+                        break;
+                    case 1:
+                        //metro quadrado
+
+                        metragemLinear.setEnabled(false);
+                        largura.setEnabled(true);
+                        altura.setEnabled(true);
+                        unidade.setEnabled(false);
+                        peso.setEnabled(false);
+                        litro.setEnabled(false);
+
+                        limparMedidas();
+
+                        break;
+                    case 2:
+                        //unidade
+
+                        metragemLinear.setEnabled(false);
+                        largura.setEnabled(false);
+                        altura.setEnabled(false);
+                        unidade.setEnabled(true);
+                        peso.setEnabled(false);
+                        litro.setEnabled(false);
+
+                        limparMedidas();
+
+                        break;
+
+                    case 3:
+
+                        metragemLinear.setEnabled(false);
+                        largura.setEnabled(false);
+                        altura.setEnabled(false);
+                        unidade.setEnabled(false);
+                        peso.setEnabled(true);
+                        litro.setEnabled(false);
+
+                        limparMedidas();
+
+                        break;
+
+                    case 4:
+
+                        metragemLinear.setEnabled(false);
+                        largura.setEnabled(false);
+                        altura.setEnabled(false);
+                        unidade.setEnabled(false);
+                        peso.setEnabled(false);
+                        litro.setEnabled(true);
+
+                        limparMedidas();
+
+                        break;
+                    default:
+                        metragemLinear.setEnabled(false);
+                        largura.setEnabled(false);
+                        altura.setEnabled(false);
+                        unidade.setEnabled(false);
+                        peso.setEnabled(false);
+                        litro.setEnabled(false);
+
+                        limparMedidas();
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void limparMedidas() {
+        metragemLinear.setText("0,00");
+        largura.setText("0,00");
+        altura.setText("0,00");
+        unidade.setText("0");
+        peso.setText("0,00");
+        litro.setText("0,00");
+    }
 
     private void descMaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descMaterialKeyReleased
 
@@ -1587,6 +1748,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField altura;
     private javax.swing.JButton anterior1;
     private javax.swing.JButton btAddMaterial;
     private javax.swing.JButton btExcluir;
@@ -1629,6 +1791,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1670,6 +1837,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField57;
     private javax.swing.JTextField jTextField58;
     private javax.swing.JTextField jTextField59;
+    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField60;
     private javax.swing.JTextField jTextField61;
     private javax.swing.JTextField jTextField62;
@@ -1691,15 +1859,19 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField78;
     private javax.swing.JTextField jTextField79;
     private javax.swing.JTextField jTextField80;
+    private javax.swing.JTextField largura;
+    private javax.swing.JTextField litro;
     private javax.swing.JTextField maoDeObra;
     private javax.swing.JTextField margemLucro;
+    private javax.swing.JTextField metragemLinear;
     private javax.swing.JLabel msgMaterial;
+    private javax.swing.JTextField peso;
     private javax.swing.JButton proximo1;
-    private javax.swing.JTextField quantidade;
     private javax.swing.JButton removerMaterial;
     private javax.swing.JTable tabComposicao;
     private javax.swing.JTable tabProduto;
     private javax.swing.JButton ultimo1;
+    private javax.swing.JTextField unidade;
     private javax.swing.JTextField valorUnitario;
     // End of variables declaration//GEN-END:variables
 }

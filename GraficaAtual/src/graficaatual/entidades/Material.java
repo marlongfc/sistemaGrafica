@@ -31,32 +31,35 @@ public class Material implements Serializable {
     @Column(name = "descricao", nullable = false, length = 300)
     private String descricao;
 
-    @Column(name = "unidade", nullable = false)
-    private int unidade;
+    @Column(name = "unidademedida", nullable = false)
+    private int unidadeMedida;
 
+    @Column(name = "metragemlinear", nullable = true)
+    private Double metragemLinear;
+
+    @Column(name = "metroquadrado", nullable = true)
+    private Double metroQuadrado;
+
+    @Column(name = "peso", nullable = true)
+    private Double peso;
+
+    @Column(name = "unidade", nullable = true)
+    private Integer unidade;
+
+    @Column(name = "litro", nullable = true)
+    private Double litro;
+    
+    @Column(name = "frete", nullable = true)
+    private Double frete;
+    
     @Column(name = "precocompra", nullable = true)
     private Double precoCompra;
     
     @Column(name = "precocustototal", nullable = false)
     private Double precoCustoTotal;
-
-    @Column(name = "precoFreteMetro", nullable = true)
-    private Double precoFreteMetro;
-
-    @Column(name = "precoFreteQuilo", nullable = true)
-    private Double precoFreteQuilo;
-
-    @Column(name = "precoFretePeca", nullable = true)
-    private Double precoFretePeca;
-
-    @Column(name = "peso", nullable = true)
-    private Double peso;
-
-    @Column(name = "altura", nullable = true)
-    private Double altura;
-
-    @Column(name = "largura", nullable = true)
-    private Double largura;
+    
+     @Column(name = "estoqueminimo", nullable = false)
+    private Double estoqueMinimo;
 
     @Column(name = "dataCadastro", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -125,20 +128,60 @@ public class Material implements Serializable {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
 
-    public int getUnidade() {
+    public int getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(int unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }
+
+    public Double getMetragemLinear() {
+        return metragemLinear;
+    }
+
+    public void setMetragemLinear(Double metragemLinear) {
+        this.metragemLinear = metragemLinear;
+    }
+
+    public Double getMetroQuadrado() {
+        return metroQuadrado;
+    }
+
+    public void setMetroQuadrado(Double metroQuadrado) {
+        this.metroQuadrado = metroQuadrado;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Integer getUnidade() {
         return unidade;
     }
 
-    public void setUnidade(int unidade) {
+    public void setUnidade(Integer unidade) {
         this.unidade = unidade;
     }
 
-    public Double getPrecoFretePeca() {
-        return precoFretePeca;
+    public Double getLitro() {
+        return litro;
     }
 
-    public void setPrecoFretePeca(Double precoFretePeca) {
-        this.precoFretePeca = precoFretePeca;
+    public void setLitro(Double litro) {
+        this.litro = litro;
+    }
+
+    public Double getFrete() {
+        return frete;
+    }
+
+    public void setFrete(Double frete) {
+        this.frete = frete;
     }
 
     public Double getPrecoCompra() {
@@ -157,48 +200,15 @@ public class Material implements Serializable {
         this.precoCustoTotal = precoCustoTotal;
     }
 
-   
-
-    public Double getPrecoFreteMetro() {
-        return precoFreteMetro;
+    public Double getEstoqueMinimo() {
+        return estoqueMinimo;
     }
 
-    public void setPrecoFreteMetro(Double precoFreteMetro2) {
-        this.precoFreteMetro = precoFreteMetro2;
+    public void setEstoqueMinimo(Double estoqueMinimo) {
+        this.estoqueMinimo = estoqueMinimo;
     }
-
-    public Double getPrecoFreteQuilo() {
-        return precoFreteQuilo;
-    }
-
-    public void setPrecoFreteQuilo(Double precoFreteQuilo) {
-        this.precoFreteQuilo = precoFreteQuilo;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
-
-    public Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
-
-    public Double getLargura() {
-        return largura;
-    }
-
-    public void setLargura(Double largura) {
-        this.largura = largura;
-    }
-
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
