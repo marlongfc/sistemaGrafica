@@ -112,8 +112,9 @@ public class FFinanceiro extends javax.swing.JFrame {
         jLabel3.setBounds(60, 20, 120, 110);
 
         jBLancCaixa.setBackground(new java.awt.Color(71, 37, 131));
+        jBLancCaixa.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBLancCaixa.setForeground(new java.awt.Color(255, 255, 255));
-        jBLancCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBLancCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
         jBLancCaixa.setText("Lançamentos Caixa");
         jBLancCaixa.setBorderPainted(false);
         jBLancCaixa.setFocusPainted(false);
@@ -128,8 +129,9 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBLancCaixa.setBounds(20, 180, 200, 30);
 
         jBSair.setBackground(new java.awt.Color(71, 37, 131));
+        jBSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBSair.setForeground(new java.awt.Color(255, 255, 255));
-        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         jBSair.setText("SAIR");
         jBSair.setBorderPainted(false);
         jBSair.setFocusPainted(false);
@@ -144,8 +146,9 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBSair.setBounds(20, 340, 200, 30);
 
         jBBanco.setBackground(new java.awt.Color(71, 37, 131));
+        jBBanco.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBBanco.setForeground(new java.awt.Color(255, 255, 255));
-        jBBanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBBanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
         jBBanco.setText("Bancos");
         jBBanco.setBorderPainted(false);
         jBBanco.setFocusPainted(false);
@@ -160,8 +163,9 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBBanco.setBounds(20, 260, 200, 30);
 
         jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBFormaPagamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
-        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
         jBFormaPagamento.setText("Formas de Pagamento");
         jBFormaPagamento.setBorderPainted(false);
         jBFormaPagamento.setFocusPainted(false);
@@ -176,8 +180,9 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBFormaPagamento.setBounds(20, 300, 200, 30);
 
         jBSangria.setBackground(new java.awt.Color(71, 37, 131));
+        jBSangria.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBSangria.setForeground(new java.awt.Color(255, 255, 255));
-        jBSangria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBSangria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
         jBSangria.setText("Sangrias");
         jBSangria.setBorderPainted(false);
         jBSangria.setFocusPainted(false);

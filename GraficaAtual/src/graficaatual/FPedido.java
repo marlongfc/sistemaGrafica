@@ -89,8 +89,9 @@ public class FPedido extends javax.swing.JFrame {
         deskTop.setBounds(220, 10, 1070, 700);
 
         jBOrcamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBOrcamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBOrcamento.setForeground(new java.awt.Color(255, 255, 255));
-        jBOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ORÇAMENTO2.png"))); // NOI18N
         jBOrcamento.setText("Orçamento");
         jBOrcamento.setBorderPainted(false);
         jBOrcamento.setFocusPainted(false);
@@ -109,8 +110,9 @@ public class FPedido extends javax.swing.JFrame {
         jLabel3.setBounds(60, 20, 120, 110);
 
         jbPedido.setBackground(new java.awt.Color(71, 37, 131));
+        jbPedido.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jbPedido.setForeground(new java.awt.Color(255, 255, 255));
-        jbPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jbPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDO3.png"))); // NOI18N
         jbPedido.setText("Pedido");
         jbPedido.setBorderPainted(false);
         jbPedido.setFocusPainted(false);
@@ -125,8 +127,9 @@ public class FPedido extends javax.swing.JFrame {
         jbPedido.setBounds(30, 220, 190, 30);
 
         jbSair.setBackground(new java.awt.Color(71, 37, 131));
+        jbSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jbSair.setForeground(new java.awt.Color(255, 255, 255));
-        jbSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jbSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         jbSair.setText("Sair");
         jbSair.setBorderPainted(false);
         jbSair.setFocusPainted(false);
@@ -141,8 +144,9 @@ public class FPedido extends javax.swing.JFrame {
         jbSair.setBounds(30, 300, 190, 30);
 
         jbRequisicao.setBackground(new java.awt.Color(71, 37, 131));
+        jbRequisicao.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jbRequisicao.setForeground(new java.awt.Color(255, 255, 255));
-        jbRequisicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jbRequisicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REQUISIÇÃO2.png"))); // NOI18N
         jbRequisicao.setText("Requisição");
         jbRequisicao.setBorderPainted(false);
         jbRequisicao.setFocusPainted(false);

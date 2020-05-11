@@ -8,6 +8,7 @@ package graficaatual;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Permissao;
 import graficaatual.formularios.relatorio.FCadCParametro;
+import graficaatual.formularios.relatorio.FRelatorioCadastro;
 import javax.swing.JButton;
 
 import javax.swing.JOptionPane;
@@ -56,6 +57,7 @@ public class FRelatorio extends javax.swing.JFrame {
         jBSair = new javax.swing.JButton();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jBParametros1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
@@ -71,9 +73,9 @@ public class FRelatorio extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jBParametros.setBackground(new java.awt.Color(71, 37, 131));
-        jBParametros.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBParametros.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBParametros.setForeground(new java.awt.Color(255, 255, 255));
-        jBParametros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBParametros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         jBParametros.setText("Parâmetros");
         jBParametros.setBorderPainted(false);
         jBParametros.setFocusPainted(false);
@@ -85,16 +87,16 @@ public class FRelatorio extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBParametros);
-        jBParametros.setBounds(30, 230, 180, 30);
+        jBParametros.setBounds(30, 190, 180, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(60, 20, 120, 110);
 
         jBTextoPadrao.setBackground(new java.awt.Color(71, 37, 131));
-        jBTextoPadrao.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jBTextoPadrao.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBTextoPadrao.setForeground(new java.awt.Color(255, 255, 255));
-        jBTextoPadrao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBTextoPadrao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         jBTextoPadrao.setText("Texto Padrão ");
         jBTextoPadrao.setBorderPainted(false);
         jBTextoPadrao.setFocusPainted(false);
@@ -106,12 +108,12 @@ public class FRelatorio extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBTextoPadrao);
-        jBTextoPadrao.setBounds(30, 190, 180, 30);
+        jBTextoPadrao.setBounds(30, 230, 180, 30);
 
         jBSair.setBackground(new java.awt.Color(71, 37, 131));
-        jBSair.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jBSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBSair.setForeground(new java.awt.Color(255, 255, 255));
-        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa2.png"))); // NOI18N
+        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         jBSair.setText("  SAIR");
         jBSair.setBorderPainted(false);
         jBSair.setFocusPainted(false);
@@ -138,6 +140,23 @@ public class FRelatorio extends javax.swing.JFrame {
 
         jPanel1.add(deskTop);
         deskTop.setBounds(210, 10, 1070, 700);
+
+        jBParametros1.setBackground(new java.awt.Color(71, 37, 131));
+        jBParametros1.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBParametros1.setForeground(new java.awt.Color(255, 255, 255));
+        jBParametros1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
+        jBParametros1.setText("Cadastros");
+        jBParametros1.setBorderPainted(false);
+        jBParametros1.setFocusPainted(false);
+        jBParametros1.setFocusable(false);
+        jBParametros1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBParametros1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBParametros1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBParametros1);
+        jBParametros1.setBounds(30, 150, 180, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,9 +204,27 @@ public class FRelatorio extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_jBSairActionPerformed
 
+    private void jBParametros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBParametros1ActionPerformed
+         try {
+            deskTop.removeAll();
+            FRelatorioCadastro clComp;
+
+            clComp = FRelatorioCadastro.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBParametros1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBParametros;
+    private javax.swing.JButton jBParametros1;
     private javax.swing.JButton jBSair;
     private javax.swing.JButton jBTextoPadrao;
     private javax.swing.JLabel jLabel1;
