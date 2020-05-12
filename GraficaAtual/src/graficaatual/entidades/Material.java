@@ -44,7 +44,7 @@ public class Material implements Serializable {
     private Double peso;
 
     @Column(name = "unidade", nullable = true)
-    private Integer unidade;
+    private Double unidade;
 
     @Column(name = "litro", nullable = true)
     private Double litro;
@@ -160,14 +160,14 @@ public class Material implements Serializable {
         this.peso = peso;
     }
 
-    public Integer getUnidade() {
+    public Double getUnidade() {
         return unidade;
     }
 
-    public void setUnidade(Integer unidade) {
+    public void setUnidade(Double unidade) {
         this.unidade = unidade;
     }
-
+    
     public Double getLitro() {
         return litro;
     }

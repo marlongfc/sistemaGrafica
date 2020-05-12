@@ -26,18 +26,31 @@ public class ComposicaoProduto implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "material")
     private Material material;
-/*
-    @Id
-    @ManyToOne()
-    @JoinColumn(name = "produto")
-    private Produto produto;
-*/
 
-      @Column(name = "codProduto", nullable = false)
+    @Column(name = "codProduto", nullable = false)
     private Long produto;
+
+    @Column(name = "metragemlinear", nullable = true)
+    private Double metragemLinear;
+
+    @Column(name = "largura", nullable = true)
+    private Double largura;
+
+    @Column(name = "altura", nullable = true)
+    private Double altura;
+
+    @Column(name = "peso", nullable = true)
+    private Double peso;
+
+    @Column(name = "unidade", nullable = true)
+    private Double unidade;
+
+    @Column(name = "litro", nullable = true)
+    private Double litro;
     
-     @Column(name = "quantidade", nullable = false)
-    private Double quantidade;
+        @Column(name = "customaterial", nullable = false)
+    private Double custoPorMaterial;
+
 
     public ComposicaoProduto() {
     }
@@ -57,15 +70,6 @@ public class ComposicaoProduto implements Serializable {
     public void setMaterial(Material material) {
         this.material = material;
     }
-/*
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-*/
 
     public Long getProduto() {
         return produto;
@@ -74,14 +78,61 @@ public class ComposicaoProduto implements Serializable {
     public void setProduto(Long produto) {
         this.produto = produto;
     }
-    
-    
-    public Double getQuantidade() {
-        return quantidade;
+
+    public Double getMetragemLinear() {
+        return metragemLinear;
     }
 
-    public void setQuantidade(Double quantidade) {
-        this.quantidade = quantidade;
+    public void setMetragemLinear(Double metragemLinear) {
+        this.metragemLinear = metragemLinear;
+    }
+
+    public Double getLargura() {
+        return largura;
+    }
+
+    public void setLargura(Double largura) {
+        this.largura = largura;
+    }
+
+    public Double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Double altura) {
+        this.altura = altura;
+    }
+       
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Double unidade) {
+        this.unidade = unidade;
+    }
+    
+    public Double getLitro() {
+        return litro;
+    }
+
+    public void setLitro(Double litro) {
+        this.litro = litro;
+    }
+
+    public Double getCustoPorMaterial() {
+        return custoPorMaterial;
+    }
+
+    public void setCustoPorMaterial(Double custoPorMaterial) {
+        this.custoPorMaterial = custoPorMaterial;
     }
     
     

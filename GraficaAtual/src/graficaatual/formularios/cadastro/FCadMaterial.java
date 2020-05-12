@@ -339,14 +339,14 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Material", "Metro (L)", "Metro Q. (m²)", "Unidade", "Peso (kg)", "Frete (R$)", "P. Compra (R$)", "P. Custo Total (R$)", "Estoque Mínimo"
+                "Código", "Material", "Metro (m)", "Metro (m²)", "Unidade", "Peso (kg)", "Litro (L)", "Frete (R$)", "P. Compra (R$)", "P. Custo Total (R$)", "Estoque Mínimo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -364,16 +364,17 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         });
         jScrollPane11.setViewportView(tabMaterial);
         if (tabMaterial.getColumnModel().getColumnCount() > 0) {
-            tabMaterial.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(0).setPreferredWidth(5);
             tabMaterial.getColumnModel().getColumn(1).setPreferredWidth(140);
             tabMaterial.getColumnModel().getColumn(2).setPreferredWidth(10);
             tabMaterial.getColumnModel().getColumn(3).setPreferredWidth(20);
             tabMaterial.getColumnModel().getColumn(4).setPreferredWidth(10);
             tabMaterial.getColumnModel().getColumn(5).setPreferredWidth(10);
             tabMaterial.getColumnModel().getColumn(6).setPreferredWidth(10);
-            tabMaterial.getColumnModel().getColumn(7).setPreferredWidth(35);
-            tabMaterial.getColumnModel().getColumn(8).setPreferredWidth(45);
-            tabMaterial.getColumnModel().getColumn(9).setPreferredWidth(30);
+            tabMaterial.getColumnModel().getColumn(7).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(8).setPreferredWidth(35);
+            tabMaterial.getColumnModel().getColumn(9).setPreferredWidth(45);
+            tabMaterial.getColumnModel().getColumn(10).setPreferredWidth(30);
         }
 
         jPanel18.add(jScrollPane11);
@@ -658,7 +659,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         m.getCodMaterial(),
                         m.getDescricao(),
-                        getDescricaoUnidade(m.getUnidade()),
+                        /*  getDescricaoUnidade(m.getUnidade()),*/
                         ValidarValor.getDouble(m.getMetragemLinear()),
                         ValidarValor.getDouble(m.getMetroQuadrado()),
                         ValidarValor.getDouble(m.getUnidade()),
@@ -754,7 +755,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         if (m != null) {
             material = m;
             descMaterial.setText(m.getDescricao());
-            comboUnidade.setSelectedIndex(m.getUnidade());
+            comboUnidade.setSelectedIndex(m.getUnidadeMedida());
 
             metragemLinear.setText(ValidarValor.getDouble(m.getMetragemLinear()));
             metroQuadrado.setText(ValidarValor.getDouble(m.getMetroQuadrado()));
@@ -793,7 +794,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
                 material.setMetragemLinear(ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
                 material.setMetroQuadrado(ValidarValor.getArredondamento(Double.parseDouble(metroQuadrado.getText().replaceAll(",", "."))));
-                material.setUnidade(ValidarValor.getInteger(unidade.getText()));
+                material.setUnidade(ValidarValor.getArredondamento(Double.parseDouble(unidade.getText().replaceAll(",", "."))));
                 material.setPeso(ValidarValor.getArredondamento(Double.parseDouble(peso.getText().replaceAll(",", "."))));
                 material.setLitro(ValidarValor.getArredondamento(Double.parseDouble(litro.getText().replaceAll(",", "."))));
 
