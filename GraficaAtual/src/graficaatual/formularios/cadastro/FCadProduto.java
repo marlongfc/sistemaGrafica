@@ -181,13 +181,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         peso = new javax.swing.JTextField();
         litro = new javax.swing.JTextField();
         altura = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -671,10 +671,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(altura);
         altura.setBounds(240, 220, 80, 20);
 
-        jTextField6.setText("X");
-        jPanel18.add(jTextField6);
-        jTextField6.setBounds(230, 220, 20, 20);
-
         jLabel10.setText("Metragem (linear)");
         jPanel18.add(jLabel10);
         jLabel10.setBounds(20, 200, 110, 14);
@@ -698,6 +694,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel19.setText("Litros");
         jPanel18.add(jLabel19);
         jLabel19.setBounds(580, 200, 80, 14);
+
+        jLabel20.setText("X");
+        jPanel18.add(jLabel20);
+        jLabel20.setBounds(233, 220, 10, 20);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 
@@ -1210,18 +1210,23 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
                     composicaoProduto = new ComposicaoProduto();
                 } else {
-                    composicaoProduto = c;
+                    //  composicaoProduto = c;
                     composicaoDao.delete(c);
                 }
-                //  composicaoProduto.setCodComposicaoProduto(composicaoDao.getNextItem());
+
+                composicaoProduto = new ComposicaoProduto();
+
+                 // composicaoProduto.setCodComposicaoProduto(composicaoDao.getNextItem());
+                 
                 composicaoProduto.setProduto(Long.parseLong(codProduto.getText()));
                 composicaoProduto.setMaterial(materialDao.getPorCodigo(Long.parseLong("" + model.getValueAt(i, 1))));
-                composicaoProduto.setMetragemLinear(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 4)).replaceAll(",", "."))));
-                composicaoProduto.setLargura(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 5)).replaceAll(",", "."))));
-                composicaoProduto.setAltura(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 6)).replaceAll(",", "."))));
-                composicaoProduto.setUnidade(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 7)).replaceAll(",", "."))));
-                composicaoProduto.setPeso(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 8)).replaceAll(",", "."))));
-                composicaoProduto.setLitro(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 9)).replaceAll(",", "."))));
+
+                composicaoProduto.setMetragemLinear(ValidarValor.getDouble("" + model.getValueAt(i, 4)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 4)) : null);
+                composicaoProduto.setLargura(ValidarValor.getDouble("" + model.getValueAt(i, 5)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 5)) : null);
+                composicaoProduto.setAltura(ValidarValor.getDouble("" + model.getValueAt(i, 6)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 6)) : null);
+                composicaoProduto.setUnidade(ValidarValor.getDouble("" + model.getValueAt(i, 7)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 7)) : null);
+                composicaoProduto.setPeso(ValidarValor.getDouble("" + model.getValueAt(i, 8)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 8)) : null);
+                composicaoProduto.setLitro(ValidarValor.getDouble("" + model.getValueAt(i, 9)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 9)) : null);
                 composicaoProduto.setCustoPorMaterial(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 10)).replaceAll(",", "."))));
 
                 composicaoDao.saveOrUpdatePojo(session, composicaoProduto);
@@ -1292,6 +1297,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 descMaterial.setText("");
             } else {
                 descMaterial.setText(material.getDescricao());
+                habilitaCamposMedidas(material);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1500,12 +1506,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     os[1] = codMaterial.getText();
                     os[2] = descMaterial.getText();
                     os[3] = ValidarValor.getDouble(material.getPrecoCustoTotal());
-                    os[4] = (Double.parseDouble(metragemLinear.getText()) > 0 ? ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", ".")))) : "");
-                    os[5] = (Double.parseDouble(largura.getText()) > 0 ? ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(largura.getText().replaceAll(",", ".")))) : "");
-                    os[6] = (Double.parseDouble(altura.getText()) > 0 ? ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(altura.getText().replaceAll(",", ".")))) : "");
-                    os[7] = (Double.parseDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(unidade.getText().replaceAll(",", ".")))) : "");
-                    os[8] = (Double.parseDouble(peso.getText()) > 0 ? ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(peso.getText().replaceAll(",", ".")))) : "");
-                    os[9] = (Double.parseDouble(litro.getText()) > 0 ? ValidarValor.getDouble(ValidarValor.getArredondamento(Double.parseDouble(litro.getText().replaceAll(",", ".")))) : "");
+                    os[4] = (ValidarValor.getDouble(metragemLinear.getText()) > 0 ? ValidarValor.getDouble((Double.parseDouble(metragemLinear.getText().replaceAll(",", ".")))) : "");
+                    os[5] = (ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(largura.getText().replaceAll(",", "."))) : "");
+                    os[6] = (ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(altura.getText().replaceAll(",", "."))) : "");
+                    os[7] = (ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(unidade.getText().replaceAll(",", "."))) : "");
+                    os[8] = (ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(peso.getText().replaceAll(",", "."))) : "");
+                    os[9] = (ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(litro.getText().replaceAll(",", "."))) : "");
 
                     //verifica tipo e qualcula quantidade
                     Double valSalvo = material.getPrecoCustoTotal();
@@ -1525,8 +1531,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                         case 1:
                             //metro quadrado
 
-                            Double m2Salvo = material.getMetroQuadrado();
-                            Double m2Tela = (ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
+                            Double m2Salvo = material.getLargura()*material.getAltura();
+                            Double m2Tela = (Double.parseDouble(largura.getText().replaceAll(",", ".")))*(Double.parseDouble(altura.getText().replaceAll(",", ".")));
 
                             valor = ((m2Tela * valSalvo) / m2Salvo);
                             os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
@@ -1589,10 +1595,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             Double valor = 0.0;
             Double valSalvo = Double.parseDouble(("" + tabComposicao.getValueAt(i, 3)).replaceAll(",", "."));
-
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
 
-            //verifica tipo e qualcula quantidade
+            //verifica tipo e calcula quantidade
             switch (material.getUnidadeMedida()) {
                 case 0:
                     //metro linear              
@@ -1618,8 +1623,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     tabComposicao.getCellEditor(0, 8).cancelCellEditing();
                     tabComposicao.getCellEditor(0, 9).cancelCellEditing();
 
-                    Double m2Salvo = material.getMetroQuadrado();
-                    Double m2Tela = (ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
+                    Double m2Salvo = material.getLargura()*material.getAltura();
+                    Double m2Tela = ((Double.parseDouble(largura.getText().replaceAll(",", ".")))*(Double.parseDouble(altura.getText().replaceAll(",", "."))));
 
                     valor = ((m2Tela * valSalvo) / m2Salvo);
                     tabComposicao.setValueAt(ValidarValor.getDouble(ValidarValor.getArredondamento(valor)), i, 10);
@@ -1794,11 +1799,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             codMaterial.setText(tabComposicao.getValueAt(i, 1).toString());
             codMaterialFocusLost(null);
 
-            metragemLinear.setText(( tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0,00" : tabComposicao.getValueAt(i, 4).toString());
+            metragemLinear.setText((tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0,00" : tabComposicao.getValueAt(i, 4).toString());
             largura.setText((tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0,00" : tabComposicao.getValueAt(i, 5).toString());
             altura.setText((tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0,00" : tabComposicao.getValueAt(i, 6).toString());
             unidade.setText((tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0" : tabComposicao.getValueAt(i, 7).toString());
-            peso.setText(( tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0,00" : tabComposicao.getValueAt(i, 8).toString());
+            peso.setText((tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0,00" : tabComposicao.getValueAt(i, 8).toString());
             litro.setText((tabComposicao.getValueAt(i, 1).toString()).equals("") ? "0,00" : tabComposicao.getValueAt(i, 9).toString());
         }
 
@@ -2018,6 +2023,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2058,7 +2064,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField57;
     private javax.swing.JTextField jTextField58;
     private javax.swing.JTextField jTextField59;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField60;
     private javax.swing.JTextField jTextField61;
     private javax.swing.JTextField jTextField62;

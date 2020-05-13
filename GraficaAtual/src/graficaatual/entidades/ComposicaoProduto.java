@@ -48,7 +48,7 @@ public class ComposicaoProduto implements Serializable {
     @Column(name = "litro", nullable = true)
     private Double litro;
     
-        @Column(name = "customaterial", nullable = false)
+    @Column(name = "customaterial", nullable = true)
     private Double custoPorMaterial;
 
 

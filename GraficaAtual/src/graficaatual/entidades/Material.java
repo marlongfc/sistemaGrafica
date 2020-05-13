@@ -37,9 +37,12 @@ public class Material implements Serializable {
     @Column(name = "metragemlinear", nullable = true)
     private Double metragemLinear;
 
-    @Column(name = "metroquadrado", nullable = true)
-    private Double metroQuadrado;
+    @Column(name = "largura", nullable = true)
+    private Double largura;
 
+    @Column(name = "altura", nullable = true)
+    private Double altura;
+    
     @Column(name = "peso", nullable = true)
     private Double peso;
 
@@ -144,14 +147,24 @@ public class Material implements Serializable {
         this.metragemLinear = metragemLinear;
     }
 
-    public Double getMetroQuadrado() {
-        return metroQuadrado;
+    public Double getLargura() {
+        return largura;
     }
 
-    public void setMetroQuadrado(Double metroQuadrado) {
-        this.metroQuadrado = metroQuadrado;
+    public void setLargura(Double largura) {
+        this.largura = largura;
     }
 
+    public Double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Double altura) {
+        this.altura = altura;
+    }
+
+  
+    
     public Double getPeso() {
         return peso;
     }
