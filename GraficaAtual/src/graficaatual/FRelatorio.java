@@ -8,6 +8,7 @@ package graficaatual;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Permissao;
 import graficaatual.formularios.relatorio.FCadCParametro;
+import graficaatual.formularios.relatorio.FCadTextoPadrao;
 import graficaatual.formularios.relatorio.FRelatorioCadastro;
 import javax.swing.JButton;
 
@@ -180,7 +181,20 @@ public class FRelatorio extends javax.swing.JFrame {
     }//GEN-LAST:event_deskTopComponentResized
 
     private void jBTextoPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTextoPadraoActionPerformed
-        
+        try {
+            deskTop.removeAll();
+            FCadTextoPadrao clComp;
+
+            clComp = FCadTextoPadrao.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }  
     }//GEN-LAST:event_jBTextoPadraoActionPerformed
 
     private void jBParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBParametrosActionPerformed
