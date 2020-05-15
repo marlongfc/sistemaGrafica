@@ -78,6 +78,18 @@ public class ClienteDAO extends ClienteRNE {
      public List<Cliente> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cliente.class, SQL, parametros);
     }
+
+    public String getSqlLista(Integer inicio, Integer fim) throws Exception {
+       String aux = null;
+        try {
+            aux = super.getSqlLista(inicio,fim);
+            return aux;
+            
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
      
 
   

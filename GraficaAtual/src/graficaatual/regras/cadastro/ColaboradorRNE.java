@@ -32,6 +32,22 @@ public class ColaboradorRNE extends GenericDAO{
     public Colaborador get(int codigo, EntityManager session) throws Exception {
         return super.getPojo(session, Colaborador.class, codigo);
     }
+
+    public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select c.codColaborador as codigo,"
+                + " case when c.ativo is true then 'SIM' else 'NÃO' end ativo,"
+                + " p.nome as nome,"
+                + " c.dataInicio as inicio,"
+                + " c.dataFim as fim,"
+                + " p.telefone as telefone,"
+                + " (g.codcargo||'-'||g.descricao) as cargo"
+                + " from Colaborador as c"
+                + " left join cargo as g on (g.codcargo = c.cargo)"
+                + " left join pessoa as p on (c.pessoa = p.codpessoa)"
+                + " where c.codColaborador >="+inicio +" and c.codColaborador <= "+ fim 
+                + " order by ativo desc, nome ";
+        return sql;
+    }
     
     
 }

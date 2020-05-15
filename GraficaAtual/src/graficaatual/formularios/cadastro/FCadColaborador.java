@@ -23,6 +23,7 @@ import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
@@ -239,6 +240,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         inativar = new javax.swing.JButton();
         sair = new javax.swing.JButton();
         ativo = new javax.swing.JCheckBox();
+        inativar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -619,7 +621,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(novo);
-        novo.setBounds(170, 440, 180, 40);
+        novo.setBounds(70, 440, 180, 40);
 
         salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
@@ -630,7 +632,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(350, 440, 180, 40);
+        salvar.setBounds(250, 440, 180, 40);
 
         inativar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         inativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
@@ -641,7 +643,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(inativar);
-        inativar.setBounds(530, 440, 180, 40);
+        inativar.setBounds(430, 440, 180, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -652,7 +654,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(710, 440, 180, 40);
+        sair.setBounds(790, 440, 180, 40);
 
         ativo.setBackground(new java.awt.Color(255, 0, 51));
         ativo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -666,6 +668,16 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         });
         jPanel10.add(ativo);
         ativo.setBounds(890, 90, 130, 20);
+
+        inativar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        inativar1.setText("Imprimir");
+        inativar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inativar1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(inativar1);
+        inativar1.setBounds(610, 440, 180, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -994,6 +1006,16 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTipoActionPerformed
 
+    private void inativar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inativar1ActionPerformed
+        try {
+            imprimir();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_inativar1ActionPerformed
+
       
     private void limpaCamposPessoa() {
 
@@ -1290,6 +1312,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JTextField dtInicioContrato;
     private javax.swing.JTextField email;
     private javax.swing.JButton inativar;
+    private javax.swing.JButton inativar1;
     private javax.swing.JButton inicio;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1345,7 +1368,11 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             codCargo.setText("");
         }
     }
-    
+
+     private void imprimir()throws Exception{
+         String r = colaboradorDao.getSqlLista(0,99999999);  
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaColaborador.jasper", "Relatório de Lista de Colaborador", null, r);
+    }
 
    
 }

@@ -45,6 +45,18 @@ public class CargoRNE extends GenericDAO{
     public List<Cargo> getList(EntityManager session, String sql) throws Exception {
         return getPureList(session, Cargo.class, sql);
     }
+
+    public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select c.codCargo as codigo,"
+                + " c.descricao as cargo,"
+                + " c.crm as crm,"
+                + " (g.codTurno||'-'||g.descricao) as turno"
+                + " from Cargo as c"
+                + " left join turno as g on (g.codTurno = c.turno)"
+                + " where c.codCargo >="+inicio +" and c.codCargo <= "+ fim 
+                + " order by cargo ";
+        return sql;
+    }
     
     
 }

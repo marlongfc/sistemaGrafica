@@ -22,6 +22,7 @@ import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -276,6 +277,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
         }
+        inativar1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -649,7 +651,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(novo);
-        novo.setBounds(170, 450, 180, 40);
+        novo.setBounds(80, 450, 180, 40);
 
         salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
@@ -660,7 +662,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(350, 450, 180, 40);
+        salvar.setBounds(260, 450, 180, 40);
 
         inativar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         inativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
@@ -671,7 +673,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(inativar);
-        inativar.setBounds(530, 450, 180, 40);
+        inativar.setBounds(440, 450, 180, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -682,7 +684,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(710, 450, 180, 40);
+        sair.setBounds(800, 450, 180, 40);
 
         ativo.setBackground(new java.awt.Color(255, 0, 51));
         ativo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -807,8 +809,18 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(cpf);
         cpf.setBounds(350, 90, 250, 20);
 
+        inativar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        inativar1.setText("Imprimir");
+        inativar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inativar1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(inativar1);
+        inativar1.setBounds(620, 450, 180, 40);
+
         getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 0, 1100, 700);
+        jPanel10.setBounds(10, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
 
         pack();
@@ -1142,6 +1154,16 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTipoActionPerformed
 
+    private void inativar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inativar1ActionPerformed
+        try {
+            imprimir();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_inativar1ActionPerformed
+
   
     
     private void inativar() throws Exception {
@@ -1421,6 +1443,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descLogradouro;
     private javax.swing.JTextField email;
     private javax.swing.JButton inativar;
+    private javax.swing.JButton inativar1;
     private javax.swing.JButton inicio;
     private javax.swing.JTextField inscEstadual;
     private javax.swing.JTextField inscMunicipal;
@@ -1497,5 +1520,10 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField uf;
     private javax.swing.JButton ultimo;
     // End of variables declaration//GEN-END:variables
+
+    private void imprimir()throws Exception{
+         String r = fornecedorDao.getSqlList(0,99999999);  
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaCliente.jasper", "Relatório de Lista de Fornecedor", null, r);
+    }
   
 }

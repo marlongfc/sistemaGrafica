@@ -17,6 +17,7 @@ import graficaatual.pesq.cadastro.CnvCadastroUsuario;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -199,6 +200,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTableProducao = new javax.swing.JTable();
+        inativar1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -438,7 +440,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(novo);
-        novo.setBounds(190, 420, 180, 40);
+        novo.setBounds(80, 420, 180, 40);
 
         salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
@@ -449,7 +451,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(370, 420, 180, 40);
+        salvar.setBounds(260, 420, 180, 40);
 
         deletar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
@@ -460,7 +462,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(deletar);
-        deletar.setBounds(550, 420, 180, 40);
+        deletar.setBounds(440, 420, 180, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -471,7 +473,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(730, 420, 180, 40);
+        sair.setBounds(800, 420, 180, 40);
 
         tabUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -775,6 +777,16 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jPanel10.add(jTabbedPane1);
         jTabbedPane1.setBounds(480, 70, 560, 340);
 
+        inativar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        inativar1.setText("Imprimir");
+        inativar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inativar1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(inativar1);
+        inativar1.setBounds(620, 420, 180, 40);
+
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
@@ -930,6 +942,16 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tabUsuarioMouseClicked
 
+    private void inativar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inativar1ActionPerformed
+        try {
+            imprimir();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_inativar1ActionPerformed
+
     private void atualizaTabela() {
         try {
 
@@ -988,6 +1010,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codigo;
     private javax.swing.JPasswordField confirmacao;
     private javax.swing.JButton deletar;
+    private javax.swing.JButton inativar1;
     private javax.swing.JButton inicio;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -1288,5 +1311,11 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
             new Exception("Por favor, inserir um código válido.");
         }
     }
+
+    private void imprimir() throws Exception {
+        String r = usuarioDao.getSqlLista(0, 99999999);
+        new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaUsuario.jasper", "Relatório de Lista de Usuários", null, r);
+    }
+
 
 }

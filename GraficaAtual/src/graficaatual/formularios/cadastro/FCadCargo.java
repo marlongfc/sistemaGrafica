@@ -12,6 +12,7 @@ import graficaatual.entidades.Turno;
 import graficaatual.pesq.cadastro.CnvCadastroCargo;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -156,6 +157,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
+        inativar1 = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -380,7 +382,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(novo);
-        novo.setBounds(200, 370, 180, 40);
+        novo.setBounds(90, 370, 180, 40);
 
         salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
@@ -391,7 +393,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(380, 370, 180, 40);
+        salvar.setBounds(270, 370, 180, 40);
 
         deletar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
@@ -402,7 +404,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(deletar);
-        deletar.setBounds(560, 370, 180, 39);
+        deletar.setBounds(450, 370, 180, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -413,7 +415,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(740, 370, 180, 40);
+        sair.setBounds(830, 370, 180, 40);
 
         tabCargo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -500,6 +502,16 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jLabel50.setText("Turno ");
         jPanel10.add(jLabel50);
         jLabel50.setBounds(150, 120, 60, 20);
+
+        inativar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        inativar1.setText("Imprimir");
+        inativar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inativar1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(inativar1);
+        inativar1.setBounds(630, 370, 200, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -687,6 +699,16 @@ public class FCadCargo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         } 
     }//GEN-LAST:event_codigoFocusLost
+
+    private void inativar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inativar1ActionPerformed
+        try {
+            imprimir();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_inativar1ActionPerformed
     
     private void carregaTurno() throws Exception {
         turno = TurnoDao.get(ValidarValor.getInt(codTurno.getText()));
@@ -792,6 +814,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descTurno;
     private javax.swing.JTextArea especificacao;
     private javax.swing.JTextArea funcao;
+    private javax.swing.JButton inativar1;
     private javax.swing.JButton inicio;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -844,6 +867,11 @@ public class FCadCargo extends javax.swing.JInternalFrame {
     private javax.swing.JTable tabCargo;
     private javax.swing.JButton ultimo;
     // End of variables declaration//GEN-END:variables
+
+    private void imprimir()throws Exception{
+         String r = cargoDao.getSqlLista(0,99999999);  
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaCargo.jasper", "Relatório de Lista de Cargos", null, r);
+    }
 
    
 

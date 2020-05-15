@@ -89,4 +89,23 @@ public class UsuariosDAO extends GenericDAO{
             return true;
         }
     }
+
+   public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select u.codUsuario as codigo,"
+                + " u.login as login,"
+                + " case when u.ativo is true then 'SIM' else 'NÃO' end ativo,"
+                + " (c.codColaborador ||'-'||p.nome)as colaborador, "
+                + " case when u.acessoCadastro is true then 'SIM' else 'NÃO' end modulo1,"
+                + " case when u.acessoPedido is true then 'SIM' else 'NÃO' end modulo2,"
+                + " case when u.acessoEstoque is true then 'SIM' else 'NÃO' end modulo3,"
+                + " case when u.acessoFinanceiro is true then 'SIM' else 'NÃO' end modulo4,"
+                + " case when u.acessoRelatorios is true then 'SIM' else 'NÃO' end modulo5,"
+                + " case when u.acessoProducao is true then 'SIM' else 'NÃO' end modulo6"
+                + " from Usuario as u"
+                + " left join colaborador as c on (colaborador = c.codColaborador)"
+                + " left join pessoa as p on (c.pessoa = p.codpessoa)"
+                + " where colaborador >="+inicio +" and colaborador <= "+ fim 
+                + " order by ativo desc, login ";
+        return sql;
+    }
 }

@@ -66,6 +66,18 @@ public class ColaboradorDAO extends ColaboradorRNE {
     public List<Colaborador> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Colaborador.class, SQL, parametros);
     }
+
+    public String getSqlList(Integer inicio, Integer fim) throws Exception {
+       String aux = null;
+        try {
+            aux = super.getSqlLista(inicio,fim);
+            return aux;
+            
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
        
 
   

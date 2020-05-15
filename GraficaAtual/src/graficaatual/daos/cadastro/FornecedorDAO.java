@@ -73,7 +73,17 @@ public class FornecedorDAO extends FornecedorRNE {
      public List<Fornecedor> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Fornecedor.class, SQL, parametros);
     }
-     
 
-  
+    public String getSqlList(Integer inicio, Integer fim) throws Exception {
+       String aux = null;
+        try {
+            aux = super.getSqlLista(inicio,fim);
+            return aux;
+            
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
+
 }

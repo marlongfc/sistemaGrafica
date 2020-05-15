@@ -32,6 +32,20 @@ public class ClienteRNE extends GenericDAO{
         String sql = " select e from Cliente e where e.codCliente=?1 ";
         return getPojoUnique(session, Cliente.class, sql, codigo);
     }
+
+    public String getSqlLista(Integer inicio, Integer fim) throws Exception { 
+        String sql = " select c.codcliente as codigo,"
+                + " case when c.ativo is true then 'SIM' else 'NÃO' end ativo,"
+                + " p.cnpj as cpf, "
+                + " p.nome as nome,"
+                + " p.nomeFantasia as fantasia,"
+                + " p.telefone as telefone"
+                + " from Cliente as c"
+                + " left join pessoa as p on (c.pessoa = p.codpessoa)"
+                + " where c.codcliente >="+inicio +" and c.codcliente <= "+ fim 
+                + " order by ativo desc, nome ";
+        return sql;
+    }
     
     
 }

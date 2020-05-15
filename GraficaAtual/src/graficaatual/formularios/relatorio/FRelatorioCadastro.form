@@ -94,20 +94,21 @@
               <Font name="Dialog" size="14" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="13">
-                <StringItem index="0" value="Clientes"/>
-                <StringItem index="1" value="Fornecedores"/>
-                <StringItem index="2" value="Logradouros"/>
-                <StringItem index="3" value="Bairro"/>
-                <StringItem index="4" value="Cidade"/>
-                <StringItem index="5" value="Usu&#xe1;rios"/>
-                <StringItem index="6" value="Colaborador"/>
-                <StringItem index="7" value="Cargo"/>
-                <StringItem index="8" value="Turno"/>
-                <StringItem index="9" value="Material"/>
-                <StringItem index="10" value="Produtos"/>
-                <StringItem index="11" value="Acabamentos"/>
-                <StringItem index="12" value="Forma de Pagamento"/>
+              <StringArray count="14">
+                <StringItem index="0" value="Selecione o Cadastro"/>
+                <StringItem index="1" value="Clientes"/>
+                <StringItem index="2" value="Fornecedores"/>
+                <StringItem index="3" value="Logradouros"/>
+                <StringItem index="4" value="Bairro"/>
+                <StringItem index="5" value="Cidade"/>
+                <StringItem index="6" value="Usu&#xe1;rios"/>
+                <StringItem index="7" value="Colaborador"/>
+                <StringItem index="8" value="Cargo"/>
+                <StringItem index="9" value="Turno"/>
+                <StringItem index="10" value="Material"/>
+                <StringItem index="11" value="Produtos"/>
+                <StringItem index="12" value="Acabamentos"/>
+                <StringItem index="13" value="Forma de Pagamento"/>
               </StringArray>
             </Property>
           </Properties>
@@ -125,11 +126,17 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="11" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rio Individual"/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jRIndividualStateChanged"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="60" y="130" width="210" height="-1"/>
@@ -141,9 +148,13 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="11" style="1"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Lista do Item Selecionado"/>
           </Properties>
           <Constraints>
@@ -188,6 +199,9 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="codInicial">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="codInicialFocusLost"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="60" y="190" width="170" height="-1"/>

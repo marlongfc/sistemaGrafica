@@ -32,6 +32,20 @@ public class FornecedorRNE extends GenericDAO{
         String sql = " select e from Fornecedor e where e.codFornecedor=?1 ";
         return getPojoUnique(session, Fornecedor.class, sql, codigo);
     }
+
+    public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select c.codFornecedor as codigo,"
+                + " case when c.ativo is true then 'SIM' else 'NÃO' end ativo,"
+                + " p.cnpj as cpf, "
+                + " p.nome as nome,"
+                + " p.nomeFantasia as fantasia,"
+                + " p.telefone as telefone"
+                + " from Fornecedor as c"
+                + " left join pessoa as p on (c.pessoa = p.codpessoa)"
+                + " where c.codFornecedor >="+inicio +" and c.codFornecedor <= "+ fim 
+                + " order by ativo desc, nome ";
+        return sql;
+    }
     
     
 }

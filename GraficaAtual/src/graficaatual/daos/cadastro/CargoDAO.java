@@ -98,5 +98,17 @@ public class CargoDAO extends CargoRNE {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Cargo.class, SQL, parametros);
     }
 
+     public String getSqlList(Integer inicio, Integer fim) throws Exception {
+       String aux = null;
+        try {
+            aux = super.getSqlLista(inicio,fim);
+            return aux;
+            
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
+
   
 }
