@@ -10,6 +10,7 @@ import graficaatual.entidades.Cidade;
 import graficaatual.pesq.cadastro.CnvCidade;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -116,6 +117,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jLabel80 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         codIbge = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1335, 700));
@@ -425,6 +427,15 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         jPanel18.add(codIbge);
         codIbge.setBounds(60, 140, 170, 20);
 
+        jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(jButton1);
+        jButton1.setBounds(410, 580, 130, 23);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -642,6 +653,18 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_inicioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+           try {
+            String sql = "select codCidade, descricao from cidade order by descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/cidade.jasper", "RELATÓRIO DE CIDADES", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Cidades! \n " + e);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
@@ -653,6 +676,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codIbge;
     private javax.swing.JTextField descCidade;
     private javax.swing.JButton inicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
