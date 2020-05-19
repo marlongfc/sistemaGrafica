@@ -10,6 +10,7 @@ import graficaatual.entidades.Bairro;
 import graficaatual.pesq.cadastro.CnvBairro;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -115,6 +116,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1335, 700));
@@ -414,6 +416,15 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel80);
         jLabel80.setBounds(140, 70, 70, 20);
 
+        jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(jButton1);
+        jButton1.setBounds(410, 550, 130, 23);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -618,6 +629,18 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_inicioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         try {
+            String sql = "select codbairro, descricao from bairro e order by e.descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/bairro.jasper", "RELATÓRIO DE BAIRROS", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bairros! \n " + e);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
@@ -628,6 +651,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codBairro;
     private javax.swing.JTextField descBairro;
     private javax.swing.JButton inicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;

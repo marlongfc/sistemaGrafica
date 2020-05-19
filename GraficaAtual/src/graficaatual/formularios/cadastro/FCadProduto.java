@@ -827,7 +827,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Produto", "Custo Produto (m²)", "Mão de Obra (m²)", "Custo Empresa (m² / hora)", "Custo Serviço (m²)", "Margem de Lucro (%)", "Valor Unitário"
+                "Cód.", "Produto", "Custo Produto (m²)", "Mão de Obra (m²/h)", "C. Empresa (m² / h)", "Custo Serviço (m²)", "Margem Lucro (%)", "Preço Unitário (R$)"
             }
         ) {
             Class[] types = new Class [] {
@@ -852,9 +852,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         });
         jScrollPane12.setViewportView(tabProduto);
         if (tabProduto.getColumnModel().getColumnCount() > 0) {
-            tabProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tabProduto.getColumnModel().getColumn(0).setPreferredWidth(5);
             tabProduto.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tabProduto.getColumnModel().getColumn(7).setPreferredWidth(30);
         }
 
         jPanel21.add(jScrollPane12);

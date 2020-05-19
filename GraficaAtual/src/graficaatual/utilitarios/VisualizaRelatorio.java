@@ -1,10 +1,8 @@
-    /*
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package graficaatual.utilitarios;
-
-
 
 import graficaatual.daos.relatorio.EntidadeDAO;
 import graficaatual.entidades.relatorio.Entidade;
@@ -39,6 +37,7 @@ public class VisualizaRelatorio {
     public void visRel(String nomeRel, String titRel, Map parametros, String sql) {
         visRel(nomeRel, titRel, parametros, sql, true);
     }
+
     public void visRel(String nomeRel, String titRel, Map parametros, String sql, boolean mostrarMsg) {
         try {
             System.out.println("RLT: " + sql);
@@ -61,7 +60,7 @@ public class VisualizaRelatorio {
             e.printStackTrace();
         }
     }
-    
+
     public void visRel(String nomeRel, String titRel, String sql, Statement banco, Map parametros, boolean mostrarMsg) {
         try {
             System.out.println("RLT: 4");
@@ -82,27 +81,29 @@ public class VisualizaRelatorio {
 
                     parametros.put("BRASAO", is);
                 }
-                              
+
                 System.out.println("RLT: 9");
                 parametros.put("NOMEENT", p.getNome());
                 if (p.getCidade() != null) {
                     System.out.println("RLT: 10");
                     parametros.put("CIDADEENT", p.getCidade().getDescricao());
-                } 
-                 if (p.getBairro()!= null) {
+                }
+                if (p.getBairro() != null) {
                     System.out.println("RLT: 11");
                     parametros.put("BAIRROENT", p.getBairro().getDescricao());
-                } 
-                  if (p.getLogradouro()!= null) {
+                }
+                if (p.getLogradouro() != null) {
                     System.out.println("RLT: 12");
                     parametros.put("LOGRADOUROENT", p.getLogradouro().getDescricao());
-                } 
+                }
+
+                parametros.put("INSCESTENT", p.getInscEstadual());
                 parametros.put("CNPJENT", p.getCnpj());
                 parametros.put("NUMEROENT", p.getNumero());
                 parametros.put("TELEFONEENT", p.getTelefone());
                 parametros.put("COMPLEMENTOENT", p.getComplemento());
                 parametros.put("EMAILENT", p.getEmail());
-                
+
             } else {
                 System.out.println("Parâmetro nulo");
             }
@@ -142,19 +143,19 @@ public class VisualizaRelatorio {
 
                 }
             } else {
-                if(mostrarMsg)
+                if (mostrarMsg) {
                     JOptionPane.showMessageDialog(null, "Relatório Vazio");
-                else
+                } else {
                     System.out.println("Relatório Vazio");
+                }
             }
         } catch (Exception ex) {
-            if(mostrarMsg)
+            if (mostrarMsg) {
                 JOptionPane.showMessageDialog(null, "Visualizar: " + ex.getLocalizedMessage());
-            else
+            } else {
                 System.out.println("Visualizar: " + ex.getLocalizedMessage());
+            }
         }
     }
-
-
 
 }
