@@ -11,12 +11,11 @@
 	<parameter name="TELEFONEENT" class="java.lang.String"/>
 	<parameter name="BRASAO" class="java.io.InputStream"/>
 	<parameter name="BAIRROENT" class="java.lang.String"/>
-	<parameter name="NUMEROENT" class="java.lang.String"/>
+	<parameter name="NUMEROENT" class="java.lang.Integer"/>
 	<parameter name="INSCESTENT" class="java.lang.String"/>
 	<parameter name="COMPLEMENTOENT" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[
-select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro Quadrado(m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, metragemlinear, altura,  largura, unidade,  peso, litro,  frete,  precocompra, precocustototal, estoqueminimo   from material order by descricao asc]]>
+		<![CDATA[select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro Quadrado(m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, metragemlinear, altura,  largura, unidade,  peso, litro,  frete,  precocompra, precocustototal, estoqueminimo   from material order by descricao asc]]>
 	</queryString>
 	<field name="codmaterial" class="java.lang.Long"/>
 	<field name="descricao" class="java.lang.String"/>
