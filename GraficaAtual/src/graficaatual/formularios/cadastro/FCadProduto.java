@@ -1215,7 +1215,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             produto = produtoDao.saveOrUpdatePojo(session, produto);
 
             if (produto != null) {
-             
+
                 //salvar composição ////////////
                 DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
 
@@ -1243,14 +1243,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     composicaoProduto.setLitro(ValidarValor.getDouble("" + model.getValueAt(i, 9)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 9)) : null);
                     composicaoProduto.setCustoPorMaterial(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 10)).replaceAll(",", "."))));
 
-                   composicaoDao.saveOrUpdatePojo(session, composicaoProduto);
+                    composicaoDao.saveOrUpdatePojo(session, composicaoProduto);
                 }
 
                 session.getTransaction().commit();
                 session.close();
-                  
+
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                  
+
                 limparTela();
             }
         } catch (Exception e) {
@@ -1267,7 +1267,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             int op = 0;
             JOptionPane.showConfirmDialog(null, "Deseja realmente excluir produto selecionado? \n A Composição do produto também será excluída!", "CONFIRMAÇÃO DE EXCLUSÃO", op);
 
-                      if (op == 0) {
+            if (op == 0) {
 
                 deletarComposicao();
 
@@ -1313,7 +1313,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }       
+        }
     }//GEN-LAST:event_codMaterialFocusLost
 
     private void habilitaCamposMedidas(Material m) {
@@ -1523,9 +1523,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
                 if (contemMaterial) {
                     JOptionPane.showMessageDialog(null, "Material já está adicionado, somente as medidas/quantidades serão alteradas!");
-                     }
+                }
 
-                             Object[] os = new Object[11];
+                Object[] os = new Object[11];
                 os[0] = "";
                 os[1] = codMaterial.getText();
                 os[2] = descMaterial.getText();
@@ -1606,12 +1606,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
                 limparMaterial();
             }
-           
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
-
 
     private void limparMaterial() {
         codMaterial.setText("");
@@ -1747,13 +1746,15 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            String sql = "select e.codproduto as codproduto, e.descricao as descricao, "
-                    + " (Cast(e.valorprodutom2 as Decimal(10, 2))) as valorprodutom2, (Cast(e.maodeobra as Decimal(10, 2))) as maodeobra, "
-                    + " (Cast(e.custoempresa as Decimal(10, 2))) as custoempresa, (Cast(e.custototal as Decimal(10, 2))) as custototal,"
-                    + " (Cast(e.margemlucro as Decimal(10, 2))) as margemlucro, "
-                    + " (Cast(e.valorunitario as Decimal(10, 2))) as valorunitario from produto e order by e.descricao asc";
+            String sql = "select p.codproduto as codProduto, p.descricao as descProduto, "
+                    + " p.valorprodutom2 as valorProdutom2, "
+                    + " p.maodeobra as maoDeObraProd, p.custoempresa as custoEmpresa, "
+                    + " p.custototal as custoTotalProd, "
+                    + " p.margemlucro as margemLucroProd, "
+                    + " p.valorunitario as valorUnitarioTotalProd "
+                    + " from produto as p order by descProduto asc";
 
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/produto.jasper", "RELATÓRIO DE PRODUTOS", null, sql);
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaProdutos.jasper", "RELATÓRIO DE PRODUTOS (LISTAGEM)", null, sql);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1763,6 +1764,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
         try {
             Map parametros = null;
             if (produto != null) {
@@ -1801,8 +1803,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
         }
-
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void buscaFigura() {
