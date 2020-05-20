@@ -945,14 +945,15 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel21.add(jLabel12);
         jLabel12.setBounds(20, 80, 210, 14);
 
-        jButton1.setText("Imprimir");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        jButton1.setText("Imprimir Lista");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel21.add(jButton1);
-        jButton1.setBounds(410, 460, 130, 30);
+        jButton1.setBounds(380, 460, 200, 30);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
