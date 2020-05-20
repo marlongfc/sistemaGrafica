@@ -16,14 +16,18 @@ import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -188,6 +192,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -392,7 +397,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(110, 610, 200, 39);
+        btNovo.setBounds(40, 610, 190, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -402,7 +407,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(310, 610, 200, 39);
+        btSalvar.setBounds(230, 610, 190, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -412,7 +417,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(510, 610, 200, 39);
+        btExcluir.setBounds(420, 610, 190, 39);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
@@ -422,7 +427,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(710, 610, 200, 39);
+        btSair.setBounds(800, 610, 190, 39);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -698,6 +703,16 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel20.setText("X");
         jPanel18.add(jLabel20);
         jLabel20.setBounds(233, 220, 10, 20);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        jButton2.setText("Imprimir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(jButton2);
+        jButton2.setBounds(610, 610, 190, 39);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 
@@ -1200,8 +1215,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             produto = produtoDao.saveOrUpdatePojo(session, produto);
 
             if (produto != null) {
-                //         JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                //      }
+             
                 //salvar composição ////////////
                 DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
 
@@ -1229,16 +1243,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     composicaoProduto.setLitro(ValidarValor.getDouble("" + model.getValueAt(i, 9)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 9)) : null);
                     composicaoProduto.setCustoPorMaterial(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 10)).replaceAll(",", "."))));
 
-                    composicaoDao.saveOrUpdatePojo(session, composicaoProduto);
+                   composicaoDao.saveOrUpdatePojo(session, composicaoProduto);
                 }
 
                 session.getTransaction().commit();
                 session.close();
-
-                //    if (produto != null) {
+                  
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                //    }
-
+                  
                 limparTela();
             }
         } catch (Exception e) {
@@ -1255,8 +1267,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             int op = 0;
             JOptionPane.showConfirmDialog(null, "Deseja realmente excluir produto selecionado? \n A Composição do produto também será excluída!", "CONFIRMAÇÃO DE EXCLUSÃO", op);
 
-            // considerando 0 como sim
-            if (op == 0) {
+                      if (op == 0) {
 
                 deletarComposicao();
 
@@ -1302,7 +1313,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }        // 
+        }       
     }//GEN-LAST:event_codMaterialFocusLost
 
     private void habilitaCamposMedidas(Material m) {
@@ -1493,7 +1504,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
                         contemMaterial = true;
 
-                        
                         //apaga a composição no banco se ja estiver salva
                         Long cod = Long.parseLong("" + (model.getValueAt(i, 0) == null ? 0 : model.getValueAt(i, 0).equals("") ? 0 : (model.getValueAt(i, 0))));
 
@@ -1513,12 +1523,9 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
                 if (contemMaterial) {
                     JOptionPane.showMessageDialog(null, "Material já está adicionado, somente as medidas/quantidades serão alteradas!");
+                     }
 
-                    //  limparMaterial();
-                }
-
-                //else {
-                Object[] os = new Object[11];
+                             Object[] os = new Object[11];
                 os[0] = "";
                 os[1] = codMaterial.getText();
                 os[2] = descMaterial.getText();
@@ -1599,114 +1606,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
                 limparMaterial();
             }
-            // }
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
 
-    private void editaQuantidadeTabela() {
-
-        try {
-            int i = tabComposicao.getSelectedRow();
-
-            Double valor = 0.0;
-            Double valSalvo = Double.parseDouble(("" + tabComposicao.getValueAt(i, 3)).replaceAll(",", "."));
-            DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
-
-            //verifica tipo e calcula quantidade
-            switch (material.getUnidadeMedida()) {
-                case 0:
-                    //metro linear              
-
-                    tabComposicao.getCellEditor(i, 5).cancelCellEditing();
-                    tabComposicao.getCellEditor(i, 6).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 7).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 8).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 9).cancelCellEditing();
-
-                    Double mSalvo = material.getMetragemLinear();
-                    Double mTela = (ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
-
-                    valor = ((mTela * valSalvo) / mSalvo);
-                    tabComposicao.setValueAt(ValidarValor.getDouble(ValidarValor.getArredondamento(valor)), i, 10);
-
-                    break;
-                case 1:
-                    //metro quadrado
-
-                    tabComposicao.getCellEditor(i, 4).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 7).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 8).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 9).cancelCellEditing();
-
-                    Double m2Salvo = material.getLargura() * material.getAltura();
-                    Double m2Tela = ((Double.parseDouble(largura.getText().replaceAll(",", "."))) * (Double.parseDouble(altura.getText().replaceAll(",", "."))));
-
-                    valor = ((m2Tela * valSalvo) / m2Salvo);
-                    tabComposicao.setValueAt(ValidarValor.getDouble(ValidarValor.getArredondamento(valor)), i, 10);
-
-                    break;
-                case 2:
-                    //unidade
-
-                    tabComposicao.getCellEditor(i, 4).cancelCellEditing();
-                    tabComposicao.getCellEditor(i, 5).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 6).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 8).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 9).cancelCellEditing();
-
-                    Double unidadeSalvo = material.getUnidade();
-                    Double unidadeTela = (ValidarValor.getArredondamento(Double.parseDouble(unidade.getText().replaceAll(",", "."))));
-
-                    valor = ((unidadeTela * valSalvo) / unidadeSalvo);
-                    tabComposicao.setValueAt(ValidarValor.getDouble(ValidarValor.getArredondamento(valor)), i, 10);
-
-                    break;
-
-                case 3:
-                    //peso
-
-                    tabComposicao.getCellEditor(i, 5).cancelCellEditing();
-                    tabComposicao.getCellEditor(i, 6).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 7).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 9).cancelCellEditing();
-
-                    Double pesoSalvo = material.getPeso();
-                    Double pesoTela = (ValidarValor.getArredondamento(Double.parseDouble(peso.getText().replaceAll(",", "."))));
-
-                    valor = ((pesoTela * valSalvo) / pesoSalvo);
-                    tabComposicao.setValueAt(ValidarValor.getDouble(ValidarValor.getArredondamento(valor)), i, 10);
-
-                    break;
-
-                case 4:
-
-                    tabComposicao.getCellEditor(i, 5).cancelCellEditing();
-                    tabComposicao.getCellEditor(i, 6).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 7).cancelCellEditing();
-                    tabComposicao.getCellEditor(0, 8).cancelCellEditing();
-
-                    Double litroSalvo = material.getLitro();
-                    Double litroTela = (ValidarValor.getArredondamento(Double.parseDouble(litro.getText().replaceAll(",", "."))));
-
-                    valor = ((litroTela * valSalvo) / litroSalvo);
-                    tabComposicao.setValueAt(ValidarValor.getDouble(ValidarValor.getArredondamento(valor)), i, 10);
-
-                    break;
-                default:
-                    tabComposicao.setValueAt("0,00", i, 10);
-                    break;
-            }
-
-            model.setValueAt(ValidarValor.getDouble(valor), i, 5);
-            atualizaCustoMateriais();
-            atualizaValorTotalProduto();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private void limparMaterial() {
         codMaterial.setText("");
@@ -1856,6 +1761,49 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            Map parametros = null;
+            if (produto != null) {
+
+                String sql = "select p.codproduto as codProduto, p.descricao as descProduto, "
+                        + " p.valorprodutom2 as  valorProdutom2,"
+                        + " p.maodeobra as maoDeObraProd, p.custoempresa as custoEmpresa, p.custototal as custoTotalProd, "
+                        + " p.margemlucro as margemLucroProd, p.valorunitario as valorUnitarioTotalProd, "
+                        + " "
+                        + " m.codmaterial as codMaterial, m.descricao as descMaterial,"
+                        + " "
+                        + " c.metragemlinear as metragemLinearComp, c.altura as alturaComp, c.largura as larguraComp,"
+                        + " c.unidade as unidadeComp, c.peso as pesoComp, c.litro as litroComp, "
+                        + " c.customaterial as custoPorMaterialComp "
+                        + " "
+                        + " from produto as p "
+                        + " inner join composicaoproduto c on c.produto = p.codproduto "
+                        + " inner join material m on m.codmaterial = c.material";
+
+                if (produto.getImagemProduto() != null) {
+
+                    ByteArrayInputStream bis = new ByteArrayInputStream(produto.getImagemProduto(), 0, produto.getImagemProduto().length);
+
+                    InputStream is;
+                    is = (InputStream) bis;
+
+                    parametros = new HashMap();
+                    parametros.put("IMAGEMPRODUTO", is);
+                }
+
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/produto.jasper", "RELATÓRIO DE PRODUTOS (INDIVIDUAL)", parametros, sql);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um produto!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
+        }
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void buscaFigura() {
         FvaFiguraProduto = (FvaFiguraProduto.equals("")) ? "\\" : FvaFiguraProduto;
@@ -2008,6 +1956,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JButton imagem;
     private javax.swing.JButton inicio1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;

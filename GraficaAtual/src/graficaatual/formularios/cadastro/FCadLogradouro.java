@@ -274,7 +274,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 160, 180, 39);
+        btNovo.setBounds(40, 160, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -284,7 +284,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 160, 180, 39);
+        btSalvar.setBounds(220, 160, 180, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
@@ -294,7 +294,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 160, 180, 39);
+        btExcluir.setBounds(400, 160, 180, 39);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
@@ -304,7 +304,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 160, 180, 39);
+        btSair.setBounds(760, 160, 180, 39);
 
         tabLogradouro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -427,6 +427,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jPanel18.add(comboTipo);
         comboTipo.setBounds(140, 90, 180, 20);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,7 +435,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(jButton1);
-        jButton1.setBounds(400, 560, 150, 23);
+        jButton1.setBounds(580, 160, 180, 39);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

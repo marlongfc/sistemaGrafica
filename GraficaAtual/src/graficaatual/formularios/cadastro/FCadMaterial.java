@@ -307,7 +307,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(140, 250, 180, 39);
+        btNovo.setBounds(30, 250, 180, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -317,7 +317,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(320, 250, 180, 39);
+        btSalvar.setBounds(210, 250, 180, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -327,7 +327,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(500, 250, 180, 39);
+        btExcluir.setBounds(390, 250, 180, 39);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
@@ -337,7 +337,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(680, 250, 180, 39);
+        btSair.setBounds(750, 250, 180, 39);
 
         tabMaterial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -608,6 +608,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel10);
         jLabel10.setBounds(440, 120, 70, 14);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -615,7 +616,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(jButton1);
-        jButton1.setBounds(400, 630, 140, 23);
+        jButton1.setBounds(570, 250, 180, 39);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
