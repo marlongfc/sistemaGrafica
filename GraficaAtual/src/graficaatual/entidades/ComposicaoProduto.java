@@ -27,7 +27,7 @@ public class ComposicaoProduto implements Serializable {
     @JoinColumn(name = "material")
     private Material material;
 
-    @Column(name = "codProduto", nullable = false)
+    @Column(name = "produto", nullable = false)
     private Long produto;
 
     @Column(name = "metragemlinear", nullable = true)

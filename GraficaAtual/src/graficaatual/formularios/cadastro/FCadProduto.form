@@ -543,12 +543,12 @@
                         <Column editable="false" title="C&#xf3;d." type="java.lang.Long"/>
                         <Column editable="false" title="Material" type="java.lang.String"/>
                         <Column editable="false" title="V. Unit&#xe1;rio (R$)" type="java.lang.String"/>
-                        <Column editable="true" title="Tamanho (m)" type="java.lang.String"/>
-                        <Column editable="true" title="Largura (m)" type="java.lang.String"/>
-                        <Column editable="true" title="Altura (m)" type="java.lang.String"/>
-                        <Column editable="true" title="Quantidade (u)" type="java.lang.String"/>
-                        <Column editable="true" title="Peso (Kg)" type="java.lang.String"/>
-                        <Column editable="true" title="Dosagem (L)" type="java.lang.String"/>
+                        <Column editable="false" title="Tamanho (m)" type="java.lang.String"/>
+                        <Column editable="false" title="Largura (m)" type="java.lang.String"/>
+                        <Column editable="false" title="Altura (m)" type="java.lang.String"/>
+                        <Column editable="false" title="Quantidade (u)" type="java.lang.String"/>
+                        <Column editable="false" title="Peso (Kg)" type="java.lang.String"/>
+                        <Column editable="false" title="Dosagem (L)" type="java.lang.String"/>
                         <Column editable="false" title="Total (R$)" type="java.lang.String"/>
                       </Table>
                     </Property>

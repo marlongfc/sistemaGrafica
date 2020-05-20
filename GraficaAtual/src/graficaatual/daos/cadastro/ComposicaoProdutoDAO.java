@@ -61,7 +61,7 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
         }
     }
 
-     public ComposicaoProduto getPorCodComposicao(long codigo) throws Exception {
+    public ComposicaoProduto getPorCodComposicao(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
@@ -75,17 +75,27 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
             session.close();
         }
     }
-    
-    public List<ComposicaoProduto> getListPorProduto(long codigo) throws Exception {
+
+//    public List<ComposicaoProduto> getListPorProduto(long codigo) throws Exception {
+//        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+//
+//        try {
+//            return super.getListPorProduto(codigo, Persistencia.getInstance().getEntityManager());
+//
+//        } catch (Exception e) {
+//
+//            session.close();
+//            return null;
+//        } finally {
+//            session.close();
+//        }
+//    }
+    public List<ComposicaoProduto> getListPorProduto(Long codigo) throws Exception {
+
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
-            return super.getListPorProduto(codigo, Persistencia.getInstance().getEntityManager());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            session.close();
-            return null;
+            return super.getListPorProduto(codigo, session);
         } finally {
             session.close();
         }
