@@ -648,6 +648,7 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         salvar.setBounds(260, 450, 180, 40);
 
         inativar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        inativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         inativar.setText("Imprimir");
         inativar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

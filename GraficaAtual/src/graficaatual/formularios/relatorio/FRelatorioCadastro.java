@@ -166,7 +166,7 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
         codInicial.setBounds(60, 190, 170, 20);
 
         imprimir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         imprimir.setText("Imprimir");
         imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

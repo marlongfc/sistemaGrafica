@@ -810,6 +810,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         cpf.setBounds(350, 90, 250, 20);
 
         inativar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        inativar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         inativar1.setText("Imprimir");
         inativar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
