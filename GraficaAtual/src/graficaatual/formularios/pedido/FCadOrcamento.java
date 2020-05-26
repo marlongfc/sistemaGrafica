@@ -11,6 +11,7 @@ import graficaatual.daos.cadastro.ClienteDAO;
 import graficaatual.daos.cadastro.ProdutoDAO;
 import graficaatual.daos.financeiro.FormaDePagamentoDAO;
 import graficaatual.daos.pedido.ItemOrcamentoDAO;
+import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.Acabamento;
 import graficaatual.entidades.Cliente;
 import graficaatual.entidades.pedido.Orcamento;
@@ -24,8 +25,10 @@ import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -67,8 +70,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     private List<FormaDePagamento> listaFormaPagamento;
     private List<Acabamento> listaAcabamento;
-    
-    Double totalGlobal=0.00;
+
+    Double totalGlobal = 0.00;
 
     public FCadOrcamento() {
         initComponents();
@@ -178,11 +181,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         btSalvarOrca = new javax.swing.JButton();
         btNovoOrca = new javax.swing.JButton();
         btExcluirOrca = new javax.swing.JButton();
-        descontoGeral = new javax.swing.JTextField();
+        descontoMoeda = new javax.swing.JTextField();
         jLabel89 = new javax.swing.JLabel();
         jLabel104 = new javax.swing.JLabel();
-        jLabel105 = new javax.swing.JLabel();
-        acrescimoGeral = new javax.swing.JTextField();
         jLabel106 = new javax.swing.JLabel();
         totalGeralOrc = new javax.swing.JTextField();
         dataOrc = new javax.swing.JFormattedTextField();
@@ -217,6 +218,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         validadeProposta = new javax.swing.JFormattedTextField();
         prazoEntrega = new javax.swing.JFormattedTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel117 = new javax.swing.JLabel();
+        descontoPorcentagem = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
 
@@ -614,18 +617,18 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(btExcluirOrca);
         btExcluirOrca.setBounds(422, 625, 180, 40);
 
-        descontoGeral.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        descontoGeral.setText("0,00");
-        descontoGeral.addFocusListener(new java.awt.event.FocusAdapter() {
+        descontoMoeda.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        descontoMoeda.setText("0,00");
+        descontoMoeda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                descontoGeralFocusLost(evt);
+                descontoMoedaFocusLost(evt);
             }
         });
-        jPanel18.add(descontoGeral);
-        descontoGeral.setBounds(690, 490, 100, 20);
+        jPanel18.add(descontoMoeda);
+        descontoMoeda.setBounds(690, 490, 100, 20);
 
         jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel89.setText("Desconto Geral");
+        jLabel89.setText("Desconto R$");
         jPanel18.add(jLabel89);
         jLabel89.setBounds(690, 470, 100, 20);
 
@@ -633,21 +636,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jLabel104.setText("Formas de Pagamento");
         jPanel18.add(jLabel104);
         jLabel104.setBounds(690, 425, 150, 20);
-
-        jLabel105.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel105.setText("Acréscimo Geral");
-        jPanel18.add(jLabel105);
-        jLabel105.setBounds(800, 470, 100, 20);
-
-        acrescimoGeral.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        acrescimoGeral.setText("0,00");
-        acrescimoGeral.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                acrescimoGeralFocusLost(evt);
-            }
-        });
-        jPanel18.add(acrescimoGeral);
-        acrescimoGeral.setBounds(800, 490, 100, 20);
 
         jLabel106.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel106.setText("Total Geral do Orçamento");
@@ -800,7 +788,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel3);
         jPanel3.setBounds(40, 555, 910, 70);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -835,6 +823,21 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         });
         jPanel18.add(jButton2);
         jButton2.setBounds(783, 625, 140, 40);
+
+        jLabel117.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel117.setText("Desconto %");
+        jPanel18.add(jLabel117);
+        jLabel117.setBounds(800, 470, 100, 20);
+
+        descontoPorcentagem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        descontoPorcentagem.setText("0,00");
+        descontoPorcentagem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                descontoPorcentagemFocusLost(evt);
+            }
+        });
+        jPanel18.add(descontoPorcentagem);
+        descontoPorcentagem.setBounds(800, 490, 100, 20);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1003,8 +1006,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             os[7] = vt;
 
             model.addRow(os);
-            
-             calculaPreçoTotalOrcamentoSemDesconto();
+
+            calculaPreçoTotalOrcamentoSemDesconto();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1116,14 +1119,33 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_checkEntregaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                try {
-            String sql = "select e.codproduto as codproduto, e.descricao as descricao, "
-                    + " (Cast(e.valorprodutom2 as Decimal(10, 2))) as valorprodutom2, (Cast(e.maodeobra as Decimal(10, 2))) as maodeobra, "
-                    + " (Cast(e.custoempresa as Decimal(10, 2))) as custoempresa, (Cast(e.custototal as Decimal(10, 2))) as custototal,"
-                    + " (Cast(e.margemlucro as Decimal(10, 2))) as margemlucro, "
-                    + " (Cast(e.valorunitario as Decimal(10, 2))) as valorunitario from produto e order by e.descricao asc";
+        try {
+            
+            String sql = "SELECT cli.codcliente, pes.nome, pes.cnpj, pes.inscestadual, log.descricao logradouro, bai.descricao bairro,"
+                    + " cid.descricao cidade, pes.numcasa, pes.uf,pes.cep, orc.clientesecundario, pes.email,pes.telefone, "
+                    + " orc.codorcamento,orc.quantprod,prod.codproduto codProduto, prod.descricao produto,orc.medida, orc.unidade, "
+                    + " aca.descricao acabamento,prod.valorunitario, orc.valortotal, "
+                    + " orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario, "
+                    + " orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega "
+                    + " FROM orcamento orc "
+                    + " INNER JOIN cliente cli ON cli.codcliente = orc.cliente "
+                    + " INNER JOIN pessoa pes ON pes.codPessoa = cli.pessoa "
+                    + " INNER JOIN logradouro log ON log.codlogradouro = pes.logradouro "
+                    + " INNER JOIN bairro bai ON bai.codbairro = pes.bairro "
+                    + " INNER JOIN cidade cid ON cid.codcidade = pes.cidade "
+                    + " INNER JOIN produto prod ON prod.codproduto = orc.produto"
+                    + " INNER JOIN acabamento aca ON aca.codacabamento = orc.acabamento"
+                    + " WHERE orc.codOrcamento = " + codOrcamento.getText();
 
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/produto.jasper", "RELATÓRIO DE PRODUTOS", null, sql);
+             Map tx = new HashMap();
+             
+             tx.put("TEXTOPADRAO", new TextoPadraoDAO().get(1).getTextoOrcamento() );
+            
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelOrcamento.jasper", "Orçamento", null, sql);
+            
+            
+            
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1136,25 +1158,42 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_checkCorteRouterActionPerformed
 
     private void valortotalProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valortotalProdutoFocusLost
-       
+
     }//GEN-LAST:event_valortotalProdutoFocusLost
 
-    private void descontoGeralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoGeralFocusLost
+    private void descontoMoedaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoMoedaFocusLost
         calculaPreçoTotalOrcamentoComDesconto();
-    }//GEN-LAST:event_descontoGeralFocusLost
-
-    private void acrescimoGeralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_acrescimoGeralFocusLost
-        calculaPreçoTotalOrcamentoComDesconto();
-    }//GEN-LAST:event_acrescimoGeralFocusLost
+    }//GEN-LAST:event_descontoMoedaFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void descontoPorcentagemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoPorcentagemFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descontoPorcentagemFocusLost
+
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
         if (orcamento != null) {
 
+            codCliente.setText(orcamento.getCliente().getCodCliente().toString());
+            descCliente.setText(orcamento.getCliente().getPessoa().getNome());
+            checkSituacao.setSelected(orcamento.getSituacao());
+            dataOrc.setText(Data.getDate(orcamento.getDataOrcamento()));
+            validadeProposta.setText(Data.getDate(orcamento.getValidadeOrcamento()));
+            prazoEntrega.setText(Data.getDate(orcamento.getPrazoEntrega()));
+            limpaCamposProduto();
+            tabProdutos.removeAll();
+            clienteSecundario.setText(orcamento.getClienteSecundario());
+            telefoneSecundario.setText(orcamento.getTelefoneSecundario());
+            enderecoSecundario.setText(orcamento.getEnderecoSecundario());
+            comboTipoEntrega.setSelectedIndex(orcamento.getTipoDeEntrega());
+            comboFormaPag.setSelectedIndex(orcamento.getFormaPagamento().getCodForma());
+            descontoMoeda.setText(orcamento.getDescontoGeral().toString());
+            descontoPorcentagem.setText(orcamento.getDescontoGeralPorcentagem().toString());
+            totalGeralOrc.setText(orcamento.getValorTotal().toString());
+            desmarcarChecksSetores();
         } else {
             limpaCamposProduto();
         }
@@ -1271,8 +1310,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         enderecoSecundario.setText("");
         comboTipoEntrega.setSelectedIndex(0);
         comboFormaPag.setSelectedIndex(0);
-        descontoGeral.setText("");
-        acrescimoGeral.setText("");
+        descontoMoeda.setText("");
+        descontoPorcentagem.setText("");
         totalGeralOrc.setText("");
         desmarcarChecksSetores();
 
@@ -1338,8 +1377,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         orcamento.setEnderecoSecundario(enderecoSecundario.getText());
         orcamento.setTipoDeEntrega(comboTipoEntrega.getSelectedIndex());
         orcamento.setFormaPagamento(formaPagamentoDao.getByDescricao(comboFormaPag.getSelectedItem().toString()));
-        orcamento.setDescontoGeral(ValidarValor.getDouble(descontoGeral.getText()));
-        orcamento.setAcrescimoGeral(ValidarValor.getDouble(acrescimoGeral.getText()));
+        orcamento.setDescontoGeral(ValidarValor.getDouble(descontoMoeda.getText()));
+        orcamento.setDescontoGeralPorcentagem(ValidarValor.getDouble(descontoPorcentagem.getText()));
         orcamento.setValorTotal(ValidarValor.getDouble(totalGeralOrc.getText()));
         orcamento.setCheckCriacao(checkCriacao.isSelected());
         orcamento.setCheckSerralheria(checkSerralheria.isSelected());
@@ -1397,38 +1436,37 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
             if (valortotalProduto.getText() != null && !"0".equals(valortotalProduto.getText())) {
 
-               Double vlrProd = ValidarValor.getDouble(valortotalProduto.getText());
-               Double acre = ValidarValor.getDouble(acrescimoGeral.getText());
-               Double desco = ValidarValor.getDouble(descontoGeral.getText());                
-                
-              Double tot = ((vlrProd + acre) - desco);                
-             
-                
-               totalGlobal = totalGlobal + tot;
-               
-               totalGeralOrc.setText(ValidarValor.getDouble(totalGlobal));
-                
+                Double vlrProd = ValidarValor.getDouble(valortotalProduto.getText());
+                Double descoMoeda = ValidarValor.getDouble(descontoMoeda.getText());
+                Double descPorcentagem = ValidarValor.getDouble(descontoPorcentagem.getText());
+
+                Double tot = (vlrProd - descoMoeda - descPorcentagem);
+
+                totalGlobal = totalGlobal + tot;
+
+                totalGeralOrc.setText(ValidarValor.getDouble(totalGlobal));
+
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     private void calculaPreçoTotalOrcamentoComDesconto() {
         try {
 
             if (valortotalProduto.getText() != null && !"0".equals(valortotalProduto.getText())) {
 
-               Double vlrProd = ValidarValor.getDouble(valortotalProduto.getText());
-               Double acre = ValidarValor.getDouble(acrescimoGeral.getText());
-               Double desco = ValidarValor.getDouble(descontoGeral.getText());  
-              Double t = ValidarValor.getDouble(totalGeralOrc.getText());
-              
-               totalGlobal = t - desco + acre;
-               
-               totalGeralOrc.setText(ValidarValor.getDouble(totalGlobal));
-                
+                Double vlrProd = ValidarValor.getDouble(valortotalProduto.getText());
+                Double desco = ValidarValor.getDouble(descontoMoeda.getText());
+                Double descoPorc = ValidarValor.getDouble(descontoPorcentagem.getText());
+                Double t = ValidarValor.getDouble(totalGeralOrc.getText());
+
+                totalGlobal = t - desco - descoPorc;
+
+                totalGeralOrc.setText(ValidarValor.getDouble(totalGlobal));
+
             }
 
         } catch (Exception e) {
@@ -1438,7 +1476,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField acrescimoGeral;
     private javax.swing.JButton btAdicionarItem;
     private javax.swing.JButton btExcluirOrca;
     private javax.swing.JButton btNovoItem;
@@ -1468,7 +1505,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField dataOrc;
     private javax.swing.JTextField descCliente;
     private javax.swing.JTextField descProduto;
-    private javax.swing.JTextField descontoGeral;
+    private javax.swing.JTextField descontoMoeda;
+    private javax.swing.JTextField descontoPorcentagem;
     private javax.swing.JTextField enderecoSecundario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1479,7 +1517,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel104;
-    private javax.swing.JLabel jLabel105;
     private javax.swing.JLabel jLabel106;
     private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel108;
@@ -1491,6 +1528,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel114;
     private javax.swing.JLabel jLabel115;
     private javax.swing.JLabel jLabel116;
+    private javax.swing.JLabel jLabel117;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel82;

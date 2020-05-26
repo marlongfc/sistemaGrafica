@@ -9,6 +9,7 @@ import graficaatual.daos.cadastro.TurnoDAO;
 import graficaatual.entidades.Turno;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -112,6 +113,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         inicioPessoa1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
+        btSair1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -270,7 +272,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(190, 140, 180, 40);
+        btNovo.setBounds(100, 140, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -280,7 +282,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(370, 140, 180, 40);
+        btSalvar.setBounds(280, 140, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
@@ -290,17 +292,17 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(550, 140, 180, 40);
+        btExcluir.setBounds(460, 140, 180, 40);
 
-        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
-        btSair.setText("Sair");
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        btSair.setText("Imprimir");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(730, 140, 180, 40);
+        btSair.setBounds(640, 140, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -411,6 +413,16 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel79);
         jLabel79.setBounds(60, 70, 40, 20);
 
+        btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        btSair1.setText("Sair");
+        btSair1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSair1ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(btSair1);
+        btSair1.setBounds(820, 140, 180, 40);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -519,7 +531,15 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        dispose();
+         try {
+            String sql = "SELECT codTurno, descricao FROM turno ORDER BY descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelTurnoLista.jasper", "RELATÓRIO DE TURNOS", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de turnos! \n " + e);
+        }
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
@@ -550,6 +570,10 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private void inicioPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioPessoa1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inicioPessoa1ActionPerformed
+
+    private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btSair1ActionPerformed
     
     private void limpaCampos() {
         codTurnoo.setText("");
@@ -605,6 +629,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
+    private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField codTurnoo;
     private javax.swing.JTextField descTurno;

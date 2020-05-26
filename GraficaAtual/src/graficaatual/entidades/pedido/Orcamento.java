@@ -95,6 +95,9 @@ public class Orcamento implements java.io.Serializable {
     private Double descontoGeral;
 
     @Column(nullable = true)
+    private Double descontoGeralPorcentagem;
+
+    @Column(nullable = true)
     private Double acrescimoGeral;
 
     @Column(nullable = true)
@@ -342,6 +345,14 @@ public class Orcamento implements java.io.Serializable {
 
     public void setEtapaSetor(Boolean etapaSetor) {
         this.etapaSetor = etapaSetor;
+    }
+
+    public Double getDescontoGeralPorcentagem() {
+        return descontoGeralPorcentagem;
+    }
+
+    public void setDescontoGeralPorcentagem(Double descontoGeralPorcentagem) {
+        this.descontoGeralPorcentagem = descontoGeralPorcentagem;
     }
 
     public Date getDataCadastro() {

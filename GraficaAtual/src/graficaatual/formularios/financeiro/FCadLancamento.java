@@ -9,6 +9,7 @@ import graficaatual.daos.financeiro.LancamentoCaixaDAO;
 import graficaatual.entidades.financeiro.LancamentoCaixa;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,6 +119,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         valor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         observacao = new javax.swing.JTextArea();
+        btSair1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -267,7 +269,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(190, 290, 180, 40);
+        btNovo.setBounds(90, 290, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -277,7 +279,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(370, 290, 180, 40);
+        btSalvar.setBounds(270, 290, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
@@ -287,17 +289,17 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(550, 290, 180, 40);
+        btExcluir.setBounds(450, 290, 180, 40);
 
-        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
-        btSair.setText("Sair");
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        btSair.setText("Imprimir");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(730, 290, 180, 40);
+        btSair.setBounds(630, 290, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -443,6 +445,16 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jPanel18.add(jScrollPane1);
         jScrollPane1.setBounds(20, 180, 1020, 96);
 
+        btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        btSair1.setText("Sair");
+        btSair1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSair1ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(btSair1);
+        btSair1.setBounds(810, 290, 180, 40);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -544,7 +556,15 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        dispose();
+          try {
+            String sql = "SELECT codLancamento, descricao FROM lancamentoCaixa ORDER BY descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelLancamentoCaixaLista.jasper", "RELATÓRIO DE LANÇAMENTOS EM CAIXA", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Lançamentos! \n " + e);
+        }
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
@@ -587,6 +607,10 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private void valorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_valorFocusLost
+
+    private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
+       dispose();
+    }//GEN-LAST:event_btSair1ActionPerformed
 
     private void limpaCampos() {
         codLancamento.setText("");
@@ -648,6 +672,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
+    private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField codLancamento;
     private javax.swing.JTextField descLancamento;

@@ -10,6 +10,7 @@ import graficaatual.daos.financeiro.BancoDAO;
 import graficaatual.entidades.financeiro.Banco;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
+import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,6 +121,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
         agencia = new javax.swing.JTextField();
+        btSair1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -271,7 +273,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(190, 130, 180, 40);
+        btNovo.setBounds(80, 130, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -281,7 +283,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(370, 130, 180, 40);
+        btSalvar.setBounds(260, 130, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Excluir");
@@ -291,17 +293,17 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(550, 130, 180, 40);
+        btExcluir.setBounds(440, 130, 180, 40);
 
-        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
-        btSair.setText("Sair");
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        btSair.setText("Imprimir");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(730, 130, 180, 40);
+        btSair.setBounds(620, 130, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -435,6 +437,16 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         jPanel18.add(agencia);
         agencia.setBounds(640, 90, 200, 20);
 
+        btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        btSair1.setText("Sair");
+        btSair1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSair1ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(btSair1);
+        btSair1.setBounds(800, 130, 180, 40);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -536,7 +548,15 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        dispose();
+         try {
+            String sql = "SELECT codBanco, descricao, conta, agencia FROM banco ORDER BY descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelBancoLista.jasper", "RELATÓRIO DE BANCOS", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bancos! \n " + e);
+        }
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
@@ -576,6 +596,10 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_codBancoFocusLost
+
+    private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btSair1ActionPerformed
     
     private void limpaCampos() {
         codBanco.setText("");
@@ -640,6 +664,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
+    private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField codBanco;
     private javax.swing.JTextField conta;
