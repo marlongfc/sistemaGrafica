@@ -121,5 +121,18 @@ public class TurnoDAO extends TurnoRNE {
         }
     }
     
+    
+     public String getSqlList(Integer inicio, Integer fim) throws Exception {
+       String aux = null;
+        try {
+            aux = super.getSqlLista(inicio,fim);
+            return aux;
+            
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
+    
 
 }
