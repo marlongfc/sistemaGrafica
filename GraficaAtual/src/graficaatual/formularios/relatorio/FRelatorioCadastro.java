@@ -5,8 +5,8 @@
  */
 package graficaatual.formularios.relatorio;
 
-
 import graficaatual.daos.UsuariosDAO;
+import graficaatual.daos.cadastro.AcabamentoDAO;
 import graficaatual.daos.cadastro.BairroDAO;
 import graficaatual.daos.cadastro.CargoDAO;
 import graficaatual.daos.cadastro.CidadeDAO;
@@ -14,11 +14,14 @@ import graficaatual.daos.cadastro.ClienteDAO;
 import graficaatual.daos.cadastro.ColaboradorDAO;
 import graficaatual.daos.cadastro.FornecedorDAO;
 import graficaatual.daos.cadastro.LogradouroDAO;
+import graficaatual.daos.cadastro.TurnoDAO;
+import graficaatual.daos.financeiro.FormaDePagamentoDAO;
 import graficaatual.daos.relatorio.EntidadeDAO;
 import graficaatual.entidades.Bairro;
 import graficaatual.entidades.Cidade;
 import graficaatual.entidades.Cliente;
 import graficaatual.entidades.Logradouro;
+import graficaatual.entidades.financeiro.FormaDePagamento;
 import graficaatual.entidades.relatorio.Entidade;
 import graficaatual.pesq.cadastro.CnvCadastroCliente;
 import graficaatual.utilitarios.ValidarValor;
@@ -39,33 +42,29 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
     private int localIncusao;
     private static FRelatorioCadastro instance;
     private static FRelatorioCadastro instanceCont;
-        
+
     //Controle de Navegação
     CnvCadastroCliente cnvClienteCad = new CnvCadastroCliente();
     private JFormattedTextField cpf;
-            
-            
+
     public FRelatorioCadastro() {
-        
-        initComponents();              
+
+        initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
 
     }
-    
+
     public static int isInicializado() {
         return initControle;
     }
-         
-  public synchronized static FRelatorioCadastro getInstance() {
+
+    public synchronized static FRelatorioCadastro getInstance() {
         if (instance == null) {
             instance = new FRelatorioCadastro();
             initControle = 1;
         }
         return instance;
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -195,11 +194,11 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
-        try{
+        try {
             imprimir();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this,"Erro: "+ e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
     }//GEN-LAST:event_imprimirActionPerformed
 
@@ -208,11 +207,11 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_sairActionPerformed
 
     private void jRIndividualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRIndividualStateChanged
-        if(jRIndividual.isSelected()){
+        if (jRIndividual.isSelected()) {
             codInicial.setText("0");
             codFina.setText("0");
             codFina.setEnabled(false);
-        }else{
+        } else {
             codInicial.setText("0");
             codFina.setText("9999999");
             codFina.setEnabled(true);
@@ -220,13 +219,12 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRIndividualStateChanged
 
     private void codInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codInicialFocusLost
-         if(jRIndividual.isSelected()){
-            codFina.setText( codInicial.getText());
+        if (jRIndividual.isSelected()) {
+            codFina.setText(codInicial.getText());
         }
     }//GEN-LAST:event_codInicialFocusLost
-  
-    
- 
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField codFina;
@@ -243,22 +241,21 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void imprimir() throws Exception {
-        String sql ="";
-        switch(jCRelatorio.getSelectedIndex()){
-            
+        String sql = "";
+        switch (jCRelatorio.getSelectedIndex()) {
+
             //Ordem     
             //1-Clientes, 2- Fornecedores, 3- Logradouros
             //4- Bairro, 5- Cidade, 6- Usuários
             //7- Colaborador, 8- Cargo,  9- Turno
             //10- Material, 11- Produtos, 12- Acabamentos
             //13- Forma de Pagamento
-            
             case 1:
-                sql = new ClienteDAO().getSqlLista(ValidarValor.getInt(codInicial.getText()),ValidarValor.getInt(codFina.getText()));  
+                sql = new ClienteDAO().getSqlLista(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaCliente.jasper", "Relatório de Lista de Clientes", null, sql);
                 break;
             case 2:
-                sql = new FornecedorDAO().getSqlList(ValidarValor.getInt(codInicial.getText()),ValidarValor.getInt(codFina.getText()));  
+                sql = new FornecedorDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaFornecedor.jasper", "Relatório de Lista de Fornecedor", null, sql);
                 break;
             case 3:
@@ -268,27 +265,33 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
             case 5:
                 break;
             case 6:
-                 sql = new UsuariosDAO().getSqlLista(ValidarValor.getInt(codInicial.getText()),ValidarValor.getInt(codFina.getText()));  
+                sql = new UsuariosDAO().getSqlLista(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaUsuario.jasper", "Relatório de Lista de Usuários", null, sql);
-        
+
                 break;
             case 7:
-                sql = new ColaboradorDAO().getSqlList(ValidarValor.getInt(codInicial.getText()),ValidarValor.getInt(codFina.getText()));  
+                sql = new ColaboradorDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaColaborador.jasper", "Relatório de Lista de Colaborador", null, sql);
                 break;
             case 8:
-                sql = new CargoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()),ValidarValor.getInt(codFina.getText()));  
+                sql = new CargoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaCargo.jasper", "Relatório de Lista de Cargos", null, sql);
                 break;
             case 9:
+                sql = new TurnoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelTurnoLista.jasper", "Relatório de Lista Turnos", null, sql);
                 break;
             case 10:
                 break;
             case 11:
                 break;
             case 12:
+                sql = new AcabamentoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelAcabamentoLista.jasper", "Relatório de Lista de Acabamentos", null, sql);
                 break;
             case 13:
+                sql = new FormaDePagamentoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelFormaPagamento.jasper", "Relatório de Lista de Formas de Pagamento", null, sql);
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Erro na seleção");
@@ -296,6 +299,4 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
         }
     }
 
-
-  
 }
