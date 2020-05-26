@@ -680,13 +680,13 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                         m.getCodMaterial(),
                         m.getDescricao(),
                         /*  getDescricaoUnidade(m.getUnidade()),*/
-                        ValidarValor.getDouble(m.getMetragemLinear()),
-                        ValidarValor.getDouble(m.getLargura()),
-                        ValidarValor.getDouble(m.getAltura()),
-                        ValidarValor.getDouble(m.getUnidade()),
-                        ValidarValor.getDouble(m.getPeso()),
-                        ValidarValor.getDouble(m.getLitro()),
-                        ValidarValor.getDouble(m.getFrete()),
+                        m.getMetragemLinear() !=null ? ValidarValor.getDouble(m.getMetragemLinear()) : null,
+                        m.getLargura() !=null? ValidarValor.getDouble(m.getLargura()) : null,
+                        m.getAltura() !=null ? ValidarValor.getDouble(m.getAltura()) : null,
+                        m.getUnidade() !=null ? ValidarValor.getDouble(m.getUnidade()) : null,
+                        m.getPeso() !=null ? ValidarValor.getDouble(m.getPeso()) : null,
+                        m.getLitro() !=null ? ValidarValor.getDouble(m.getLitro()) : null,
+                        m.getFrete() !=null ? ValidarValor.getDouble(m.getFrete()) : null,
                         ValidarValor.getDouble(m.getPrecoCompra()),
                         ValidarValor.getDouble(m.getPrecoCustoTotal()),
                         ValidarValor.getDouble(m.getEstoqueMinimo()),};
@@ -698,6 +698,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             removeLinhas(tabMaterial);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de materiais cadastrados. Erro: " + e);
+            e.printStackTrace();
 
         }
     }
@@ -816,18 +817,18 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
                 material.setUnidadeMedida(comboUnidade.getSelectedIndex());
 
-                material.setMetragemLinear(/*ValidarValor.getArredondamento*/(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
-                material.setLargura(/*ValidarValor.getArredondamento*/(Double.parseDouble(largura.getText().replaceAll(",", "."))));
-                material.setAltura(/*ValidarValor.getArredondamento*/(Double.parseDouble(altura.getText().replaceAll(",", "."))));
-                material.setUnidade(/*ValidarValor.getArredondamento*/(Double.parseDouble(unidade.getText().replaceAll(",", "."))));
-                material.setPeso(/*ValidarValor.getArredondamento*/(Double.parseDouble(peso.getText().replaceAll(",", "."))));
-                material.setLitro(/*ValidarValor.getArredondamento*/(Double.parseDouble(litro.getText().replaceAll(",", "."))));
+                material.setMetragemLinear((ValidarValor.getDouble(metragemLinear.getText()) > 0 ? ValidarValor.getDouble(metragemLinear.getText()) : null));
+                material.setLargura((ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(largura.getText()) : null));
+                material.setAltura(ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(altura.getText()) : null);
+                material.setUnidade(ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(unidade.getText()) : null);
+                material.setPeso(ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble(peso.getText()) : null);
+                material.setLitro(ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble(litro.getText()) : null);
 
-                material.setFrete(ValidarValor.getArredondamento(Double.parseDouble(frete.getText().replaceAll(",", "."))));
+                material.setFrete(ValidarValor.getDouble(frete.getText()) > 0 ? ValidarValor.getArredondamento(ValidarValor.getDouble(frete.getText())) : null);
 
-                material.setPrecoCompra(ValidarValor.getArredondamento(Double.parseDouble(precoCustoCompra.getText().replaceAll(",", "."))));
-                material.setPrecoCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(precoCustoTotal.getText().replaceAll(",", "."))));
-                material.setEstoqueMinimo(ValidarValor.getArredondamento(Double.parseDouble(estoqueMinimo.getText().replaceAll(",", "."))));
+                material.setPrecoCompra(ValidarValor.getArredondamento(ValidarValor.getDouble(precoCustoCompra.getText())));
+                material.setPrecoCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(precoCustoTotal.getText())));
+                material.setEstoqueMinimo(ValidarValor.getArredondamento(Double.parseDouble(estoqueMinimo.getText())));
 
                 if (materialDao.salvar(material) != null) {
                     JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
