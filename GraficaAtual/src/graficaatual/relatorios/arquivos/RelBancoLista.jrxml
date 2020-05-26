@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelBancoLista" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="302"/>
-	<property name="ireport.y" value="38"/>
+	<property name="ireport.zoom" value="1.8181818181818181"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
 	<parameter name="CIDADEENT" class="java.lang.String"/>
@@ -84,7 +84,7 @@ ORDER BY descricao asc]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="19" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="3" width="555" height="14" forecolor="#4A2680" uuid="0bd01ddd-7155-4417-90f1-bdd2cce2c383"/>
 				<textElement verticalAlignment="Middle">
@@ -122,7 +122,7 @@ ORDER BY descricao asc]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TURNOS]]></text>
+				<text><![CDATA[BANCO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="453" y="0" width="102" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="2b6f929a-fdf3-43a1-935a-d543e12b1037"/>
@@ -219,7 +219,7 @@ ORDER BY descricao asc]]>
 	</columnFooter>
 	<pageFooter>
 		<band height="42" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="555" height="42" uuid="d6c4c9ad-d162-4b46-8ede-a4a222f696a3"/>
 			</textField>
 			<textField>

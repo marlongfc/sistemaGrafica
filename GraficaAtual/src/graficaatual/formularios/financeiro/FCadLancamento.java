@@ -557,7 +557,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
           try {
-            String sql = "SELECT codLancamento, descricao FROM lancamentoCaixa ORDER BY descricao asc";
+            String sql = "SELECT codLancamento, descricao, valor FROM lancamentoCaixa ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelLancamentoCaixaLista.jasper", "RELATÓRIO DE LANÇAMENTOS EM CAIXA", null, sql);
 

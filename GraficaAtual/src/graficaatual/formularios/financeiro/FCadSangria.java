@@ -556,7 +556,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
          try {
-            String sql = "SELECT codSangria, descricao FROM Sangria ORDER BY descricao asc";
+            String sql = "SELECT codSangria, descricao, valor FROM Sangria ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelSangriasLista.jasper", "RELATÓRIO DE SANGRIAS", null, sql);
 
