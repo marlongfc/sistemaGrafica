@@ -1097,8 +1097,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private void atualizarTabelaComposicao(Produto p) {
         try {
 
-            System.out.println("Teste, entrou no atualizar tabela");
-
             DefaultTableModel model = (DefaultTableModel) tabComposicao.getModel();
             tabComposicao.removeAll();
 
@@ -1119,8 +1117,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                             c.getLargura() == null ? "" : ValidarValor.getDouble(c.getLargura()),
                             c.getAltura() == null ? "" : ValidarValor.getDouble(c.getAltura()),
                             c.getUnidade() == null ? "" : ValidarValor.getDouble(c.getUnidade()),
-                            c.getPeso() == null ? "" : ValidarValor.getDouble(c.getPeso()),
-                            c.getLitro() == null ? "" : ValidarValor.getDouble(c.getLitro()),
+                            c.getPeso() == null ? "" : ValidarValor.getDouble3Casas(c.getPeso()),
+                            c.getLitro() == null ? "" : ValidarValor.getDouble3Casas(c.getLitro()),
                             ValidarValor.getDouble(c.getCustoPorMaterial())
                         };
 
@@ -1206,12 +1204,12 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             produto.setNomeImagem("imgProduto" + codProduto.getText() + ".jpg");
             produto.setImagemProduto(getByteImage());
 
-            produto.setValorProdutoM2(ValidarValor.getArredondamento(Double.parseDouble(custoProduto.getText().replaceAll(",", "."))));
-            produto.setMaoDeObra(ValidarValor.getArredondamento(Double.parseDouble(maoDeObra.getText().replaceAll(",", "."))));
-            produto.setCustoEmpresa(ValidarValor.getArredondamento(Double.parseDouble(custoEmpresa.getText().replaceAll(",", "."))));
-            produto.setCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(custoServico.getText().replaceAll(",", "."))));
-            produto.setMargemLucro(ValidarValor.getArredondamento(Double.parseDouble(margemLucro.getText().replaceAll(",", "."))));
-            produto.setValorUnitario(ValidarValor.getArredondamento(Double.parseDouble(valorUnitario.getText().replaceAll(",", "."))));
+            produto.setValorProdutoM2(ValidarValor.getArredondamento(ValidarValor.getDouble(custoProduto.getText())));
+            produto.setMaoDeObra(ValidarValor.getArredondamento(ValidarValor.getDouble(maoDeObra.getText())));
+            produto.setCustoEmpresa(ValidarValor.getArredondamento(ValidarValor.getDouble(custoEmpresa.getText())));
+            produto.setCustoTotal(ValidarValor.getArredondamento(ValidarValor.getDouble(custoServico.getText())));
+            produto.setMargemLucro(ValidarValor.getArredondamento(ValidarValor.getDouble(margemLucro.getText())));
+            produto.setValorUnitario(ValidarValor.getArredondamento(ValidarValor.getDouble(valorUnitario.getText())));
 
             produto = produtoDao.saveOrUpdatePojo(session, produto);
 
@@ -1242,7 +1240,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     composicaoProduto.setUnidade(ValidarValor.getDouble("" + model.getValueAt(i, 7)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 7)) : null);
                     composicaoProduto.setPeso(ValidarValor.getDouble("" + model.getValueAt(i, 8)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 8)) : null);
                     composicaoProduto.setLitro(ValidarValor.getDouble("" + model.getValueAt(i, 9)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 9)) : null);
-                    composicaoProduto.setCustoPorMaterial(ValidarValor.getArredondamento(Double.parseDouble(("" + model.getValueAt(i, 10)).replaceAll(",", "."))));
+                    composicaoProduto.setCustoPorMaterial(ValidarValor.getArredondamento(ValidarValor.getDouble(("" + model.getValueAt(i, 10)))));
 
                     composicaoDao.saveOrUpdatePojo(session, composicaoProduto);
                 }
@@ -1535,8 +1533,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 os[5] = (ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(largura.getText().replaceAll(",", "."))) : "");
                 os[6] = (ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(altura.getText().replaceAll(",", "."))) : "");
                 os[7] = (ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(unidade.getText().replaceAll(",", "."))) : "");
-                os[8] = (ValidarValor.getDouble(peso.getText()) > 0 ? /*ValidarValor.getDouble*/ (ValidarValor.getDouble(peso.getText()/*.replaceAll(",", ".")*/)) : "");
-                os[9] = (ValidarValor.getDouble(litro.getText()) > 0 ? /*ValidarValor.getDouble*/ (ValidarValor.getDouble(litro.getText()/*.replaceAll(",", ".")*/)) : "");
+                os[8] = (ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble3Casas (ValidarValor.getDouble(peso.getText()/*.replaceAll(",", ".")*/)) : "");
+                os[9] = (ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble3Casas (ValidarValor.getDouble(litro.getText()/*.replaceAll(",", ".")*/)) : "");
 
                 //verifica tipo e qualcula quantidade
                 Double valSalvo = material.getPrecoCustoTotal();

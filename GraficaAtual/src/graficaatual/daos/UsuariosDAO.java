@@ -104,7 +104,7 @@ public class UsuariosDAO extends GenericDAO{
                 + " from Usuario as u"
                 + " left join colaborador as c on (colaborador = c.codColaborador)"
                 + " left join pessoa as p on (c.pessoa = p.codpessoa)"
-                + " where colaborador >="+inicio +" and colaborador <= "+ fim 
+                + " where u.codUsuario >="+inicio +" and u.codUsuario <= "+ fim 
                 + " order by ativo desc, login ";
         return sql;
     }

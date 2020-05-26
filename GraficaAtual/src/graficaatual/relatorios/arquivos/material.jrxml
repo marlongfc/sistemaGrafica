@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="867"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
@@ -11,12 +11,11 @@
 	<parameter name="TELEFONEENT" class="java.lang.String"/>
 	<parameter name="BRASAO" class="java.io.InputStream"/>
 	<parameter name="BAIRROENT" class="java.lang.String"/>
-	<parameter name="NUMEROENT" class="java.lang.String"/>
+	<parameter name="NUMEROENT" class="java.lang.Integer"/>
 	<parameter name="INSCESTENT" class="java.lang.String"/>
 	<parameter name="COMPLEMENTOENT" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[
-select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro Quadrado(m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, metragemlinear, altura,  largura, unidade,  peso, litro,  frete,  precocompra, precocustototal, estoqueminimo   from material order by descricao asc]]>
+		<![CDATA[select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro Quadrado(m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, metragemlinear, altura,  largura, unidade,  peso, litro,  frete,  precocompra, precocustototal, estoqueminimo   from material order by descricao asc]]>
 	</queryString>
 	<field name="codmaterial" class="java.lang.Long"/>
 	<field name="descricao" class="java.lang.String"/>
@@ -414,7 +413,7 @@ select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' 
 				</textElement>
 				<textFieldExpression><![CDATA[$F{litro}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="565" y="0" width="40" height="13" backcolor="#E6E7E9" uuid="85e85f65-84be-4a99-9f85-7b62e1afaa70"/>
 				<box leftPadding="4" rightPadding="2">
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -428,7 +427,7 @@ select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' 
 				</textElement>
 				<textFieldExpression><![CDATA[$F{frete}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="605" y="0" width="61" height="13" backcolor="#E6E7E9" uuid="c3945ab0-825d-46e4-9616-4eedf4653479"/>
 				<box leftPadding="4" rightPadding="2">
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -442,7 +441,7 @@ select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' 
 				</textElement>
 				<textFieldExpression><![CDATA[$F{precocompra}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="666" y="0" width="81" height="13" backcolor="#E6E7E9" uuid="68cd751d-a00a-4ba8-aa78-fb03f9067af9"/>
 				<box leftPadding="4" rightPadding="2">
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -458,6 +457,13 @@ select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' 
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="747" y="0" width="55" height="13" backcolor="#E6E7E9" uuid="e1df634d-3b05-4322-9c31-aa20dc5f1f4a"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>

@@ -104,6 +104,17 @@ public class ValidarValor {
         return FvaRetorno;
     }
 
+    public static String getDouble3Casas(double valor) {
+        String FvaRetorno = "0,000";
+        try {
+            DecimalFormat formatador = new DecimalFormat();
+            formatador.applyPattern("###,####,##0.000;-###,###,##0.000");
+            FvaRetorno = formatador.format(valor);
+        } catch (Exception e) {
+            System.out.println("Erro ao tentar converter o valor informado. Erro: " + e);
+        }
+        return FvaRetorno;
+    }
   
 
     public static Double getParseDouble(String valor) {
