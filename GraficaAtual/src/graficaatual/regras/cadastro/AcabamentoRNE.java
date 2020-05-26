@@ -48,5 +48,13 @@ public class AcabamentoRNE extends GenericDAO {
         }
         return true;
     }
+    
+    public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select a.codAcabamento, a.descricao"
+                + " from Acabamento as a" 
+                + " where a.codAcabamento >="+inicio +" and a.codAcabamento <= "+ fim 
+                + " order by a.descricao ";
+        return sql;
+    }
 
 }

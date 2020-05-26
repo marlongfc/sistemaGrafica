@@ -43,5 +43,16 @@ public class TurnoRNE extends GenericDAO {
         }
         return true;
     }
+    
+    
+    
+    public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select t.codTurno, t.descricao " 
+                + " from Turno as t" 
+                + " where t.codTurno >="+inicio +" and t.codTurno <= "+ fim 
+                + " order by t.descricao ";
+        return sql;
+    }
+    
 
 }

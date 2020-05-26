@@ -47,5 +47,13 @@ public class FormaDePagamentoRNE extends GenericDAO {
         }
         return true;
     }
+    
+    public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select f.codForma, f.descricao"
+                + " from formaDePagamento as f" 
+                + " where f.codForma >="+inicio +" and f.codForma <= "+ fim 
+                + " order by f.descricao ";
+        return sql;
+    }
 
 }
