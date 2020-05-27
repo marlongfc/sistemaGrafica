@@ -5,6 +5,7 @@
  */
 package graficaatual.entidades.financeiro;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -31,11 +32,14 @@ public class RequisicaoFinanceira implements java.io.Serializable {
     @Column(length = 500)
     private String descricao;
 
-    @Column(length = 1000)
-    private String observacao;
+    @Column(nullable = false)
+    private Integer quantidade;
 
-    @Column()
-    private Double valor;
+    @Column(nullable = false)
+    private Double valorUnitario;
+
+    @Column(nullable = false)
+    private Double valorTotal;
 
     @Column(name = "dataCadastro")
     private Date dataCadastro;
@@ -63,14 +67,6 @@ public class RequisicaoFinanceira implements java.io.Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
     }
 
     public Date getDataCadastro() {
@@ -105,12 +101,28 @@ public class RequisicaoFinanceira implements java.io.Serializable {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
 
-    public String getObservacao() {
-        return observacao;
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(Double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
     }
     
     
