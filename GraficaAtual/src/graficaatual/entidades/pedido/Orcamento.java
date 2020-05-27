@@ -70,7 +70,7 @@ public class Orcamento implements java.io.Serializable {
     @Column(nullable = true)
     private Boolean situacao;
 
-    @Column()
+   @Column(nullable = true)
     private Integer quantProd;
 
     @Column(nullable = true)
@@ -100,7 +100,7 @@ public class Orcamento implements java.io.Serializable {
     @Column(nullable = true)
     private Double acrescimoGeral;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Double valorTotal;
 
     @Column(nullable = true)
