@@ -397,7 +397,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(40, 610, 190, 39);
+        btNovo.setBounds(40, 590, 190, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -407,7 +407,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(230, 610, 190, 39);
+        btSalvar.setBounds(230, 590, 190, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -417,7 +417,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(420, 610, 190, 39);
+        btExcluir.setBounds(420, 590, 190, 39);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
@@ -427,7 +427,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(800, 610, 190, 39);
+        btSair.setBounds(800, 590, 190, 39);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -493,11 +493,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 310, 990, 200);
+        jScrollPane1.setBounds(20, 310, 990, 180);
 
         jLabel2.setText("Custo Produto ( m²)");
         jPanel18.add(jLabel2);
-        jLabel2.setBounds(20, 550, 150, 14);
+        jLabel2.setBounds(20, 530, 150, 14);
 
         custoProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         custoProduto.setText("0,00");
@@ -507,11 +507,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(custoProduto);
-        custoProduto.setBounds(20, 570, 150, 20);
+        custoProduto.setBounds(20, 550, 150, 20);
 
         jLabel3.setText("Mão De Obra (custo / hora)");
         jPanel18.add(jLabel3);
-        jLabel3.setBounds(180, 550, 150, 14);
+        jLabel3.setBounds(180, 530, 150, 14);
 
         maoDeObra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         maoDeObra.setText("0,00");
@@ -521,7 +521,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(maoDeObra);
-        maoDeObra.setBounds(180, 570, 150, 20);
+        maoDeObra.setBounds(180, 550, 150, 20);
 
         custoEmpresa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         custoEmpresa.setText("0,00");
@@ -536,25 +536,25 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(custoEmpresa);
-        custoEmpresa.setBounds(340, 570, 150, 20);
+        custoEmpresa.setBounds(340, 550, 150, 20);
 
         jLabel4.setText("Custo Empresa ( m² / hora)");
         jPanel18.add(jLabel4);
-        jLabel4.setBounds(340, 550, 160, 14);
+        jLabel4.setBounds(340, 530, 160, 14);
 
         jLabel5.setText("Custo do Serviço m²");
         jPanel18.add(jLabel5);
-        jLabel5.setBounds(500, 550, 170, 14);
+        jLabel5.setBounds(500, 530, 170, 14);
 
         custoServico.setBackground(new java.awt.Color(255, 255, 204));
         custoServico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         custoServico.setText("0,00");
         jPanel18.add(custoServico);
-        custoServico.setBounds(500, 570, 150, 20);
+        custoServico.setBounds(500, 550, 150, 20);
 
         jLabel6.setText("Margem de Lucro (%)");
         jPanel18.add(jLabel6);
-        jLabel6.setBounds(660, 550, 170, 14);
+        jLabel6.setBounds(660, 530, 170, 14);
 
         margemLucro.setBackground(new java.awt.Color(255, 255, 204));
         margemLucro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -565,19 +565,19 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(margemLucro);
-        margemLucro.setBounds(660, 570, 150, 20);
+        margemLucro.setBounds(660, 550, 150, 20);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Valor Unitário (m²)");
         jPanel18.add(jLabel7);
-        jLabel7.setBounds(850, 550, 160, 15);
+        jLabel7.setBounds(850, 530, 160, 15);
 
         valorUnitario.setBackground(new java.awt.Color(255, 255, 204));
         valorUnitario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         valorUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valorUnitario.setText("0,00");
         jPanel18.add(valorUnitario);
-        valorUnitario.setBounds(850, 570, 160, 21);
+        valorUnitario.setBounds(850, 530, 160, 21);
 
         jLabel8.setText("Cód. Material");
         jPanel18.add(jLabel8);
@@ -618,7 +618,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         msgMaterial.setForeground(new java.awt.Color(255, 0, 0));
         msgMaterial.setText("* Material adicionado/removido ainda não foi salvo! Informe os valores abaixo e clique em salvar para salvar o produto!");
         jPanel18.add(msgMaterial);
-        msgMaterial.setBounds(20, 520, 770, 14);
+        msgMaterial.setBounds(20, 500, 770, 14);
 
         removerMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REMOVER2.png"))); // NOI18N
         removerMaterial.setText("Remover ");
@@ -712,7 +712,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(jButton2);
-        jButton2.setBounds(610, 610, 190, 39);
+        jButton2.setBounds(610, 590, 190, 39);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 

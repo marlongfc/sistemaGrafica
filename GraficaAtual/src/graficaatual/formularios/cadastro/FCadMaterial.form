@@ -507,15 +507,15 @@
                   <Table columnCount="12" rowCount="0">
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                     <Column editable="false" title="Material" type="java.lang.String"/>
-                    <Column editable="false" title="Metro (m)" type="java.lang.String"/>
-                    <Column editable="false" title="Largura (m)" type="java.lang.String"/>
-                    <Column editable="false" title="Altura (m)" type="java.lang.String"/>
-                    <Column editable="false" title="Unidade" type="java.lang.String"/>
+                    <Column editable="false" title="M. Linear (m)" type="java.lang.String"/>
+                    <Column editable="false" title="Larg. (m)" type="java.lang.String"/>
+                    <Column editable="false" title="Alt. (m)" type="java.lang.String"/>
+                    <Column editable="false" title="Unidades" type="java.lang.String"/>
                     <Column editable="false" title="Peso (kg)" type="java.lang.String"/>
-                    <Column editable="false" title="Litro (L)" type="java.lang.String"/>
+                    <Column editable="false" title="Litros (L)" type="java.lang.String"/>
                     <Column editable="false" title="Frete (R$)" type="java.lang.String"/>
                     <Column editable="false" title="P. Compra (R$)" type="java.lang.String"/>
-                    <Column editable="false" title="P. Custo Total (R$)" type="java.lang.String"/>
+                    <Column editable="false" title="Custo Total (R$)" type="java.lang.String"/>
                     <Column editable="false" title="Est. M&#xed;nimo" type="java.lang.String"/>
                   </Table>
                 </Property>

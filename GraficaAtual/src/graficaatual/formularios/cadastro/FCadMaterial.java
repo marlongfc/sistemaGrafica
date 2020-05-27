@@ -344,7 +344,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Material", "Metro (m)", "Largura (m)", "Altura (m)", "Unidade", "Peso (kg)", "Litro (L)", "Frete (R$)", "P. Compra (R$)", "P. Custo Total (R$)", "Est. Mínimo"
+                "Código", "Material", "M. Linear (m)", "Larg. (m)", "Alt. (m)", "Unidades", "Peso (kg)", "Litros (L)", "Frete (R$)", "P. Compra (R$)", "Custo Total (R$)", "Est. Mínimo"
             }
         ) {
             Class[] types = new Class [] {
@@ -680,13 +680,13 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                         m.getCodMaterial(),
                         m.getDescricao(),
                         /*  getDescricaoUnidade(m.getUnidade()),*/
-                        m.getMetragemLinear() !=null ? ValidarValor.getDouble(m.getMetragemLinear()) : null,
-                        m.getLargura() !=null? ValidarValor.getDouble(m.getLargura()) : null,
-                        m.getAltura() !=null ? ValidarValor.getDouble(m.getAltura()) : null,
-                        m.getUnidade() !=null ? ValidarValor.getDouble(m.getUnidade()) : null,
-                        m.getPeso() !=null ? ValidarValor.getDouble(m.getPeso()) : null,
-                        m.getLitro() !=null ? ValidarValor.getDouble(m.getLitro()) : null,
-                        m.getFrete() !=null ? ValidarValor.getDouble(m.getFrete()) : null,
+                        m.getMetragemLinear() != null ? ValidarValor.getDouble(m.getMetragemLinear()) : null,
+                        m.getLargura() != null ? ValidarValor.getDouble(m.getLargura()) : null,
+                        m.getAltura() != null ? ValidarValor.getDouble(m.getAltura()) : null,
+                        m.getUnidade() != null ? ValidarValor.getDouble(m.getUnidade()) : null,
+                        m.getPeso() != null ? ValidarValor.getDouble(m.getPeso()) : null,
+                        m.getLitro() != null ? ValidarValor.getDouble(m.getLitro()) : null,
+                        m.getFrete() != null ? ValidarValor.getDouble(m.getFrete()) : null,
                         ValidarValor.getDouble(m.getPrecoCompra()),
                         ValidarValor.getDouble(m.getPrecoCustoTotal()),
                         ValidarValor.getDouble(m.getEstoqueMinimo()),};
@@ -781,14 +781,14 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             descMaterial.setText(m.getDescricao());
             comboUnidade.setSelectedIndex(m.getUnidadeMedida());
 
-            metragemLinear.setText(ValidarValor.getDouble(m.getMetragemLinear()));
-            largura.setText(ValidarValor.getDouble(m.getLargura()));
-            altura.setText(ValidarValor.getDouble(m.getAltura()));
-            unidade.setText(ValidarValor.getDouble(m.getUnidade()));
-            peso.setText(ValidarValor.getDouble(m.getPeso()));
-            litro.setText(ValidarValor.getDouble(m.getLitro()));
+            metragemLinear.setText(m.getMetragemLinear() == null ? "0,00" : ValidarValor.getDouble(m.getMetragemLinear()));
+            largura.setText(m.getLargura() == null ? "0,00" : ValidarValor.getDouble(m.getLargura()));
+            altura.setText(m.getAltura() == null ? "0,00" : ValidarValor.getDouble(m.getAltura()));
+            unidade.setText(m.getUnidade() == null ? "0" : ValidarValor.getDouble(m.getUnidade()));
+            peso.setText(m.getPeso() == null ? "0,00" : ValidarValor.getDouble(m.getPeso()));
+            litro.setText(m.getLitro() == null ? "0,00" : ValidarValor.getDouble(m.getLitro()));
 
-            frete.setText(ValidarValor.getDouble(m.getFrete()));
+            frete.setText(m.getFrete() == null ? "0,00" : ValidarValor.getDouble(m.getFrete()));
             precoCustoCompra.setText(ValidarValor.getDouble(m.getPrecoCompra()));
             precoCustoTotal.setText(ValidarValor.getDouble(m.getPrecoCustoTotal()));
             estoqueMinimo.setText(ValidarValor.getDouble(m.getEstoqueMinimo()));
@@ -827,8 +827,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                 material.setFrete(ValidarValor.getDouble(frete.getText()) > 0 ? ValidarValor.getArredondamento(ValidarValor.getDouble(frete.getText())) : null);
 
                 material.setPrecoCompra(ValidarValor.getArredondamento(ValidarValor.getDouble(precoCustoCompra.getText())));
-                material.setPrecoCustoTotal(ValidarValor.getArredondamento(Double.parseDouble(precoCustoTotal.getText())));
-                material.setEstoqueMinimo(ValidarValor.getArredondamento(Double.parseDouble(estoqueMinimo.getText())));
+                material.setPrecoCustoTotal(ValidarValor.getArredondamento(ValidarValor.getDouble(precoCustoTotal.getText())));
+                material.setEstoqueMinimo(ValidarValor.getArredondamento(ValidarValor.getDouble(estoqueMinimo.getText())));
 
                 if (materialDao.salvar(material) != null) {
                     JOptionPane.showMessageDialog(null, "Salvo com sucesso!");

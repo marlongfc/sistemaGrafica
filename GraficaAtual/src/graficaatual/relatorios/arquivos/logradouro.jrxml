@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="225"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
 	<parameter name="CIDADEENT" class="java.lang.String"/>
@@ -24,7 +24,7 @@ from logradouro]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="65" splitType="Stretch">
+		<band height="71" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement key="textField-1" mode="Transparent" x="104" y="37" width="451" height="13" forecolor="#4A2680" backcolor="#FFFFFF" uuid="0b4fddd3-7016-46ac-9173-49ecc6ba617f"/>
 				<box>
@@ -160,9 +160,6 @@ from logradouro]]>
 	</columnFooter>
 	<pageFooter>
 		<band height="42" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="555" height="42" uuid="d6c4c9ad-d162-4b46-8ede-a4a222f696a3"/>
-			</textField>
 			<textField>
 				<reportElement x="455" y="29" width="100" height="13" forecolor="#4A2680" uuid="b9709721-a6cf-4dfe-a73a-e9aa230f6265"/>
 				<textElement textAlignment="Right">
