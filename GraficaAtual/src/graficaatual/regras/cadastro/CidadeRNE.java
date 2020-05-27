@@ -49,4 +49,13 @@ public class CidadeRNE extends GenericDAO {
     public List<Cidade> getList(EntityManager session, String sql) throws Exception {
         return getPureList(session, Cidade.class, sql);
     }
+    
+     public String getSqlLista(Integer inicio, Integer fim) {
+
+        String sql = "select e.codCidade, e.descricao from Cidade e "
+                + " where e.codCidade>=" + inicio + " and e.codCidade <=" + fim
+                + " order by e.descricao asc";
+
+        return sql;
+    }
 }

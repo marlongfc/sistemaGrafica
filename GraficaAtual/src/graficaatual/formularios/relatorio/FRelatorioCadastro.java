@@ -14,19 +14,19 @@ import graficaatual.daos.cadastro.ClienteDAO;
 import graficaatual.daos.cadastro.ColaboradorDAO;
 import graficaatual.daos.cadastro.FornecedorDAO;
 import graficaatual.daos.cadastro.LogradouroDAO;
+import graficaatual.daos.cadastro.MaterialDAO;
+import graficaatual.daos.cadastro.ProdutoDAO;
 import graficaatual.daos.cadastro.TurnoDAO;
 import graficaatual.daos.financeiro.FormaDePagamentoDAO;
-import graficaatual.daos.relatorio.EntidadeDAO;
-import graficaatual.entidades.Bairro;
-import graficaatual.entidades.Cidade;
-import graficaatual.entidades.Cliente;
-import graficaatual.entidades.Logradouro;
-import graficaatual.entidades.financeiro.FormaDePagamento;
-import graficaatual.entidades.relatorio.Entidade;
+import graficaatual.entidades.Produto;
 import graficaatual.pesq.cadastro.CnvCadastroCliente;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -46,18 +46,18 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
     //Controle de Navegação
     CnvCadastroCliente cnvClienteCad = new CnvCadastroCliente();
     private JFormattedTextField cpf;
-
+    
     public FRelatorioCadastro() {
-
+        
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
+        
     }
-
+    
     public static int isInicializado() {
         return initControle;
     }
-
+    
     public synchronized static FRelatorioCadastro getInstance() {
         if (instance == null) {
             instance = new FRelatorioCadastro();
@@ -118,7 +118,12 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
         jLabel2.setBounds(50, 0, 970, 70);
 
         jCRelatorio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Cadastro", "Clientes", "Fornecedores", "Logradouros", "Bairro", "Cidade", "Usuários", "Colaborador", "Cargo", "Turno", "Material", "Produtos", "Acabamentos", "Forma de Pagamento" }));
+        jCRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Cadastro", "Clientes", "Fornecedores", "Logradouros", "Bairro", "Cidade", "Usuários", "Colaborador", "Cargo", "Turno", "Material", "Produto (Detalhado)", "Produtos (Listagem)", "Acabamentos", "Forma de Pagamento" }));
+        jCRelatorio.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCRelatorioItemStateChanged(evt);
+            }
+        });
         jPanel10.add(jCRelatorio);
         jCRelatorio.setBounds(60, 90, 430, 30);
 
@@ -193,6 +198,17 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparTela(){
+    
+        jCRelatorio.setSelectedIndex(0);
+        jRIndividual.setSelected(true);
+        codInicial.setText("");
+        codFina.setText("");
+        jRLista.setEnabled(true);
+        codFina.setEnabled(true);
+    }
+    
+    
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
         try {
             imprimir();
@@ -203,7 +219,8 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_imprimirActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
-        // TODO add your handling code here:
+             limparTela();
+        dispose();
     }//GEN-LAST:event_sairActionPerformed
 
     private void jRIndividualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRIndividualStateChanged
@@ -223,6 +240,26 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
             codFina.setText(codInicial.getText());
         }
     }//GEN-LAST:event_codInicialFocusLost
+
+    private void jCRelatorioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCRelatorioItemStateChanged
+        try {
+            
+            codInicial.setText("0");
+
+            //produto detalhado
+            if (jCRelatorio.getSelectedIndex() == 11) {
+                codFina.setEnabled(false);
+                jRLista.setEnabled(false);
+                
+                jRIndividual.setSelected(true);
+            } else {
+                codFina.setEnabled(false);
+                jRLista.setEnabled(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jCRelatorioItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -248,8 +285,8 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
             //1-Clientes, 2- Fornecedores, 3- Logradouros
             //4- Bairro, 5- Cidade, 6- Usuários
             //7- Colaborador, 8- Cargo,  9- Turno
-            //10- Material, 11- Produtos, 12- Acabamentos
-            //13- Forma de Pagamento
+            //10- Material, 11- Produto (Detalhado), 12 - Produto (Listagem), 13- Acabamentos
+            //14- Forma de Pagamento
             case 1:
                 sql = new ClienteDAO().getSqlLista(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaCliente.jasper", "Relatório de Lista de Clientes", null, sql);
@@ -259,15 +296,22 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaFornecedor.jasper", "Relatório de Lista de Fornecedor", null, sql);
                 break;
             case 3:
+                sql = new LogradouroDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/logradouro.jasper", "RELATÓRIO DE LOGRADOUROS", null, sql);
                 break;
             case 4:
+                sql = new BairroDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/bairro.jasper", "RELATÓRIO DE BAIRROS", null, sql);
                 break;
             case 5:
+                sql = new CidadeDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/cidade.jasper", "RELATÓRIO DE CIDADES", null, sql);
+                
                 break;
             case 6:
                 sql = new UsuariosDAO().getSqlLista(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaUsuario.jasper", "Relatório de Lista de Usuários", null, sql);
-
+                
                 break;
             case 7:
                 sql = new ColaboradorDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
@@ -282,14 +326,57 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelTurnoLista.jasper", "Relatório de Lista Turnos", null, sql);
                 break;
             case 10:
+                sql = new MaterialDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/material.jasper", "RELATÓRIO DE MATERIAIS", null, sql);
+                
                 break;
+
+            //Necessita da busca para passar a imagem
             case 11:
+                
+                try {
+                    Map parametros = null;
+                    ProdutoDAO pDao = new ProdutoDAO();
+                    Produto p = null;
+                    
+                    p = pDao.getPorCodigo(ValidarValor.getLong(codInicial.getText()));
+                    
+                    if (p != null) {
+                        
+                        sql = pDao.getSqlListPorProduto(p.getCodProduto());
+                        
+                        if (p.getImagemProduto() != null) {
+                            
+                            ByteArrayInputStream bis = new ByteArrayInputStream(p.getImagemProduto(), 0, p.getImagemProduto().length);
+                            
+                            InputStream is;
+                            is = (InputStream) bis;
+                            
+                            parametros = new HashMap();
+                            parametros.put("IMAGEMPRODUTO", is);
+                        }
+                        
+                        new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/produto.jasper", "RELATÓRIO DE PRODUTOS (INDIVIDUAL)", parametros, sql);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Selecione um produto!");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
+                }
+                
                 break;
             case 12:
+                
+                sql = new ProdutoDAO().getSqlListagem(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaProdutos.jasper", "RELATÓRIO DE PRODUTOS (LISTAGEM)", null, sql);
+                
+                break;
+            case 13:
                 sql = new AcabamentoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelAcabamentoLista.jasper", "Relatório de Lista de Acabamentos", null, sql);
                 break;
-            case 13:
+            case 14:
                 sql = new FormaDePagamentoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
                 new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelFormaPagamento.jasper", "Relatório de Lista de Formas de Pagamento", null, sql);
                 break;
@@ -298,5 +385,5 @@ public class FRelatorioCadastro extends javax.swing.JInternalFrame {
                 break;
         }
     }
-
+    
 }

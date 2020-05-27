@@ -5,7 +5,6 @@
  */
 package graficaatual.daos.cadastro;
 
-
 import graficaatual.entidades.Produto;
 import graficaatual.regras.cadastro.ProdutoRNE;
 import graficaatual.utilitarios.Persistencia;
@@ -32,7 +31,7 @@ public class ProdutoDAO extends ProdutoRNE {
             throw e;
         } finally {
             session.close();
-            
+
         }
 
     }
@@ -54,23 +53,23 @@ public class ProdutoDAO extends ProdutoRNE {
             session.close();
         }
     }
-    
+
     public Produto getPorCodigo(long codigo) throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.get(codigo, session);
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
             session.close();
             return null;
-        }finally {
+        } finally {
             session.close();
         }
     }
 
-     public long getNextItem() throws Exception {
+    public long getNextItem() throws Exception {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             return super.getNextItem(session);
@@ -81,31 +80,31 @@ public class ProdutoDAO extends ProdutoRNE {
 
     public List<Produto> getList() throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-       try {
-           return super.getList(session);
-       } finally {
-           session.close();
-       }
-   }
+        try {
+            return super.getList(session);
+        } finally {
+            session.close();
+        }
+    }
 
     public List<Produto> getList(String sql) throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
             return super.getList(session, sql);
         } finally {
-           session.close();
+            session.close();
         }
     }
-    
-     public List<Produto> getList(int NRegistros, String SQL, Object... parametros) {
+
+    public List<Produto> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Produto.class, SQL, parametros);
     }
-     
-       public boolean savePojo(EntityManager xSession, Serializable pojo) {
+
+    public boolean savePojo(EntityManager xSession, Serializable pojo) {
         boolean FvaRetorno = false;
         try {
             pojo = xSession.merge(pojo);
@@ -117,7 +116,27 @@ public class ProdutoDAO extends ProdutoRNE {
         }
         return FvaRetorno;
     }
-       
-      
+
+    public String getSqlListPorProduto(Long cod) throws Exception {
+
+        try {
+            return super.getSqlListaPorProduto(cod);
+
+        } catch (Exception e) {
+
+            throw e;
+        }
+    }
+
+    public String getSqlListagem(Integer inicio, Integer fim) throws Exception {
+
+        try {
+            return super.getSqlListagemProdutos(inicio, fim);
+
+        } catch (Exception e) {
+
+            throw e;
+        }
+    }
 
 }

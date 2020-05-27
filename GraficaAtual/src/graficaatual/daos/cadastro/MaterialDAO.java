@@ -102,4 +102,16 @@ public class MaterialDAO extends MaterialRNE {
     public List<Material> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Material.class, SQL, parametros);
     }
+    
+       public String getSqlList(Integer inicio, Integer fim) throws Exception {
+      
+        try {
+           return super.getSqlLista(inicio,fim);
+                     
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
+
 }

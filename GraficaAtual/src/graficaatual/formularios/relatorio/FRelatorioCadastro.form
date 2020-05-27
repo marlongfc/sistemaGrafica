@@ -93,25 +93,13 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="14" style="1"/>
             </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="14">
-                <StringItem index="0" value="Selecione o Cadastro"/>
-                <StringItem index="1" value="Clientes"/>
-                <StringItem index="2" value="Fornecedores"/>
-                <StringItem index="3" value="Logradouros"/>
-                <StringItem index="4" value="Bairro"/>
-                <StringItem index="5" value="Cidade"/>
-                <StringItem index="6" value="Usu&#xe1;rios"/>
-                <StringItem index="7" value="Colaborador"/>
-                <StringItem index="8" value="Cargo"/>
-                <StringItem index="9" value="Turno"/>
-                <StringItem index="10" value="Material"/>
-                <StringItem index="11" value="Produtos"/>
-                <StringItem index="12" value="Acabamentos"/>
-                <StringItem index="13" value="Forma de Pagamento"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Selecione o Cadastro&quot;, &quot;Clientes&quot;, &quot;Fornecedores&quot;, &quot;Logradouros&quot;, &quot;Bairro&quot;, &quot;Cidade&quot;, &quot;Usu&#xe1;rios&quot;, &quot;Colaborador&quot;, &quot;Cargo&quot;, &quot;Turno&quot;, &quot;Material&quot;, &quot;Produto (Detalhado)&quot;, &quot;Produtos (Listagem)&quot;, &quot;Acabamentos&quot;, &quot;Forma de Pagamento&quot; })" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jCRelatorioItemStateChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
