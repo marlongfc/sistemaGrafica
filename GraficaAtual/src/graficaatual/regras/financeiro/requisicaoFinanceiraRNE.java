@@ -43,5 +43,13 @@ public class requisicaoFinanceiraRNE extends GenericDAO {
         }
         return true;
     }
+    
+     public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select r.codRequisicao, r.descricao"  
+                + " from requisicaofinanceira as r" 
+                + " where r.codRequisicao >="+inicio +" and r.codRequisicao <= "+ fim 
+                + " order by r.descricao ";
+        return sql;
+    }  
 
 }

@@ -43,5 +43,13 @@ public class SangriaRNE extends GenericDAO {
         }
         return true;
     }
+    
+    public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select s.codSangria, s.descricao, s.valor"  
+                + " from Sangria as s" 
+                + " where s.codSangria >="+inicio +" and s.codSangria <= "+ fim 
+                + " order by s.descricao ";
+        return sql;
+    }  
 
 }

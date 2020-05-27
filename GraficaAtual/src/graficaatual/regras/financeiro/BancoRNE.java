@@ -43,5 +43,13 @@ public class BancoRNE extends GenericDAO {
         }
         return true;
     }
+    
+     public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select b.codBanco, b.descricao, b.conta, b.agencia"
+                + " from Banco as b" 
+                + " where b.codBanco >="+inicio +" and b.codBanco <= "+ fim 
+                + " order by b.descricao ";
+        return sql;
+    } 
 
 }

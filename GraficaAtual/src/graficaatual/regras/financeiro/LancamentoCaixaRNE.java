@@ -43,4 +43,12 @@ public class LancamentoCaixaRNE extends GenericDAO {
         }
         return true;
     }
+    
+     public String getSqlLista(Integer inicio, Integer fim) {
+      String sql = " select l.codLancamento, l.descricao, l.valor"
+                + " from lancamentoCaixa as l" 
+                + " where l.codLancamento >="+inicio +" and l.codLancamento <= "+ fim 
+                + " order by l.descricao ";
+        return sql;
+    }  
 }
