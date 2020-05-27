@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="218"/>
+	<property name="ireport.y" value="26"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
 	<parameter name="CIDADEENT" class="java.lang.String"/>
@@ -51,7 +51,7 @@ inner join material m on m.codmaterial = c.material]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="65" splitType="Stretch">
+		<band height="74" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement key="textField-1" mode="Transparent" x="351" y="37" width="451" height="13" forecolor="#4A2680" backcolor="#FFFFFF" uuid="0b4fddd3-7016-46ac-9173-49ecc6ba617f"/>
 				<box>
@@ -618,9 +618,6 @@ inner join material m on m.codmaterial = c.material]]>
 	</columnFooter>
 	<pageFooter>
 		<band height="42" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="802" height="42" uuid="d6c4c9ad-d162-4b46-8ede-a4a222f696a3"/>
-			</textField>
 			<textField>
 				<reportElement x="702" y="29" width="100" height="13" forecolor="#4A2680" uuid="b9709721-a6cf-4dfe-a73a-e9aa230f6265"/>
 				<textElement textAlignment="Right">
