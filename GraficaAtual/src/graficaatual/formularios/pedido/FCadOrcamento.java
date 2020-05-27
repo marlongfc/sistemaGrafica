@@ -23,6 +23,7 @@ import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.awt.Color;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
@@ -89,6 +90,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         comp2.bind();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        
+         checkSituacao.setBackground(Color.red);
 
     }
 
@@ -579,6 +582,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkSituacao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         checkSituacao.setForeground(new java.awt.Color(255, 255, 255));
         checkSituacao.setText("Aprovado");
+        checkSituacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkSituacaoMouseClicked(evt);
+            }
+        });
         jPanel18.add(checkSituacao);
         checkSituacao.setBounds(840, 70, 100, 23);
 
@@ -908,6 +916,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             limpaCampos();
             adicionarComboFormaPagamento();
             adicionarComboAcabamento();
+            tabProdutos.removeAll();
             descCliente.requestFocus();
 
         } catch (Exception e) {
@@ -1120,7 +1129,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            
+
             String sql = "SELECT cli.codcliente, pes.nome, pes.cnpj, pes.inscestadual, log.descricao logradouro, bai.descricao bairro,"
                     + " cid.descricao cidade, pes.numcasa, pes.uf,pes.cep, orc.clientesecundario, pes.email,pes.telefone, "
                     + " orc.codorcamento,orc.quantprod,prod.codproduto codProduto, prod.descricao produto,orc.medida, orc.unidade, "
@@ -1137,15 +1146,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     + " INNER JOIN acabamento aca ON aca.codacabamento = orc.acabamento"
                     + " WHERE orc.codOrcamento = " + codOrcamento.getText();
 
-             Map tx = new HashMap();
-             
-             tx.put("TEXTOPADRAO", new TextoPadraoDAO().get(1).getTextoOrcamento() );
-            
+            Map tx = new HashMap();
+
+            tx.put("TEXTOPADRAO", new TextoPadraoDAO().get(1).getTextoOrcamento());
+
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelOrcamento.jasper", "Orçamento", null, sql);
-            
-            
-            
-            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1172,6 +1177,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private void descontoPorcentagemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoPorcentagemFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_descontoPorcentagemFocusLost
+
+    private void checkSituacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkSituacaoMouseClicked
+        if (checkSituacao.isSelected()) { 
+            checkSituacao.setBackground(Color.green);
+        }else{
+            checkSituacao.setBackground(Color.red);
+        }
+    }//GEN-LAST:event_checkSituacaoMouseClicked
 
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
