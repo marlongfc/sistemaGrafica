@@ -8,10 +8,13 @@ package graficaatual;
 import graficaatual.daos.UsuariosDAO;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Usuario;
+import graficaatual.utilitarios.Funcao;
+import graficaatual.utilitarios.Persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -200,7 +203,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(user);
         user.setBounds(100, 110, 150, 20);
 
-        porta.setText("5433");
+        porta.setText("5432");
         jPanel2.add(porta);
         porta.setBounds(100, 90, 150, 20);
 
@@ -213,7 +216,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel8);
         jLabel8.setBounds(20, 130, 51, 20);
 
-        banco.setText("bancoGrafica");
+        banco.setText("graficaatual");
         banco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bancoActionPerformed(evt);
@@ -396,6 +399,9 @@ public class FLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, erroV);
             return;
         }
+        
+        setConfigConexao("arquivo.properties");
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PesistenceHibernate");
         EntityManager em = emf.createEntityManager();
         em.close();
@@ -520,5 +526,41 @@ public class FLogin extends javax.swing.JFrame {
     private void carregaControle(Usuario us) {
         ControleAcesso.usuario = us;
         
+    }
+    
+    private boolean setConfigConexao(String Arquivo) {
+
+        boolean FvaRetorno = false;
+
+        try {
+
+            Properties propriedade = new Properties();
+            Persistencia.GADatabase = "" + banco.getText();
+            Persistencia.GAIpServidor = host.getText().trim();
+            Persistencia.GAPorta = porta.getText().trim();
+            Persistencia.GAUserName = user.getText().trim();
+            if (Persistencia.GAUserName.length() == 0) {
+                Persistencia.GAUserName = "root";
+            }
+            Persistencia.GAPassword = "" + ((JTextField) senha).getText().trim();
+            if (Persistencia.GAPassword.length() == 0) {
+                Persistencia.GAPassword = "root";
+            }
+            propriedade.setProperty("Database", Persistencia.GADatabase);
+            propriedade.setProperty("Servidor", Persistencia.GAIpServidor);
+            propriedade.setProperty("Porta", Persistencia.GAPorta);
+            propriedade.setProperty("UserName", Persistencia.GAUserName);
+            propriedade.setProperty("Password", Persistencia.GAPassword);
+
+
+            Funcao.setPropriedade(propriedade, Arquivo);
+            FvaRetorno = true;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao criar arquivo de propriedades. " + e);
+        }
+
+        return FvaRetorno;
+
     }
 }
