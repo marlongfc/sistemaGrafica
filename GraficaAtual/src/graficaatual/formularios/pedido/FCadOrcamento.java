@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -92,6 +93,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
         checkSituacao.setBackground(Color.red);
+
+        atualizarTabelaOrcamento();
+        atualizarTabelaPedido();
 
     }
 
@@ -224,13 +228,22 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jLabel117 = new javax.swing.JLabel();
         descontoPorcentagem = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabOrcamento = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabPedido = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
         setMinimumSize(new java.awt.Dimension(1100, 700));
         setPreferredSize(new java.awt.Dimension(1100, 700));
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(1100, 700));
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(1100, 700));
 
@@ -415,9 +428,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ORÇAMENTO");
+        jLabel1.setText("ORÇAMENTO/PEDIDO");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1330, 70);
+        jLabel1.setBounds(0, 0, 1090, 70);
 
         codOrcamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codOrcamento.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -862,28 +875,125 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Orçamento", jPanel4);
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jPanel7.setPreferredSize(new java.awt.Dimension(1100, 700));
+        jPanel7.setLayout(null);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("ORÇAMENTOS CADASTRADOS");
+        jPanel7.add(jLabel2);
+        jLabel2.setBounds(0, 0, 1090, 70);
+
+        tabOrcamento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Cód.Orçamento", "Cliente", "Valor", "Situação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabOrcamento);
+        if (tabOrcamento.getColumnModel().getColumnCount() > 0) {
+            tabOrcamento.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tabOrcamento.getColumnModel().getColumn(1).setPreferredWidth(700);
+            tabOrcamento.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tabOrcamento.getColumnModel().getColumn(3).setResizable(false);
+            tabOrcamento.getColumnModel().getColumn(3).setPreferredWidth(80);
+        }
+
+        jPanel7.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 80, 1030, 570);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1095, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Orçamentos Cadastrados", jPanel5);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jPanel8.setPreferredSize(new java.awt.Dimension(1100, 700));
+        jPanel8.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("PEDIDOS CADASTRADOS");
+        jPanel8.add(jLabel3);
+        jLabel3.setBounds(0, 0, 1090, 70);
+
+        tabPedido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Cód.Pedido", "Cliente", "Valor", "Situação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabPedido);
+        if (tabPedido.getColumnModel().getColumnCount() > 0) {
+            tabPedido.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tabPedido.getColumnModel().getColumn(1).setPreferredWidth(700);
+            tabPedido.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tabPedido.getColumnModel().getColumn(3).setPreferredWidth(80);
+        }
+
+        jPanel8.add(jScrollPane2);
+        jScrollPane2.setBounds(10, 80, 1030, 570);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1095, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Pedidos Cadastrados", jPanel6);
@@ -1229,6 +1339,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         carregaProduto();
         carregaComboFormaPagamento();
         carregaComboAcabamento();
+
+        adicionarComboFormaPagamento();
+        adicionarComboAcabamento();
     }
 
     private void carregaComboFormaPagamento() {
@@ -1338,6 +1451,10 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         descontoPorcentagem.setText("");
         totalGeralOrc.setText("");
         desmarcarChecksSetores();
+
+        atualizarTabelaOrcamento();
+        atualizarTabelaPedido();
+        atualizatabelaProdutos();
 
     }
 
@@ -1516,6 +1633,68 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
     }
 
+    private void atualizarTabelaOrcamento() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabOrcamento.getModel();
+            removeLinhas(tabOrcamento);
+
+            List<Orcamento> listaAux = orcamentoDAO.getListOrcamento();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Orcamento orca : listaAux) {
+                    Object o[] = new Object[]{
+                        orca.getCodOrcamento(),
+                        orca.getCliente().getPessoa().getNome(),
+                        orca.getValorTotal(),
+                        orca.getSituacao()};
+
+                    model.addRow(o);
+                }
+            }
+            tabOrcamento.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabOrcamento);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de Orçamentos cadastrados. Erro: " + e);
+
+        }
+    }
+
+    private void atualizarTabelaPedido() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabPedido.getModel();
+            removeLinhas(tabPedido);
+
+            List<Orcamento> listaAux = orcamentoDAO.getListPedido();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Orcamento orca : listaAux) {
+                    Object o[] = new Object[]{
+                        orca.getCodOrcamento(),
+                        orca.getCliente().getPessoa().getNome(),
+                        orca.getValorTotal(),
+                        orca.getSituacao()};
+
+                    model.addRow(o);
+                }
+            }
+            tabPedido.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabOrcamento);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de Pedidos cadastrados. Erro: " + e);
+
+        }
+    }
+
+    public static void removeLinhas(JTable table) {
+        int n = table.getRowCount();
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        for (int i = n - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionarItem;
@@ -1571,6 +1750,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel115;
     private javax.swing.JLabel jLabel116;
     private javax.swing.JLabel jLabel117;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel82;
@@ -1598,7 +1779,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField50;
@@ -1620,6 +1805,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField medidaProduto;
     private javax.swing.JFormattedTextField prazoEntrega;
     private javax.swing.JTextField quantidadeProduto;
+    private javax.swing.JTable tabOrcamento;
+    private javax.swing.JTable tabPedido;
     private javax.swing.JTable tabProdutos;
     private javax.swing.JTextField telefoneSecundario;
     private javax.swing.JTextField totalGeralOrc;

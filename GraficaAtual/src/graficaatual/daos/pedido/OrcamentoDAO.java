@@ -5,7 +5,6 @@
  */
 package graficaatual.daos.pedido;
 
- 
 import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.regras.pedido.OrcamentoRNE;
 import graficaatual.utilitarios.Persistencia;
@@ -82,10 +81,36 @@ public class OrcamentoDAO extends OrcamentoRNE {
     }
 
     public List<Orcamento> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
         List<Orcamento> aux;
         try {
             aux = super.getList(session);
+            return aux;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<Orcamento> getListOrcamento() {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        List<Orcamento> aux;
+        try {
+            aux = super.getListOrcamento(session);
+            return aux;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<Orcamento> getListPedido() {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        List<Orcamento> aux;
+        try {
+            aux = super.getListPedido(session);
             return aux;
         } catch (Exception e) {
         } finally {

@@ -35,5 +35,13 @@ public class OrcamentoRNE extends GenericDAO {
     public List<Orcamento> getList(EntityManager session) throws Exception {
         return super.getPureList(session, Orcamento.class, "Select e from Orcamento e order by e.codOrcamento");
     } 
+    
+     public List<Orcamento> getListOrcamento(EntityManager session) throws Exception {
+        return super.getPureList(session, Orcamento.class, "Select e from Orcamento e where e.situacao = false  order by e.codOrcamento");
+    } 
+     
+      public List<Orcamento> getListPedido(EntityManager session) throws Exception {
+        return super.getPureList(session, Orcamento.class, "Select e from Orcamento e where e.situacao = true order by e.codOrcamento");
+    } 
 
 }
