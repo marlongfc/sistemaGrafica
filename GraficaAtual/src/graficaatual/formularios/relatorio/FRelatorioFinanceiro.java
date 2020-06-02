@@ -195,7 +195,8 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_imprimirActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
-        // TODO add your handling code here:
+        limparTela();
+        dispose();
     }//GEN-LAST:event_sairActionPerformed
 
     private void jRIndividualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRIndividualStateChanged
@@ -215,6 +216,16 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
             codFina.setText(codInicial.getText());
         }
     }//GEN-LAST:event_codInicialFocusLost
+
+    private void limparTela() {
+
+        jCRelatorio.setSelectedIndex(0);
+        jRIndividual.setSelected(true);
+        codInicial.setText("");
+        codFina.setText("");
+        jRLista.setEnabled(true);
+        codFina.setEnabled(true);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
