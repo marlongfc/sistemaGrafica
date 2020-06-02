@@ -23,35 +23,35 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author Moisés
  */
 public class FCadTurno extends javax.swing.JInternalFrame {
-    
+
     private Turno turno;
     private TurnoDAO turnoDao = new TurnoDAO();
-    
+
     private List<Turno> listaTurno = null;
-    
+
     public FCadTurno() {
         initComponents();
-        
+
         atualizatabela();
-        
+
         listaTurno = ObservableCollections.observableList(new LinkedList<Turno>());
         Componentes comp2 = new Componentes(listaTurno, false, codTurnoo, descTurno, this, jPanel18, descTurno.getWidth(), 100);
         comp2.addCol(0, "codTurno", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Turno", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+
     }
-    
+
     private static FCadTurno instancia;
     private static FCadTurno instanceCont;
     private static int initControle;
-    
+
     public static int isInicializado() {
         return initControle;
     }
-    
+
     public synchronized static FCadTurno getInstancia() {
         if (instancia == null) {
             instancia = new FCadTurno();
@@ -59,7 +59,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -451,7 +451,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_codTurnooFocusLost
-    
+
     private void carregaTurno() throws Exception {
         turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
         if (turno != null) {
@@ -460,7 +460,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             descTurno.setText("");
         }
     }
-    
+
 
     private void descTurnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descTurnoKeyReleased
         try {
@@ -480,7 +480,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descTurno.requestFocus();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -488,6 +488,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
+
             turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
             if (turno == null) {
                 turno = new Turno();
@@ -505,9 +506,11 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             }
             setTurno();
             turnoDao.salvar(turno);
+            limpaCampos();
             atualizatabela();
-            
+
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -531,7 +534,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-         try {
+        try {
             String sql = "SELECT codTurno, descricao FROM turno ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelTurnoLista.jasper", "RELATÓRIO DE TURNOS", null, sql);
@@ -547,7 +550,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             if (evt.getClickCount() > 1) {
                 codTurnoo.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
                 turno = turnoDao.get(ValidarValor.getInt(codTurnoo.getText()));
-                carregaTurno(); 
+                carregaTurno();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -574,32 +577,35 @@ public class FCadTurno extends javax.swing.JInternalFrame {
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
-    
+
     private void limpaCampos() {
         codTurnoo.setText("");
         descTurno.setText("");
     }
-    
+
     private void habilitaCampos(boolean b) {
         codTurnoo.setEnabled(b);
         descTurno.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-    
-    private void setTurno() {
+
+    private void setTurno() throws Exception {
+        if (descTurno.getText().length() < 2) {
+            throw new Exception("Favor inserir um Turno");
+        }
         turno.setDescricao(descTurno.getText());
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
     private void atualizatabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
@@ -611,7 +617,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         t.getCodTurno(),
                         t.getDescricao()};
-                    
+
                     model.addRow(o);
                 }
             }
@@ -620,7 +626,7 @@ public class FCadTurno extends javax.swing.JInternalFrame {
             removeLinhas(tab);
             e.printStackTrace();
         }
-        
+
     }
 
 

@@ -23,44 +23,44 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author Moisés
  */
 public class FCadSangria extends javax.swing.JInternalFrame {
-    
+
     private Sangria sangria;
     private SangriaDAO sangriaDAO = new SangriaDAO();
-    
+
     private List<Sangria> listaSangria = null;
-    
+
     public FCadSangria() {
         initComponents();
-        
+
         atualizatabela();
-        
+
         listaSangria = ObservableCollections.observableList(new LinkedList<Sangria>());
         Componentes comp2 = new Componentes(listaSangria, false, codSangria, descSangria, this, jPanel18, descSangria.getWidth(), 100);
         comp2.addCol(0, "codSangria", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Sangria", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+
     }
-    
+
     private static FCadSangria instancia;
     private static FCadSangria instanceCont;
     private static int initControle;
-    
+
     public static int isInicializado() {
         return initControle;
     }
-    
+
     public synchronized static FCadSangria getInstancia() {
         if (instancia == null) {
             instancia = new FCadSangria();
             initControle = 1;
         }
-        
+
         return instancia;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -429,13 +429,14 @@ public class FCadSangria extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel81);
         jLabel81.setBounds(20, 115, 130, 20);
 
+        valor.setText("0,00");
         valor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 valorFocusLost(evt);
             }
         });
         jPanel18.add(valor);
-        valor.setBounds(20, 135, 160, 20);
+        valor.setBounds(20, 135, 120, 20);
 
         observacao.setColumns(20);
         observacao.setRows(5);
@@ -484,7 +485,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
             observacao.setText("");
         }
     }
-    
+
 
     private void descSangriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descSangriaKeyReleased
         try {
@@ -504,7 +505,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descSangria.requestFocus();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -530,8 +531,9 @@ public class FCadSangria extends javax.swing.JInternalFrame {
             setSangria();
             sangriaDAO.salvar(sangria);
             atualizatabela();
-            
+
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -555,7 +557,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-         try {
+        try {
             String sql = "SELECT codSangria, descricao, valor FROM Sangria ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelSangriasLista.jasper", "RELATÓRIO DE SANGRIAS", null, sql);
@@ -610,14 +612,14 @@ public class FCadSangria extends javax.swing.JInternalFrame {
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
-    
+
     private void limpaCampos() {
         codSangria.setText("");
         descSangria.setText("");
-        valor.setText("");
+        valor.setText("0,00");
         observacao.setText("");
     }
-    
+
     private void habilitaCampos(boolean b) {
         codSangria.setEnabled(b);
         descSangria.setEnabled(b);
@@ -625,28 +627,37 @@ public class FCadSangria extends javax.swing.JInternalFrame {
         observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-    
-    private void setSangria() {
+
+    private void setSangria() throws Exception {
+
+        if (descSangria.getText().length() < 2) {
+            throw new Exception("Favor inserir uma Sangria");
+        }
+
+        if (ValidarValor.getDouble(valor.getText()) <= 0.00) {
+            throw new Exception("Favor inserir um Valor válido");
+        }
+
         sangria.setDescricao(descSangria.getText());
         sangria.setValor(ValidarValor.getDouble(valor.getText()));
         sangria.setObservacao(observacao.getText());
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
     private void atualizatabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
             removeLinhas(tab);
-            
+
             List<Sangria> listaT = sangriaDAO.getList();
             if (listaT.size() > 0) {
                 model.setNumRows(0);
@@ -655,7 +666,7 @@ public class FCadSangria extends javax.swing.JInternalFrame {
                         s.getCodSangria(),
                         s.getDescricao(),
                         s.getValor()};
-                    
+
                     model.addRow(o);
                 }
             }

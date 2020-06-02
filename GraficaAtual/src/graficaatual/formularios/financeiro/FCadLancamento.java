@@ -430,13 +430,14 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel81);
         jLabel81.setBounds(20, 115, 130, 20);
 
+        valor.setText("0,00");
         valor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 valorFocusLost(evt);
             }
         });
         jPanel18.add(valor);
-        valor.setBounds(20, 135, 160, 20);
+        valor.setBounds(20, 135, 120, 20);
 
         observacao.setColumns(20);
         observacao.setRows(5);
@@ -533,6 +534,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             atualizatabela();
 
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -556,7 +558,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-          try {
+        try {
             String sql = "SELECT codLancamento, descricao, valor FROM lancamentoCaixa ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelLancamentoCaixaLista.jasper", "RELATÓRIO DE LANÇAMENTOS EM CAIXA", null, sql);
@@ -609,13 +611,13 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_valorFocusLost
 
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
     private void limpaCampos() {
         codLancamento.setText("");
         descLancamento.setText("");
-        valor.setText("");
+        valor.setText("0,00");
         observacao.setText("");
     }
 
@@ -627,7 +629,16 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
 
-    private void setLancamento() {
+    private void setLancamento() throws Exception {
+
+        if (descLancamento.getText().length() < 2) {
+            throw new Exception("Favor inserir um Lançamento");
+        }
+
+        if (ValidarValor.getDouble(valor.getText()) <= 0.00) {
+            throw new Exception("Favor inserir um Valor válido");
+        }
+
         lancamento.setDescricao(descLancamento.getText());
         lancamento.setValor(ValidarValor.getDouble(valor.getText()));
         lancamento.setObservacao(observacao.getText());

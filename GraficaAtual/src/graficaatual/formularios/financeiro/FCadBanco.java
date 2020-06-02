@@ -24,15 +24,15 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author User
  */
 public class FCadBanco extends javax.swing.JInternalFrame {
-    
+
     private Banco banco;
     private BancoDAO bancoDAO = new BancoDAO();
-    
+
     private List<Banco> listaBanco = null;
-    
+
     public FCadBanco() {
         initComponents();
-        
+
         listaBanco = ObservableCollections.observableList(new LinkedList<Banco>());
         Componentes comp2 = new Componentes(listaBanco, false, codBanco, descBanco, this, jPanel18, descBanco.getWidth(), 100);
         comp2.addCol(0, "codBanco", "Código", 50, Integer.class.getName());
@@ -40,30 +40,30 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         comp2.addCol(1, "agencia", "Agencia", 80, String.class.getName());
         comp2.addCol(1, "conta", "Conta", 80, String.class.getName());
         comp2.bind();
-        
+
         atualizatabela();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+
     }
-    
+
     private static FCadBanco instancia;
     private static FCadBanco instanceCont;
     private static int initControle;
-    
+
     public static int isInicializado() {
         return initControle;
     }
-    
+
     public synchronized static FCadBanco getInstancia() {
         if (instancia == null) {
             instancia = new FCadBanco();
             initControle = 1;
         }
-        
+
         return instancia;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -477,7 +477,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             conta.setText("");
         }
     }
-    
+
 
     private void descBancoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descBancoKeyReleased
         try {
@@ -497,7 +497,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descBanco.requestFocus();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -523,8 +523,9 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             setBanco();
             bancoDAO.salvar(banco);
             atualizatabela();
-            
+
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -548,7 +549,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-         try {
+        try {
             String sql = "SELECT codBanco, descricao, conta, agencia FROM banco ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelBancoLista.jasper", "RELATÓRIO DE BANCOS", null, sql);
@@ -600,14 +601,14 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
-    
+
     private void limpaCampos() {
         codBanco.setText("");
         descBanco.setText("");
         agencia.setText("");
         conta.setText("");
     }
-    
+
     private void habilitaCampos(boolean b) {
         codBanco.setEnabled(b);
         descBanco.setEnabled(b);
@@ -615,23 +616,36 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         conta.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-    
-    private void setBanco() {
+
+    private void setBanco() throws Exception {
+
+        if (descBanco.getText().length() < 2) {
+            throw new Exception("Favor inserir um Banco");
+        }
+        
+         if (agencia.getText().length() < 2) {
+            throw new Exception("Favor inserir uma Agência");
+        }
+         
+          if (conta.getText().length() < 2) {
+            throw new Exception("Favor inserir uma Conta");
+        }
+
         banco.setDescricao(descBanco.getText());
         banco.setAgencia(agencia.getText());
         banco.setConta(conta.getText());
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
     private void atualizatabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
@@ -645,7 +659,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
                         b.getDescricao(),
                         b.getAgencia(),
                         b.getConta()};
-                    
+
                     model.addRow(o);
                 }
             }
@@ -654,7 +668,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
             removeLinhas(tab);
             e.printStackTrace();
         }
-        
+
     }
 
 

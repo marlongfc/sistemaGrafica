@@ -505,6 +505,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
             atualizatabela();
 
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -528,7 +529,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-         try {
+        try {
             String sql = "SELECT codacabamento, descricao FROM acabamento ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelAcabamentoLista.jasper", "RELATÓRIO DE ACABAMENTOS", null, sql);
@@ -594,7 +595,11 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
 
-    private void setAcabamento() {
+    private void setAcabamento() throws Exception {
+
+        if (descAcabamento.getText().length() < 2) {
+            throw new Exception("Favor inserir um Acabamento");
+        }
         acabamento.setDescricao(descAcabamento.getText());
         acabamento.setObservacao(observacao.getText());
     }

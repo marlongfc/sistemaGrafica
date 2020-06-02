@@ -90,8 +90,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         comp2.bind();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
-         checkSituacao.setBackground(Color.red);
+
+        checkSituacao.setBackground(Color.red);
 
     }
 
@@ -963,6 +963,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             limpaCampos();
 
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
             session.getTransaction().rollback();
             session.close();
@@ -1010,7 +1011,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             os[2] = descProduto.getText();
             os[3] = medidaProduto.getText();
             os[4] = unidadeProduto.getText();
-            os[5] = comboAcabamento.getSelectedIndex();
+            os[5] = comboAcabamento.getSelectedItem().toString();
             os[6] = vl;
             os[7] = vt;
 
@@ -1167,7 +1168,12 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_valortotalProdutoFocusLost
 
     private void descontoMoedaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoMoedaFocusLost
+        if (ValidarValor.getDouble(descontoMoeda.getText()) > 0.00) {
+            descontoPorcentagem.setText("0,00");
+        }
         calculaPreçoTotalOrcamentoComDesconto();
+
+
     }//GEN-LAST:event_descontoMoedaFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1175,13 +1181,18 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void descontoPorcentagemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoPorcentagemFocusLost
-        // TODO add your handling code here:
+        if (ValidarValor.getDouble(descontoPorcentagem.getText()) > 0.00) {
+            descontoMoeda.setText("0,00");
+        }
+        calculaPreçoTotalOrcamentoComDesconto();
+
+
     }//GEN-LAST:event_descontoPorcentagemFocusLost
 
     private void checkSituacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkSituacaoMouseClicked
-        if (checkSituacao.isSelected()) { 
+        if (checkSituacao.isSelected()) {
             checkSituacao.setBackground(Color.green);
-        }else{
+        } else {
             checkSituacao.setBackground(Color.red);
         }
     }//GEN-LAST:event_checkSituacaoMouseClicked
@@ -1373,7 +1384,15 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         comboAcabamento.setEnabled(b);
     }
 
-    private void setOrcamento() {
+    private void setOrcamento() throws Exception {
+
+        if (descCliente.getText().length() < 2) {
+            throw new Exception("Favor inserir um Cliente");
+        }
+        if (validadeProposta.getText() == null) {
+            throw new Exception("Favor inserir um Data de Validade válida");
+        }
+
         orcamento.setSituacao(checkSituacao.isSelected());
         orcamento.setCliente(cliente);
         orcamento.setDataOrcamento(Data.getDateSQL(dataOrc.getText()));
@@ -1469,16 +1488,26 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private void calculaPreçoTotalOrcamentoComDesconto() {
         try {
 
-            if (valortotalProduto.getText() != null && !"0".equals(valortotalProduto.getText())) {
+            if (valortotalProduto.getText() != null) {
 
-                Double vlrProd = ValidarValor.getDouble(valortotalProduto.getText());
+                System.out.println("TOTALLLL --- " + totalGlobal);
+
+                Double x = totalGlobal;
+
                 Double desco = ValidarValor.getDouble(descontoMoeda.getText());
                 Double descoPorc = ValidarValor.getDouble(descontoPorcentagem.getText());
-                Double t = ValidarValor.getDouble(totalGeralOrc.getText());
 
-                totalGlobal = t - desco - descoPorc;
+                System.out.println("desconto 1 --- " + desco);
+                System.out.println("x1  --- " + x);
 
-                totalGeralOrc.setText(ValidarValor.getDouble(totalGlobal));
+                x = x - desco;
+
+                x = x - (x * (descoPorc / 100));
+
+                System.out.println("desconto 2 --- " + desco);
+                System.out.println("x2  --- " + x);
+
+                totalGeralOrc.setText(ValidarValor.getDouble(x));
 
             }
 

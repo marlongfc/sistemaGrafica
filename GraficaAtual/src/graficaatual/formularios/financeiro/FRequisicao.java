@@ -549,6 +549,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             atualizatabela();
 
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -575,9 +576,9 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         try {
             String sql = "SELECT codRequisicao, descricao, valorUnitario,valorTotal,quantidade, quantidade "
                     + " FROM requisicaofinanceira "
-                    + " WHERE codRequisicao = "+codRequisicao.getText()
+                    + " WHERE codRequisicao = " + codRequisicao.getText()
                     + " ORDER BY descricao asc";
- 
+
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelRequisicaoFinanceira.jasper", "Requisição Financeira", null, sql);
 
         } catch (Exception e) {
@@ -658,7 +659,20 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         btSalvar.setEnabled(b);
     }
 
-    private void setRequisicao() {
+    private void setRequisicao() throws Exception {
+
+        if (descRequisicao.getText().length() < 2) {
+            throw new Exception("Favor inserir uma Requisição");
+        }
+
+        if (quantidade.getText().length() < 2) {
+            throw new Exception("Favor inserir uma Quantidade válida");
+        }
+
+        if (valorUnit.getText().length() < 2) {
+            throw new Exception("Favor inserir um Valor válido");
+        }
+
         requisicao.setDescricao(descRequisicao.getText());
         requisicao.setValorUnitario(ValidarValor.getBigD(valorUnit.getText()));
         requisicao.setQuantidade(ValidarValor.getInt(quantidade.getText()));

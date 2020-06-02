@@ -661,12 +661,15 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="valor">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0,00"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="valorFocusLost"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="135" width="160" height="20"/>
+              <AbsoluteConstraints x="20" y="135" width="120" height="20"/>
             </Constraint>
           </Constraints>
         </Component>

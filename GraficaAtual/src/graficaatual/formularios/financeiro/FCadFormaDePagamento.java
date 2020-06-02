@@ -23,35 +23,35 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author Moisés
  */
 public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
-    
+
     private FormaDePagamento formaPagamento;
     private FormaDePagamentoDAO formaPagamentoDAO = new FormaDePagamentoDAO();
-    
+
     private List<FormaDePagamento> listaForma = null;
-    
+
     public FCadFormaDePagamento() {
         initComponents();
-        
+
         atualizatabela();
-        
+
         listaForma = ObservableCollections.observableList(new LinkedList<FormaDePagamento>());
         Componentes comp2 = new Componentes(listaForma, false, codForma, descForma, this, jPanel18, descForma.getWidth(), 100);
         comp2.addCol(0, "codForma", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Forma de Pagamento", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+
     }
-    
+
     private static FCadFormaDePagamento instancia;
     private static FCadFormaDePagamento instanceCont;
     private static int initControle;
-    
+
     public static int isInicializado() {
         return initControle;
     }
-    
+
     public synchronized static FCadFormaDePagamento getInstancia() {
         if (instancia == null) {
             instancia = new FCadFormaDePagamento();
@@ -59,7 +59,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -465,7 +465,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             observacao.setText("");
         }
     }
-    
+
 
     private void descFormaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descFormaKeyReleased
         try {
@@ -485,7 +485,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             limpaCampos();
             habilitaCampos(true);
             descForma.requestFocus();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -511,8 +511,9 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             setForma();
             formaPagamentoDAO.salvar(formaPagamento);
             atualizatabela();
-            
+
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -536,7 +537,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-          try {
+        try {
             String sql = "SELECT codForma, descricao FROM formaDePagamento ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelFormaPagamento.jasper", "RELATÓRIO DE FORMA DE PAGAMENTO", null, sql);
@@ -585,37 +586,42 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_codFormaFocusLost
 
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
-    
+
     private void limpaCampos() {
         codForma.setText("");
         descForma.setText("");
         observacao.setText("");
     }
-    
+
     private void habilitaCampos(boolean b) {
         codForma.setEnabled(b);
         descForma.setEnabled(b);
         observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
-    
-    private void setForma() {
+
+    private void setForma() throws Exception {
+
+        if (descForma.getText().length() < 2) {
+            throw new Exception("Favor inserir uma Forma de Pagamento");
+        }
+
         formaPagamento.setDescricao(descForma.getText());
         formaPagamento.setObservacao(observacao.getText());
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
     private void atualizatabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
@@ -627,17 +633,17 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         f.getCodForma(),
                         f.getDescricao()};
-                    
+
                     model.addRow(o);
                 }
             }
             tab.setModel(model);
-            
+
         } catch (Exception e) {
             removeLinhas(tab);
             e.printStackTrace();
         }
-        
+
     }
 
 
