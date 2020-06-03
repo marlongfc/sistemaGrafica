@@ -32,7 +32,7 @@ public class Usuario implements java.io.Serializable {
     private Integer codUsuario;
 
     @OneToOne()
-    @JoinColumn(name = "colaborador", nullable = false)
+    @JoinColumn(name = "colaborador", nullable = true)
     private Colaborador colaborador;
 
     @Column(nullable = false, length = 30)
