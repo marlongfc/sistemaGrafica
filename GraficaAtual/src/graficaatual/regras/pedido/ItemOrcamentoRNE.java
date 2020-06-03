@@ -5,7 +5,7 @@
  */
 package graficaatual.regras.pedido;
 
-import graficaatual.daos.GenericDAO;  
+import graficaatual.daos.GenericDAO;
 import graficaatual.entidades.pedido.ItemOrcamento;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,13 +27,18 @@ public class ItemOrcamentoRNE extends GenericDAO {
     public List<ItemOrcamento> getList(EntityManager session, ItemOrcamento item) throws Exception {
         return super.getPureList(session, ItemOrcamento.class, "Select e from ItemOrcamento e");
     }
-    
-     public ItemOrcamento get(int codigo, EntityManager session) {
+
+    public ItemOrcamento get(int codigo, EntityManager session) {
         return getPojo(session, ItemOrcamento.class, codigo);
     }
 
     public List<ItemOrcamento> getList(EntityManager session) throws Exception {
         return super.getPureList(session, ItemOrcamento.class, "Select e from ItemOrcamento e order by e.codItemOrca");
-    } 
+    }
+
+    public List<ItemOrcamento> getListOrcamento(EntityManager session, Integer codOrca) throws Exception {
+        String sql = " select e from ItemOrcamento e where e.orcamento.codOrcamento = " + codOrca + " order by e.codProduto";
+        return getPureList(session, ItemOrcamento.class, sql);
+    }
 
 }
