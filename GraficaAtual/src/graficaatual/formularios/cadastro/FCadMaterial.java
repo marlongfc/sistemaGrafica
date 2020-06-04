@@ -564,6 +564,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         metragemLinear.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         metragemLinear.setText("0,00");
+        metragemLinear.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel18.add(metragemLinear);
         metragemLinear.setBounds(220, 140, 130, 20);
 
