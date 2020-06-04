@@ -477,10 +477,11 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             logradouro = logradouroDao.getPorCodigo(ValidarValor.getLong(codLogradouro.getText()));
             if (logradouro != null) {
                 descLogradouro.setText(logradouro.getDescricao());
+                comboTipo.setSelectedIndex(logradouro.getTipo());
             } else {
                 logradouro = new Logradouro();
                 descLogradouro.setText("");
-                comboTipo.setSelectedIndex(logradouro.getTipo());
+                comboTipo.setSelectedIndex(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
