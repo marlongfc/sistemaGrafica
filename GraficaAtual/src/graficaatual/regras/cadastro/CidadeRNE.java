@@ -27,21 +27,21 @@ public class CidadeRNE extends GenericDAO {
     public List<Cidade> getList(EntityManager session, Cidade cidade) throws Exception {
         return super.getPureList(session, Cidade.class, "Select e from Cidade e");
     }
-    
-     public Cidade get(long codigo, EntityManager session) throws Exception {
+
+    public Cidade get(long codigo, EntityManager session) throws Exception {
         String sql = " select e from Cidade e where e.codCidade=?1 ";
         return getPojoUnique(session, Cidade.class, sql, codigo);
     }
-     
-         public long getNextItem(EntityManager session) throws Exception {
+
+    public long getNextItem(EntityManager session) throws Exception {
         String q = " select max(e.codCidade) from Cidade e ";
 
         Long ret = getLong(session, q);
 
         return ret == null ? 1 : ret + 1;
     }
-    
-              public List<Cidade> getList(EntityManager session) throws Exception {
+
+    public List<Cidade> getList(EntityManager session) throws Exception {
         String sql = " select e from Cidade e order by e.codCidade";
         return getPureList(session, Cidade.class, sql);
     }
@@ -49,8 +49,8 @@ public class CidadeRNE extends GenericDAO {
     public List<Cidade> getList(EntityManager session, String sql) throws Exception {
         return getPureList(session, Cidade.class, sql);
     }
-    
-     public String getSqlLista(Integer inicio, Integer fim) {
+
+    public String getSqlLista(Integer inicio, Integer fim) {
 
         String sql = "select e.codCidade, e.descricao from Cidade e "
                 + " where e.codCidade>=" + inicio + " and e.codCidade <=" + fim

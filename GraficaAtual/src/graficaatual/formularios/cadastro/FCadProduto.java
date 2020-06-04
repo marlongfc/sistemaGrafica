@@ -577,7 +577,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         valorUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valorUnitario.setText("0,00");
         jPanel18.add(valorUnitario);
-        valorUnitario.setBounds(850, 530, 160, 21);
+        valorUnitario.setBounds(850, 550, 160, 21);
 
         jLabel8.setText("Cód. Material");
         jPanel18.add(jLabel8);

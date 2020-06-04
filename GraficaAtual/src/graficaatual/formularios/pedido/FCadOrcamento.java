@@ -629,7 +629,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         btNovoOrca.setBounds(60, 625, 180, 40);
 
         btExcluirOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
-        btExcluirOrca.setText("Excluir Orçamento");
+        btExcluirOrca.setText("Deletar Orçamento");
         btExcluirOrca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btExcluirOrcaActionPerformed(evt);
@@ -1342,6 +1342,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         adicionarComboFormaPagamento();
         adicionarComboAcabamento();
+        
+        atualizaTabelaProdutoBusca();
     }
 
     private void carregaComboFormaPagamento() {
@@ -1693,6 +1695,36 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
+    }
+
+    private void atualizaTabelaProdutoBusca() {
+        List<ItemOrcamento> listaProdBusca;
+        try {
+            listaProdBusca = itemOrcaDAO.getListOrcamento(ValidarValor.getInt(codOrcamento.getText()));
+
+            DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
+
+            for (int i = 0; i < listaProdBusca.size(); i++) {
+
+                Object[] os = new Object[8];
+                os[0] = listaProdBusca.get(i).getCodItemOrca();
+                os[1] = listaProdBusca.get(i).getOrcamento().getQuantProd();
+                os[2] = listaProdBusca.get(i).getOrcamento().getProduto().getDescricao();
+                os[3] = listaProdBusca.get(i).getOrcamento().getMedida();
+                os[4] = listaProdBusca.get(i).getOrcamento().getUnidade();
+                os[5] = listaProdBusca.get(i).getOrcamento().getAcabamento().getDescricao();
+                os[6] = listaProdBusca.get(i).getOrcamento().getProduto().getValorUnitario();
+                os[7] = listaProdBusca.get(i).getOrcamento().getValorTotal();
+
+                model.addRow(os);
+
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(FCadOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+
     }
 
 

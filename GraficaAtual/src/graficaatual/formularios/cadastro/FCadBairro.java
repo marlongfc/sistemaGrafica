@@ -550,6 +550,8 @@ public class FCadBairro extends javax.swing.JInternalFrame {
             }
 
             codBairro.setEnabled(true);
+            codBairro.setText("");
+            descBairro.setText("");
             atualizarTabela();
         } catch (Exception e) {
             e.printStackTrace();

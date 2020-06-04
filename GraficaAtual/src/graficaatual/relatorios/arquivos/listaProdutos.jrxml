@@ -11,7 +11,7 @@
 	<parameter name="TELEFONEENT" class="java.lang.String"/>
 	<parameter name="BRASAO" class="java.io.InputStream"/>
 	<parameter name="BAIRROENT" class="java.lang.String"/>
-	<parameter name="NUMEROENT" class="java.lang.String"/>
+	<parameter name="NUMEROENT" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="INSCESTENT" class="java.lang.String"/>
 	<parameter name="COMPLEMENTOENT" class="java.lang.String"/>
 	<queryString>
