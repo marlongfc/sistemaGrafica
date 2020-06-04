@@ -286,7 +286,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         btSalvar.setBounds(260, 130, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
-        btExcluir.setText("Excluir");
+        btExcluir.setText("Deletar");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btExcluirActionPerformed(evt);
