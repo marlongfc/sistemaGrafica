@@ -564,6 +564,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
         metragemLinear.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         metragemLinear.setText("0,00");
+        metragemLinear.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel18.add(metragemLinear);
         metragemLinear.setBounds(220, 140, 130, 20);
 
@@ -684,12 +685,12 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                         m.getLargura() != null ? ValidarValor.getDouble(m.getLargura()) : null,
                         m.getAltura() != null ? ValidarValor.getDouble(m.getAltura()) : null,
                         m.getUnidade() != null ? ValidarValor.getDouble(m.getUnidade()) : null,
-                        m.getPeso() != null ? ValidarValor.getDouble(m.getPeso()) : null,
+                        m.getPeso() != null ? ValidarValor.getDouble3Casas(m.getPeso()) : null,
                         m.getLitro() != null ? ValidarValor.getDouble(m.getLitro()) : null,
                         m.getFrete() != null ? ValidarValor.getDouble(m.getFrete()) : null,
                         ValidarValor.getDouble(m.getPrecoCompra()),
                         ValidarValor.getDouble(m.getPrecoCustoTotal()),
-                        ValidarValor.getDouble(m.getEstoqueMinimo()),};
+                        ValidarValor.getDouble(m.getEstoqueMinimo())};
 
                     model.addRow(o);
                 }
@@ -785,7 +786,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             largura.setText(m.getLargura() == null ? "0,00" : ValidarValor.getDouble(m.getLargura()));
             altura.setText(m.getAltura() == null ? "0,00" : ValidarValor.getDouble(m.getAltura()));
             unidade.setText(m.getUnidade() == null ? "0" : ValidarValor.getDouble(m.getUnidade()));
-            peso.setText(m.getPeso() == null ? "0,00" : ValidarValor.getDouble(m.getPeso()));
+            peso.setText(m.getPeso() == null ? "0,00" : ValidarValor.getDouble3Casas(m.getPeso()));
             litro.setText(m.getLitro() == null ? "0,00" : ValidarValor.getDouble(m.getLitro()));
 
             frete.setText(m.getFrete() == null ? "0,00" : ValidarValor.getDouble(m.getFrete()));
@@ -821,14 +822,14 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                 material.setLargura((ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(largura.getText()) : null));
                 material.setAltura(ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(altura.getText()) : null);
                 material.setUnidade(ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(unidade.getText()) : null);
-                material.setPeso(ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble(peso.getText()) : null);
+                material.setPeso(ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble3(peso.getText()) : null);
                 material.setLitro(ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble(litro.getText()) : null);
 
                 material.setFrete(ValidarValor.getDouble(frete.getText()) > 0 ? ValidarValor.getArredondamento(ValidarValor.getDouble(frete.getText())) : null);
 
                 material.setPrecoCompra(ValidarValor.getArredondamento(ValidarValor.getDouble(precoCustoCompra.getText())));
                 material.setPrecoCustoTotal(ValidarValor.getArredondamento(ValidarValor.getDouble(precoCustoTotal.getText())));
-                material.setEstoqueMinimo(ValidarValor.getArredondamento(ValidarValor.getDouble(estoqueMinimo.getText())));
+                material.setEstoqueMinimo(ValidarValor.getDouble(estoqueMinimo.getText()));
 
                 if (materialDao.salvar(material) != null) {
                     JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -1040,7 +1041,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            String sql = "select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro Quadrado(m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, metragemlinear, altura,  largura, unidade,  peso, litro,  frete,  precocompra, precocustototal, estoqueminimo   from material order by descricao asc";
+            String sql = "select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro (m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, metragemlinear, altura,  largura, unidade,  peso, litro,  frete,  precocompra, precocustototal, estoqueminimo   from material order by descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/material.jasper", "RELATÓRIO DE MATERIAIS", null, sql);
 
