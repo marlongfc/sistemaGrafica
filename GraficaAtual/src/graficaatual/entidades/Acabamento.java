@@ -31,7 +31,7 @@ public class Acabamento implements java.io.Serializable {
     @Column(nullable = false, length = 300)
     private String descricao;
 
-    @Column(length = 300)
+    @Column(length = 500)
     private String observacao;
 
     @Column(name = "dataCadastro")
