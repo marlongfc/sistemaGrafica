@@ -47,7 +47,7 @@ public class FornecedorDAO extends FornecedorRNE {
     }
 
     public Fornecedor get(Long cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Fornecedor aux = super.getPojo(Fornecedor.class, cod);
             return aux;
@@ -59,7 +59,7 @@ public class FornecedorDAO extends FornecedorRNE {
     }
     
     public Fornecedor getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Fornecedor aux = super.getPojo(Fornecedor.class, cod);
             return aux;

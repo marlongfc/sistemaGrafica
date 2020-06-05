@@ -68,7 +68,7 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
     }
 
     public LancamentoCaixa get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         LancamentoCaixa aux;
         try {
             aux = super.get(codigo, session);
@@ -81,7 +81,7 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
     }
 
     public List<LancamentoCaixa> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<LancamentoCaixa> aux;
         try {
             aux = super.getList(session);
@@ -94,7 +94,7 @@ public class LancamentoCaixaDAO extends LancamentoCaixaRNE {
     }
 
     public LancamentoCaixa getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             LancamentoCaixa aux = super.getPojo(LancamentoCaixa.class, cod);
             return aux;

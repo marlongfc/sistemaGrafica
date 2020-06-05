@@ -68,7 +68,7 @@ public class PedidoDAO extends PedidoRNE {
     }
 
     public Pedido get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Pedido aux;
         try {
             aux = super.get(codigo, session);
@@ -81,7 +81,7 @@ public class PedidoDAO extends PedidoRNE {
     }
 
     public List<Pedido> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Pedido> aux;
         try {
             aux = super.getList(session);
@@ -94,7 +94,7 @@ public class PedidoDAO extends PedidoRNE {
     }
 
     public Pedido getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Pedido aux = super.getPojo(Pedido.class, cod);
             return aux;

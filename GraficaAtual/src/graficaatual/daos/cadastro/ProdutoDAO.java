@@ -55,7 +55,7 @@ public class ProdutoDAO extends ProdutoRNE {
     }
 
     public Produto getPorCodigo(long codigo) throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.get(codigo, session);

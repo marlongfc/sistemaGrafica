@@ -71,7 +71,7 @@ public class CargoDAO extends CargoRNE {
     }
 
     public Cargo get(Integer cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Cargo aux = super.getPojo(Cargo.class, cod);
             return aux;
@@ -83,7 +83,7 @@ public class CargoDAO extends CargoRNE {
     }
     
     public Cargo getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Cargo aux = super.getPojo(Cargo.class, cod);
             return aux;

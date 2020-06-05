@@ -56,7 +56,7 @@ public class LogradouroDAO extends LogradouroRNE {
     }
 
     public long getNextItem() throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             return super.getNextItem(session);
         } finally {
@@ -65,7 +65,7 @@ public class LogradouroDAO extends LogradouroRNE {
     }
 
     public Logradouro getPorCodigo(long codigo) throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.get(codigo, session);
@@ -81,7 +81,7 @@ public class LogradouroDAO extends LogradouroRNE {
 
     public List<Logradouro> getList() throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getList(session);
@@ -92,7 +92,7 @@ public class LogradouroDAO extends LogradouroRNE {
 
     public List<Logradouro> getList(String sql) throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getList(session, sql);

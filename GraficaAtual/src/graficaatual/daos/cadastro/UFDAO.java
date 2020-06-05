@@ -55,7 +55,7 @@ public class UFDAO extends UFRNE {
     }
     
     public UF getPorCodigo(int codigo) throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.get(codigo, session);
@@ -70,7 +70,7 @@ public class UFDAO extends UFRNE {
     }
 
      public long getNextItem() throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             return super.getNextItem(session);
         } finally {
@@ -80,7 +80,7 @@ public class UFDAO extends UFRNE {
 
     public List<UF> getList() throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+       EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
        try {
            return super.getList(session);
@@ -91,7 +91,7 @@ public class UFDAO extends UFRNE {
 
     public List<UF> getList(String sql) throws Exception {
 
-       EntityManager session = Persistencia.getInstance().getSessionComBegin();
+       EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getList(session, sql);

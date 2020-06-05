@@ -64,7 +64,7 @@ public class PessoaDAO extends PessoaRNE {
     }
 
     public Pessoa get(Long cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Pessoa aux = super.getPojo(Pessoa.class, cod);
             return aux;
@@ -77,7 +77,7 @@ public class PessoaDAO extends PessoaRNE {
     
     
     public Pessoa getByCnpj(String cnpj) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Pessoa aux = super.getPojoUnique(Pessoa.class,"select e from Pessoa e where "
                     + "  REPLACE(REPLACE(REPLACE(trim(e.cnpj),'.',''),'-',''),' ', '') like ?1 order by e.cnpj", cnpj);

@@ -67,7 +67,7 @@ public class AcabamentoDAO extends AcabamentoRNE {
     }
 
     public Acabamento get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Acabamento aux;
         try {
             aux = super.get(codigo, session);
@@ -80,7 +80,7 @@ public class AcabamentoDAO extends AcabamentoRNE {
     }
 
     public List<Acabamento> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Acabamento> aux;
         try {
             aux = super.getList(session);
@@ -93,7 +93,7 @@ public class AcabamentoDAO extends AcabamentoRNE {
     }
 
     public Acabamento getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Acabamento aux = super.getPojo(Acabamento.class, cod);
             return aux;
@@ -105,7 +105,7 @@ public class AcabamentoDAO extends AcabamentoRNE {
     }
     
     public Acabamento getByDescricao(String desc) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Acabamento aux;
         try {
             aux = super.getByDescricao(session, desc);

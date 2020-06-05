@@ -68,7 +68,7 @@ public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
     }
 
     public FormaDePagamento get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         FormaDePagamento aux;
         try {
             aux = super.get(codigo, session);
@@ -81,7 +81,7 @@ public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
     }
 
     public FormaDePagamento getByDescricao(String desc) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         FormaDePagamento aux;
         try {
             aux = super.getByDescricao(session, desc);
@@ -94,7 +94,7 @@ public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
     }
 
     public List<FormaDePagamento> getList() {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<FormaDePagamento> aux;
         try {
             aux = super.getList(session);
@@ -107,7 +107,7 @@ public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
     }
 
     public FormaDePagamento getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             FormaDePagamento aux = super.getPojo(FormaDePagamento.class, cod);
             return aux;

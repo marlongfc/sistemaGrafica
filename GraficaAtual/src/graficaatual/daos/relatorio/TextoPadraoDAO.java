@@ -53,7 +53,7 @@ public class TextoPadraoDAO extends TextoPadraoRNE {
     }
 
     public TextoPadrao get(Integer cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             TextoPadrao aux = super.getPojo(TextoPadrao.class, cod);
             return aux;
@@ -65,7 +65,7 @@ public class TextoPadraoDAO extends TextoPadraoRNE {
     }
     
     public TextoPadrao getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             TextoPadrao aux = super.getPojo(TextoPadrao.class, cod);
             return aux;

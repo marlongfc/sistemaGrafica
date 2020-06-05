@@ -68,7 +68,7 @@ public class BancoDAO extends BancoRNE {
     }
 
     public Banco get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Banco aux;
         try {
             aux = super.get(codigo, session);
@@ -81,7 +81,7 @@ public class BancoDAO extends BancoRNE {
     }
 
     public List<Banco> getList() {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Banco> aux;
         try {
             aux = super.getList(session);
@@ -94,7 +94,7 @@ public class BancoDAO extends BancoRNE {
     }
 
     public Banco getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Banco aux = super.getPojo(Banco.class, cod);
             return aux;
