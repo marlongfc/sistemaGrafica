@@ -610,8 +610,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
             if (bairro == null) {
                 throw new Exception("Erro: bairro inválido!");
             }
-            int op = 0;
-            JOptionPane.showConfirmDialog(null, "Deseja realmente excluir bairro selecionado?", "CONFIRMAÇÃO DE EXCLUSÃO", op);
+            int op  = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir bairro selecionado?");
 
             // considerando 0 como sim
             if (op == 0) {
@@ -622,9 +621,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
                 descBairro.setText("");
                 atualizarTabela2();
 
-            } else {
-                return;
-            }
+            } 
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir bairro. Erro: " + e);
