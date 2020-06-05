@@ -23,12 +23,12 @@ public class CnvMaterial extends CnvNativeQueryRNE {
 
             String sql = " select e.codMaterial, e.descricao, e.metragemLinear, e.largura, e.altura,"
                     + " e.unidade, e.peso, e.litro, e.frete, e.precoCompra, e.precoCustoTotal,"
-                    + " e.estoqueMinimo   from Material e order by e.codMaterial";
+                    + " e.estoqueMinimo   from Material e order by e.descricao asc";
 
             String sqlNrReg = " select  count(e.codMaterial)"
                     + " from Material e  ";
                                
-            super.iniciarCnv(session, sqlNrReg, sql, 9);
+            super.iniciarCnv(session, sqlNrReg, sql, 15);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,7 +21,7 @@ public class CnvLogradouro extends CnvNativeQueryRNE {
 
         try {
 
-            String sql = " select e.codLogradouro, e.tipo, e.descricao  from Logradouro e order by e.codLogradouro";
+            String sql = " select e.codLogradouro, e.tipo, e.descricao  from Logradouro e order by e.descricao asc";
 
             String sqlNrReg = " select  count(e.codLogradouro)"
                     + " from Logradouro e  ";

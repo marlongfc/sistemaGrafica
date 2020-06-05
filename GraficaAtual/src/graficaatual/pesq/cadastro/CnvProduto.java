@@ -21,12 +21,15 @@ public class CnvProduto extends CnvNativeQueryRNE {
 
         try {
 
-            String sql = " select e  from Produto e order by e.codProduto";
+            String sql = " select e.codProduto, e.descricao, e.valorProdutoM2,"
+                    + " e.maoDeObra, e.custoEmpresa, e.custoTotal, e.margemLucro,"
+                    + " e.valorUnitario "
+                    + " from Produto e order by e.descricao asc";
 
             String sqlNrReg = " select  count(e.codProduto)"
                     + " from Produto e  ";
                                
-            super.iniciarCnv(session, sqlNrReg, sql, 9);
+            super.iniciarCnv(session, sqlNrReg, sql, 20);
 
         } catch (Exception e) {
             e.printStackTrace();

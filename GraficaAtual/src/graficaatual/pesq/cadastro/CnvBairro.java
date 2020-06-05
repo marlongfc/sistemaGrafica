@@ -21,12 +21,12 @@ public class CnvBairro extends CnvNativeQueryRNE {
 
         try {
 
-            String sql = " select e.codBairro, e.descricao  from Bairro e order by e.codBairro";
+            String sql = " select e.codBairro, e.descricao  from Bairro e order by e.descricao asc";
 
             String sqlNrReg = " select  count(e.codBairro)"
                     + " from Bairro e  ";
                                
-            super.iniciarCnv(session, sqlNrReg, sql, 9);
+            super.iniciarCnv(session, sqlNrReg, sql, 15);
 
         } catch (Exception e) {
             e.printStackTrace();
