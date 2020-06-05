@@ -346,7 +346,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 240, 930, 240);
+        jScrollPane11.setBounds(20, 240, 930, 250);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
