@@ -306,7 +306,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Lançamento", "Valor"
+                "Código", "Lançamento", "Valor (R$)"
             }
         ) {
             Class[] types = new Class [] {
@@ -426,7 +426,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jLabel80.setBounds(20, 70, 80, 20);
 
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Valor");
+        jLabel81.setText("Valor (R$)");
         jPanel18.add(jLabel81);
         jLabel81.setBounds(20, 115, 130, 20);
 
@@ -440,6 +440,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         valor.setBounds(20, 135, 120, 20);
 
         observacao.setColumns(20);
+        observacao.setLineWrap(true);
         observacao.setRows(5);
         jScrollPane1.setViewportView(observacao);
 

@@ -24,7 +24,9 @@ import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.awt.Color;
+import java.sql.Array;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -96,11 +98,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         atualizarTabelaOrcamento();
         atualizarTabelaPedido();
-        
+
         adicionarComboFormaPagamento();
         adicionarComboAcabamento();
-        
-        
+
+        dataOrc.setText(Data.getDate(new Date()));
 
     }
 
@@ -899,7 +901,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Cód.Orçamento", "Cliente", "Valor", "Situação"
+                "Cód.Orçamento", "Cliente", "Valor (R$)", "Situação"
             }
         ) {
             Class[] types = new Class [] {
@@ -966,7 +968,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Cód.Pedido", "Cliente", "Valor", "Situação"
+                "Cód.Pedido", "Cliente", "Valor (R$)", "Situação"
             }
         ) {
             Class[] types = new Class [] {
@@ -1040,8 +1042,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             orcamento = new Orcamento();
             limpaCampos();
             adicionarComboFormaPagamento();
-            adicionarComboAcabamento();
-            tabProdutos.removeAll();
+            adicionarComboAcabamento();           
             descCliente.requestFocus();
 
         } catch (Exception e) {
@@ -1328,18 +1329,25 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 codOrcamento.setText(tabOrcamento.getValueAt(tabOrcamento.getSelectedRow(), 0).toString());
                 orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
                 carregaTudo();
+
+                jTabbedPane1.setSelectedIndex(0);
+                codOrcamento.requestFocus();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_tabOrcamentoMouseClicked
 
     private void tabPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidoMouseClicked
-       try {
+        try {
             if (evt.getClickCount() > 1) {
                 codOrcamento.setText(tabPedido.getValueAt(tabPedido.getSelectedRow(), 0).toString());
                 orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
                 carregaTudo();
+                
+                 jTabbedPane1.setSelectedIndex(0);
+                codOrcamento.requestFocus();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1381,7 +1389,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         adicionarComboFormaPagamento();
         adicionarComboAcabamento();
-        
+
         atualizaTabelaProdutoBusca();
     }
 
@@ -1471,6 +1479,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         medidaProduto.setText("");
         unidadeProduto.setText("");
         comboAcabamento.setSelectedIndex(0);
+        
+        
     }
 
     private void limpaCampos() {
@@ -1482,7 +1492,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         validadeProposta.setText("");
         prazoEntrega.setText("");
         limpaCamposProduto();
-        tabProdutos.removeAll();
+        limpaTabelaProdutoBusca();
         clienteSecundario.setText("");
         telefoneSecundario.setText("");
         enderecoSecundario.setText("");
@@ -1496,6 +1506,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         atualizarTabelaOrcamento();
         atualizarTabelaPedido();
         atualizatabelaProdutos();
+        
 
     }
 
@@ -1545,10 +1556,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private void setOrcamento() throws Exception {
 
         if (descCliente.getText().length() < 2) {
-            throw new Exception("Favor inserir um Cliente");
+            throw new Exception("Favor inserir um Cliente.");
         }
-        if (validadeProposta.getText() == null) {
-            throw new Exception("Favor inserir um Data de Validade válida");
+        if (validadeProposta.getText().length() < 2) {
+            throw new Exception("Favor inserir um Data de Validade válida.");
+        }
+
+        if (prazoEntrega.getText().length() < 2) {
+            throw new Exception("Favor inserir um Prazo de Entrega válido.");
         }
 
         orcamento.setSituacao(checkSituacao.isSelected());
@@ -1739,16 +1754,17 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private void atualizaTabelaProdutoBusca() {
         List<ItemOrcamento> listaProdBusca;
         try {
+           
             listaProdBusca = itemOrcaDAO.getListOrcamento(ValidarValor.getInt(codOrcamento.getText()));
-
+            
             DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
-
+            removeLinhas(tabProdutos);
             for (int i = 0; i < listaProdBusca.size(); i++) {
 
                 Object[] os = new Object[8];
                 os[0] = listaProdBusca.get(i).getCodItemOrca();
                 os[1] = listaProdBusca.get(i).getOrcamento().getQuantProd();
-                os[2] = listaProdBusca.get(i).getOrcamento().getProduto().getDescricao();
+                os[2] = listaProdBusca.get(i).getProduto().getDescricao();
                 os[3] = listaProdBusca.get(i).getOrcamento().getMedida();
                 os[4] = listaProdBusca.get(i).getOrcamento().getUnidade();
                 os[5] = listaProdBusca.get(i).getOrcamento().getAcabamento().getDescricao();
@@ -1765,8 +1781,23 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    private void limpaTabelaProdutoBusca() {
+        List<ItemOrcamento> listaProdBusca;
+        try {
+            listaProdBusca = new ArrayList<ItemOrcamento>();
 
+            DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
+            removeLinhas(tabProdutos);
 
+        } catch (Exception ex) {
+            Logger.getLogger(FCadOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+
+    }
+
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionarItem;
     private javax.swing.JButton btExcluirOrca;

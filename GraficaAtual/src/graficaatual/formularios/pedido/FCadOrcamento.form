@@ -1515,7 +1515,7 @@
                           <Table columnCount="4" rowCount="4">
                             <Column editable="false" title="C&#xf3;d.Or&#xe7;amento" type="java.lang.Integer"/>
                             <Column editable="false" title="Cliente" type="java.lang.String"/>
-                            <Column editable="false" title="Valor" type="java.lang.Double"/>
+                            <Column editable="false" title="Valor (R$)" type="java.lang.Double"/>
                             <Column editable="false" title="Situa&#xe7;&#xe3;o" type="java.lang.Boolean"/>
                           </Table>
                         </Property>
@@ -1628,7 +1628,7 @@
                           <Table columnCount="4" rowCount="4">
                             <Column editable="false" title="C&#xf3;d.Pedido" type="java.lang.Integer"/>
                             <Column editable="false" title="Cliente" type="java.lang.String"/>
-                            <Column editable="false" title="Valor" type="java.lang.Double"/>
+                            <Column editable="false" title="Valor (R$)" type="java.lang.Double"/>
                             <Column editable="true" title="Situa&#xe7;&#xe3;o" type="java.lang.Boolean"/>
                           </Table>
                         </Property>

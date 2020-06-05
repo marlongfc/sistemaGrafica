@@ -307,7 +307,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Quantidade", "Requisição", "Valor Unitário", "Valor Total"
+                "Código", "Quantidade", "Requisição", "Valor Unitário (R$)", "Valor Total (R$)"
             }
         ) {
             Class[] types = new Class [] {
@@ -335,6 +335,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             tab.getColumnModel().getColumn(0).setPreferredWidth(70);
             tab.getColumnModel().getColumn(2).setPreferredWidth(700);
             tab.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
 
         jPanel18.add(jScrollPane11);
@@ -422,9 +423,9 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         jLabel80.setBounds(20, 70, 80, 20);
 
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Valor Unitário");
+        jLabel81.setText("Valor Unitário (R$)");
         jPanel18.add(jLabel81);
-        jLabel81.setBounds(130, 120, 100, 20);
+        jLabel81.setBounds(140, 120, 100, 20);
 
         valorUnit.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -432,7 +433,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(valorUnit);
-        valorUnit.setBounds(130, 140, 80, 20);
+        valorUnit.setBounds(140, 140, 80, 20);
 
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel82.setText("Quantidade");
@@ -458,9 +459,9 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         btSair1.setBounds(830, 200, 180, 40);
 
         jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel83.setText("Valor Total");
+        jLabel83.setText("Valor Total (R$)");
         jPanel18.add(jLabel83);
-        jLabel83.setBounds(230, 120, 130, 20);
+        jLabel83.setBounds(270, 120, 130, 20);
 
         valorTotal.setEnabled(false);
         valorTotal.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -469,7 +470,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(valorTotal);
-        valorTotal.setBounds(230, 140, 80, 20);
+        valorTotal.setBounds(270, 140, 80, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
