@@ -488,8 +488,8 @@
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                     <Column editable="false" title="Quantidade" type="java.lang.Integer"/>
                     <Column editable="false" title="Requisi&#xe7;&#xe3;o" type="java.lang.String"/>
-                    <Column editable="false" title="Valor Unit&#xe1;rio" type="java.lang.Double"/>
-                    <Column editable="false" title="Valor Total" type="java.lang.Double"/>
+                    <Column editable="false" title="Valor Unit&#xe1;rio (R$)" type="java.lang.Double"/>
+                    <Column editable="false" title="Valor Total (R$)" type="java.lang.Double"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -514,7 +514,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -653,11 +653,11 @@
         <Component class="javax.swing.JLabel" name="jLabel81">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="Valor Unit&#xe1;rio"/>
+            <Property name="text" type="java.lang.String" value="Valor Unit&#xe1;rio (R$)"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="130" y="120" width="100" height="20"/>
+              <AbsoluteConstraints x="140" y="120" width="100" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -667,7 +667,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="130" y="140" width="80" height="20"/>
+              <AbsoluteConstraints x="140" y="140" width="80" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -711,11 +711,11 @@
         <Component class="javax.swing.JLabel" name="jLabel83">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="Valor Total"/>
+            <Property name="text" type="java.lang.String" value="Valor Total (R$)"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="120" width="130" height="20"/>
+              <AbsoluteConstraints x="270" y="120" width="130" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -728,7 +728,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="230" y="140" width="80" height="20"/>
+              <AbsoluteConstraints x="270" y="140" width="80" height="20"/>
             </Constraint>
           </Constraints>
         </Component>

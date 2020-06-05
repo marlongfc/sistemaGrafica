@@ -421,6 +421,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         jLabel80.setBounds(40, 70, 60, 20);
 
         observacao.setColumns(20);
+        observacao.setLineWrap(true);
         observacao.setRows(5);
         jScrollPane1.setViewportView(observacao);
 
