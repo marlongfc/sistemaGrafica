@@ -39,14 +39,14 @@ public class FLogin extends javax.swing.JFrame {
         //Visualizar as Configurações
         host.setVisible(verConf);
         porta.setVisible(verConf);
-        user.setVisible(verConf);
-        senha.setVisible(verConf);
+        user.setVisible(false);
+        senha.setVisible(false);
         banco.setVisible(verConf);
         jLabel1.setVisible(verConf);
         jLabel3.setVisible(verConf);
         jLabel6.setVisible(verConf);
-        jLabel7.setVisible(verConf);
-        jLabel8.setVisible(verConf);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
         habilitaMenus(false);
         this.setLocationRelativeTo(null);
 
@@ -131,7 +131,6 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 570, 60, 20);
 
-        login.setText("root");
         login.setToolTipText("");
         jPanel2.add(login);
         login.setBounds(70, 570, 180, 20);
@@ -142,7 +141,6 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(10, 590, 60, 20);
 
-        senhaUsuario.setText("427623");
         senhaUsuario.setToolTipText("");
         jPanel2.add(senhaUsuario);
         senhaUsuario.setBounds(70, 590, 180, 20);
@@ -188,20 +186,20 @@ public class FLogin extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Banco:");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(20, 150, 51, 20);
+        jLabel6.setBounds(20, 110, 51, 20);
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Usuário:");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(20, 110, 80, 20);
+        jLabel7.setBounds(20, 130, 80, 20);
 
-        host.setText("localhost");
+        host.setText("192.168.0.166");
         jPanel2.add(host);
         host.setBounds(100, 70, 150, 20);
 
         user.setText("postgres");
         jPanel2.add(user);
-        user.setBounds(100, 110, 150, 20);
+        user.setBounds(100, 130, 150, 20);
 
         porta.setText("5432");
         jPanel2.add(porta);
@@ -209,12 +207,12 @@ public class FLogin extends javax.swing.JFrame {
 
         senha.setText("427623");
         jPanel2.add(senha);
-        senha.setBounds(100, 130, 150, 20);
+        senha.setBounds(100, 150, 150, 20);
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Senha:");
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(20, 130, 51, 20);
+        jLabel8.setBounds(20, 150, 51, 20);
 
         banco.setText("graficaatual");
         banco.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +221,7 @@ public class FLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(banco);
-        banco.setBounds(100, 150, 150, 20);
+        banco.setBounds(100, 110, 150, 20);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 260, 690);
