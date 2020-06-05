@@ -423,7 +423,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel2);
         jLabel2.setBounds(150, 70, 150, 14);
 
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua", "Avenida", "Praça", "Travessa", "Rodovia","Quadra", "Anel Rodoviário", "Beco", "Chácara", "Comunidade", "Condomínio", "Distrito", "Estrada", "Estacionamento", "Favela", "Fazenda", "Largo", "Lagoa", "Loteamento", "Lote", "Morro", "Passagem", "Ponte","Rancho", "Sítio", "Vila"  }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Rua", "Praça", "Avenida", "Travessa", "Rodovia", "Anel Rodoviário", "Quadra", "Beco", "Campo", "Chácara", "Comunidade", "Condomínio", "Distrito", "Estrada", "Estacionamento", "Favela", "Fazenda", "Largo", "Lagoa", "Loteamento", "Lote", "Morro", "Passagem", "Ponte", "Rancho", "Sítio", "Vila"}));
         jPanel18.add(comboTipo);
         comboTipo.setBounds(140, 90, 180, 20);
 
@@ -588,7 +588,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                 default:
                     return "";
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
