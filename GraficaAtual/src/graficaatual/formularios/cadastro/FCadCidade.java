@@ -501,6 +501,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descCidadeKeyReleased
 
+    /*
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
@@ -516,6 +517,37 @@ public class FCadCidade extends javax.swing.JInternalFrame {
                         b.getCodIBGE()};
 
                     model.addRow(o);
+                }
+            }
+            tabCidade.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabCidade);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de cidades cadastradas. Erro: " + e);
+
+        }
+    }
+     */
+    private void atualizarTabela() {
+        try {
+
+            if (cnvCidade == null) {
+                cnvCidade = new CnvCidade();
+            }
+
+            cnvCidade.iniciarNavCidade();
+            cnvCidade.proximo();
+
+            DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
+            removeLinhas(tabCidade);
+
+            List<?> listaAux = cnvCidade.getLista();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Object b : listaAux) {
+                    
+                    Object[] os = (Object[]) b;
+                    model.addRow(os);
+
                 }
             }
             tabCidade.setModel(model);

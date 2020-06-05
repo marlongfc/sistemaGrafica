@@ -55,7 +55,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
         limparTela();
-         btNovo.requestFocus();
+        btNovo.requestFocus();
     }
 
     /**
@@ -456,7 +456,10 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         codBairro.setEnabled(true);
         descBairro.setText("");
         bairro = new Bairro();
-        atualizarTabela();
+
+        cnvBairro = new CnvBairro();
+        cnvBairro.iniciarNavBairro();
+        atualizarTabela2();
     }
 
 
@@ -485,6 +488,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descBairroKeyReleased
 
+    /*
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
@@ -499,6 +503,40 @@ public class FCadBairro extends javax.swing.JInternalFrame {
                         b.getDescricao()};
 
                     model.addRow(o);
+                }
+            }
+            tabBairro.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabBairro);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de bairros cadastrados. Erro: " + e);
+
+        }
+    }
+*/
+
+    private void atualizarTabela2() {
+        try {
+
+            if (cnvBairro == null) {
+                cnvBairro = new CnvBairro();
+                cnvBairro.iniciarNavBairro();
+            }
+
+            cnvBairro.primeiro();
+            
+            DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
+            removeLinhas(tabBairro);
+
+            List<?> listaAux = cnvBairro.getLista();
+
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Object b : listaAux) {
+
+                    Object[] os = (Object[]) b;
+                 
+                    model.addRow(os);
+
                 }
             }
             tabBairro.setModel(model);
@@ -552,7 +590,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
             codBairro.setEnabled(true);
             codBairro.setText("");
             descBairro.setText("");
-            atualizarTabela();
+            atualizarTabela2();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar bairro. Erro: " + e);
@@ -574,7 +612,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
 
                 codBairro.setText("");
                 descBairro.setText("");
-                atualizarTabela();
+                atualizarTabela2();
 
             } else {
                 return;
@@ -633,7 +671,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_inicioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         try {
+        try {
             String sql = "select codbairro, descricao from bairro e order by e.descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/bairro.jasper", "RELATÓRIO DE BAIRROS", null, sql);
