@@ -96,6 +96,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         atualizarTabelaOrcamento();
         atualizarTabelaPedido();
+        
+        adicionarComboFormaPagamento();
+        adicionarComboAcabamento();
+        
+        
 
     }
 
@@ -912,6 +917,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabOrcamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabOrcamentoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabOrcamento);
         if (tabOrcamento.getColumnModel().getColumnCount() > 0) {
             tabOrcamento.getColumnModel().getColumn(0).setPreferredWidth(150);
@@ -972,6 +982,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tabPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPedidoMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tabPedido);
@@ -1265,7 +1280,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1306,6 +1321,30 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             checkSituacao.setBackground(Color.red);
         }
     }//GEN-LAST:event_checkSituacaoMouseClicked
+
+    private void tabOrcamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabOrcamentoMouseClicked
+        try {
+            if (evt.getClickCount() > 1) {
+                codOrcamento.setText(tabOrcamento.getValueAt(tabOrcamento.getSelectedRow(), 0).toString());
+                orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
+                carregaTudo();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_tabOrcamentoMouseClicked
+
+    private void tabPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidoMouseClicked
+       try {
+            if (evt.getClickCount() > 1) {
+                codOrcamento.setText(tabPedido.getValueAt(tabPedido.getSelectedRow(), 0).toString());
+                orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
+                carregaTudo();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_tabPedidoMouseClicked
 
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
