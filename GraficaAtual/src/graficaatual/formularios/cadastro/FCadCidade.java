@@ -32,28 +32,28 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private CidadeDAO cidadeDao = new CidadeDAO();
     private List<Cidade> lista = null;
     private CnvCidade cnvCidade = new CnvCidade();
-    
+
     private static FCadCidade instancia;
-    
+
     public static FCadCidade getInstancia() {
         if (instancia == null) {
             instancia = new FCadCidade();
         }
-        
+
         return instancia;
     }
-    
+
     public FCadCidade() {
         initComponents();
-        
+
         lista = ObservableCollections.observableList(new LinkedList<Cidade>());
         Componentes comp2 = new Componentes(lista, false, codCidade, descCidade, this, jPanel18, descCidade.getWidth(), 100);
         comp2.addCol(0, "codCidade", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Cidade", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+
         limparTela();
     }
 
@@ -318,7 +318,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -462,16 +462,16 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
     private void limparTela() {
         btNovo.requestFocus();
-        
+
         codCidade.setText("");
         codCidade.setEnabled(true);
         descCidade.setText("");
         codIbge.setText("");
         cidade = new Cidade();
-        
+
         atualizarTabela();
     }
-    
+
 
     private void codCidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCidadeFocusLost
         try {
@@ -491,31 +491,30 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
     private void descCidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCidadeKeyReleased
         try {
-            
+
             List<Cidade> merged = cidadeDao.getList(15, "select e from Cidade e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descCidade.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
-            
+
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar cidades. Erro: " + e);
         }
     }//GEN-LAST:event_descCidadeKeyReleased
-    
+
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
             removeLinhas(tabCidade);
-            
+
             List<Cidade> listaAux = cidadeDao.getList();
             if (listaAux.size() > 0) {
                 model.setNumRows(0);
                 for (Cidade b : listaAux) {
                     Object o[] = new Object[]{
-                       
                         b.getCodCidade(),
-                        b.getDescricao()};
-                        b.getCodIBGE();
-                    
+                        b.getDescricao(),
+                        b.getCodIBGE()};
+
                     model.addRow(o);
                 }
             }
@@ -523,20 +522,20 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             removeLinhas(tabCidade);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de cidades cadastradas. Erro: " + e);
-            
+
         }
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
@@ -546,7 +545,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             descCidade.requestFocus();
             codIbge.setText("");
             cidade = null;
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -561,20 +560,20 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             } else {
                 cidade.setDataAtualizacao(new Date());
             }
-            
+
             if ((!codIbge.getText().equals("")) && (!ValidarValor.isNumeric(codIbge.getText()))) {
-                
+
                 throw new Exception("O código do IBGE deve ser numérico!");
             }
-            
+
             cidade.setCodCidade(Long.parseLong(codCidade.getText()));
             cidade.setDescricao(descCidade.getText());
             cidade.setCodIBGE(ValidarValor.getInteger(codIbge.getText()));
-            
+
             if (cidadeDao.salvar(cidade) != null) {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
             }
-            
+
             codCidade.setEnabled(true);
             codCidade.setText("");
             descCidade.setText("");
@@ -596,22 +595,22 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
             // considerando 0 como sim
             if (op == 0) {
-                
+
                 cidadeDao.delete(cidade);
-                
+
                 codCidade.setText("");
                 descCidade.setText("");
                 atualizarTabela();
-                
+
             } else {
                 return;
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir cidade. Erro: " + e);
         }
     }//GEN-LAST:event_btExcluirActionPerformed
-    
+
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         limparTela();
@@ -661,9 +660,9 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String sql = "select codCidade, descricao from cidade order by descricao asc";
-            
+
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/cidade.jasper", "RELATÓRIO DE CIDADES", null, sql);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Cidades! \n " + e);

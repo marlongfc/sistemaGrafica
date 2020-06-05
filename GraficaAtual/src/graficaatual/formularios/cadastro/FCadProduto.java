@@ -509,7 +509,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(custoProduto);
         custoProduto.setBounds(20, 550, 150, 20);
 
-        jLabel3.setText("Mão De Obra (custo / hora)");
+        jLabel3.setText("Mão De Obra (m² / h)");
         jPanel18.add(jLabel3);
         jLabel3.setBounds(180, 530, 150, 14);
 
@@ -538,11 +538,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(custoEmpresa);
         custoEmpresa.setBounds(340, 550, 150, 20);
 
-        jLabel4.setText("Custo Empresa ( m² / hora)");
+        jLabel4.setText("Custo Empresa ( m² / h)");
         jPanel18.add(jLabel4);
         jLabel4.setBounds(340, 530, 160, 14);
 
-        jLabel5.setText("Custo do Serviço m²");
+        jLabel5.setText("Custo do Serviço (m²)");
         jPanel18.add(jLabel5);
         jLabel5.setBounds(500, 530, 170, 14);
 
@@ -680,11 +680,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel10);
         jLabel10.setBounds(20, 200, 110, 14);
 
-        jLabel15.setText("Largura");
+        jLabel15.setText("Largura (m)");
         jPanel18.add(jLabel15);
         jLabel15.setBounds(150, 200, 80, 14);
 
-        jLabel16.setText("Altura");
+        jLabel16.setText("Altura (m)");
         jPanel18.add(jLabel16);
         jLabel16.setBounds(240, 200, 80, 14);
 
@@ -692,11 +692,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel17);
         jLabel17.setBounds(340, 200, 70, 14);
 
-        jLabel18.setText("Peso");
+        jLabel18.setText("Peso (kg)");
         jPanel18.add(jLabel18);
         jLabel18.setBounds(460, 200, 80, 14);
 
-        jLabel19.setText("Litros");
+        jLabel19.setText("Litros (l)");
         jPanel18.add(jLabel19);
         jLabel19.setBounds(580, 200, 80, 14);
 
