@@ -30,10 +30,28 @@ public class ItemOrcamento implements Serializable {
     @JoinColumn(name = "produto")
     private Produto produto;
 
-     
     @ManyToOne()
     @JoinColumn(name = "orcamento")
     private Orcamento orcamento;
+
+    @ManyToOne()
+    @JoinColumn(name = "acabamento")
+    private Acabamento acabamento;
+
+    @Column(nullable = true)
+    private Integer quantProd;
+
+    @Column()
+    private Double valorTotalProduto;
+    
+     @Column()
+    private Double valorUnitario;
+
+    @Column(length = 10)
+    private String medida;
+
+    @Column(length = 10)
+    private String unidade;
 
     public ItemOrcamento() {
     }
@@ -61,8 +79,54 @@ public class ItemOrcamento implements Serializable {
     public void setOrcamento(Orcamento orcamento) {
         this.orcamento = orcamento;
     }
-    
-    
+
+    public Acabamento getAcabamento() {
+        return acabamento;
+    }
+
+    public Double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(Double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public void setAcabamento(Acabamento acabamento) {
+        this.acabamento = acabamento;
+    }
+
+    public Integer getQuantProd() {
+        return quantProd;
+    }
+
+    public void setQuantProd(Integer quantProd) {
+        this.quantProd = quantProd;
+    }
+
+    public Double getValorTotalProduto() {
+        return valorTotalProduto;
+    }
+
+    public void setValorTotalProduto(Double valorTotalProduto) {
+        this.valorTotalProduto = valorTotalProduto;
+    }
+
+    public String getMedida() {
+        return medida;
+    }
+
+    public void setMedida(String medida) {
+        this.medida = medida;
+    }
+
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
+    }
 
     @Override
     public int hashCode() {

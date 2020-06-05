@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
  * @author Projeto X
  */
 public class ValidarValor {
-
+ 
 
     public enum Tipo {
         Truncamento,

@@ -156,6 +156,7 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
         jLabel1.setBounds(30, 30, 30, 15);
 
         txOrcamento.setColumns(20);
+        txOrcamento.setLineWrap(true);
         txOrcamento.setRows(5);
         jScrollPane1.setViewportView(txOrcamento);
 

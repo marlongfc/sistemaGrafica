@@ -690,7 +690,7 @@
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                     <Column editable="false" title="Colaborador" type="java.lang.String"/>
                     <Column editable="false" title="login" type="java.lang.String"/>
-                    <Column editable="false" title="Data Cadastro" type="java.lang.String"/>
+                    <Column editable="false" title="Ativo" type="java.lang.Boolean"/>
                   </Table>
                 </Property>
               </Properties>

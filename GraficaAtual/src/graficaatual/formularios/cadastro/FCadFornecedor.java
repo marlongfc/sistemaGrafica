@@ -187,7 +187,6 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         cnpj = new javax.swing.JTextField();
         try {
@@ -269,6 +268,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         cpf = new javax.swing.JTextField();
         try {
             cpf = new JFormattedTextField(
@@ -371,31 +371,26 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(uf);
         uf.setBounds(780, 320, 100, 20);
 
-        jLabel23.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel23.setText("UF ");
         jPanel10.add(jLabel23);
         jLabel23.setBounds(780, 300, 50, 20);
 
-        jLabel22.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel22.setText("CEP");
         jPanel10.add(jLabel22);
         jLabel22.setBounds(880, 300, 110, 20);
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Código: ");
         jPanel10.add(jLabel13);
         jLabel13.setBounds(20, 70, 80, 20);
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Observação: ");
         jPanel10.add(jLabel15);
         jLabel15.setBounds(30, 350, 100, 20);
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("Número");
         jPanel10.add(jLabel16);
@@ -406,30 +401,21 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(jLabel18);
         jLabel18.setBounds(130, 260, 100, 20);
 
-        jLabel19.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Logradouro");
         jPanel10.add(jLabel19);
         jLabel19.setBounds(130, 220, 100, 20);
 
-        jLabel20.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("Complemento");
         jPanel10.add(jLabel20);
         jLabel20.setBounds(780, 260, 110, 20);
 
-        jLabel21.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel21.setText("Codigo");
+        jLabel21.setText("Código");
         jPanel10.add(jLabel21);
         jLabel21.setBounds(50, 220, 80, 20);
 
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço:"));
-        jPanel10.add(jLabel14);
-        jLabel14.setBounds(20, 200, 1020, 150);
-
-        jLabel28.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel28.setText("Tipo de Pessoa");
         jPanel10.add(jLabel28);
@@ -455,7 +441,6 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(dataNascimento);
         dataNascimento.setBounds(880, 170, 160, 20);
 
-        jLabel29.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel29.setText("Email");
         jPanel10.add(jLabel29);
@@ -581,26 +566,24 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(telefone);
         telefone.setBounds(740, 170, 140, 20);
 
-        jLabel9.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Telefone");
         jPanel10.add(jLabel9);
         jLabel9.setBounds(740, 150, 90, 20);
 
         obs.setColumns(20);
+        obs.setLineWrap(true);
         obs.setRows(2);
         jScrollPane4.setViewportView(obs);
 
         jPanel10.add(jScrollPane4);
         jScrollPane4.setBounds(30, 370, 1010, 70);
 
-        jLabel46.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel46.setText("Data Nascimento");
         jPanel10.add(jLabel46);
         jLabel46.setBounds(880, 150, 140, 20);
 
-        jLabel71.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel71.setText("Nome/Razão");
         jPanel10.add(jLabel71);
@@ -698,7 +681,6 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(contato);
         contato.setBounds(400, 170, 340, 20);
 
-        jLabel74.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel74.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel74.setText("Contato");
         jPanel10.add(jLabel74);
@@ -746,13 +728,11 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(tipoPessoa);
         tipoPessoa.setBounds(110, 90, 240, 20);
 
-        jLabel30.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel30.setText("Insc. Munícipal");
         jPanel10.add(jLabel30);
         jLabel30.setBounds(740, 110, 140, 20);
 
-        jLabel17.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel17.setText("Insc. Estadual");
         jPanel10.add(jLabel17);
@@ -764,31 +744,26 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jPanel10.add(nomeFantasia);
         nomeFantasia.setBounds(400, 130, 340, 20);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Nome Fantasia");
         jPanel10.add(jLabel1);
         jLabel1.setBounds(400, 110, 140, 20);
 
-        jLabel24.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel24.setText("Cidade");
         jPanel10.add(jLabel24);
         jLabel24.setBounds(130, 300, 100, 20);
 
-        jLabel25.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel25.setText("Codigo");
+        jLabel25.setText("Código");
         jPanel10.add(jLabel25);
         jLabel25.setBounds(50, 300, 80, 20);
 
-        jLabel26.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel26.setText("Codigo");
+        jLabel26.setText("Código");
         jPanel10.add(jLabel26);
         jLabel26.setBounds(50, 260, 80, 20);
 
-        jLabel45.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel45.setText("CPF/CNPJ ");
         jPanel10.add(jLabel45);
@@ -799,6 +774,11 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         jLabel2.setText("CADASTRO DE FORNECEDOR");
         jPanel10.add(jLabel2);
         jLabel2.setBounds(10, 0, 1050, 70);
+
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço:"));
+        jPanel10.add(jLabel14);
+        jLabel14.setBounds(20, 200, 1020, 150);
 
         cpf.setBackground(new java.awt.Color(255, 255, 204));
         cpf.addKeyListener(new java.awt.event.KeyAdapter() {

@@ -961,8 +961,9 @@ INNER JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 				<box leftPadding="2"/>
 				<textFieldExpression><![CDATA[$V{totalOrcamento}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="1" y="90" width="800" height="96" uuid="1501c439-c4e6-4747-b572-1837649a0bca"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="90" width="800" height="96" isPrintWhenDetailOverflows="true" uuid="1501c439-c4e6-4747-b572-1837649a0bca"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{TEXTOPADRAO}]]></textFieldExpression>
 			</textField>
 		</band>
