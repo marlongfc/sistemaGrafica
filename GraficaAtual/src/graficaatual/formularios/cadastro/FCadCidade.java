@@ -11,6 +11,7 @@ import graficaatual.pesq.cadastro.CnvCidade;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -535,7 +536,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             }
 
             cnvCidade.iniciarNavCidade();
-            cnvCidade.proximo();
+            cnvCidade.primeiro();
 
             DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
             removeLinhas(tabCidade);
@@ -543,10 +544,17 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             List<?> listaAux = cnvCidade.getLista();
             if (listaAux.size() > 0) {
                 model.setNumRows(0);
+
                 for (Object b : listaAux) {
-                    
+
                     Object[] os = (Object[]) b;
-                    model.addRow(os);
+
+                    Object o[] = new Object[]{
+                        (BigInteger) os[0],
+                        (String) os[1],
+                        (Integer) os[2]};
+
+                    model.addRow(o);
 
                 }
             }
@@ -554,7 +562,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             removeLinhas(tabCidade);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de cidades cadastradas. Erro: " + e);
-
+            e.printStackTrace();
         }
     }
 

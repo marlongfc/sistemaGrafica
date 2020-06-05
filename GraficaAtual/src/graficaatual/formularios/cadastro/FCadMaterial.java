@@ -11,6 +11,7 @@ import graficaatual.pesq.cadastro.CnvMaterial;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -665,7 +666,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             System.out.println("Ocorreu um erro ao tentar pesquisar materials. Erro: " + e);
         }
     }//GEN-LAST:event_descMaterialKeyReleased
-
+    /*
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabMaterial.getModel();
@@ -681,7 +682,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                         m.getCodMaterial(),
                         m.getDescricao(),
                         /*  getDescricaoUnidade(m.getUnidade()),*/
-                        m.getMetragemLinear() != null ? ValidarValor.getDouble(m.getMetragemLinear()) : null,
+
+ /* m.getMetragemLinear() != null ? ValidarValor.getDouble(m.getMetragemLinear()) : null,
                         m.getLargura() != null ? ValidarValor.getDouble(m.getLargura()) : null,
                         m.getAltura() != null ? ValidarValor.getDouble(m.getAltura()) : null,
                         m.getUnidade() != null ? ValidarValor.getDouble(m.getUnidade()) : null,
@@ -701,6 +703,52 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de materiais cadastrados. Erro: " + e);
             e.printStackTrace();
 
+        }
+    }
+     */
+    private void atualizarTabela() {
+        try {
+
+            if (cnvMaterial == null) {
+                cnvMaterial = new CnvMaterial();
+            }
+
+            cnvMaterial.iniciarNavMaterial();
+            cnvMaterial.primeiro();
+
+            DefaultTableModel model = (DefaultTableModel) tabMaterial.getModel();
+            removeLinhas(tabMaterial);
+
+            List<?> listaAux = cnvMaterial.getLista();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+
+                for (Object m : listaAux) {
+
+                    Object[] os = (Object[]) m;
+
+                    Object o[] = new Object[]{
+                        (BigInteger) os[0],
+                        (String) os[1],
+                        (Double) os[2] != null ? ValidarValor.getDouble((Double) os[2]) : null,
+                        (Double) os[3] != null ? ValidarValor.getDouble((Double) os[3]) : null,
+                        (Double) os[4] != null ? ValidarValor.getDouble((Double) os[4]) : null,
+                        (Double) os[5] != null ? ValidarValor.getDouble((Double) os[5]) : null,
+                        (Double) os[6] != null ? ValidarValor.getDouble3Casas((Double) os[6]) : null,
+                        (Double) os[7] != null ? ValidarValor.getDouble((Double) os[7]) : null,
+                        (Double) os[8] != null ? ValidarValor.getDouble((Double) os[8]) : null,
+                        ValidarValor.getDouble((Double) os[9]),
+                        ValidarValor.getDouble((Double) os[10]),
+                        ValidarValor.getDouble((Double) os[11])};
+
+                    model.addRow(o);
+                }
+            }
+            tabMaterial.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabMaterial);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de materiais cadastrados. Erro: " + e);
+            e.printStackTrace();
         }
     }
 

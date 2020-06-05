@@ -26,7 +26,7 @@ public class CnvLogradouro extends CnvNativeQueryRNE {
             String sqlNrReg = " select  count(e.codLogradouro)"
                     + " from Logradouro e  ";
                                
-            super.iniciarCnv(session, sqlNrReg, sql, 9);
+            super.iniciarCnv(session, sqlNrReg, sql, 20);
 
         } catch (Exception e) {
             e.printStackTrace();

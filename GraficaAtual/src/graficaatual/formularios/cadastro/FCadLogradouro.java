@@ -11,6 +11,7 @@ import graficaatual.pesq.cadastro.CnvLogradouro;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,28 +33,28 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private LogradouroDAO logradouroDao = new LogradouroDAO();
     private List<Logradouro> lista = null;
     private CnvLogradouro cnvLogradouro = new CnvLogradouro();
-    
+
     private static FCadLogradouro instancia;
-    
+
     public static FCadLogradouro getInstancia() {
         if (instancia == null) {
             instancia = new FCadLogradouro();
         }
-        
+
         return instancia;
     }
-    
+
     public FCadLogradouro() {
         initComponents();
-        
+
         lista = ObservableCollections.observableList(new LinkedList<Logradouro>());
         Componentes comp2 = new Componentes(lista, false, codLogradouro, descLogradouro, this, jPanel18, descLogradouro.getWidth(), 100);
         comp2.addCol(0, "codLogradouro", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Logradouro", 200, String.class.getName());
         comp2.bind();
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+
         limparTela();
     }
 
@@ -467,10 +468,10 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         //  codLogradouro.setEnabled(false);
         descLogradouro.setText("");
         logradouro = null;
-        
+
         atualizarTabela();
     }
-    
+
 
     private void codLogradouroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codLogradouroFocusLost
         try {
@@ -490,18 +491,17 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
     private void descLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descLogradouroKeyReleased
         try {
-            
+
             List<Logradouro> merged = logradouroDao.getList(15, "select e from Logradouro e where lower (trim(e.descricao))   like ?1 order by e.descricao asc", (descLogradouro.getText().trim().toLowerCase() + "%"));
             lista.clear();
             lista.addAll(merged);
-            
+
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar logradouros. Erro: " + e);
         }
     }//GEN-LAST:event_descLogradouroKeyReleased
-    
-    
-    
+
+    /*
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
@@ -526,12 +526,49 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
         }
     }
-    
+     */
+    private void atualizarTabela() {
+        try {
+
+            if (cnvLogradouro == null) {
+                cnvLogradouro = new CnvLogradouro();
+            }
+
+            cnvLogradouro.iniciarNavLogradouro();
+            cnvLogradouro.primeiro();
+
+            DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
+            removeLinhas(tabLogradouro);
+
+            List<?> listaAux = cnvLogradouro.getLista();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+
+                for (Object b : listaAux) {
+
+                    Object[] os = (Object[]) b;
+
+                    Object o[] = new Object[]{
+                        (BigInteger) os[0],
+                        buscaDescricaoTipoLogradouro((Integer) os[1]),
+                        (String) os[2]};
+
+                    model.addRow(o);
+                }
+            }
+            tabLogradouro.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabLogradouro);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de logradouros cadastrados. Erro: " + e);
+
+        }
+    }
+
     private String buscaDescricaoTipoLogradouro(int tipo) {
         try {
-            
+
             switch (tipo) {
-                
+
                 case 0:
                     return "Rua";
                 case 1:
@@ -586,35 +623,35 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                     return "Sítio";
                 case 26:
                     return "Vila";
-                
+
                 default:
                     return "";
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
     }
-    
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
-        
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
+
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
+
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            
+
             limparTela();
             codLogradouro.setText("" + logradouroDao.getNextItem());
             comboTipo.requestFocus();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -632,11 +669,11 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             logradouro.setCodLogradouro(Long.parseLong(codLogradouro.getText()));
             logradouro.setTipo(comboTipo.getSelectedIndex());
             logradouro.setDescricao(descLogradouro.getText());
-            
+
             if (logradouroDao.salvar(logradouro) != null) {
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
             }
-            
+
             limparTela();
         } catch (Exception e) {
             e.printStackTrace();
@@ -654,19 +691,19 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
             // considerando 0 como sim
             if (op == 0) {
-                
+
                 if (logradouroDao.delete(logradouro)) {
                     limparTela();
                 }
             } else {
                 return;
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir logradouro. Erro: " + e);
         }
     }//GEN-LAST:event_btExcluirActionPerformed
-    
+
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         limparTela();
@@ -772,9 +809,9 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                     + "                when null"
                     + "                    then '' End) as tipo "
                     + " from logradouro e order by e.descricao asc";
-            
+
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/logradouro.jasper", "RELATÓRIO DE LOGRADOUROS", null, sql);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de logradouros! \n " + e);
