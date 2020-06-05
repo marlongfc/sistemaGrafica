@@ -453,6 +453,7 @@
             <Component class="javax.swing.JTextArea" name="funcao">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="2"/>
               </Properties>
             </Component>
@@ -464,7 +465,7 @@
               <Font name="Dialog" size="11" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="CRM"/>
+            <Property name="text" type="java.lang.String" value="CTPS"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -619,7 +620,7 @@
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Long"/>
                     <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.String"/>
                     <Column editable="false" title="Turno" type="java.lang.String"/>
-                    <Column editable="false" title="CRM" type="java.lang.String"/>
+                    <Column editable="false" title="CTPS" type="java.lang.String"/>
                   </Table>
                 </Property>
               </Properties>
@@ -668,6 +669,7 @@
             <Component class="javax.swing.JTextArea" name="especificacao">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="2"/>
               </Properties>
             </Component>

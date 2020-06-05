@@ -325,6 +325,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jPanel11.setBounds(0, 0, 0, 0);
 
         funcao.setColumns(20);
+        funcao.setLineWrap(true);
         funcao.setRows(2);
         jScrollPane4.setViewportView(funcao);
 
@@ -333,7 +334,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
 
         jLabel46.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel46.setText("CRM");
+        jLabel46.setText("CTPS");
         jPanel10.add(jLabel46);
         jLabel46.setBounds(680, 120, 60, 20);
 
@@ -422,7 +423,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Turno", "CRM"
+                "Código", "Descrição", "Turno", "CTPS"
             }
         ) {
             Class[] types = new Class [] {
@@ -465,6 +466,7 @@ public class FCadCargo extends javax.swing.JInternalFrame {
         jLabel16.setBounds(60, 270, 120, 20);
 
         especificacao.setColumns(20);
+        especificacao.setLineWrap(true);
         especificacao.setRows(2);
         jScrollPane5.setViewportView(especificacao);
 

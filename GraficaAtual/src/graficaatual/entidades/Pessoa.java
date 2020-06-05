@@ -70,7 +70,7 @@ public class Pessoa implements Serializable {
     @Column(name = "dataNascimento", nullable = true)
     private Date dataNascimento;
 
-    @Column(name = "obs", nullable = true)
+    @Column(name = "obs", nullable = true, columnDefinition = "text")
     private String obs;
 
     @Column(name = "telefone", nullable = true)
