@@ -512,18 +512,26 @@ public class FCadBairro extends javax.swing.JInternalFrame {
 
         }
     }
-*/
-
+     */
     private void atualizarTabela2() {
         try {
 
             if (cnvBairro == null) {
                 cnvBairro = new CnvBairro();
-                cnvBairro.iniciarNavBairro();
+
             }
 
+            cnvBairro.iniciarNavBairro();
             cnvBairro.primeiro();
-            
+
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
             DefaultTableModel model = (DefaultTableModel) tabBairro.getModel();
             removeLinhas(tabBairro);
 
@@ -534,7 +542,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
                 for (Object b : listaAux) {
 
                     Object[] os = (Object[]) b;
-                 
+
                     model.addRow(os);
 
                 }
@@ -641,6 +649,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     private void ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimoActionPerformed
         try {
             cnvBairro.ultimo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -649,6 +658,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvBairro.proximo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -657,6 +667,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvBairro.anterior();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -665,6 +676,7 @@ public class FCadBairro extends javax.swing.JInternalFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvBairro.primeiro();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }

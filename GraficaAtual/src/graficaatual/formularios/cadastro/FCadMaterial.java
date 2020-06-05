@@ -716,6 +716,15 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             cnvMaterial.iniciarNavMaterial();
             cnvMaterial.primeiro();
 
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
+
             DefaultTableModel model = (DefaultTableModel) tabMaterial.getModel();
             removeLinhas(tabMaterial);
 
@@ -745,6 +754,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                 }
             }
             tabMaterial.setModel(model);
+
         } catch (Exception e) {
             removeLinhas(tabMaterial);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de materiais cadastrados. Erro: " + e);
@@ -930,6 +940,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimoActionPerformed
         try {
             cnvMaterial.ultimo();
+            preencheTabela();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -938,6 +950,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvMaterial.proximo();
+            preencheTabela();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -946,6 +960,8 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvMaterial.anterior();
+            preencheTabela();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -954,6 +970,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvMaterial.primeiro();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }

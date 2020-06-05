@@ -538,6 +538,14 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             cnvCidade.iniciarNavCidade();
             cnvCidade.primeiro();
 
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
             DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
             removeLinhas(tabCidade);
 
@@ -559,7 +567,9 @@ public class FCadCidade extends javax.swing.JInternalFrame {
                 }
             }
             tabCidade.setModel(model);
+
         } catch (Exception e) {
+
             removeLinhas(tabCidade);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de cidades cadastradas. Erro: " + e);
             e.printStackTrace();
@@ -668,6 +678,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimoActionPerformed
         try {
             cnvCidade.ultimo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -676,6 +687,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvCidade.proximo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -684,6 +696,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvCidade.anterior();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -692,6 +705,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvCidade.primeiro();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }

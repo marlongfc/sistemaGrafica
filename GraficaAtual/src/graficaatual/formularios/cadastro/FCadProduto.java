@@ -1106,6 +1106,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             cnvProduto.iniciarNavProduto();
             cnvProduto.primeiro();
 
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
             DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
             removeLinhas(tabProduto);
 
@@ -1130,6 +1138,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 }
             }
             tabProduto.setModel(model);
+
         } catch (Exception e) {
             removeLinhas(tabProduto);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de produtos cadastrados. Erro: " + e);
@@ -1689,19 +1698,39 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabProdutoMouseClicked
 
     private void ultimo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimo1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.ultimo();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } // TODO add your handling code here:
     }//GEN-LAST:event_ultimo1ActionPerformed
 
     private void proximo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximo1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.proximo();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_proximo1ActionPerformed
 
     private void anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.anterior();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_anterior1ActionPerformed
 
     private void inicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicio1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.primeiro();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_inicio1ActionPerformed
 
     private void custoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_custoProdutoFocusLost

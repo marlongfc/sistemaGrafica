@@ -537,6 +537,16 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             cnvLogradouro.iniciarNavLogradouro();
             cnvLogradouro.primeiro();
 
+            preencheTabela();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
+
             DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
             removeLinhas(tabLogradouro);
 
@@ -555,8 +565,9 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
 
                     model.addRow(o);
                 }
+
+                tabLogradouro.setModel(model);
             }
-            tabLogradouro.setModel(model);
         } catch (Exception e) {
             removeLinhas(tabLogradouro);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de logradouros cadastrados. Erro: " + e);
@@ -721,6 +732,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimoActionPerformed
         try {
             cnvLogradouro.ultimo();
+             preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -729,6 +741,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvLogradouro.proximo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -737,6 +750,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvLogradouro.anterior();
+             preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -745,6 +759,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvLogradouro.primeiro();
+             preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
