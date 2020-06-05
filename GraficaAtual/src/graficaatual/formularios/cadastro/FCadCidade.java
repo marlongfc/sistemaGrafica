@@ -11,6 +11,7 @@ import graficaatual.pesq.cadastro.CnvCidade;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -501,6 +502,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descCidadeKeyReleased
 
+    /*
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
@@ -523,6 +525,54 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             removeLinhas(tabCidade);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de cidades cadastradas. Erro: " + e);
 
+        }
+    }
+     */
+    private void atualizarTabela() {
+        try {
+
+            if (cnvCidade == null) {
+                cnvCidade = new CnvCidade();
+            }
+
+            cnvCidade.iniciarNavCidade();
+            cnvCidade.primeiro();
+
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabCidade.getModel();
+            removeLinhas(tabCidade);
+
+            List<?> listaAux = cnvCidade.getLista();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+
+                for (Object b : listaAux) {
+
+                    Object[] os = (Object[]) b;
+
+                    Object o[] = new Object[]{
+                        (BigInteger) os[0],
+                        (String) os[1],
+                        (Integer) os[2]};
+
+                    model.addRow(o);
+
+                }
+            }
+            tabCidade.setModel(model);
+
+        } catch (Exception e) {
+
+            removeLinhas(tabCidade);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de cidades cadastradas. Erro: " + e);
+            e.printStackTrace();
         }
     }
 
@@ -628,6 +678,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimoActionPerformed
         try {
             cnvCidade.ultimo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -636,6 +687,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvCidade.proximo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -644,6 +696,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvCidade.anterior();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -652,6 +705,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvCidade.primeiro();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -70,7 +70,7 @@ public class RequisicaoFinanceiraDAO extends requisicaoFinanceiraRNE {
     }
 
     public RequisicaoFinanceira get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         RequisicaoFinanceira aux;
         try {
             aux = super.get(codigo, session);
@@ -83,7 +83,7 @@ public class RequisicaoFinanceiraDAO extends requisicaoFinanceiraRNE {
     }
 
     public List<RequisicaoFinanceira> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<RequisicaoFinanceira> aux;
         try {
             aux = super.getList(session);
@@ -96,7 +96,7 @@ public class RequisicaoFinanceiraDAO extends requisicaoFinanceiraRNE {
     }
 
     public RequisicaoFinanceira getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             RequisicaoFinanceira aux = super.getPojo(RequisicaoFinanceira.class, cod);
             return aux;

@@ -52,7 +52,7 @@ public class ColaboradorDAO extends ColaboradorRNE {
     }
 
     public Colaborador get(Integer cod) throws Exception{
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Colaborador aux = super.get(cod, session);
             return aux;

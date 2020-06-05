@@ -53,7 +53,7 @@ public class EntidadeDAO extends EntidadeRNE {
     }
 
     public Entidade get(Integer cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Entidade aux = super.getPojo(Entidade.class, cod);
             return aux;
@@ -65,7 +65,7 @@ public class EntidadeDAO extends EntidadeRNE {
     }
     
     public Entidade getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Entidade aux = super.getPojo(Entidade.class, cod);
             return aux;

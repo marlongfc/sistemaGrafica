@@ -21,12 +21,12 @@ public class CnvLogradouro extends CnvNativeQueryRNE {
 
         try {
 
-            String sql = " select e  from Logradouro e order by e.codLogradouro";
+            String sql = " select e.codLogradouro, e.tipo, e.descricao  from Logradouro e order by e.descricao asc";
 
             String sqlNrReg = " select  count(e.codLogradouro)"
                     + " from Logradouro e  ";
                                
-            super.iniciarCnv(session, sqlNrReg, sql, 9);
+            super.iniciarCnv(session, sqlNrReg, sql, 14);
 
         } catch (Exception e) {
             e.printStackTrace();

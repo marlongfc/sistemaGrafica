@@ -69,7 +69,7 @@ public class SangriaDAO extends SangriaRNE {
     }
 
     public Sangria get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Sangria aux;
         try {
             aux = super.get(codigo, session);
@@ -82,7 +82,7 @@ public class SangriaDAO extends SangriaRNE {
     }
 
     public List<Sangria> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Sangria> aux;
         try {
             aux = super.getList(session);
@@ -95,7 +95,7 @@ public class SangriaDAO extends SangriaRNE {
     }
 
     public Sangria getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Sangria aux = super.getPojo(Sangria.class, cod);
             return aux;

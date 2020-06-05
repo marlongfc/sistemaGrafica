@@ -69,7 +69,7 @@ public class ServicoDAO extends ServicoRNE {
     }
 
     public Servico get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Servico aux;
         try {
             aux = super.get(codigo, session);
@@ -82,7 +82,7 @@ public class ServicoDAO extends ServicoRNE {
     }
 
     public List<Servico> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Servico> aux;
         try {
             aux = super.getList(session);
@@ -95,7 +95,7 @@ public class ServicoDAO extends ServicoRNE {
     }
 
     public Servico getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Servico aux = super.getPojo(Servico.class, cod);
             return aux;

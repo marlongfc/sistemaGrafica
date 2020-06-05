@@ -60,24 +60,14 @@ public class Orcamento implements java.io.Serializable {
     private FormaDePagamento formaPagamento;
 
     @ManyToOne()
-    @JoinColumn(name = "acabamento")
-    private Acabamento acabamento;
-
-    @ManyToOne()
     @JoinColumn(name = "produto")
     private Produto produto;
 
     @Column(nullable = true)
     private Boolean situacao;
 
-   @Column(nullable = true)
-    private Integer quantProd;
-
     @Column(nullable = true)
     private Double descontoProduto;
-
-    @Column()
-    private Double valorTotalProduto;
 
     @Column(length = 300)
     private String clienteSecundario;
@@ -105,12 +95,6 @@ public class Orcamento implements java.io.Serializable {
 
     @Column(nullable = true)
     private Boolean etapaSetor;
-
-    @Column(length = 10)
-    private String medida;
-
-    @Column(length = 10)
-    private String unidade;
 
     @Column()
     private Boolean checkCriacao;
@@ -235,52 +219,12 @@ public class Orcamento implements java.io.Serializable {
         this.situacao = situacao;
     }
 
-    public Acabamento getAcabamento() {
-        return acabamento;
-    }
-
-    public void setAcabamento(Acabamento acabamento) {
-        this.acabamento = acabamento;
-    }
-
-    public String getMedida() {
-        return medida;
-    }
-
-    public void setMedida(String medida) {
-        this.medida = medida;
-    }
-
-    public String getUnidade() {
-        return unidade;
-    }
-
-    public void setUnidade(String unidade) {
-        this.unidade = unidade;
-    }
-
-    public Integer getQuantProd() {
-        return quantProd;
-    }
-
-    public void setQuantProd(Integer quantProd) {
-        this.quantProd = quantProd;
-    }
-
     public Double getDescontoProduto() {
         return descontoProduto;
     }
 
     public void setDescontoProduto(Double descontoProduto) {
         this.descontoProduto = descontoProduto;
-    }
-
-    public Double getValorTotalProduto() {
-        return valorTotalProduto;
-    }
-
-    public void setValorTotalProduto(Double valorTotalProduto) {
-        this.valorTotalProduto = valorTotalProduto;
     }
 
     public String getClienteSecundario() {

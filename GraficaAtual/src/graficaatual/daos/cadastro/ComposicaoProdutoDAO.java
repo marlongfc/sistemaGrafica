@@ -53,7 +53,7 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
     }
 
     public long getNextItem() throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             return super.getNextItem(session);
         } finally {
@@ -62,7 +62,7 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
     }
 
     public ComposicaoProduto getPorCodComposicao(long codigo) throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getPorCodComposicao(codigo, session);
@@ -92,7 +92,7 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
 //    }
     public List<ComposicaoProduto> getListPorProduto(Long codigo) throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getListPorProduto(codigo, session);
@@ -103,7 +103,7 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
 
     public List<ComposicaoProduto> getList() throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getList(session);
@@ -114,7 +114,7 @@ public class ComposicaoProdutoDAO extends ComposicaoProdutoRNE {
 
     public List<ComposicaoProduto> getList(String sql) throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getList(session, sql);

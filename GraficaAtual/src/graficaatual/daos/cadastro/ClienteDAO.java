@@ -52,7 +52,7 @@ public class ClienteDAO extends ClienteRNE {
     }
 
     public Cliente get(Long cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Cliente aux = super.getPojo(Cliente.class, cod);
             return aux;
@@ -64,7 +64,7 @@ public class ClienteDAO extends ClienteRNE {
     }
     
     public Cliente getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Cliente aux = super.getPojo(Cliente.class, cod);
             return aux;

@@ -11,6 +11,7 @@ import graficaatual.pesq.cadastro.CnvLogradouro;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -345,7 +346,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 240, 930, 240);
+        jScrollPane11.setBounds(20, 240, 930, 250);
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -500,6 +501,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_descLogradouroKeyReleased
 
+    /*
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
@@ -518,6 +520,54 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                 }
             }
             tabLogradouro.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabLogradouro);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de logradouros cadastrados. Erro: " + e);
+
+        }
+    }
+     */
+    private void atualizarTabela() {
+        try {
+
+            if (cnvLogradouro == null) {
+                cnvLogradouro = new CnvLogradouro();
+            }
+
+            cnvLogradouro.iniciarNavLogradouro();
+            cnvLogradouro.primeiro();
+
+            preencheTabela();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
+
+            DefaultTableModel model = (DefaultTableModel) tabLogradouro.getModel();
+            removeLinhas(tabLogradouro);
+
+            List<?> listaAux = cnvLogradouro.getLista();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+
+                for (Object b : listaAux) {
+
+                    Object[] os = (Object[]) b;
+
+                    Object o[] = new Object[]{
+                        (BigInteger) os[0],
+                        buscaDescricaoTipoLogradouro((Integer) os[1]),
+                        (String) os[2]};
+
+                    model.addRow(o);
+                }
+
+                tabLogradouro.setModel(model);
+            }
         } catch (Exception e) {
             removeLinhas(tabLogradouro);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de logradouros cadastrados. Erro: " + e);
@@ -588,7 +638,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
                 default:
                     return "";
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -682,6 +732,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimoActionPerformed
         try {
             cnvLogradouro.ultimo();
+             preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -690,6 +741,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
             cnvLogradouro.proximo();
+            preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -698,6 +750,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         try {
             cnvLogradouro.anterior();
+             preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -706,6 +759,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         try {
             cnvLogradouro.primeiro();
+             preencheTabela();
         } catch (Exception e) {
             e.printStackTrace();
         }

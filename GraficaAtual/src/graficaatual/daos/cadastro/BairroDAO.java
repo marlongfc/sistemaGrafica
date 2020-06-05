@@ -53,7 +53,7 @@ public class BairroDAO extends BairroRNE {
     }
 
     public long getNextItem() throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             return super.getNextItem(session);
         } finally {
@@ -62,7 +62,7 @@ public class BairroDAO extends BairroRNE {
     }
 
     public Bairro getPorCodigo(long codigo) throws Exception {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.get(codigo, session);
@@ -78,7 +78,7 @@ public class BairroDAO extends BairroRNE {
 
     public List<Bairro> getList() throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getList(session);
@@ -89,7 +89,7 @@ public class BairroDAO extends BairroRNE {
 
     public List<Bairro> getList(String sql) throws Exception {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
 
         try {
             return super.getList(session, sql);

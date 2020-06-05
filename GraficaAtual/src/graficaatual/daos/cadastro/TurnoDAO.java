@@ -68,7 +68,7 @@ public class TurnoDAO extends TurnoRNE {
     }
 
     public Turno get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Turno aux;
         try {
             aux = super.get(codigo, session);
@@ -81,7 +81,7 @@ public class TurnoDAO extends TurnoRNE {
     }
 
     public List<Turno> getList() {
-         EntityManager session = Persistencia.getInstance().getSessionComBegin();
+         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Turno> aux;
         try {
             aux = super.getList(session);
@@ -94,7 +94,7 @@ public class TurnoDAO extends TurnoRNE {
     }
 
     public Turno getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Turno aux = super.getPojo(Turno.class, cod);
             return aux;

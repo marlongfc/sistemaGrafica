@@ -68,7 +68,7 @@ public class OrcamentoDAO extends OrcamentoRNE {
     }
 
     public Orcamento get(int codigo) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         Orcamento aux;
         try {
             aux = super.get(codigo, session);
@@ -81,7 +81,7 @@ public class OrcamentoDAO extends OrcamentoRNE {
     }
 
     public List<Orcamento> getList() {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Orcamento> aux;
         try {
             aux = super.getList(session);
@@ -94,7 +94,7 @@ public class OrcamentoDAO extends OrcamentoRNE {
     }
 
     public List<Orcamento> getListOrcamento() {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Orcamento> aux;
         try {
             aux = super.getListOrcamento(session);
@@ -107,7 +107,7 @@ public class OrcamentoDAO extends OrcamentoRNE {
     }
 
     public List<Orcamento> getListPedido() {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         List<Orcamento> aux;
         try {
             aux = super.getListPedido(session);
@@ -120,7 +120,7 @@ public class OrcamentoDAO extends OrcamentoRNE {
     }
 
     public Orcamento getList(int cod) {
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             Orcamento aux = super.getPojo(Orcamento.class, cod);
             return aux;

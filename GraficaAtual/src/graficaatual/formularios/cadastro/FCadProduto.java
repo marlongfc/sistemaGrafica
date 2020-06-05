@@ -23,6 +23,7 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -1064,6 +1065,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_descProdutoKeyReleased
 
+    /*
     private void atualizarTabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
@@ -1091,6 +1093,56 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             removeLinhas(tabProduto);
             JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de produtos cadastrados. Erro: " + e);
 
+        }
+    }
+     */
+    private void atualizarTabela() {
+        try {
+
+            if (cnvProduto == null) {
+                cnvProduto = new CnvProduto();
+            }
+
+            cnvProduto.iniciarNavProduto();
+            cnvProduto.primeiro();
+
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preencheTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabProduto.getModel();
+            removeLinhas(tabProduto);
+
+            List<?> listaAux = cnvProduto.getLista();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+                for (Object p : listaAux) {
+
+                    Object[] os = (Object[]) p;
+
+                    Object o[] = new Object[]{
+                        (BigInteger) os[0],
+                        (String) os[1],
+                        ValidarValor.getDouble((Double) os[2]),
+                        ValidarValor.getDouble((Double) os[3]),
+                        ValidarValor.getDouble((Double) os[4]),
+                        ValidarValor.getDouble((Double) os[5]),
+                        ValidarValor.getDouble((Double) os[6]),
+                        ValidarValor.getDouble((Double) os[7])};
+
+                    model.addRow(o);
+                }
+            }
+            tabProduto.setModel(model);
+
+        } catch (Exception e) {
+            removeLinhas(tabProduto);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de produtos cadastrados. Erro: " + e);
+            e.printStackTrace();
         }
     }
 
@@ -1533,8 +1585,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 os[5] = (ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(largura.getText().replaceAll(",", "."))) : "");
                 os[6] = (ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(altura.getText().replaceAll(",", "."))) : "");
                 os[7] = (ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(unidade.getText().replaceAll(",", "."))) : "");
-                os[8] = (ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble3Casas (ValidarValor.getDouble(peso.getText()/*.replaceAll(",", ".")*/)) : "");
-                os[9] = (ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble3Casas (ValidarValor.getDouble(litro.getText()/*.replaceAll(",", ".")*/)) : "");
+                os[8] = (ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble3Casas(ValidarValor.getDouble(peso.getText()/*.replaceAll(",", ".")*/)) : "");
+                os[9] = (ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble3Casas(ValidarValor.getDouble(litro.getText()/*.replaceAll(",", ".")*/)) : "");
 
                 //verifica tipo e qualcula quantidade
                 Double valSalvo = material.getPrecoCustoTotal();
@@ -1646,19 +1698,39 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabProdutoMouseClicked
 
     private void ultimo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimo1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.ultimo();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } // TODO add your handling code here:
     }//GEN-LAST:event_ultimo1ActionPerformed
 
     private void proximo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximo1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.proximo();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_proximo1ActionPerformed
 
     private void anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.anterior();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_anterior1ActionPerformed
 
     private void inicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicio1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            cnvProduto.primeiro();
+            preencheTabela();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_inicio1ActionPerformed
 
     private void custoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_custoProdutoFocusLost
