@@ -1303,6 +1303,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_descontoMoedaFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        instancia = null;        
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
