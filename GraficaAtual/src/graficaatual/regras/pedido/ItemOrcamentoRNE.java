@@ -37,8 +37,9 @@ public class ItemOrcamentoRNE extends GenericDAO {
     }
 
     public List<ItemOrcamento> getListOrcamento(EntityManager session, Integer codOrca) throws Exception {
-        String sql = " select e from ItemOrcamento e where e.orcamento.codOrcamento = " + codOrca + " order by e.codProduto";
-        return getPureList(session, ItemOrcamento.class, sql);
+        String sql = " SELECT e FROM ItemOrcamento e WHERE e.orcamento.codOrcamento = " + codOrca + " order by e.orcamento.codOrcamento";
+        return getPureList(session, ItemOrcamento.class, sql); 
     }
+    
 
 }

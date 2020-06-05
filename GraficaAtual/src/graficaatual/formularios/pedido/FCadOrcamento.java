@@ -96,6 +96,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         atualizarTabelaOrcamento();
         atualizarTabelaPedido();
+        
+        adicionarComboFormaPagamento();
+        adicionarComboAcabamento();
+        
+        
 
     }
 
@@ -629,7 +634,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         btNovoOrca.setBounds(60, 625, 180, 40);
 
         btExcluirOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
-        btExcluirOrca.setText("Excluir Orçamento");
+        btExcluirOrca.setText("Deletar Orçamento");
         btExcluirOrca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btExcluirOrcaActionPerformed(evt);
@@ -912,6 +917,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabOrcamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabOrcamentoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabOrcamento);
         if (tabOrcamento.getColumnModel().getColumnCount() > 0) {
             tabOrcamento.getColumnModel().getColumn(0).setPreferredWidth(150);
@@ -972,6 +982,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tabPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPedidoMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tabPedido);
@@ -1265,7 +1280,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1307,6 +1322,30 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_checkSituacaoMouseClicked
 
+    private void tabOrcamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabOrcamentoMouseClicked
+        try {
+            if (evt.getClickCount() > 1) {
+                codOrcamento.setText(tabOrcamento.getValueAt(tabOrcamento.getSelectedRow(), 0).toString());
+                orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
+                carregaTudo();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_tabOrcamentoMouseClicked
+
+    private void tabPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidoMouseClicked
+       try {
+            if (evt.getClickCount() > 1) {
+                codOrcamento.setText(tabPedido.getValueAt(tabPedido.getSelectedRow(), 0).toString());
+                orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
+                carregaTudo();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_tabPedidoMouseClicked
+
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
         if (orcamento != null) {
@@ -1342,6 +1381,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         adicionarComboFormaPagamento();
         adicionarComboAcabamento();
+        
+        atualizaTabelaProdutoBusca();
     }
 
     private void carregaComboFormaPagamento() {
@@ -1693,6 +1734,36 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         for (int i = n - 1; i >= 0; i--) {
             model.removeRow(i);
         }
+    }
+
+    private void atualizaTabelaProdutoBusca() {
+        List<ItemOrcamento> listaProdBusca;
+        try {
+            listaProdBusca = itemOrcaDAO.getListOrcamento(ValidarValor.getInt(codOrcamento.getText()));
+
+            DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
+
+            for (int i = 0; i < listaProdBusca.size(); i++) {
+
+                Object[] os = new Object[8];
+                os[0] = listaProdBusca.get(i).getCodItemOrca();
+                os[1] = listaProdBusca.get(i).getOrcamento().getQuantProd();
+                os[2] = listaProdBusca.get(i).getOrcamento().getProduto().getDescricao();
+                os[3] = listaProdBusca.get(i).getOrcamento().getMedida();
+                os[4] = listaProdBusca.get(i).getOrcamento().getUnidade();
+                os[5] = listaProdBusca.get(i).getOrcamento().getAcabamento().getDescricao();
+                os[6] = listaProdBusca.get(i).getOrcamento().getProduto().getValorUnitario();
+                os[7] = listaProdBusca.get(i).getOrcamento().getValorTotal();
+
+                model.addRow(os);
+
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(FCadOrcamento.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+
     }
 
 
