@@ -195,7 +195,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         labelAprovado = new javax.swing.JLabel();
         btSalvarOrca = new javax.swing.JButton();
         btNovoOrca = new javax.swing.JButton();
-        btExcluirOrca = new javax.swing.JButton();
         descontoMoeda = new javax.swing.JTextField();
         jLabel89 = new javax.swing.JLabel();
         jLabel104 = new javax.swing.JLabel();
@@ -625,7 +624,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvarOrca);
-        btSalvarOrca.setBounds(241, 625, 180, 40);
+        btSalvarOrca.setBounds(350, 630, 180, 40);
 
         btNovoOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovoOrca.setText("Novo Orçamento");
@@ -635,17 +634,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovoOrca);
-        btNovoOrca.setBounds(60, 625, 180, 40);
-
-        btExcluirOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
-        btExcluirOrca.setText("Deletar Orçamento");
-        btExcluirOrca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirOrcaActionPerformed(evt);
-            }
-        });
-        jPanel18.add(btExcluirOrca);
-        btExcluirOrca.setBounds(422, 625, 180, 40);
+        btNovoOrca.setBounds(170, 630, 180, 40);
 
         descontoMoeda.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         descontoMoeda.setText("0,00");
@@ -826,7 +815,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(jButton1);
-        jButton1.setBounds(603, 625, 180, 40);
+        jButton1.setBounds(530, 630, 180, 40);
 
         comboFormaPag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         jPanel18.add(comboFormaPag);
@@ -852,7 +841,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(jButton2);
-        jButton2.setBounds(783, 625, 140, 40);
+        jButton2.setBounds(710, 630, 140, 40);
 
         jLabel117.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel117.setText("Desconto %");
@@ -1035,10 +1024,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btExcluirOrcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirOrcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btExcluirOrcaActionPerformed
-
     private void btNovoOrcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoOrcaActionPerformed
         try {
             orcamento = new Orcamento();
@@ -1066,13 +1051,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
                 orcamento = orcamentoDAO.salvar(session, orcamento);
 
-                DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
-                int i = 0;
-
-                for (i = 0; i < listaItem.size(); i++) {
+                for (int i = 0; i < listaItem.size(); i++) {
 
                     ItemOrcamento itemAux = new ItemOrcamento();
                     itemAux = listaItem.get(i);
+                    itemAux.setOrcamento(orcamento);
                     itemOrcaDAO.salvar(session, itemAux);
 
                 }
@@ -1080,9 +1063,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
             session.getTransaction().commit();
             session.close();
-            setOrcamento();
-            orcamentoDAO.salvar(orcamento);
-
             limpaCampos();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -1830,7 +1810,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionarItem;
-    private javax.swing.JButton btExcluirOrca;
     private javax.swing.JButton btNovoItem;
     private javax.swing.JButton btNovoOrca;
     private javax.swing.JButton btRemoverItem;
