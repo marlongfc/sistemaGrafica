@@ -31,7 +31,7 @@ INNER JOIN itemorcamento item ON item.orcamento = orc.codOrcamento
 LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro
 LEFT JOIN bairro bai ON bai.codbairro = pes.bairro
 LEFT JOIN cidade cid ON cid.codcidade = pes.cidade
-INNER JOIN produto prod ON prod.codproduto = orc.produto
+LEFT JOIN produto prod ON prod.codproduto = orc.produto
 LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 	</queryString>
 	<field name="codcliente" class="java.lang.Long"/>
