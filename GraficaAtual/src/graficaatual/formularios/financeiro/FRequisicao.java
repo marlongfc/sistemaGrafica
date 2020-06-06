@@ -37,7 +37,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
         listaRequisicao = ObservableCollections.observableList(new LinkedList<RequisicaoFinanceira>());
         Componentes comp2 = new Componentes(listaRequisicao, false, codRequisicao, descRequisicao, this, jPanel18, descRequisicao.getWidth(), 100);
-        comp2.addCol(0, "codRequisicao", "Código", 50, Long.class.getName());
+        comp2.addCol(0, "codRequisicao", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Requisição", 200, String.class.getName());
         comp2.bind();
 
@@ -452,6 +452,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar Requisições. Erro: " + e);
         }
+        
     }//GEN-LAST:event_descRequisicaoKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
