@@ -44,7 +44,7 @@ public class ItemOrcamento implements Serializable {
     @Column()
     private Double valorTotalProduto;
     
-     @Column()
+    @Column()
     private Double valorUnitario;
 
     @Column(length = 10)

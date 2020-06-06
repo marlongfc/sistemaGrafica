@@ -71,13 +71,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         initComponents();
 
         lista = ObservableCollections.observableList(new LinkedList<Produto>());
-        Componentes comp2 = new Componentes(lista, false, codProduto, descProduto, this, jPanel18, descProduto.getWidth(), 100);
+        Componentes comp2 = new Componentes(lista, false, codProduto, descProduto, this, jTabbedPane1, descProduto.getWidth(), 100);
         comp2.addCol(0, "codProduto", "Código", 50, Long.class.getName());
         comp2.addCol(1, "descricao", "Nome do Produto", 200, String.class.getName());
         comp2.bind();
 
         listaMaterial = ObservableCollections.observableList(new LinkedList<Material>());
-        Componentes comp3 = new Componentes(listaMaterial, false, codMaterial, descMaterial, this, jPanel18, descMaterial.getWidth(), 100);
+        Componentes comp3 = new Componentes(listaMaterial, false, codMaterial, descMaterial, this, jTabbedPane1, descMaterial.getWidth(), 100);
         comp3.addCol(0, "codMaterial", "Código", 50, Long.class.getName());
         comp3.addCol(1, "descricao", "Nome do Material", 200, String.class.getName());
         comp3.bind();
@@ -1849,7 +1849,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                         + " "
                         + " from produto as p "
                         + " inner join composicaoproduto c on c.produto = p.codproduto "
-                        + " inner join material m on m.codmaterial = c.material";
+                        + " inner join material m on m.codmaterial = c.material"
+                        + " where p.codproduto = "+codProduto.getText();
 
                 if (produto.getImagemProduto() != null) {
 

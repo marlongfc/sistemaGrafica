@@ -40,16 +40,16 @@ public class VisualizaRelatorio {
 
     public void visRel(String nomeRel, String titRel, Map parametros, String sql, boolean mostrarMsg) {
         try {
-            System.out.println("RLT: " + sql);
+           
             Connection conexao = Conexao.getConexao();
             Statement banco = Conexao.getBanco(conexao);
-            System.out.println("RLT: 1");
+           
             if (conexao == null || !ValidarConexao.isValidConexao(conexao, "postgres")) {
-                System.out.println("RLT: 2");
+               
                 conexao = Conexao.getConexao();
                 banco = Conexao.getBanco(conexao);
             }
-            System.out.println("RLT: 3");
+            
             visRel(nomeRel, titRel, sql, banco, parametros, mostrarMsg);
 
             banco.close();
@@ -63,37 +63,37 @@ public class VisualizaRelatorio {
 
     public void visRel(String nomeRel, String titRel, String sql, Statement banco, Map parametros, boolean mostrarMsg) {
         try {
-            System.out.println("RLT: 4");
+           
             if (parametros == null) {
                 parametros = new HashMap();
             }
-            System.out.println("RLT: 5");
+           
             Entidade p = new EntidadeDAO().get(1);
 
             if (p != null) {
-                System.out.println("RLT: 6");
+               
                 if (p.getBrasao() != null) {
-                    System.out.println("RLT: 7");
+                 
                     ByteArrayInputStream bis = new ByteArrayInputStream(p.getBrasao(), 0, p.getBrasao().length);
-                    System.out.println("RLT: 8");
+                   
                     InputStream is;
                     is = (InputStream) bis;
 
                     parametros.put("BRASAO", is);
                 }
 
-                System.out.println("RLT: 9");
+               
                 parametros.put("NOMEENT", p.getNome());
                 if (p.getCidade() != null) {
-                    System.out.println("RLT: 10");
+                   
                     parametros.put("CIDADEENT", p.getCidade().getDescricao());
                 }
                 if (p.getBairro() != null) {
-                    System.out.println("RLT: 11");
+                  
                     parametros.put("BAIRROENT", p.getBairro().getDescricao());
                 }
                 if (p.getLogradouro() != null) {
-                    System.out.println("RLT: 12");
+                   
                     parametros.put("LOGRADOUROENT", p.getLogradouro().getDescricao());
                 }
 
@@ -110,16 +110,16 @@ public class VisualizaRelatorio {
 
             ResultSet rs;
             rs = banco.executeQuery(sql);
-            System.out.println("RLT: 14");
+           
             if (rs.next()) {
-                System.out.println("RLT: 15");
+                
                 rs.beforeFirst();
                 JRResultSetDataSource jr = new JRResultSetDataSource(rs);
 
                 URL file = getClass().getClassLoader().getResource(nomeRel);
-                System.out.println("RLT: 16");
+             
                 if (file != null) {
-                    System.out.println("RLT: 17");
+                   
                     JasperPrint impressao = JasperFillManager.fillReport(
                             file.openStream(), parametros,
                             jr);
@@ -130,12 +130,12 @@ public class VisualizaRelatorio {
                     viewer.setVisible(true);
 
                 } else {
-                    System.out.println("RLT: 18");
+                    
                     JasperPrint impressao = JasperFillManager.fillReport(
                             nomeRel,
                             parametros,
                             jr);
-                    System.out.println("RLT: 19");
+                  
                     JasperViewer viewer;
                     viewer = new JasperViewer(impressao, false);
                     viewer.setTitle("VISUALIZAÇÃO - " + titRel);

@@ -1038,6 +1038,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             adicionarComboFormaPagamento();
             adicionarComboAcabamento();
             habilitacampos(true);
+            habilitaChecks(true);
             dataOrc.setText(Data.getDate(new Date()));
             checkSituacao.setBackground(Color.red);
             descCliente.requestFocus();
@@ -1060,44 +1061,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             setOrcamento();
             orcamento = orcamentoDAO.salvar(session, orcamento);
 
-//            List<ItemOrcamento> listAux = itemOrcaDAO.getListOrcamento(orcamento.getCodOrcamento());
-//          
-//            if (listAux != null) {
-//
-//                for (ItemOrcamento i : listAux) {
-//                    System.out.println("i. codigo " + i.getCodItemOrca());
-//                    itemOrcaDAO.excluir(session,i);
-//                }
-//            }
-//                ItemOrcamento itemAux = new ItemOrcamento();
-//            for (int i = 0; i < tabProdutos.getRowCount(); i++) {
-//                System.out.println("lista Salvar " + listaItem.size());
-//                
-//                itemAux = new ItemOrcamento();
-//                acabamento = acabamentoDao.getByDescricao((String) tabProdutos.getValueAt(i, 6));
-//                System.out.println(" acabamento "+ acabamento.getDescricao());
-//                itemAux.setAcabamento(acabamento);
-//                System.out.println(" tabProdutos.getValueAt(i, 2) " + tabProdutos.getValueAt(i, 2));
-//                produto = produtoDAO.getPorCodigo(ValidarValor.getLong((String) tabProdutos.getValueAt(i, 2)));
-//                itemAux.setProduto(produto);
-//                itemAux.setQuantProd(ValidarValor.getInt((String)tabProdutos.getValueAt(i, 1)));
-//                itemAux.setMedida((String) tabProdutos.getValueAt(i, 4));
-//                itemAux.setUnidade((String) tabProdutos.getValueAt(i, 5));
-//                itemAux.setValorUnitario((Double) tabProdutos.getValueAt(i, 7));
-//                itemAux.setValorTotalProduto((Double) tabProdutos.getValueAt(i, 8));
-//                itemAux.setOrcamento(orcamento);
-//                itemOrcaDAO.salvar(session, itemAux);
-//
-//            }
-            //List<ItemOrcamento> listAux = itemOrcaDAO.getListOrcamento(orcamento.getCodOrcamento());
-//          
-//            if (listAux != null) {
-//
-//                for (ItemOrcamento i : listAux) {
-//                    System.out.println("i. codigo " + i.getCodItemOrca());
-//                    itemOrcaDAO.excluir(session,i);
-//                }
-//            }
+
             ItemOrcamento itemAux = new ItemOrcamento();
             for (int i = 0; i < tabProdutos.getRowCount(); i++) {
                 if (tabProdutos.getValueAt(i, 0) != null) {
@@ -1107,16 +1071,13 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     }
                 }
 
-                //System.out.println("lista Salvar " + listaItem.size());
+               
                 itemAux = new ItemOrcamento();
 
                 acabamento = acabamentoDao.getByDescricao((String) tabProdutos.getValueAt(i, 6));
-                System.out.println(" acabamento " + acabamento.getDescricao());
+              
                 itemAux.setAcabamento(acabamento);
-                System.out.println(" tabProdutos.getValueAt(i, 2) " + tabProdutos.getValueAt(i, 2));
-                // System.out.println(" ((Integer) tabProdutos.getValueAt(i, 2)).longValue()"+ ((BigInteger) tabProdutos.getValueAt(i, 2)).longValue());
-                System.out.println("ValidarValor.getLong((String)tabProdutos.getValueAt(i, 2)) " + ValidarValor.getLong((String) tabProdutos.getValueAt(i, 2)));
-                produto = produtoDAO.getPorCodigo(ValidarValor.getLong((String) tabProdutos.getValueAt(i, 2)));
+              produto = produtoDAO.getPorCodigo(ValidarValor.getLong((String) tabProdutos.getValueAt(i, 2)));
                 itemAux.setProduto(produto);
                 itemAux.setQuantProd(ValidarValor.getInt(tabProdutos.getValueAt(i, 1).toString()));
                 itemAux.setMedida((String) tabProdutos.getValueAt(i, 4));
@@ -1287,9 +1248,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private void tabProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProdutosMouseClicked
         try {
             if (evt.getClickCount() > 1) {
-//                codProduto.setText(tabProdutos.getValueAt(tabProdutos.getSelectedRow(), 0).toString());
-//                produto = produtoDAO.getPorCodigo(ValidarValor.getInt(codProduto.getText()));
-//                carregaTabProd();             
+                carregaTabProd();             
                 itemOrcamento = listaItem.get(tabProdutos.getSelectedRow());
                 codProduto.setText(itemOrcamento.getProduto().getCodProduto() + "");
                 descProduto.setText(itemOrcamento.getProduto().getDescricao());
@@ -1468,7 +1427,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             telefoneSecundario.setText(orcamento.getTelefoneSecundario());
             enderecoSecundario.setText(orcamento.getEnderecoSecundario());
             comboTipoEntrega.setSelectedIndex(orcamento.getTipoDeEntrega());
-            comboFormaPag.setSelectedIndex(orcamento.getFormaPagamento().getCodForma());
+            comboFormaPag.setSelectedIndex((orcamento.getFormaPagamento().getCodForma()-1));
             descontoMoeda.setText(ValidarValor.getDouble(orcamento.getDescontoGeral()));
             descontoPorcentagem.setText(ValidarValor.getDouble(orcamento.getDescontoGeralPorcentagem()));
             totalGlobal = orcamento.getValorTotal();
@@ -1499,12 +1458,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             carregaOrcamento();
             carregaCliente();
             carregaProduto();
-            carregaComboFormaPagamento();
-            //carregaComboAcabamento();
-
-            adicionarComboFormaPagamento();
-            //adicionarComboAcabamento();
-
+           
             atualizaTabelaProdutoBusca();
             calculaPreçoTotalOrcamentoComDesconto();
 
@@ -1626,7 +1580,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         atualizarTabelaOrcamento();
         atualizarTabelaPedido();
-        //  atualizatabelaProdutos();
+     
 
     }
 
@@ -1823,22 +1777,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
             if (totalGlobal != null) {
 
-                System.out.println("TOTALLLL --- " + totalGlobal);
-
                 Double x = totalGlobal;
 
                 Double desco = ValidarValor.getDouble(descontoMoeda.getText());
                 Double descoPorc = ValidarValor.getDouble(descontoPorcentagem.getText());
 
-                System.out.println("desconto 1 --- " + desco);
-                System.out.println("x1  --- " + x);
-
                 x = x - desco;
 
                 x = x - (x * (descoPorc / 100));
-
-                System.out.println("desconto 2 --- " + desco);
-                System.out.println("x2  --- " + x);
 
                 totalGeralOrc.setText(ValidarValor.getDouble(x));
 
