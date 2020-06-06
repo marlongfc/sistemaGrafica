@@ -359,7 +359,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel81.setText("Valor Unitário (R$)");
         jPanel18.add(jLabel81);
-        jLabel81.setBounds(140, 120, 100, 20);
+        jLabel81.setBounds(140, 120, 120, 20);
 
         valorUnit.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -372,7 +372,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel82.setText("Quantidade");
         jPanel18.add(jLabel82);
-        jLabel82.setBounds(20, 120, 130, 20);
+        jLabel82.setBounds(20, 120, 110, 20);
 
         quantidade.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -430,10 +430,12 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             descRequisicao.setText(requisicao.getDescricao());
             valorUnit.setText(ValidarValor.getDouble(requisicao.getValorUnitario()));
             quantidade.setText(requisicao.getQuantidade().toString());
+            valorTotal.setText(requisicao.getValorTotal().toString());
         } else {
             descRequisicao.setText("");
             valorUnit.setText("");
             quantidade.setText("");
+            valorTotal.setText("");
         }
     }
 
@@ -584,7 +586,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             throw new Exception("Favor inserir uma Requisição");
         }
 
-        if (quantidade.getText().length() < 2) {
+        if (quantidade.getText().length() < 0) {
             throw new Exception("Favor inserir uma Quantidade válida");
         }
 
