@@ -23,7 +23,8 @@ public class ItemOrcamentoRNE extends GenericDAO {
     public boolean excluir(EntityManager session, ItemOrcamento item) throws Exception {
         return super.deletePojo(session, item);
     }
-
+   
+    
     public List<ItemOrcamento> getList(EntityManager session, ItemOrcamento item) throws Exception {
         return super.getPureList(session, ItemOrcamento.class, "Select e from ItemOrcamento e");
     }

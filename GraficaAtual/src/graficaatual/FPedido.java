@@ -34,7 +34,7 @@ public class FPedido extends javax.swing.JFrame {
         
         //verificação de acesso as telas
         acessotela(jBOrcamento,"FCadOrcamento");
-        acessotela(jbPedido,"FCadOrcamento");
+        //acessotela(jbPedido,"FCadOrcamento");
         acessotela(jbRequisicao,"FCadRequisicao");
   
     }
@@ -57,7 +57,6 @@ public class FPedido extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jBOrcamento = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jbPedido = new javax.swing.JButton();
         jbSair = new javax.swing.JButton();
         jbRequisicao = new javax.swing.JButton();
 
@@ -109,23 +108,6 @@ public class FPedido extends javax.swing.JFrame {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(60, 20, 120, 110);
 
-        jbPedido.setBackground(new java.awt.Color(71, 37, 131));
-        jbPedido.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
-        jbPedido.setForeground(new java.awt.Color(255, 255, 255));
-        jbPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDO3.png"))); // NOI18N
-        jbPedido.setText("Pedido");
-        jbPedido.setBorderPainted(false);
-        jbPedido.setFocusPainted(false);
-        jbPedido.setFocusable(false);
-        jbPedido.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPedidoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbPedido);
-        jbPedido.setBounds(30, 220, 190, 30);
-
         jbSair.setBackground(new java.awt.Color(71, 37, 131));
         jbSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jbSair.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,7 +123,7 @@ public class FPedido extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbSair);
-        jbSair.setBounds(30, 300, 190, 30);
+        jbSair.setBounds(30, 260, 190, 30);
 
         jbRequisicao.setBackground(new java.awt.Color(71, 37, 131));
         jbRequisicao.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
@@ -158,7 +140,7 @@ public class FPedido extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbRequisicao);
-        jbRequisicao.setBounds(30, 260, 190, 30);
+        jbRequisicao.setBounds(30, 220, 190, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,23 +166,6 @@ public class FPedido extends javax.swing.JFrame {
     private void jbSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSairActionPerformed
         dispose();
     }//GEN-LAST:event_jbSairActionPerformed
-
-    private void jbPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPedidoActionPerformed
-        try {
-            deskTop.removeAll();
-            FCadOrcamento clComp;
-
-            clComp = FCadOrcamento.getInstancia();
-            deskTop.add(clComp);
-            clComp.setVisible(true);
-            deskTop.add(jLabel1);
-            jLabel1.setVisible(true);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
-        }
-    }//GEN-LAST:event_jbPedidoActionPerformed
 
     private void jBOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOrcamentoActionPerformed
         try {
@@ -242,7 +207,6 @@ public class FPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jbPedido;
     private javax.swing.JButton jbRequisicao;
     private javax.swing.JButton jbSair;
     // End of variables declaration//GEN-END:variables
