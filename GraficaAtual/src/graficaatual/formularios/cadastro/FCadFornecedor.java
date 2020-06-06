@@ -23,6 +23,7 @@ import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.awt.Color;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -674,6 +675,11 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         ativo.setForeground(new java.awt.Color(255, 255, 255));
         ativo.setText("Ativo");
         ativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ativo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ativoStateChanged(evt);
+            }
+        });
         jPanel10.add(ativo);
         ativo.setBounds(600, 90, 100, 20);
 
@@ -1145,6 +1151,17 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_inativar1ActionPerformed
 
+    private void ativoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ativoStateChanged
+        if (ativo.isSelected()) {
+            ativo.setBackground(Color.GREEN);
+            ativo.setForeground(Color.BLACK);
+        } else {
+            ativo.setBackground(Color.RED);
+            ativo.setForeground(Color.WHITE);
+        }
+
+    }//GEN-LAST:event_ativoStateChanged
+
   
     
     private void inativar() throws Exception {
@@ -1336,6 +1353,7 @@ public class FCadFornecedor extends javax.swing.JInternalFrame {
         if (fornecedor != null) {
             contato.setText(fornecedor.getContato());
             ativo.setSelected(fornecedor.getAtivo());
+            ativoStateChanged(null);
             carregaPessoa();
 
         } else {

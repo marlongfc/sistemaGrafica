@@ -24,6 +24,7 @@ import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.awt.Color;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
@@ -998,8 +999,12 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
     private void ativoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ativoItemStateChanged
         if(!ativo.isSelected()){
             dtFimContrato.setText(Data.getDataAtual(Data.FORMAT_DATA_BR));
+            ativo.setBackground(Color.RED);
+            ativo.setForeground(Color.WHITE);
         }else{
             dtFimContrato.setText(Data.getDataAtual(""));
+             ativo.setBackground(Color.GREEN);
+             ativo.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_ativoItemStateChanged
 
@@ -1220,6 +1225,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
        colaborador = colaboradorDao.get(ValidarValor.getInteger(codigo.getText()));
         if (colaborador != null) {
             ativo.setSelected(colaborador.isAtivo());
+            ativoItemStateChanged(null);
             codigo.setText(colaborador.getCodColaborador().toString());
             carregaPessoa();
             codCargo.setText(colaborador.getCargo().getCodCargo().toString());

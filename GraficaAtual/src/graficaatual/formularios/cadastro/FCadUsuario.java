@@ -18,6 +18,7 @@ import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.awt.Color;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -201,6 +202,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         jTableProducao = new javax.swing.JTable();
         inativar1 = new javax.swing.JButton();
+        ativo = new javax.swing.JCheckBox();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -775,7 +777,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Produção", jPanel6);
 
         jPanel10.add(jTabbedPane1);
-        jTabbedPane1.setBounds(480, 70, 560, 340);
+        jTabbedPane1.setBounds(490, 80, 560, 340);
 
         inativar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         inativar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
@@ -787,6 +789,20 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         });
         jPanel10.add(inativar1);
         inativar1.setBounds(620, 420, 180, 40);
+
+        ativo.setBackground(new java.awt.Color(255, 0, 51));
+        ativo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        ativo.setForeground(new java.awt.Color(255, 255, 255));
+        ativo.setText("Ativo");
+        ativo.setEnabled(false);
+        ativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ativo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ativoStateChanged(evt);
+            }
+        });
+        jPanel10.add(ativo);
+        ativo.setBounds(140, 90, 100, 20);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -901,6 +917,8 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
                     inativar();
                     atualizaTabela();
                     habilitaCampos(false);
+                    ativo.setSelected(false);
+                    ativoStateChanged(null);
                 }
             } else {
                 throw new Exception(" Por Favor, Selecione um Usuário.");
@@ -953,6 +971,16 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_inativar1ActionPerformed
 
+    private void ativoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ativoStateChanged
+        if (ativo.isSelected()) {
+            ativo.setBackground(Color.GREEN);
+            ativo.setForeground(Color.BLACK);
+        } else {
+            ativo.setBackground(Color.RED);
+            ativo.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_ativoStateChanged
+
     private void atualizaTabela() {
         try {
 
@@ -1001,6 +1029,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
+    private javax.swing.JCheckBox ativo;
     private javax.swing.JCheckBox checkCadastro;
     private javax.swing.JCheckBox checkEstoque;
     private javax.swing.JCheckBox checkFinanceiro;
@@ -1088,6 +1117,8 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
 
     private void limpatela() throws Exception {
         codigo.setText("");
+        ativo.setEnabled(false);
+        ativoStateChanged(null);
         codColaborador.setText("");
         nomeColaborador.setText("");
         login.setText("");
@@ -1287,6 +1318,8 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         carregaColaborador();
         login.setText(usuario.getLogin());
         senha.setText(usuario.getSenha());
+        ativo.setSelected(usuario.getAtivo());
+        ativoStateChanged(null);
         confirmacao.setText(usuario.getSenha());
         checkCadastro.setSelected(usuario.getAcessoCadastro());
         checkEstoque.setSelected(usuario.getAcessoEstoque());
