@@ -1038,6 +1038,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             adicionarComboFormaPagamento();
             adicionarComboAcabamento();
             habilitacampos(true);
+            habilitaChecks(true);
             dataOrc.setText(Data.getDate(new Date()));
             checkSituacao.setBackground(Color.red);
             descCliente.requestFocus();
@@ -1468,7 +1469,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             telefoneSecundario.setText(orcamento.getTelefoneSecundario());
             enderecoSecundario.setText(orcamento.getEnderecoSecundario());
             comboTipoEntrega.setSelectedIndex(orcamento.getTipoDeEntrega());
-            comboFormaPag.setSelectedIndex(orcamento.getFormaPagamento().getCodForma());
+            comboFormaPag.setSelectedIndex((orcamento.getFormaPagamento().getCodForma()-1));
             descontoMoeda.setText(ValidarValor.getDouble(orcamento.getDescontoGeral()));
             descontoPorcentagem.setText(ValidarValor.getDouble(orcamento.getDescontoGeralPorcentagem()));
             totalGlobal = orcamento.getValorTotal();
@@ -1499,10 +1500,10 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             carregaOrcamento();
             carregaCliente();
             carregaProduto();
-            carregaComboFormaPagamento();
+            //carregaComboFormaPagamento();
             //carregaComboAcabamento();
 
-            adicionarComboFormaPagamento();
+            //adicionarComboFormaPagamento();
             //adicionarComboAcabamento();
 
             atualizaTabelaProdutoBusca();

@@ -793,6 +793,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
         ativo.setBackground(new java.awt.Color(255, 0, 51));
         ativo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ativo.setForeground(new java.awt.Color(255, 255, 255));
+        ativo.setSelected(true);
         ativo.setText("Ativo");
         ativo.setEnabled(false);
         ativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -931,7 +932,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
 
     private void inativar() throws Exception {
         usuario.setAtivo(false);
-        usuarioDao.addUsuario(usuario);
+        usuarioDao.saveOrUpdatePojo(usuario);
         limpatela();
 
     }
@@ -1117,7 +1118,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
 
     private void limpatela() throws Exception {
         codigo.setText("");
-        ativo.setEnabled(false);
+        ativo.setEnabled(true);
         ativoStateChanged(null);
         codColaborador.setText("");
         nomeColaborador.setText("");
@@ -1271,6 +1272,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
     }
 
     private void setUsuario() {
+        usuario.setAtivo(ativo.isSelected());
         usuario.setColaborador(colaborador);
         usuario.setLogin(login.getText());
         usuario.setSenha(senha.getText());
