@@ -134,5 +134,30 @@ public class OrcamentoDAO extends OrcamentoRNE {
     public List<Orcamento> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, Orcamento.class, SQL, parametros);
     }
+    
+    
+     public String getSqlListOrc(Integer inicio, Integer fim) throws Exception {
+       String aux = null;
+        try {
+            aux = super.getSqlListaOrc(inicio,fim);
+            return aux;
+            
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
+     
+      public String getSqlListPed(Integer inicio, Integer fim) throws Exception {
+       String aux = null;
+        try {
+            aux = super.getSqlListaPed(inicio,fim);
+            return aux;
+            
+        } catch (Exception e) {
+            
+            throw e;
+        }
+    }
 
 }
