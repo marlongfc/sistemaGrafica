@@ -741,7 +741,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkCaixariaAcabamento.setBackground(new java.awt.Color(255, 255, 255));
         checkCaixariaAcabamento.setText("Caixaria Acabamento");
         jPanel3.add(checkCaixariaAcabamento);
-        checkCaixariaAcabamento.setBounds(260, 40, 130, 23);
+        checkCaixariaAcabamento.setBounds(260, 40, 180, 23);
 
         checkPloterRecorte.setBackground(new java.awt.Color(255, 255, 255));
         checkPloterRecorte.setText("Ploter Recorte");
@@ -1037,6 +1037,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             limpaCampos();
             adicionarComboFormaPagamento();
             adicionarComboAcabamento();
+            habilitacampos(true);
             descCliente.requestFocus();
 
         } catch (Exception e) {
@@ -1348,7 +1349,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     + " LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro "
                     + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro "
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
-                    + " INNER JOIN produto prod ON prod.codproduto = orc.produto"
+                    + " LEFT JOIN produto prod ON prod.codproduto = orc.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento"
                     + " WHERE orc.codOrcamento = " + codOrcamento.getText();
 
@@ -1403,6 +1404,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_checkSituacaoMouseClicked
 
+    private void conferirSituacao(){
+         if (checkSituacao.isSelected()) {
+            checkSituacao.setBackground(Color.green);
+        } else {
+            checkSituacao.setBackground(Color.red);
+        }
+    }
+    
     private void tabOrcamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabOrcamentoMouseClicked
         try {
             if (evt.getClickCount() > 1) {
@@ -1411,6 +1420,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 carregaTudo();
 
                 jTabbedPane1.setSelectedIndex(0);
+                
+                habilitaCamposProduto(true);
+                
                 codOrcamento.requestFocus();
             }
         } catch (Exception e) {
@@ -1427,6 +1439,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 carregaTudo();
 
                 jTabbedPane1.setSelectedIndex(0);
+                
+                habilitacampos(false);
+                
                 codOrcamento.requestFocus();
             }
         } catch (Exception e) {
@@ -1468,8 +1483,17 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             checkProjeto.setSelected(orcamento.getCheckProjeto());
             checkSerralheria.setSelected(orcamento.getCheckSerralheria());
             checkSituacao.setSelected(orcamento.getCheckSerralheria());
+            
+            
+            if(orcamento.getSituacao()){
+                checkSituacao.setBackground(Color.green);                
+            }else{
+                checkSituacao.setBackground(Color.red);
+            }
+            
         } else {
             limpaCamposProduto();
+            limpaCampos();
         }
     }
 
@@ -1485,6 +1509,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         atualizaTabelaProdutoBusca();
         calculaPreçoTotalOrcamentoComDesconto();
+        
+        conferirSituacao();
     }
 
     private void carregaComboFormaPagamento() {
@@ -1643,6 +1669,48 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         medidaProduto.setEnabled(b);
         unidadeProduto.setEnabled(b);
         comboAcabamento.setEnabled(b);
+    }
+    
+    private void habilitacampos(boolean b){
+        codOrcamento.setEnabled(b);
+        codCliente.setEnabled(b);
+        descCliente.setEnabled(b);
+        checkSituacao.setEnabled(b);
+        dataOrc.setEnabled(b);
+        validadeProposta.setEnabled(b);
+        prazoEntrega.setEnabled(b);
+        habilitaCamposProduto(false);
+        clienteSecundario.setEnabled(b);
+        telefoneSecundario.setEnabled(b);
+        enderecoSecundario.setEnabled(b);
+        comboTipoEntrega.setEnabled(b);
+        comboFormaPag.setEnabled(b);
+        descontoMoeda.setEnabled(b);
+        descontoPorcentagem.setEnabled(b);
+        totalGeralOrc.setEnabled(b);
+        habilitaChecks(false);
+        
+        btNovoItem.setEnabled(b);
+        btAdicionarItem.setEnabled(b);
+        btRemoverItem.setEnabled(b);
+        btSalvarOrca.setEnabled(b);
+        
+    }
+    
+    
+    private void habilitaChecks(boolean b){
+        checkCriacao.setEnabled(b);
+        checkSerralheria.setEnabled(b);
+        checkProjeto.setEnabled(b);
+        checkPintura.setEnabled(b);
+        checkPlotagem.setEnabled(b);
+        checkCaixariaAcabamento.setEnabled(b);
+        checkImpDigital.setEnabled(b);
+        checkCorteRouter.setEnabled(b);
+        checkAcabImpressao.setEnabled(b);
+        checkFaturamento.setEnabled(b);
+        checkPloterRecorte.setEnabled(b);
+        checkEntrega.setEnabled(b);
     }
 
     private void setOrcamento() throws Exception {
