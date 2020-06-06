@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelTurnoLista" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelRequisicaoFinanceira" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="1.241842646118312"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="256"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
@@ -234,17 +234,17 @@
 				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="76" y="31" width="280" height="1" uuid="2674e0de-f4f4-4d76-9df2-102a7a497970"/>
+				<reportElement x="76" y="42" width="280" height="1" uuid="2674e0de-f4f4-4d76-9df2-102a7a497970"/>
 			</line>
 			<line>
-				<reportElement x="409" y="32" width="280" height="1" uuid="1c0bcfb1-ea55-49ba-a2fe-0fd922187ea0"/>
+				<reportElement x="409" y="43" width="280" height="1" uuid="1c0bcfb1-ea55-49ba-a2fe-0fd922187ea0"/>
 			</line>
 			<staticText>
-				<reportElement x="140" y="33" width="122" height="20" uuid="33519795-0cb8-4993-8d8b-27ce620a61fb"/>
+				<reportElement x="140" y="44" width="122" height="20" uuid="33519795-0cb8-4993-8d8b-27ce620a61fb"/>
 				<text><![CDATA[Assinatura do Colaborador]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="479" y="32" width="181" height="20" uuid="ba39463a-7c24-401c-9e10-40db777c211c"/>
+				<reportElement x="479" y="43" width="181" height="20" uuid="ba39463a-7c24-401c-9e10-40db777c211c"/>
 				<text><![CDATA[Assinatura do Responsável]]></text>
 			</staticText>
 		</band>
@@ -253,7 +253,7 @@
 		<band/>
 	</lastPageFooter>
 	<summary>
-		<band height="18">
+		<band height="83">
 			<textField pattern="¤ #,##0.00">
 				<reportElement x="740" y="0" width="62" height="18" uuid="bbea0d9e-b616-4b30-aa03-6aab045c2ee1"/>
 				<box leftPadding="2"/>
@@ -263,12 +263,26 @@
 				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="694" y="0" width="46" height="18" uuid="bd3af0d7-6750-4339-9e89-12ddb28df39c"/>
+				<reportElement x="694" y="1" width="46" height="18" uuid="bd3af0d7-6750-4339-9e89-12ddb28df39c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="479" y="53" width="181" height="20" uuid="d2cfea61-d5fb-4b64-a488-73c2a247d073"/>
+				<text><![CDATA[Assinatura do Responsável]]></text>
+			</staticText>
+			<line>
+				<reportElement x="409" y="48" width="280" height="1" uuid="9f8a3f03-1f83-40a0-a246-516c32d4093d"/>
+			</line>
+			<staticText>
+				<reportElement x="140" y="55" width="122" height="20" uuid="da6b0b67-6479-497b-bff3-dd6701145013"/>
+				<text><![CDATA[Assinatura do Colaborador]]></text>
+			</staticText>
+			<line>
+				<reportElement x="76" y="53" width="280" height="1" uuid="c523bbcb-7bf5-4a31-b035-f177741b93e6"/>
+			</line>
 		</band>
 	</summary>
 </jasperReport>

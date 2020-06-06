@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelTurnoLista" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="1.241842646118312"/>
-	<property name="ireport.x" value="211"/>
-	<property name="ireport.y" value="147"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
 	<parameter name="CIDADEENT" class="java.lang.String"/>
@@ -21,7 +21,10 @@ log.descricao logradouro, bai.descricao bairro, cid.descricao cidade,
 orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario,
 orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega,
 prod.codproduto, prod.descricao produto,
-item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario, aca.descricao acabamento
+item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario, aca.descricao acabamento, orc.valortotal,
+
+case when orc.situacao = true then 'PEDIDO'
+ELSE 'ORÇAMENTO' end nomeRell
 
 FROM orcamento orc
 
@@ -63,6 +66,8 @@ LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 	<field name="valortotalproduto" class="java.lang.Double"/>
 	<field name="valorunitario" class="java.lang.Double"/>
 	<field name="acabamento" class="java.lang.String"/>
+	<field name="valortotal" class="java.lang.Double"/>
+	<field name="nomerell" class="java.lang.String"/>
 	<variable name="totalOrcamento" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{valortotalproduto}]]></variableExpression>
 	</variable>
@@ -128,13 +133,6 @@ LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 	</title>
 	<pageHeader>
 		<band height="105" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="3" width="802" height="14" forecolor="#4A2680" uuid="0bd01ddd-7155-4417-90f1-bdd2cce2c383"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ORÇAMENTO]]></text>
-			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="1" y="27" width="60" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="41ea0fa9-8029-451f-82e8-123945216f9b"/>
 				<box leftPadding="2">
@@ -470,6 +468,20 @@ LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codcliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="7" y="5" width="789" height="18" forecolor="#4A2680" backcolor="#FFFFFF" uuid="fb16d3cf-c234-4b62-b6a2-5274cb091701"/>
+				<box leftPadding="2">
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomerell}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -962,7 +974,7 @@ LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="442" y="13" width="159" height="13" backcolor="#E6E7E9" uuid="b1419d84-f66a-4f09-8aa6-64731832364b"/>
 				<box leftPadding="2"/>
-				<textFieldExpression><![CDATA[$F{valortotalproduto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valortotal}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="1" y="90" width="800" height="96" isPrintWhenDetailOverflows="true" uuid="1501c439-c4e6-4747-b572-1837649a0bca"/>
