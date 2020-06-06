@@ -415,7 +415,6 @@ public class FLogin extends javax.swing.JFrame {
                 us = usDao.getUsuario(login.getText().trim());
                 if (us != null) {
 
-                    System.out.println("É Usuário");
                     //telas
                     habilitaMenusUsuario(us);
                     
@@ -444,15 +443,15 @@ public class FLogin extends javax.swing.JFrame {
 
         Class.forName("org.postgresql.Driver");
         Connection conexao;
-        System.out.println("gerar conexão");
+     //   System.out.println("gerar conexão");
         conexao = DriverManager.getConnection("jdbc:postgresql://" + sHost + ":" + sPorta + "/" + banco.getText(), sUsr, sSenha);
-        System.out.println("conexão false");
+    //    System.out.println("conexão false");
         conexao.setAutoCommit(true);
-        System.out.println("conexão True");
+     //   System.out.println("conexão True");
         Statement banco = conexao.createStatement(1004, 1008);
-        System.out.println("vai fazer Pesquisa");
+     //   System.out.println("vai fazer Pesquisa");
         ResultSet rs = banco.executeQuery("select senha from usuario where ativo = 'true' and login = '" + login.getText().trim() + "'");
-        System.out.println("realizou pesquisa");
+   //     System.out.println("realizou pesquisa");
         if (rs.next()) {
             String str = rs.getString("senha");
             boolean b = str.equals(((JTextField) senhaUsuario).getText().trim());
