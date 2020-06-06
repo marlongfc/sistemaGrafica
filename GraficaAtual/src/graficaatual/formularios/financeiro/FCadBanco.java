@@ -110,11 +110,6 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         btSair = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
-        jPanel20 = new javax.swing.JPanel();
-        finalPessoa1 = new javax.swing.JButton();
-        proximoPessoa1 = new javax.swing.JButton();
-        anteriorPessoa1 = new javax.swing.JButton();
-        inicioPessoa1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
         codBanco = new javax.swing.JTextField();
@@ -342,68 +337,7 @@ public class FCadBanco extends javax.swing.JInternalFrame {
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 190, 1020, 200);
-
-        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
-
-        finalPessoa1.setText(">>||");
-        finalPessoa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finalPessoa1ActionPerformed(evt);
-            }
-        });
-
-        proximoPessoa1.setText(">>");
-        proximoPessoa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                proximoPessoa1ActionPerformed(evt);
-            }
-        });
-
-        anteriorPessoa1.setText("<<");
-        anteriorPessoa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anteriorPessoa1ActionPerformed(evt);
-            }
-        });
-
-        inicioPessoa1.setText("||<<");
-        inicioPessoa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inicioPessoa1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addComponent(inicioPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(anteriorPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(proximoPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(finalPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(anteriorPessoa1)
-                        .addComponent(inicioPessoa1))
-                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(proximoPessoa1)
-                        .addComponent(finalPessoa1)))
-                .addGap(23, 23, 23))
-        );
-
-        jPanel18.add(jPanel20);
-        jPanel20.setBounds(360, 400, 430, 40);
+        jScrollPane11.setBounds(20, 190, 1020, 250);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -573,22 +507,6 @@ public class FCadBanco extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tabMouseClicked
 
-    private void finalPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalPessoa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_finalPessoa1ActionPerformed
-
-    private void proximoPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoPessoa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_proximoPessoa1ActionPerformed
-
-    private void anteriorPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorPessoa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anteriorPessoa1ActionPerformed
-
-    private void inicioPessoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioPessoa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inicioPessoa1ActionPerformed
-
     private void codBancoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codBancoFocusLost
         try {
             carregaBanco();
@@ -674,7 +592,6 @@ public class FCadBanco extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agencia;
-    private javax.swing.JButton anteriorPessoa1;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
@@ -683,8 +600,6 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codBanco;
     private javax.swing.JTextField conta;
     private javax.swing.JTextField descBanco;
-    private javax.swing.JButton finalPessoa1;
-    private javax.swing.JButton inicioPessoa1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
@@ -707,7 +622,6 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel20;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField50;
@@ -725,7 +639,6 @@ public class FCadBanco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
-    private javax.swing.JButton proximoPessoa1;
     private javax.swing.JTable tab;
     // End of variables declaration//GEN-END:variables
 }
