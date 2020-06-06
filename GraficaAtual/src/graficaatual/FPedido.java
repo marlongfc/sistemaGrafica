@@ -91,7 +91,7 @@ public class FPedido extends javax.swing.JFrame {
         jBOrcamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBOrcamento.setForeground(new java.awt.Color(255, 255, 255));
         jBOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ORÇAMENTO2.png"))); // NOI18N
-        jBOrcamento.setText("Orçamento");
+        jBOrcamento.setText("Orçamento/Pedido");
         jBOrcamento.setBorderPainted(false);
         jBOrcamento.setFocusPainted(false);
         jBOrcamento.setFocusable(false);

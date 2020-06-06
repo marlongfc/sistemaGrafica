@@ -118,7 +118,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/OR&#xc7;AMENTO2.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Or&#xe7;amento"/>
+            <Property name="text" type="java.lang.String" value="Or&#xe7;amento/Pedido"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
