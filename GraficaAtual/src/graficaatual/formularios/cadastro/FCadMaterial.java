@@ -905,8 +905,7 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             if (material == null) {
                 throw new Exception("Erro: material inválido!");
             }
-            int op = 0;
-            JOptionPane.showConfirmDialog(null, "Deseja realmente excluir material selecionado?", "CONFIRMAÇÃO DE EXCLUSÃO", op);
+            int op = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir material selecionado?");
 
             // considerando 0 como sim
             if (op == 0) {

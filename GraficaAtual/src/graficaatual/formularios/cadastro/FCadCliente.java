@@ -23,6 +23,7 @@ import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.awt.Color;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -287,11 +288,6 @@ public class FCadCliente extends javax.swing.JInternalFrame {
                 codLogradouroFocusLost(evt);
             }
         });
-        codLogradouro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codLogradouroActionPerformed(evt);
-            }
-        });
         jPanel10.add(codLogradouro);
         codLogradouro.setBounds(50, 250, 80, 20);
 
@@ -387,11 +383,6 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         contato.setBounds(430, 180, 280, 20);
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rua", "Avenida", "Praça", "Travessa", "Rodovia","Quadra", "Anel Rodoviário", "Beco", "Chácara", "Comunidade", "Condomínio", "Distrito", "Estrada", "Estacionamento", "Favela", "Fazenda", "Largo", "Lagoa", "Loteamento", "Lote", "Morro", "Passagem", "Ponte","Rancho", "Sítio", "Vila"  }));
-        comboTipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTipoActionPerformed(evt);
-            }
-        });
         jPanel10.add(comboTipo);
         comboTipo.setBounds(130, 250, 170, 20);
 
@@ -656,13 +647,23 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         ativo.setForeground(new java.awt.Color(255, 255, 255));
         ativo.setText("Ativo");
         ativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ativo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ativoStateChanged(evt);
+            }
+        });
         jPanel10.add(ativo);
         ativo.setBounds(620, 100, 110, 20);
 
-        serasa.setBackground(new java.awt.Color(255, 0, 51));
+        serasa.setBackground(new java.awt.Color(51, 204, 0));
         serasa.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         serasa.setForeground(new java.awt.Color(255, 255, 255));
         serasa.setText("Serasa");
+        serasa.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                serasaStateChanged(evt);
+            }
+        });
         jPanel10.add(serasa);
         serasa.setBounds(730, 100, 120, 20);
 
@@ -1011,17 +1012,43 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cpfKeyReleased
 
-    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboTipoActionPerformed
-
-    private void codLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codLogradouroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codLogradouroActionPerformed
-
     private void inativar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inativar1ActionPerformed
-        // TODO add your handling code here:
+         try {
+            if (cliente != null) {
+                Integer resp = JOptionPane.showConfirmDialog(this, "Deseja realmente Inativar esse Cliente.");
+                if (resp == 0) {
+                    inativar();
+                    atualizaTabela();
+                    habilitaCampos(false);
+                }
+            } else {
+                throw new Exception(" Por Favor, Selecione um Cliente.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_inativar1ActionPerformed
+
+    private void ativoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ativoStateChanged
+        if(ativo.isSelected()){
+            ativo.setBackground(Color.GREEN);
+            ativo.setForeground(Color.BLACK);
+        }else{
+            ativo.setBackground(Color.RED);
+            ativo.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_ativoStateChanged
+
+    private void serasaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_serasaStateChanged
+        if(serasa.isSelected()){
+            serasa.setBackground(Color.RED);
+            serasa.setForeground(Color.WHITE);
+        }else{
+            serasa.setBackground(Color.GREEN);
+            serasa.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_serasaStateChanged
 
   
     
@@ -1220,6 +1247,8 @@ public class FCadCliente extends javax.swing.JInternalFrame {
             contato.setText(cliente.getContato());
             ativo.setSelected(cliente.getAtivo());
             serasa.setSelected(cliente.getSerasa());
+            ativoStateChanged(null);
+            serasaStateChanged(null);
             carregaPessoa();
 
         } else {
@@ -1237,6 +1266,8 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         cpf.setVisible(true);
         ativo.setSelected(true);
         serasa.setSelected(false);
+        ativoStateChanged(null);
+        serasaStateChanged(null);
         limite.setText("0,00");
         cnpj.setText("");
         cpf.setText("");
