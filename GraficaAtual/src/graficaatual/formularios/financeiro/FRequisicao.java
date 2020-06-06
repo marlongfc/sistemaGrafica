@@ -593,7 +593,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             throw new Exception("Favor inserir uma Quantidade válida");
         }
 
-        if (valorUnit.getText().length() < 2) {
+        if (valorUnit.getText().length() < 0) {
             throw new Exception("Favor inserir um Valor válido");
         }
 
