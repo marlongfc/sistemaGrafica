@@ -425,6 +425,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregaRequisicao() throws Exception {
+
         requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
         if (requisicao != null) {
             descRequisicao.setText(requisicao.getDescricao());
@@ -437,6 +438,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             quantidade.setText("");
             valorTotal.setText("");
         }
+
     }
 
 
