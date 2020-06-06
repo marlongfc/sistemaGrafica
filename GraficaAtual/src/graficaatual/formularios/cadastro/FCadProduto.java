@@ -1315,8 +1315,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             if (produto == null) {
                 throw new Exception("Erro: produto inválido!");
             }
-            int op = 0;
-            JOptionPane.showConfirmDialog(null, "Deseja realmente excluir produto selecionado? \n A Composição do produto também será excluída!", "CONFIRMAÇÃO DE EXCLUSÃO", op);
+            int op =  JOptionPane.showConfirmDialog(this, "Deseja realmente excluir produto selecionado? \n A Composição do produto também será excluída!");
 
             if (op == 0) {
 
@@ -1325,10 +1324,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 produtoDao.delete(produto);
 
                 limparTela();
-
-            } else {
-                return;
-            }
+            } 
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir produto. Erro: " + e);

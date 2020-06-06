@@ -697,8 +697,7 @@ public class FCadLogradouro extends javax.swing.JInternalFrame {
             if (logradouro == null) {
                 throw new Exception("Erro: logradouro inválido!");
             }
-            int op = 0;
-            JOptionPane.showConfirmDialog(null, "Deseja realmente excluir logradouro selecionado?", "CONFIRMAÇÃO DE EXCLUSÃO", op);
+            int op =  JOptionPane.showConfirmDialog(this, "Deseja realmente excluir logradouro selecionado?");
 
             // considerando 0 como sim
             if (op == 0) {

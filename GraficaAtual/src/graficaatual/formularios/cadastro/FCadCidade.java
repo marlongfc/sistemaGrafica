@@ -640,21 +640,17 @@ public class FCadCidade extends javax.swing.JInternalFrame {
             if (cidade == null) {
                 throw new Exception("Erro: cidade inválido!");
             }
-            int op = 0;
-            JOptionPane.showConfirmDialog(null, "Deseja realmente excluir cidade selecionado?", "CONFIRMAÇÃO DE EXCLUSÃO", op);
+          
+          int op = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir cidade selecionada?");
 
-            // considerando 0 como sim
             if (op == 0) {
-
                 cidadeDao.delete(cidade);
 
                 codCidade.setText("");
                 descCidade.setText("");
                 atualizarTabela();
 
-            } else {
-                return;
-            }
+            } 
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir cidade. Erro: " + e);
