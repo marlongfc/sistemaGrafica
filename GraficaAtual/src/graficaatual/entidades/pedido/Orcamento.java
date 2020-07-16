@@ -96,45 +96,6 @@ public class Orcamento implements java.io.Serializable {
     @Column(nullable = true)
     private Boolean etapaSetor;
 
-    @Column()
-    private Boolean checkCriacao;
-
-    @Column()
-    private Boolean checkSerralheria;
-
-    @Column()
-    private Boolean checkProjeto;
-
-    @Column()
-    private Boolean checkPintura;
-
-    @Column()
-    private Boolean checkPlotagem;
-
-    @Column()
-    private Boolean checkAcabamento;
-
-    @Column()
-    private Boolean checkImpressaoDigital;
-
-    @Column()
-    private Boolean checkRouter;
-
-    @Column()
-    private Boolean checkAcabamentoImp;
-
-    @Column()
-    private Boolean checkFaturamento;
-
-    @Column()
-    private Boolean checkPloterRecorte;
-
-    @Column()
-    private Boolean checkEntrega;
-
-    @Column()
-    private Boolean checkCaixariaAcabamento;
-
     @Column(name = "dataCadastro")
     private Date dataCadastro;
 
@@ -151,6 +112,7 @@ public class Orcamento implements java.io.Serializable {
         return codOrcamento;
     }
 
+    
     public void setCodOrcamento(Integer codOrcamento) {
         this.codOrcamento = codOrcamento;
     }
@@ -329,110 +291,6 @@ public class Orcamento implements java.io.Serializable {
 
     public void setUsuarioAtualizacao(String usuarioAtualizacao) {
         this.usuarioAtualizacao = usuarioAtualizacao;
-    }
-
-    public Boolean getCheckCriacao() {
-        return checkCriacao;
-    }
-
-    public void setCheckCriacao(Boolean checkCriacao) {
-        this.checkCriacao = checkCriacao;
-    }
-
-    public Boolean getCheckSerralheria() {
-        return checkSerralheria;
-    }
-
-    public void setCheckSerralheria(Boolean checkSerralheria) {
-        this.checkSerralheria = checkSerralheria;
-    }
-
-    public Boolean getCheckProjeto() {
-        return checkProjeto;
-    }
-
-    public void setCheckProjeto(Boolean checkProjeto) {
-        this.checkProjeto = checkProjeto;
-    }
-
-    public Boolean getCheckPintura() {
-        return checkPintura;
-    }
-
-    public void setCheckPintura(Boolean checkPintura) {
-        this.checkPintura = checkPintura;
-    }
-
-    public Boolean getCheckPlotagem() {
-        return checkPlotagem;
-    }
-
-    public void setCheckPlotagem(Boolean checkPlotagem) {
-        this.checkPlotagem = checkPlotagem;
-    }
-
-    public Boolean getCheckAcabamento() {
-        return checkAcabamento;
-    }
-
-    public void setCheckAcabamento(Boolean checkAcabamento) {
-        this.checkAcabamento = checkAcabamento;
-    }
-
-    public Boolean getCheckImpressaoDigital() {
-        return checkImpressaoDigital;
-    }
-
-    public void setCheckImpressaoDigital(Boolean checkImpressaoDigital) {
-        this.checkImpressaoDigital = checkImpressaoDigital;
-    }
-
-    public Boolean getCheckRouter() {
-        return checkRouter;
-    }
-
-    public void setCheckRouter(Boolean checkRouter) {
-        this.checkRouter = checkRouter;
-    }
-
-    public Boolean getCheckAcabamentoImp() {
-        return checkAcabamentoImp;
-    }
-
-    public void setCheckAcabamentoImp(Boolean checkAcabamentoImp) {
-        this.checkAcabamentoImp = checkAcabamentoImp;
-    }
-
-    public Boolean getCheckFaturamento() {
-        return checkFaturamento;
-    }
-
-    public void setCheckFaturamento(Boolean checkFaturamento) {
-        this.checkFaturamento = checkFaturamento;
-    }
-
-    public Boolean getCheckPloterRecorte() {
-        return checkPloterRecorte;
-    }
-
-    public void setCheckPloterRecorte(Boolean checkPloterRecorte) {
-        this.checkPloterRecorte = checkPloterRecorte;
-    }
-
-    public Boolean getCheckEntrega() {
-        return checkEntrega;
-    }
-
-    public void setCheckEntrega(Boolean checkEntrega) {
-        this.checkEntrega = checkEntrega;
-    }
-
-    public Boolean getCheckCaixariaAcabamento() {
-        return checkCaixariaAcabamento;
-    }
-
-    public void setCheckCaixariaAcabamento(Boolean checkCaixariaAcabamento) {
-        this.checkCaixariaAcabamento = checkCaixariaAcabamento;
     }
 
     @Override

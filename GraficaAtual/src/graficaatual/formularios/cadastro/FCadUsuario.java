@@ -818,6 +818,8 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
 
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
         try {
+            usuario = new Usuario();
+            colaborador = new Colaborador();
             limpatela();
             habilitaCampos(true);
         } catch (Exception e) {
@@ -1200,7 +1202,7 @@ public class FCadUsuario extends javax.swing.JInternalFrame {
             Permissao acesso = null;
             Boolean aux = null;
             for (Formulario f : lista) {
-                if (usuario != null) {
+                if (usuario != null && usuario.getCodUsuario() !=null) {
                     acesso = permissaoDao.getPermissaoFormulario(usuario.getCodUsuario(), f.getCodFormulario());
                     if (acesso == null) {
                         aux = false;
