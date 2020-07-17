@@ -11,9 +11,11 @@ import graficaatual.daos.cadastro.ClienteDAO;
 import graficaatual.daos.cadastro.ProdutoDAO;
 import graficaatual.daos.financeiro.FormaDePagamentoDAO;
 import graficaatual.daos.pedido.ItemOrcamentoDAO;
+import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.Acabamento;
 import graficaatual.entidades.Cliente;
+import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.Produto;
 import graficaatual.entidades.financeiro.FormaDePagamento;
@@ -165,8 +167,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jTextField64 = new javax.swing.JTextField();
         jLabel102 = new javax.swing.JLabel();
         jLabel103 = new javax.swing.JLabel();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        tabItens = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         codOrcamento = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
@@ -191,6 +191,19 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         unidadeProduto = new javax.swing.JTextField();
         jLabel116 = new javax.swing.JLabel();
         comboAcabamento = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        checkCaixariaAcabamento = new javax.swing.JCheckBox();
+        checkPloterRecorte = new javax.swing.JCheckBox();
+        checkProjeto = new javax.swing.JCheckBox();
+        checkPlotagem = new javax.swing.JCheckBox();
+        checkImpDigital = new javax.swing.JCheckBox();
+        checkAcabImpressao = new javax.swing.JCheckBox();
+        checkCriacao = new javax.swing.JCheckBox();
+        checkSerralheria = new javax.swing.JCheckBox();
+        checkEntrega = new javax.swing.JCheckBox();
+        checkPintura = new javax.swing.JCheckBox();
+        checkCorteRouter = new javax.swing.JCheckBox();
+        checkFaturamento = new javax.swing.JCheckBox();
         checkSituacao = new javax.swing.JCheckBox();
         labelAprovado = new javax.swing.JLabel();
         btSalvarOrca = new javax.swing.JButton();
@@ -214,19 +227,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         enderecoSecundario = new javax.swing.JTextField();
         jLabel114 = new javax.swing.JLabel();
         comboTipoEntrega = new javax.swing.JComboBox<>();
-        jPanel3 = new javax.swing.JPanel();
-        checkCaixariaAcabamento = new javax.swing.JCheckBox();
-        checkPloterRecorte = new javax.swing.JCheckBox();
-        checkProjeto = new javax.swing.JCheckBox();
-        checkPlotagem = new javax.swing.JCheckBox();
-        checkImpDigital = new javax.swing.JCheckBox();
-        checkAcabImpressao = new javax.swing.JCheckBox();
-        checkCriacao = new javax.swing.JCheckBox();
-        checkSerralheria = new javax.swing.JCheckBox();
-        checkEntrega = new javax.swing.JCheckBox();
-        checkPintura = new javax.swing.JCheckBox();
-        checkCorteRouter = new javax.swing.JCheckBox();
-        checkFaturamento = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         comboFormaPag = new javax.swing.JComboBox<>();
         validadeProposta = new javax.swing.JFormattedTextField();
@@ -234,6 +234,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jLabel117 = new javax.swing.JLabel();
         descontoPorcentagem = new javax.swing.JTextField();
+        btAprovar = new javax.swing.JButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        tabItens = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -389,50 +392,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
-
-        tabItens.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Quantidade m²", "Cód.Produto", "Produto", "Medida", "UN", "Acabamento", "Valor Unit.", "Valor Total"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabItens.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabItensMouseClicked(evt);
-            }
-        });
-        jScrollPane11.setViewportView(tabItens);
-        if (tabItens.getColumnModel().getColumnCount() > 0) {
-            tabItens.getColumnModel().getColumn(0).setPreferredWidth(70);
-            tabItens.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tabItens.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tabItens.getColumnModel().getColumn(3).setPreferredWidth(600);
-            tabItens.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tabItens.getColumnModel().getColumn(5).setPreferredWidth(100);
-            tabItens.getColumnModel().getColumn(6).setPreferredWidth(150);
-            tabItens.getColumnModel().getColumn(7).setPreferredWidth(100);
-            tabItens.getColumnModel().getColumn(8).setPreferredWidth(100);
-        }
-
-        jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(40, 300, 910, 120);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -596,13 +555,91 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel1.add(comboAcabamento);
         comboAcabamento.setBounds(210, 90, 200, 20);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas"));
+        jPanel3.setLayout(null);
+
+        checkCaixariaAcabamento.setBackground(new java.awt.Color(255, 255, 255));
+        checkCaixariaAcabamento.setText("Caixaria Acabamento");
+        jPanel3.add(checkCaixariaAcabamento);
+        checkCaixariaAcabamento.setBounds(260, 40, 180, 23);
+
+        checkPloterRecorte.setBackground(new java.awt.Color(255, 255, 255));
+        checkPloterRecorte.setText("Ploter Recorte");
+        jPanel3.add(checkPloterRecorte);
+        checkPloterRecorte.setBounds(750, 20, 130, 23);
+
+        checkProjeto.setBackground(new java.awt.Color(255, 255, 255));
+        checkProjeto.setText("Projeto");
+        jPanel3.add(checkProjeto);
+        checkProjeto.setBounds(130, 20, 120, 23);
+
+        checkPlotagem.setBackground(new java.awt.Color(255, 255, 255));
+        checkPlotagem.setText("Plotagem");
+        jPanel3.add(checkPlotagem);
+        checkPlotagem.setBounds(260, 20, 130, 23);
+
+        checkImpDigital.setBackground(new java.awt.Color(255, 255, 255));
+        checkImpDigital.setText("Impressão Digital");
+        jPanel3.add(checkImpDigital);
+        checkImpDigital.setBounds(440, 20, 140, 23);
+
+        checkAcabImpressao.setBackground(new java.awt.Color(255, 255, 255));
+        checkAcabImpressao.setText("Acabamento Impressão");
+        jPanel3.add(checkAcabImpressao);
+        checkAcabImpressao.setBounds(590, 20, 170, 23);
+
+        checkCriacao.setBackground(new java.awt.Color(255, 255, 255));
+        checkCriacao.setText("Criação");
+        jPanel3.add(checkCriacao);
+        checkCriacao.setBounds(10, 20, 100, 23);
+
+        checkSerralheria.setBackground(new java.awt.Color(255, 255, 255));
+        checkSerralheria.setText("Serralheria");
+        jPanel3.add(checkSerralheria);
+        checkSerralheria.setBounds(10, 40, 100, 23);
+
+        checkEntrega.setBackground(new java.awt.Color(255, 255, 255));
+        checkEntrega.setText("Instalação Entrega");
+        checkEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkEntregaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(checkEntrega);
+        checkEntrega.setBounds(750, 40, 130, 23);
+
+        checkPintura.setBackground(new java.awt.Color(255, 255, 255));
+        checkPintura.setText("Pintura");
+        jPanel3.add(checkPintura);
+        checkPintura.setBounds(130, 40, 120, 23);
+
+        checkCorteRouter.setBackground(new java.awt.Color(255, 255, 255));
+        checkCorteRouter.setText("Corte Router");
+        checkCorteRouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCorteRouterActionPerformed(evt);
+            }
+        });
+        jPanel3.add(checkCorteRouter);
+        checkCorteRouter.setBounds(440, 40, 140, 23);
+
+        checkFaturamento.setBackground(new java.awt.Color(255, 255, 255));
+        checkFaturamento.setText("Faturamento");
+        jPanel3.add(checkFaturamento);
+        checkFaturamento.setBounds(590, 40, 150, 23);
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(10, 120, 890, 70);
+
         jPanel18.add(jPanel1);
-        jPanel1.setBounds(40, 175, 910, 120);
+        jPanel1.setBounds(40, 175, 910, 200);
 
         checkSituacao.setBackground(new java.awt.Color(204, 0, 0));
         checkSituacao.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         checkSituacao.setForeground(new java.awt.Color(255, 255, 255));
         checkSituacao.setText("Aprovado");
+        checkSituacao.setEnabled(false);
         checkSituacao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkSituacaoMouseClicked(evt);
@@ -624,7 +661,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvarOrca);
-        btSalvarOrca.setBounds(350, 630, 180, 40);
+        btSalvarOrca.setBounds(350, 630, 170, 40);
 
         btNovoOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovoOrca.setText("Novo Orçamento");
@@ -730,83 +767,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel2);
         jPanel2.setBounds(40, 490, 640, 130);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Etapas"));
-        jPanel3.setLayout(null);
-
-        checkCaixariaAcabamento.setBackground(new java.awt.Color(255, 255, 255));
-        checkCaixariaAcabamento.setText("Caixaria Acabamento");
-        jPanel3.add(checkCaixariaAcabamento);
-        checkCaixariaAcabamento.setBounds(260, 40, 180, 23);
-
-        checkPloterRecorte.setBackground(new java.awt.Color(255, 255, 255));
-        checkPloterRecorte.setText("Ploter Recorte");
-        jPanel3.add(checkPloterRecorte);
-        checkPloterRecorte.setBounds(760, 20, 120, 23);
-
-        checkProjeto.setBackground(new java.awt.Color(255, 255, 255));
-        checkProjeto.setText("Projeto");
-        jPanel3.add(checkProjeto);
-        checkProjeto.setBounds(130, 20, 120, 23);
-
-        checkPlotagem.setBackground(new java.awt.Color(255, 255, 255));
-        checkPlotagem.setText("Plotagem");
-        jPanel3.add(checkPlotagem);
-        checkPlotagem.setBounds(260, 20, 130, 23);
-
-        checkImpDigital.setBackground(new java.awt.Color(255, 255, 255));
-        checkImpDigital.setText("Impressão Digital");
-        jPanel3.add(checkImpDigital);
-        checkImpDigital.setBounds(440, 20, 140, 23);
-
-        checkAcabImpressao.setBackground(new java.awt.Color(255, 255, 255));
-        checkAcabImpressao.setText("Acabamento Impressão");
-        jPanel3.add(checkAcabImpressao);
-        checkAcabImpressao.setBounds(590, 20, 170, 23);
-
-        checkCriacao.setBackground(new java.awt.Color(255, 255, 255));
-        checkCriacao.setText("Criação");
-        jPanel3.add(checkCriacao);
-        checkCriacao.setBounds(10, 20, 100, 23);
-
-        checkSerralheria.setBackground(new java.awt.Color(255, 255, 255));
-        checkSerralheria.setText("Serralheria");
-        jPanel3.add(checkSerralheria);
-        checkSerralheria.setBounds(10, 40, 100, 23);
-
-        checkEntrega.setBackground(new java.awt.Color(255, 255, 255));
-        checkEntrega.setText("Instalação Entrega");
-        checkEntrega.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkEntregaActionPerformed(evt);
-            }
-        });
-        jPanel3.add(checkEntrega);
-        checkEntrega.setBounds(760, 40, 140, 23);
-
-        checkPintura.setBackground(new java.awt.Color(255, 255, 255));
-        checkPintura.setText("Pintura");
-        jPanel3.add(checkPintura);
-        checkPintura.setBounds(130, 40, 120, 23);
-
-        checkCorteRouter.setBackground(new java.awt.Color(255, 255, 255));
-        checkCorteRouter.setText("Corte Router");
-        checkCorteRouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkCorteRouterActionPerformed(evt);
-            }
-        });
-        jPanel3.add(checkCorteRouter);
-        checkCorteRouter.setBounds(440, 40, 140, 23);
-
-        checkFaturamento.setBackground(new java.awt.Color(255, 255, 255));
-        checkFaturamento.setText("Faturamento");
-        jPanel3.add(checkFaturamento);
-        checkFaturamento.setBounds(590, 40, 150, 23);
-
-        jPanel18.add(jPanel3);
-        jPanel3.setBounds(40, 420, 910, 70);
-
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -815,7 +775,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(jButton1);
-        jButton1.setBounds(530, 630, 180, 40);
+        jButton1.setBounds(700, 630, 180, 40);
 
         comboFormaPag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         jPanel18.add(comboFormaPag);
@@ -841,7 +801,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(jButton2);
-        jButton2.setBounds(710, 630, 140, 40);
+        jButton2.setBounds(880, 630, 140, 40);
 
         jLabel117.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel117.setText("Desconto %");
@@ -857,6 +817,60 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         });
         jPanel18.add(descontoPorcentagem);
         descontoPorcentagem.setBounds(800, 550, 100, 20);
+
+        btAprovar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
+        btAprovar.setText("Aprovar Orçamento");
+        btAprovar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAprovarActionPerformed(evt);
+            }
+        });
+        jPanel18.add(btAprovar);
+        btAprovar.setBounds(520, 630, 180, 40);
+
+        tabItens.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Quantidade m²", "Cód.Produto", "Produto", "Medida", "UN", "Acabamento", "Valor Unit.", "Valor Total"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabItens.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabItensMouseClicked(evt);
+            }
+        });
+        jScrollPane11.setViewportView(tabItens);
+        if (tabItens.getColumnModel().getColumnCount() > 0) {
+            tabItens.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tabItens.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tabItens.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tabItens.getColumnModel().getColumn(3).setPreferredWidth(600);
+            tabItens.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tabItens.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tabItens.getColumnModel().getColumn(6).setPreferredWidth(150);
+            tabItens.getColumnModel().getColumn(7).setPreferredWidth(100);
+            tabItens.getColumnModel().getColumn(8).setPreferredWidth(100);
+        }
+
+        jPanel18.add(jScrollPane11);
+        jScrollPane11.setBounds(40, 380, 910, 100);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1050,38 +1064,30 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
             if (orcamento == null) {
                 orcamento = new Orcamento();
+                orcamento.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario()+" "+ ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                 orcamento.setDataCadastro(new Date());
-                orcamento.setDataAtualizacao(new Date());
-
             }
+            orcamento.setUsuarioAtualizacao(ControleAcesso.usuario.getCodUsuario()+" "+ ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+            orcamento.setDataAtualizacao(new Date());
+            
             setOrcamento();
+            
             orcamento = orcamentoDAO.salvar(session, orcamento);
 
-
-            ItemOrcamento itemAux = new ItemOrcamento();
             for (int i = 0; i < tabItens.getRowCount(); i++) {
                 if (tabItens.getValueAt(i, 0) != null) {
-                    ItemOrcamento aux = itemOrcaDAO.get((Integer) tabItens.getValueAt(i, 0));
-                    if (aux != null) {
-                        itemOrcaDAO.excluir(session, aux);
+                    itemOrcamento = itemOrcaDAO.get((Integer) tabItens.getValueAt(i, 0));
+                    if (itemOrcamento != null) {
+                        itemOrcaDAO.excluir(session, itemOrcamento);
                     }
                 }
 
-               
-                itemAux = new ItemOrcamento();
-
-                acabamento = acabamentoDao.getByDescricao((String) tabItens.getValueAt(i, 6));
-              
-                itemAux.setAcabamento(acabamento);
-              produto = produtoDAO.getPorCodigo(ValidarValor.getLong((String) tabItens.getValueAt(i, 2)));
-                itemAux.setProduto(produto);
-                itemAux.setQuantProd(ValidarValor.getInt(tabItens.getValueAt(i, 1).toString()));
-                itemAux.setMedida((String) tabItens.getValueAt(i, 4));
-                itemAux.setUnidade((String) tabItens.getValueAt(i, 5));
-                itemAux.setValorUnitario((Double) tabItens.getValueAt(i, 7));
-                itemAux.setValorTotalProduto((Double) tabItens.getValueAt(i, 8));
-                itemAux.setOrcamento(orcamento);
-                itemOrcaDAO.salvar(session, itemAux);
+                for (ItemOrcamento item : listaItem) {
+                    itemOrcamento = new ItemOrcamento();
+                    itemOrcamento = item;
+                    itemOrcamento.setOrcamento(orcamento);
+                    itemOrcaDAO.salvar(session, itemOrcamento);
+                }
 
             }
             session.getTransaction().commit();
@@ -1109,14 +1115,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 if (tabItens.getSelectedRow() < 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um produto para exclusão!");
                 } else {
-                    ItemOrcamento aux = itemOrcaDAO.get((Integer) tabItens.getValueAt(tabItens.getSelectedRow(), 0));
-                    if (aux != null) {
-                        itemOrcaDAO.delete(aux);
-                    }
-                    DefaultTableModel model = (DefaultTableModel) tabItens.getModel();
-                    model.removeRow(tabItens.getSelectedRow());
-                    tabItens.setModel(model);
-
+                    
+                    listaItem.remove(tabItens.getSelectedRow());
+                    tabItens.remove(tabItens.getSelectedRow());
                     limpaCamposProduto();
                     calculaPreçoTotalOrcamentoComDesconto();
                 }
@@ -1147,47 +1148,36 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             vl = ValidarValor.getDouble(valorUnitario.getText());
             vt = ValidarValor.getDouble(valortotalProduto.getText());
 
-//            DefaultTableModel model = (DefaultTableModel) tabProdutos.getModel();
-//
-//            Object[] os = new Object[9];
-//            os[0] = null;
-//            os[1] = quantidadeProduto.getText();
-//            os[2] = codProduto.getText();
-//            os[3] = descProduto.getText();
-//            os[4] = medidaProduto.getText();
-//            os[5] = unidadeProduto.getText();
-//            os[6] = comboAcabamento.getSelectedItem().toString();
-//            os[7] = vl;
-//            os[8] = vt;
-//
-//            model.addRow(os);
-//            tabProdutos.setModel(model);
-
             acabamento = acabamentoDao.get(comboAcabamento.getSelectedIndex() + 1);
 
-            ItemOrcamento it = new ItemOrcamento();
-
-            it.setAcabamento(acabamento);
-            it.setProduto(produto);
-            it.setQuantProd(ValidarValor.getInt(quantidadeProduto.getText()));
-            it.setMedida(medidaProduto.getText());
-            it.setUnidade(unidadeProduto.getText());
-            it.setValorUnitario(vl);
-            it.setValorTotalProduto(vt);
-            it.setCheckCriacao(checkCriacao.isSelected());
-            it.setCheckSerralheria(checkSerralheria.isSelected());
-            it.setCheckProjeto(checkProjeto.isSelected());
-            it.setCheckPintura(checkPintura.isSelected());
-            it.setCheckPlotagem(checkPlotagem.isSelected());
-            it.setCheckCaixariaAcabamento(checkCaixariaAcabamento.isSelected());
-            it.setCheckImpressaoDigital(checkImpDigital.isSelected());
-            it.setCheckRouter(checkCorteRouter.isSelected());
-            it.setCheckAcabamentoImp(checkAcabImpressao.isSelected());
-            it.setCheckFaturamento(checkFaturamento.isSelected());
-            it.setCheckPloterRecorte(checkPloterRecorte.isSelected());
-            it.setCheckEntrega(checkEntrega.isSelected());
+           
+            itemOrcamento.setAcabamento(acabamento);
+            itemOrcamento.setProduto(produto);
+            itemOrcamento.setQuantProd(ValidarValor.getInt(quantidadeProduto.getText()));
+            itemOrcamento.setMedida(medidaProduto.getText());
+            itemOrcamento.setUnidade(unidadeProduto.getText());
+            itemOrcamento.setValorUnitario(vl);
+            itemOrcamento.setValorTotalProduto(vt);
+            
+            itemOrcamento.setCheckCriacao(checkCriacao.isSelected());
+            itemOrcamento.setCheckSerralheria(checkSerralheria.isSelected());
+            
+            itemOrcamento.setCheckProjeto(checkProjeto.isSelected());
+            itemOrcamento.setCheckPintura(checkPintura.isSelected());
+            
+            itemOrcamento.setCheckPlotagem(checkPlotagem.isSelected());
+            itemOrcamento.setCheckCaixariaAcabamento(checkCaixariaAcabamento.isSelected());
+            
+            itemOrcamento.setCheckImpressaoDigital(checkImpDigital.isSelected());
+            itemOrcamento.setCheckRouter(checkCorteRouter.isSelected());
+            
+            itemOrcamento.setCheckAcabamentoImp(checkAcabImpressao.isSelected());
+            itemOrcamento.setCheckFaturamento(checkFaturamento.isSelected());
+            
+            itemOrcamento.setCheckPloterRecorte(checkPloterRecorte.isSelected());
+            itemOrcamento.setCheckEntrega(checkEntrega.isSelected());
                 
-            listaItem.add(it);
+            listaItem.add(itemOrcamento);
             
             atualizatabelaItens();
 //            calculaPreçoTotalOrcamentoComDesconto();
@@ -1254,16 +1244,29 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             if (evt.getClickCount() > 1) {
                 itemOrcamento = listaItem.get(tabItens.getSelectedRow());
                 if(itemOrcamento != null){
-                carregaTabProd();             
-                itemOrcamento = listaItem.get(tabItens.getSelectedRow());
-                codProduto.setText(itemOrcamento.getProduto().getCodProduto() + "");
-                descProduto.setText(itemOrcamento.getProduto().getDescricao());
-                valorUnitario.setText(ValidarValor.getDouble(itemOrcamento.getValorUnitario()));
-                quantidadeProduto.setText(itemOrcamento.getQuantProd().toString());
-                valortotalProduto.setText(ValidarValor.getDouble(itemOrcamento.getValorTotalProduto()));
-                medidaProduto.setText(itemOrcamento.getMedida());
-                unidadeProduto.setText(itemOrcamento.getUnidade());
-                comboAcabamento.setSelectedIndex(itemOrcamento.getAcabamento().getCodAcabamento());
+                    carregaTabProd();
+                    itemOrcamento = listaItem.get(tabItens.getSelectedRow());
+                    codProduto.setText(itemOrcamento.getProduto().getCodProduto() + "");
+                    descProduto.setText(itemOrcamento.getProduto().getDescricao());
+                    valorUnitario.setText(ValidarValor.getDouble(itemOrcamento.getValorUnitario()));
+                    quantidadeProduto.setText(itemOrcamento.getQuantProd().toString());
+                    valortotalProduto.setText(ValidarValor.getDouble(itemOrcamento.getValorTotalProduto()));
+                    medidaProduto.setText(itemOrcamento.getMedida());
+                    unidadeProduto.setText(itemOrcamento.getUnidade());
+                    comboAcabamento.setSelectedIndex(itemOrcamento.getAcabamento().getCodAcabamento());
+                    checkAcabImpressao.setSelected(itemOrcamento.getCheckAcabamentoImp());
+                    checkCaixariaAcabamento.setSelected(itemOrcamento.getCheckCaixariaAcabamento());
+                    checkCorteRouter.setSelected(itemOrcamento.getCheckRouter());
+                    checkCriacao.setSelected(itemOrcamento.getCheckCriacao());
+                    checkEntrega.setSelected(itemOrcamento.getCheckEntrega());
+                    checkFaturamento.setSelected(itemOrcamento.getCheckFaturamento());
+                    checkImpDigital.setSelected(itemOrcamento.getCheckImpressaoDigital());
+                    checkPintura.setSelected(itemOrcamento.getCheckPintura());
+                    checkPlotagem.setSelected(itemOrcamento.getCheckPlotagem());
+                    checkPloterRecorte.setSelected(itemOrcamento.getCheckPloterRecorte());
+                    checkProjeto.setSelected(itemOrcamento.getCheckProjeto());
+                    checkSerralheria.setSelected(itemOrcamento.getCheckSerralheria());
+                    checkSituacao.setSelected(itemOrcamento.getCheckSerralheria());
                 }
             }
         } catch (Exception e) {
@@ -1417,6 +1420,16 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tabPedidoMouseClicked
 
+    private void btAprovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAprovarActionPerformed
+        try{
+            aprovarOrcamento();
+        }catch(Exception e){
+            JOptionPane.showConfirmDialog(this,"Erro: "+ e.getMessage());
+        }
+        
+      
+    }//GEN-LAST:event_btAprovarActionPerformed
+
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
         if (orcamento != null) {
@@ -1438,7 +1451,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             descontoPorcentagem.setText(ValidarValor.getDouble(orcamento.getDescontoGeralPorcentagem()));
             totalGlobal = orcamento.getValorTotal();
             totalGeralOrc.setText(orcamento.getValorTotal().toString());
-            
+            listaItem = itemOrcaDAO.getListOrcamento(orcamento.getCodOrcamento());
 
         } else {
             limpaCamposProduto();
@@ -1537,19 +1550,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             unidadeProduto.setText(itemOrcamento.getUnidade());
             itemOrcamento.setAcabamento(acabamentoDao.getByDescricao(comboAcabamento.getSelectedItem().toString()));
             
-            checkAcabImpressao.setSelected(itemOrcamento.getCheckAcabamentoImp());
-            checkCaixariaAcabamento.setSelected(itemOrcamento.getCheckCaixariaAcabamento());
-            checkCorteRouter.setSelected(itemOrcamento.getCheckRouter());
-            checkCriacao.setSelected(itemOrcamento.getCheckCriacao());
-            checkEntrega.setSelected(itemOrcamento.getCheckEntrega());
-            checkFaturamento.setSelected(itemOrcamento.getCheckFaturamento());
-            checkImpDigital.setSelected(itemOrcamento.getCheckImpressaoDigital());
-            checkPintura.setSelected(itemOrcamento.getCheckPintura());
-            checkPlotagem.setSelected(itemOrcamento.getCheckPlotagem());
-            checkPloterRecorte.setSelected(itemOrcamento.getCheckPloterRecorte());
-            checkProjeto.setSelected(itemOrcamento.getCheckProjeto());
-            checkSerralheria.setSelected(itemOrcamento.getCheckSerralheria());
-            checkSituacao.setSelected(itemOrcamento.getCheckSerralheria());
+            
 
         }
     }
@@ -1664,7 +1665,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         codOrcamento.setEnabled(b);
         codCliente.setEnabled(b);
         descCliente.setEnabled(b);
-        checkSituacao.setEnabled(b);
+        checkSituacao.setEnabled(false);
         dataOrc.setEnabled(b);
         validadeProposta.setEnabled(b);
         prazoEntrega.setEnabled(b);
@@ -1698,7 +1699,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             throw new Exception("Favor inserir um Prazo de Entrega válido.");
         }
 
-        orcamento.setSituacao(checkSituacao.isSelected());
+        orcamento.setSituacao(false);
         orcamento.setCliente(cliente);
         orcamento.setDataOrcamento(Data.getDateSQL(dataOrc.getText()));
         orcamento.setValidadeOrcamento(Data.getDateSQL(validadeProposta.getText()));
@@ -1868,22 +1869,22 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         List<ItemOrcamento> listaProdBusca;
         try {
             listaItem = new ArrayList<ItemOrcamento>();
-            listaProdBusca = itemOrcaDAO.getListOrcamento(ValidarValor.getInt(codOrcamento.getText()));
-            listaItem.addAll(listaProdBusca);
+            listaItem = itemOrcaDAO.getListOrcamento(ValidarValor.getInt(codOrcamento.getText()));
+          
             DefaultTableModel model = (DefaultTableModel) tabItens.getModel();
             removeLinhas(tabItens);
-            for (int i = 0; i < listaProdBusca.size(); i++) {
+            for (int i = 0; i < listaItem.size(); i++) {
 
                 Object[] os = new Object[9];
-                os[0] = listaProdBusca.get(i).getCodItemOrca();
-                os[1] = listaProdBusca.get(i).getQuantProd();
-                os[2] = (listaProdBusca.get(i).getProduto().getCodProduto() + "");
-                os[3] = listaProdBusca.get(i).getProduto().getDescricao();
-                os[4] = listaProdBusca.get(i).getMedida();
-                os[5] = listaProdBusca.get(i).getUnidade();
-                os[6] = listaProdBusca.get(i).getAcabamento().getDescricao();
-                os[7] = listaProdBusca.get(i).getValorUnitario();
-                os[8] = listaProdBusca.get(i).getValorTotalProduto();
+                os[0] = listaItem.get(i).getCodItemOrca();
+                os[1] = listaItem.get(i).getQuantProd();
+                os[2] = (listaItem.get(i).getProduto().getCodProduto() + "");
+                os[3] = listaItem.get(i).getProduto().getDescricao();
+                os[4] = listaItem.get(i).getMedida();
+                os[5] = listaItem.get(i).getUnidade();
+                os[6] = listaItem.get(i).getAcabamento().getDescricao();
+                os[7] = listaItem.get(i).getValorUnitario();
+                os[8] = listaItem.get(i).getValorTotalProduto();
 
                 model.addRow(os);
 
@@ -1911,6 +1912,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionarItem;
+    private javax.swing.JButton btAprovar;
     private javax.swing.JButton btNovoItem;
     private javax.swing.JButton btNovoOrca;
     private javax.swing.JButton btRemoverItem;
@@ -2027,4 +2029,33 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField valorUnitario;
     private javax.swing.JTextField valortotalProduto;
     // End of variables declaration//GEN-END:variables
+
+    private void aprovarOrcamento() throws Exception {
+        if (orcamento != null && orcamento.getCodOrcamento() > 0) {
+
+            if (!orcamento.getSituacao()) {
+                EntityManager session = Persistencia.getInstance().getSessionComBegin();
+                try {
+                    orcamento.setSituacao(true);
+                    orcamento = orcamentoDAO.salvar(session, orcamento);
+                    Boolean aux = new OrdemServicoDAO().gerarOrdemServico(listaItem, session);
+                    if (aux == null || aux == false) {
+                        throw new Exception(" Erro ao gerar Ordem(ns) de Serviço(s). ");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Orçamento Aprovado e Ordens de Serviços geradas. ");
+                    }
+                    session.getTransaction().commit();
+                    session.close();
+                } catch (Exception ex) {
+                    session.getTransaction().rollback();
+                    session.close();
+                    JOptionPane.showMessageDialog(this, " Erro ao gerar Ordem(ns) de Serviço(s). " + ex.getMessage());
+                }
+            } else {
+                throw new Exception(" Já é um pedido!");
+            }
+        } else {
+            throw new Exception(" Por Favor, selecione um orçamento!");
+        }
+    }
 }

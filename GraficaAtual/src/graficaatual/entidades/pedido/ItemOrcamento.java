@@ -70,7 +70,7 @@ public class ItemOrcamento implements Serializable {
     private Boolean checkPlotagem;
 
     @Column()
-    private Boolean checkAcabamento;
+    private Boolean checkCaixariaAcabamento;
 
     @Column()
     private Boolean checkImpressaoDigital;
@@ -90,8 +90,7 @@ public class ItemOrcamento implements Serializable {
     @Column()
     private Boolean checkEntrega;
 
-    @Column()
-    private Boolean checkCaixariaAcabamento;
+
     
     
     
@@ -211,13 +210,6 @@ public class ItemOrcamento implements Serializable {
         this.checkPlotagem = checkPlotagem;
     }
 
-    public Boolean getCheckAcabamento() {
-        return checkAcabamento;
-    }
-
-    public void setCheckAcabamento(Boolean checkAcabamento) {
-        this.checkAcabamento = checkAcabamento;
-    }
 
     public Boolean getCheckImpressaoDigital() {
         return checkImpressaoDigital;
