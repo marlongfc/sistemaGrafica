@@ -1317,7 +1317,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro "
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
                     + " LEFT JOIN produto prod ON prod.codproduto = orc.produto"
-                    + " LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento"
+                    + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
                     + " WHERE orc.codOrcamento = " + codOrcamento.getText();
 
             Map tx = new HashMap();

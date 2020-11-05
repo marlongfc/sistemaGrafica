@@ -9,6 +9,8 @@ import graficaatual.*;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Permissao;
 import graficaatual.formularios.cadastro.FCadCliente;
+import graficaatual.formularios.producao.FGestaoOrdemServico;
+import graficaatual.formularios.producao.FOrdemServico;
 import javax.swing.JButton;
 
 import javax.swing.JOptionPane;
@@ -33,7 +35,7 @@ public class FProducao extends javax.swing.JFrame {
         
         
         //verificação de acesso as telas
-        acessotela(jBCliente,"FCadCliente");
+        acessotela(jBGgestaoProducao,"FCadCliente");
        
         
        
@@ -54,11 +56,12 @@ public class FProducao extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jBCliente = new javax.swing.JButton();
+        jBGgestaoProducao = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jBSair = new javax.swing.JButton();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jBProducao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
@@ -73,22 +76,22 @@ public class FProducao extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel1.setLayout(null);
 
-        jBCliente.setBackground(new java.awt.Color(71, 37, 131));
-        jBCliente.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
-        jBCliente.setForeground(new java.awt.Color(255, 255, 255));
-        jBCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes2.png"))); // NOI18N
-        jBCliente.setText("Produção Geral");
-        jBCliente.setBorderPainted(false);
-        jBCliente.setFocusPainted(false);
-        jBCliente.setFocusable(false);
-        jBCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBCliente.addActionListener(new java.awt.event.ActionListener() {
+        jBGgestaoProducao.setBackground(new java.awt.Color(71, 37, 131));
+        jBGgestaoProducao.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBGgestaoProducao.setForeground(new java.awt.Color(255, 255, 255));
+        jBGgestaoProducao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes2.png"))); // NOI18N
+        jBGgestaoProducao.setText("Gestão Produção");
+        jBGgestaoProducao.setBorderPainted(false);
+        jBGgestaoProducao.setFocusPainted(false);
+        jBGgestaoProducao.setFocusable(false);
+        jBGgestaoProducao.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBGgestaoProducao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBClienteActionPerformed(evt);
+                jBGgestaoProducaoActionPerformed(evt);
             }
         });
-        jPanel1.add(jBCliente);
-        jBCliente.setBounds(30, 140, 180, 30);
+        jPanel1.add(jBGgestaoProducao);
+        jBGgestaoProducao.setBounds(30, 180, 180, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LOGO Amarela sem Fundo2.png"))); // NOI18N
         jPanel1.add(jLabel3);
@@ -125,6 +128,23 @@ public class FProducao extends javax.swing.JFrame {
         jPanel1.add(deskTop);
         deskTop.setBounds(210, 10, 1070, 700);
 
+        jBProducao.setBackground(new java.awt.Color(71, 37, 131));
+        jBProducao.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBProducao.setForeground(new java.awt.Color(255, 255, 255));
+        jBProducao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes2.png"))); // NOI18N
+        jBProducao.setText("Produção Geral");
+        jBProducao.setBorderPainted(false);
+        jBProducao.setFocusPainted(false);
+        jBProducao.setFocusable(false);
+        jBProducao.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBProducao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBProducaoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBProducao);
+        jBProducao.setBounds(30, 220, 180, 30);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,12 +166,12 @@ public class FProducao extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deskTopComponentResized
 
-    private void jBClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBClienteActionPerformed
+    private void jBGgestaoProducaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGgestaoProducaoActionPerformed
         try {
             deskTop.removeAll();
-            FCadCliente clComp;
+            FGestaoOrdemServico clComp;
 
-            clComp = FCadCliente.getInstance();
+            clComp = FGestaoOrdemServico.getInstance();
             deskTop.add(clComp);
             clComp.setVisible(true);
             deskTop.add(jLabel1);
@@ -161,15 +181,33 @@ public class FProducao extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBClienteActionPerformed
+    }//GEN-LAST:event_jBGgestaoProducaoActionPerformed
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
        dispose();
     }//GEN-LAST:event_jBSairActionPerformed
 
+    private void jBProducaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProducaoActionPerformed
+        try {
+            deskTop.removeAll();
+            FOrdemServico clComp;
+
+            clComp = FOrdemServico.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBProducaoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
-    private javax.swing.JButton jBCliente;
+    private javax.swing.JButton jBGgestaoProducao;
+    private javax.swing.JButton jBProducao;
     private javax.swing.JButton jBSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

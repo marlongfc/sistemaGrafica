@@ -19,7 +19,7 @@ import javax.persistence.EntityManager;
  */
 public class OrdemServicoDAO extends OrdemServicoRNE {
     
-    public OrdemServico addCliente(OrdemServico cliente) throws Exception {
+    public OrdemServico addOrdem(OrdemServico cliente) throws Exception {
 
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         OrdemServico aux = null;
@@ -37,7 +37,7 @@ public class OrdemServicoDAO extends OrdemServicoRNE {
         
     }
         
-   public OrdemServico addCliente(EntityManager session, OrdemServico cliente) throws Exception {
+   public OrdemServico addOrdem(EntityManager session, OrdemServico cliente) throws Exception {
         OrdemServico aux = null;
         try {
             aux = super.salvar(session, cliente);
@@ -51,7 +51,7 @@ public class OrdemServicoDAO extends OrdemServicoRNE {
         
     }
 
-    public OrdemServico get(Long cod) {
+    public OrdemServico get(Integer cod) {
         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
             OrdemServico aux = super.getPojo(OrdemServico.class, cod);
