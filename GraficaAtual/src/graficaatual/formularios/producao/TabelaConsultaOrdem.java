@@ -23,10 +23,11 @@ public class TabelaConsultaOrdem extends JTable {
 
         try {
             Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
-
+            
             if (isCellSelected(rowIndex, vColIndex)) {
                 if (getSelectedColumn() == vColIndex) {
                     c.setBackground(new Color(0, 160, 200));
+                    
                 } else {
                     c.setBackground(new Color(0, 160, 255));
                 }
@@ -41,7 +42,6 @@ public class TabelaConsultaOrdem extends JTable {
                 c.setBackground(Color.GREEN);
                 c.setForeground(Color.BLACK);
             }
-
             return c;
         } catch (Exception e) {
             e.printStackTrace();

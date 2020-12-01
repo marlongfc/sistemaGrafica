@@ -62,6 +62,8 @@ public class FProducao extends javax.swing.JFrame {
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jBProducao = new javax.swing.JButton();
+        jBEntrega = new javax.swing.JButton();
+        jBGrupoEntrega = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
@@ -145,6 +147,40 @@ public class FProducao extends javax.swing.JFrame {
         jPanel1.add(jBProducao);
         jBProducao.setBounds(30, 220, 180, 30);
 
+        jBEntrega.setBackground(new java.awt.Color(71, 37, 131));
+        jBEntrega.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jBEntrega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes2.png"))); // NOI18N
+        jBEntrega.setText("Entrega");
+        jBEntrega.setBorderPainted(false);
+        jBEntrega.setFocusPainted(false);
+        jBEntrega.setFocusable(false);
+        jBEntrega.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEntregaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBEntrega);
+        jBEntrega.setBounds(30, 300, 180, 30);
+
+        jBGrupoEntrega.setBackground(new java.awt.Color(71, 37, 131));
+        jBGrupoEntrega.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBGrupoEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jBGrupoEntrega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes2.png"))); // NOI18N
+        jBGrupoEntrega.setText("Grupo Entrega");
+        jBGrupoEntrega.setBorderPainted(false);
+        jBGrupoEntrega.setFocusPainted(false);
+        jBGrupoEntrega.setFocusable(false);
+        jBGrupoEntrega.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBGrupoEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGrupoEntregaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBGrupoEntrega);
+        jBGrupoEntrega.setBounds(30, 260, 180, 30);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,9 +240,32 @@ public class FProducao extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBProducaoActionPerformed
 
+    private void jBEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEntregaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBEntregaActionPerformed
+
+    private void jBGrupoEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrupoEntregaActionPerformed
+        try {
+//            deskTop.removeAll();
+//             clComp;
+//
+//            clComp = FGestaoOrdemServico.getInstance();
+//            deskTop.add(clComp);
+//            clComp.setVisible(true);
+//            deskTop.add(jLabel1);
+//            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBGrupoEntregaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
+    private javax.swing.JButton jBEntrega;
     private javax.swing.JButton jBGgestaoProducao;
+    private javax.swing.JButton jBGrupoEntrega;
     private javax.swing.JButton jBProducao;
     private javax.swing.JButton jBSair;
     private javax.swing.JLabel jLabel1;

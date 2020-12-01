@@ -102,6 +102,22 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
         comboCor = new javax.swing.JComboBox();
         bt_fonte = new javax.swing.JButton();
         cpf = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txOrcamento1 = new javax.swing.JTextArea();
+        bt_Negrito1 = new javax.swing.JButton();
+        bt_Italico1 = new javax.swing.JButton();
+        bt_Titulo1 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        comboFonte1 = new javax.swing.JComboBox();
+        tamanho1 = new javax.swing.JTextField();
+        comboCor1 = new javax.swing.JComboBox();
+        bt_fonte1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        emailEnvio = new javax.swing.JTextField();
+        senhaEmailEnvio = new javax.swing.JPasswordField();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -237,6 +253,106 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Orçamento/Pedido", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jLabel3.setText("Senha Envio:");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(40, 320, 90, 20);
+
+        txOrcamento1.setColumns(20);
+        txOrcamento1.setLineWrap(true);
+        txOrcamento1.setRows(5);
+        jScrollPane2.setViewportView(txOrcamento1);
+
+        jPanel2.add(jScrollPane2);
+        jScrollPane2.setBounds(30, 50, 880, 230);
+
+        bt_Negrito1.setBackground(new java.awt.Color(219, 233, 236));
+        bt_Negrito1.setText("<html>N");
+        bt_Negrito1.setToolTipText("Negrito");
+        bt_Negrito1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_Negrito1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bt_Negrito1);
+        bt_Negrito1.setBounds(130, 20, 37, 28);
+
+        bt_Italico1.setBackground(new java.awt.Color(219, 233, 236));
+        bt_Italico1.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        bt_Italico1.setText("<html>I");
+        bt_Italico1.setToolTipText("Itálico");
+        bt_Italico1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_Italico1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bt_Italico1);
+        bt_Italico1.setBounds(170, 20, 35, 28);
+
+        bt_Titulo1.setBackground(new java.awt.Color(219, 233, 236));
+        bt_Titulo1.setText("<html>T");
+        bt_Titulo1.setToolTipText("Título");
+        bt_Titulo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_Titulo1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bt_Titulo1);
+        bt_Titulo1.setBounds(210, 20, 39, 28);
+
+        jLabel17.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("<html>Fonte:");
+        jPanel2.add(jLabel17);
+        jLabel17.setBounds(370, 20, 60, 28);
+
+        comboFonte1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Arial", "Times", "Courier", "Verdana", "Helvetica", "Calibri", "Impact", "Tahoma", " " }));
+        comboFonte1.setToolTipText("Fonte");
+        jPanel2.add(comboFonte1);
+        comboFonte1.setBounds(430, 20, 240, 28);
+
+        tamanho1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tamanho1.setText("12");
+        tamanho1.setToolTipText("Tamanho");
+        jPanel2.add(tamanho1);
+        tamanho1.setBounds(670, 20, 40, 28);
+
+        comboCor1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PRETO", "VERMELHO", "VERDE", "AZUL", "ROSA", "AMARELO" }));
+        comboCor1.setToolTipText("Cor");
+        jPanel2.add(comboCor1);
+        comboCor1.setBounds(720, 20, 140, 28);
+
+        bt_fonte1.setBackground(new java.awt.Color(219, 233, 236));
+        bt_fonte1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        bt_fonte1.setText("<html>F");
+        bt_fonte1.setToolTipText("Inserir Fonte");
+        bt_fonte1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_fonte1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bt_fonte1);
+        bt_fonte1.setBounds(870, 20, 39, 28);
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jLabel4.setText("Texto:");
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(30, 30, 30, 15);
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jLabel5.setText("Email Envio : ");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(40, 300, 90, 20);
+        jPanel2.add(emailEnvio);
+        emailEnvio.setBounds(130, 300, 490, 20);
+        jPanel2.add(senhaEmailEnvio);
+        senhaEmailEnvio.setBounds(130, 320, 490, 20);
+
+        jTabbedPane1.addTab("Email - Fim de Etapas", jPanel2);
+
         jPanel10.add(jTabbedPane1);
         jTabbedPane1.setBounds(50, 80, 950, 460);
         jTabbedPane1.getAccessibleContext().setAccessibleName("Orçamento/Pedido");
@@ -302,6 +418,22 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
         + txOrcamento.getSelectedText() + " </font>";
         txOrcamento.setText(txOrcamento.getText().replace(txOrcamento.getSelectedText(), txt));
     }//GEN-LAST:event_bt_fonteActionPerformed
+
+    private void bt_Negrito1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Negrito1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_Negrito1ActionPerformed
+
+    private void bt_Italico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Italico1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_Italico1ActionPerformed
+
+    private void bt_Titulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Titulo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_Titulo1ActionPerformed
+
+    private void bt_fonte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_fonte1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_fonte1ActionPerformed
     
      private String getCor() {
         String r = "";
@@ -340,23 +472,39 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_Italico;
+    private javax.swing.JButton bt_Italico1;
     private javax.swing.JButton bt_Negrito;
+    private javax.swing.JButton bt_Negrito1;
     private javax.swing.JButton bt_Titulo;
+    private javax.swing.JButton bt_Titulo1;
     private javax.swing.JButton bt_fonte;
+    private javax.swing.JButton bt_fonte1;
     private javax.swing.JComboBox comboCor;
+    private javax.swing.JComboBox comboCor1;
     private javax.swing.JComboBox comboFonte;
+    private javax.swing.JComboBox comboFonte1;
     private javax.swing.JTextField cpf;
+    private javax.swing.JTextField emailEnvio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
+    private javax.swing.JPasswordField senhaEmailEnvio;
     private javax.swing.JTextField tamanho;
+    private javax.swing.JTextField tamanho1;
     private javax.swing.JTextArea txOrcamento;
+    private javax.swing.JTextArea txOrcamento1;
     // End of variables declaration//GEN-END:variables
 
     private void verificaTexto() throws Exception {

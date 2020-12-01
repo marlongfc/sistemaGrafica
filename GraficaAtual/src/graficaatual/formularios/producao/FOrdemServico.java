@@ -8,6 +8,7 @@ package graficaatual.formularios.producao;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.ControleAcesso;
+import graficaatual.entidades.producao.AnexoDTO;
 import graficaatual.entidades.producao.OrdemServico;
 import graficaatual.utilitarios.Conexao;
 import graficaatual.utilitarios.Data;
@@ -15,9 +16,21 @@ import graficaatual.utilitarios.VisualizaRelatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -315,6 +328,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
                     break;    
             }
             ordem = ordemDao.addOrdem(ordem);
+            enviarEmail();
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
         }
@@ -576,4 +590,147 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
                 + " where (ord.checkfaturamento = false and ord.checkfaturamento = false ) ";
     }
 
+    private boolean enviarEmail() throws Exception {
+        List<String> para = new ArrayList<String>();
+        String de = "";
+        String deNome = "Gráfica Atual - Sistema de Atendimento";
+        //Conferir Senha
+        String senha = "";
+        String assunto = "teste de envio";
+        String msg;
+        String nomeAnexo = "Pedido - "+ordem.getOrcamento().getCodOrcamento();
+
+
+            msg = " <p>Prezado " + ordem.getOrcamento().getCliente().getPessoa().getNome() + ","
+                    + " <br/> Os imóveis listados abaixo são os que se encontram atrelados ao cpf/cnpj: "
+                    + ", caso algum esteja com informações incorretas ou ausente, deve-se comparecer à prefeitura para a correção e ajustes necessários.</p> ";
+
+  
+                    
+            para.add("danilo.alfenas@gmail.com");
+            nomeAnexo = "Relacao_de_Imoveis";
+            byte[] anexo = null;
+            anexo = gerarRelatorioByteArray();
+
+            AnexoDTO anexoPdf = new AnexoDTO();
+            anexoPdf.setNome(nomeAnexo + ".pdf");
+            anexoPdf.setMimeType("application/pdf");
+            anexoPdf.setConteudo(anexo);
+
+            List<AnexoDTO> anexos = new ArrayList<AnexoDTO>();
+            anexos.add(anexoPdf);
+
+            System.out.println("--------------- Chegou ao final do processo ---------------");
+
+            return sendEmailAnexos(de, deNome, senha, assunto, msg, anexos, nomeAnexo, para.toArray(new String[para.size()]));
+     
+    }
+    
+     private byte[] gerarRelatorioByteArray() throws Exception {
+
+        byte[] pdf = null;
+      
+
+        String SQL = " SELECT I.PESSOA, P.NOME, I.CODIGO, ( I.CODDISTRITO || '.' || I.SETOR || '.' || I.QUADRA || '.' || I.LOTE ||'.' || I.UNIDADE) INSCIMOB,"
+                + " (TL.ABREVIATURA || ' ' || L.LOGRADOURO || ', ' || I.NUMERO || ' ' || I.COMPLEMENTO) ENDERECO,"
+                + " I.AREATERRENOLANCADA, AREACONSTRUIDALANCADA,"
+                + " CASE"
+                + " WHEN I.TIPODETRIBUTACAO = 0 THEN 'Tributável' "
+                + " WHEN I.TIPODETRIBUTACAO = 1 THEN 'Imune' "
+                + " WHEN I.TIPODETRIBUTACAO = 2 THEN 'Isento' "
+                + " END"
+                + " TIPOTRIBUTACAO"
+                + " FROM IMOVEL I"
+                + " LEFT JOIN ENDERECOS EI ON (EI.CODENDERECO = I.ENDERECO)"
+                + " LEFT JOIN LOGRADOUROS L ON (L.CODLOGRADOURO = EI.CODLOGRADOURO)"
+                + " LEFT JOIN TIPOLOGRADOURO TL ON (TL.CODIGO = L.TIPO)"
+                + " LEFT JOIN BAIRROS B ON (B.CODBAIRRO = EI.CODBAIRRO)"
+                + " LEFT JOIN DISTRITOS D ON (D.CODDISTRITO = B.CODDISTRITO)"
+                + " LEFT JOIN PESSOAS P ON (P.CODPESSOA = I.PESSOA)"
+        //        + " WHERE P.CODPESSOA =" + p.getCodigo()
+                + " ORDER BY I.codigo,L.LOGRADOURO, I.NUMERO";
+
+        Map<String, Object> map = new HashMap<String, Object>();
+       
+
+      
+        
+        //new VisualizaRelatorio().visRel("hlh/tributos/relatorios/imovel/RTribImov_Contr.jasper", "Relatórios Imóveis por Contribuintes", null, SQL);
+       // return gerarRelatorioByteArray(SQL,"Relatórios Imóveis por Contribuintes", "RTribImov_Contr.jasper", map);
+       return null;
+    }
+        public static boolean sendEmailAnexos(String from, String fromName, String pass, String assunto, String msg,
+            List<AnexoDTO> anexos, String nomeAnexo, String to[]) {
+        if (to == null || to.length < 1 || to[0].trim().length() < 5) {
+            return false;
+        }
+        String host = "";
+        Properties props = System.getProperties();
+
+        props.put("mail.smtp.starttls.enable", "false");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", 587);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.ssl.trust", host);
+
+        Session session = Session.getInstance(props, null);
+
+        MimeMessage mimeMsg = new MimeMessage(session);
+
+        MimeBodyPart mimeBP = new MimeBodyPart();
+        MimeMultipart multipart = new MimeMultipart();
+        try {
+            mimeMsg.setFrom(new InternetAddress(from, fromName));
+
+            InternetAddress[] toAddress = new InternetAddress[to.length];
+
+            for (int i = 0; i < to.length; i++) {
+
+                toAddress[i] = new InternetAddress(to[i]);
+
+            }
+
+            mimeMsg.setRecipients(Message.RecipientType.TO, toAddress);
+            mimeMsg.setSubject(assunto);
+
+            mimeBP.setContent(msg, "text/html; charset=UTF-8");
+
+            multipart.addBodyPart(mimeBP);
+
+            System.out.println("msg: " + msg);
+            //Anexando arquivos /
+            if (anexos != null) {
+                for (AnexoDTO adto : anexos) {
+                    mimeBP = new MimeBodyPart();
+                    ByteArrayDataSource byteDS = new ByteArrayDataSource(adto.getConteudo(), adto.getMimeType());
+                    mimeBP.setDataHandler(new DataHandler(byteDS));
+                    mimeBP.setFileName(adto.getNome());
+                    multipart.addBodyPart(mimeBP);
+                }
+
+                mimeMsg.setContent(multipart);
+
+                System.out.println("anexos: " + anexos);
+                System.out.println("mimeMsg.getAllRecipients() " + mimeMsg.getAllRecipients());
+                System.out.println("mimeMsg: " + mimeMsg.toString());
+
+                Transport transp = session.getTransport("smtp");
+                transp.connect(host, from, pass);
+                transp.sendMessage(mimeMsg, mimeMsg.getAllRecipients());
+                transp.close();
+
+                return true;
+            } else {
+                return true;
+            }
+
+        } catch (Exception ex) {
+            //Logger.getLogger(UtEmailSender.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }
+    

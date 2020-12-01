@@ -7,7 +7,6 @@ package graficaatual.formularios.producao;
 
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
-import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.producao.OrdemServico;
 import graficaatual.utilitarios.Conexao;
 import graficaatual.utilitarios.Data;
@@ -15,12 +14,13 @@ import graficaatual.utilitarios.VisualizaRelatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -37,9 +37,11 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     private static FGestaoOrdemServico instanceCont;
 
     //Entidades para trabalhar
-    private OrdemServico ordem  = null;
+    private OrdemServico ordem = null;
     private OrdemServicoDAO ordemDao = new OrdemServicoDAO();
-            
+
+    DefaultTableCellRenderer cellRender = new DefaultTableCellRenderer();
+
     private JFormattedTextField cpf;
 
     public FGestaoOrdemServico() {
@@ -97,8 +99,10 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         tabOrdensFazer= new TabelaConsultaOrdem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        tabConcluido = new javax.swing.JTable();
+        tabConcluida = new javax.swing.JTable();
+        tabOrdensFazer= new TabelaConsultaOrdem();
         jLSelecao = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -124,14 +128,14 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
         salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/colaborador2.png"))); // NOI18N
-        salvar.setText("Finalizar Tarefa");
+        salvar.setText("Enviar Entrega/Faturamento");
         salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvarActionPerformed(evt);
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(20, 590, 180, 40);
+        salvar.setBounds(20, 590, 270, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -142,7 +146,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(200, 590, 130, 40);
+        sair.setBounds(290, 590, 130, 40);
 
         jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -152,14 +156,14 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ORDEM", "PEDIDO", "ENTREGA", "CRIAÇÃO", "PROJETO", "PLOTAGEM", "IMP. DIGITAL", "ACABAMENTO IMP.", "RECORTE PLOTAGEM", "SERRALHERIA", "PINTURA", "CAIXARIA", "CORTE ROUTER"
+                "ORDEM", "PEDIDO", "PRODUTO", "ENTREGA", "CRIAÇÃO", "PROJETO", "PLOTAGEM", "IMP. DIGITAL", "ACABAMENTO IMP.", "RECORTE PLOTAGEM", "SERRALHERIA", "PINTURA", "CAIXARIA", "CORTE ROUTER"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -171,12 +175,24 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         tabOrdensFazer.setRowHeight(90);
+        tabOrdensFazer.getTableHeader().setReorderingAllowed(false);
         tabOrdensFazer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabOrdensFazerMouseClicked(evt);
             }
         });
         jScrollPane6.setViewportView(tabOrdensFazer);
+        if (tabOrdensFazer.getColumnModel().getColumnCount() > 0) {
+            tabOrdensFazer.getColumnModel().getColumn(4).setHeaderValue("CRIAÇÃO");
+            tabOrdensFazer.getColumnModel().getColumn(5).setHeaderValue("PROJETO");
+            tabOrdensFazer.getColumnModel().getColumn(6).setHeaderValue("PLOTAGEM");
+            tabOrdensFazer.getColumnModel().getColumn(7).setHeaderValue("IMP. DIGITAL");
+            tabOrdensFazer.getColumnModel().getColumn(8).setHeaderValue("ACABAMENTO IMP.");
+            tabOrdensFazer.getColumnModel().getColumn(9).setHeaderValue("RECORTE PLOTAGEM");
+            tabOrdensFazer.getColumnModel().getColumn(10).setHeaderValue("SERRALHERIA");
+            tabOrdensFazer.getColumnModel().getColumn(11).setHeaderValue("PINTURA");
+            tabOrdensFazer.getColumnModel().getColumn(12).setHeaderValue("CAIXARIA");
+        }
 
         jTabbedPane1.addTab("Lista de Produção  - A Fazer", jScrollPane6);
 
@@ -184,20 +200,20 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
         jScrollPane7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        tabConcluido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        tabConcluido.setModel(new javax.swing.table.DefaultTableModel(
+        tabConcluida.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tabConcluida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Pedido (cód.)", "Item Pedido (cód.)", "Descrição", "Cliente", "Data Entrega"
+                "ORDEM", "PEDIDO", "PRODUTO", "ENTREGA", "CRIAÇÃO", "PROJETO", "PLOTAGEM", "IMP. DIGITAL", "ACABAMENTO IMP.", "RECORTE PLOTAGEM", "SERRALHERIA", "PINTURA", "CAIXARIA", "CORTE ROUTER"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -208,15 +224,28 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabConcluido.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabConcluida.setRowHeight(90);
+        tabConcluida.getTableHeader().setReorderingAllowed(false);
+        tabConcluida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabConcluidoMouseClicked(evt);
+                tabConcluidaMouseClicked(evt);
             }
         });
-        jScrollPane7.setViewportView(tabConcluido);
+        jScrollPane7.setViewportView(tabConcluida);
+        if (tabConcluida.getColumnModel().getColumnCount() > 0) {
+            tabConcluida.getColumnModel().getColumn(4).setHeaderValue("CRIAÇÃO");
+            tabConcluida.getColumnModel().getColumn(5).setHeaderValue("PROJETO");
+            tabConcluida.getColumnModel().getColumn(6).setHeaderValue("PLOTAGEM");
+            tabConcluida.getColumnModel().getColumn(7).setHeaderValue("IMP. DIGITAL");
+            tabConcluida.getColumnModel().getColumn(8).setHeaderValue("ACABAMENTO IMP.");
+            tabConcluida.getColumnModel().getColumn(9).setHeaderValue("RECORTE PLOTAGEM");
+            tabConcluida.getColumnModel().getColumn(10).setHeaderValue("SERRALHERIA");
+            tabConcluida.getColumnModel().getColumn(11).setHeaderValue("PINTURA");
+            tabConcluida.getColumnModel().getColumn(12).setHeaderValue("CAIXARIA");
+        }
 
         jPanel1.add(jScrollPane7);
-        jScrollPane7.setBounds(0, 0, 1040, 510);
+        jScrollPane7.setBounds(0, 0, 1040, 402);
 
         jTabbedPane1.addTab("Lista de Produção - Concluída", jPanel1);
 
@@ -226,6 +255,17 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         jLSelecao.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel10.add(jLSelecao);
         jLSelecao.setBounds(20, 80, 690, 20);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/turno2.png"))); // NOI18N
+        jButton1.setText("Atualizar Tabela");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton1);
+        jButton1.setBounds(860, 70, 200, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -252,61 +292,11 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
         if (ordem != null) {
 
-            switch (1) {
-                //Criação
-                case 1:
-                    ordem.setDataFimCriacao(new Date());
-                    ordem.setUsuarioFimCriacao(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Projeto    
-                case 2:
-                    ordem.setDataFimProjeto(new Date());
-                    ordem.setUsuarioFimProjeto(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Plotagem     
-                case 3:
-                    ordem.setDataFimPlotagem(new Date());
-                    ordem.setUsuarioFimPlotagem(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Impressão Digital    
-                case 4:
-                    ordem.setDataFimImpressaoDigital(new Date());
-                    ordem.setUsuarioFimImpressaoDigital(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Acabamento Impressão    
-                case 5:
-                    ordem.setDataFimAcabamentoImp(new Date());
-                    ordem.setUsuarioFimAcabamentoImp(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Plotagem Recorte
-                case 6:
-                    ordem.setDataFimPloterRecorte(new Date());
-                    ordem.setUsuarioFimPloterRecorte(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Serralheria    
-                case 7:
-                    ordem.setDataFimSerralheria(new Date());
-                    ordem.setUsuarioFimSerralheria(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Pintura    
-                case 8:
-                    ordem.setDataFimPintura(new Date());
-                    ordem.setUsuarioFimPintura(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Caixaria    
-                case 9:
-                    ordem.setDataFimCaixariaAcabamento(new Date());
-                    ordem.setUsuarioFimCaixariaAcabamento(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Corte    
-                case 10:
-                    ordem.setDataFimRouter(new Date());
-                    ordem.setUsuarioFimRouter(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                default:
-                    break;    
-            }
+            //Fauramento e Entrega
+            ordem.setCheckEntrega(true);
+            ordem.setCheckFaturamento(true);
             ordem = ordemDao.addOrdem(ordem);
+            
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
         }
@@ -319,10 +309,10 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
     private void tabOrdensFazerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabOrdensFazerMouseClicked
         try {
-            
-            
-            jLSelecao.setText(" Ordem de Serviço Selecionada: "+tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0) 
-                    + ", Pedido - "+ tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 1) );
+
+            jLSelecao.setText(" Ordem de Serviço Selecionada: " + tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0)
+                    + ", Pedido - " + tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 1));
+
             if (evt.getClickCount() > 1) {
                 imprimir((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 1));
             }
@@ -332,17 +322,19 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tabOrdensFazerMouseClicked
 
-    private void tabConcluidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabConcluidoMouseClicked
-         try {
-             
-            if (evt.getClickCount() > 1) {
-                 imprimir((Integer) tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 1));
-            }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            pesquisarFazer();
+            pesquisarConcluido();
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
+            JOptionPane.showMessageDialog(this, "Erro :" + e.getMessage());
         }
-    }//GEN-LAST:event_tabConcluidoMouseClicked
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tabConcluidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabConcluidaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabConcluidaMouseClicked
 
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
@@ -356,6 +348,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -365,7 +358,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
-    private javax.swing.JTable tabConcluido;
+    private javax.swing.JTable tabConcluida;
     private javax.swing.JTable tabOrdensFazer;
     // End of variables declaration//GEN-END:variables
 
@@ -413,15 +406,15 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
             String pesq = "";
 
-            String sql = getSql();
+            String sql = getSql(true);
             sql = sql + pesq
                     + " order by orc.prazoentrega desc, orc.codorcamento ";
-            System.out.println(" vvvvvv "+sql);
             ResultSet rs = bancoConsulta.executeQuery(sql);
             while (rs.next()) {
                 Object[] o = new Object[]{
                     rs.getInt("codordemservico"),
                     rs.getInt("codorcamento"),
+                    rs.getString("coditemorca"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
                     (rs.getBoolean("checkcriacao")?(rs.getDate("datafimcriacao") !=null ? "<html>"+Data.getDateParse(rs.getDate("datafimcriacao"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimcriacao")+"</html>": "À Fazer") : ""),
                     (rs.getBoolean("checkprojeto")?(rs.getDate("datafimprojeto") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimprojeto"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimprojeto")+"</html>": "À Fazer") : ""),
@@ -435,9 +428,9 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                     (rs.getBoolean("checkrouter")?(rs.getDate("datafimrouter") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimrouter"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimrouter")+"</html>": "À Fazer") : ""),
                 };
                 model.addRow(o);
-
             }
-
+            int[] posicoes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13};
+            alinhaTableCentro(tabOrdensFazer, posicoes);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -449,49 +442,66 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                     conexao.close();
                 }
             } catch (Exception ex) {
+            }
+        }
+    }
+
+    public void alinhaTableCentro(JTable table, int[] posicoesDireita) {
+
+        DefaultTableCellRenderer cellRender = new DefaultTableCellRenderer();
+        cellRender.setHorizontalAlignment(SwingConstants.CENTER);
+
+        for (int numCol = 0; numCol < table.getColumnCount(); numCol++) {
+
+            for (int i = 0; i < posicoesDireita.length; i++) {
+
+                if (numCol == posicoesDireita[i]) {
+
+                    table.getColumnModel().getColumn(numCol).setCellRenderer(
+                            cellRender);
+                }
             }
         }
     }
 
     private void pesquisarConcluido() {
 
-        DefaultTableModel model = (DefaultTableModel) tabConcluido.getModel();
+        DefaultTableModel model = (DefaultTableModel) tabConcluida.getModel();
         Statement bancoConsulta = null;
         Connection conexao = null;
-        removeLinhas(tabConcluido);
+        removeLinhas(tabConcluida);
 
         try {
             conexao = Conexao.getConexao();
             bancoConsulta = Conexao.getBanco(conexao);
 
-            String pesq = getSetor(1);
-
-            String sql = getSql();
-            sql = sql + pesq
-                    + " order by orc.prazoentrega desc, orc.codorcamento ";
+            String sql = getSql(false);
+            sql = sql + " order by orc.prazoentrega desc, orc.codorcamento ";
             //System.out.println(" uuuuuuuuuuuu "+sql);
             ResultSet rs = bancoConsulta.executeQuery(sql);
-            while (rs.next()) {
+             while (rs.next()) {
                 Object[] o = new Object[]{
                     rs.getInt("codordemservico"),
                     rs.getInt("codorcamento"),
+                    rs.getString("coditemorca"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
-                    rs.getString("cricao"),
-                    rs.getString("projeto"),
-                    rs.getString("plotagem"),
-                    rs.getString("impressaodigital"),
-                    rs.getString("acabamentoimp"),
-                    rs.getString("ploterrecorte"),
-                    rs.getString("serralheria"),
-                    rs.getString("pintura"),
-                    rs.getString("caixariaacabamento"),
-                    rs.getString("router")
-                    
+                    (rs.getBoolean("checkcriacao")?(rs.getDate("datafimcriacao") !=null ? "<html>"+Data.getDateParse(rs.getDate("datafimcriacao"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimcriacao")+"</html>": "À Fazer") : ""),
+                    (rs.getBoolean("checkprojeto")?(rs.getDate("datafimprojeto") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimprojeto"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimprojeto")+"</html>": "À Fazer") : ""),
+                    (rs.getBoolean("checkplotagem")?(rs.getDate("datafimplotagem") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimplotagem"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimplotagem")+"</html>": "À Fazer") : ""),
+                    (rs.getBoolean("checkimpressaodigital")?(rs.getDate("datafimimpressaodigital") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimimpressaodigital"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimimpressaodigital")+"</html>": "À Fazer") : ""),
+                    (rs.getBoolean("checkacabamentoimp")?(rs.getDate("datafimacabamentoimp") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimacabamentoimp"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimacabamentoimp")+"</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkploterrecorte")?(rs.getDate("datafimploterrecorte") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimploterrecorte"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimploterrecorte")+"</html>" : "À Fazer"): ""),
+                    (rs.getBoolean("checkserralheria")?(rs.getDate("datafimserralheria") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimserralheria"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimserralheria")+"</html>": "À Fazer") : ""),
+                    (rs.getBoolean("checkpintura")?(rs.getDate("datafimpintura") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimpintura"), Data.FORMAT_DATA_BR)+"<br>"+rs.getString("usuariofimpintura")+"</html>": "À Fazer") : ""),
+                    (rs.getBoolean("checkcaixariaacabamento")?(rs.getDate("datafimcaixariaacabamento") !=null ? "<html>"+Data.getDateParse(rs.getDate("datafimcaixariaacabamento"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimcaixariaacabamento")+"</html>": "À Fazer") : ""),
+                    (rs.getBoolean("checkrouter")?(rs.getDate("datafimrouter") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimrouter"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimrouter")+"</html>": "À Fazer") : ""),
                 };
                 model.addRow(o);
-
             }
-
+            
+            int[] posicoes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13};
+            alinhaTableCentro(tabConcluida, posicoes); 
+             
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -507,60 +517,10 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         }
     }
 
-    // tipo 0 - a fazer
-    // tipo 1 - concluida
-    private String getSetor(int tipo) {
-        String aux = "";
-
-        // tipo 0 - a fazer
-        // tipo 1 - concluida
-        if (tipo == 1) {
-            aux = " not ";
-        }
-        String ret = "";
-        switch (1) {
-            case 1:
-                ret = " and ord.checkcriacao and  ord.datafimcriacao is" + aux + " null";
-                break;
-            case 2:
-                ret = " and ord.checkprojeto and ord.datafimprojeto is" + aux + " null";
-                break;
-            case 3:
-                ret = " and  ord.checkplotagem and ord.datafimplotagem is" + aux + " null";
-                break;
-            case 4:
-                ret = " and ord.checkimpressaodigital and ord.datafimimpressaodigital is" + aux + " null";
-                break;
-            case 5:
-                ret = " and ord.checkacabamentoimp and ord.datafimacabamentoimp is" + aux + " null";
-                break;
-            case 6:
-                ret = " and ord.checkploterrecorte and ord.datafimploterrecorte is" + aux + " null";
-                break;
-            case 7:
-                ret = " and ord.checkserralheria and ord.datafimserralheria is" + aux + " null";
-                break;
-            case 8:
-                ret = " and ord.checkpintura and ord.datafimpintura is" + aux + " null";
-                break;
-            case 9:
-                ret = " and ord.checkcaixariaacabamento and ord.datafimcaixariaacabamento is" + aux + " null";
-                break;
-            case 10:
-                ret = " and ord.checkrouter and ord.datafimrouter is" + aux + " null";
-                break;
-            default:
-                removeLinhas(tabOrdensFazer);
-                removeLinhas(tabConcluido);
-                break;
-        }
-
-        return ret;
-    }
-
-    private String getSql() {
-        return " select ord.codordemservico as  codordemservico,"
+    private String getSql(boolean aFazer) {
+        String sql = " select ord.codordemservico as  codordemservico,"
                 + " orc.codorcamento as codorcamento , "
+                + " (item.coditemorca ||' '|| prod.descricao) as coditemorca  , "
                 + " orc.prazoentrega  as prazoentrega,"
                 + " ord.checkcriacao, ord.datafimcriacao, ord.usuariofimcriacao,"
                 + " ord.checkprojeto, ord.datafimprojeto, ord.usuariofimprojeto,"
@@ -577,8 +537,13 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                 + " inner join itemorcamento as item on (item.orcamento = orc.codorcamento)"
                 + " left join produto as prod on (item.produto = prod.codproduto)"
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
-                + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
-                + " where (ord.checkfaturamento = false and ord.checkfaturamento = false ) ";
+                + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)";
+        if (aFazer) {
+                sql = sql + " where (ord.checkfaturamento = false and ord.checkfaturamento = false ) ";
+        } else {
+               sql = sql + " where (ord.checkfaturamento = true and ord.checkfaturamento = true ) ";
+        }
+        return sql;
     }
 
 }
