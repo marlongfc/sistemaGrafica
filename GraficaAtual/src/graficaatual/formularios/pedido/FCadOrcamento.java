@@ -200,10 +200,8 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkAcabImpressao = new javax.swing.JCheckBox();
         checkCriacao = new javax.swing.JCheckBox();
         checkSerralheria = new javax.swing.JCheckBox();
-        checkEntrega = new javax.swing.JCheckBox();
         checkPintura = new javax.swing.JCheckBox();
         checkCorteRouter = new javax.swing.JCheckBox();
-        checkFaturamento = new javax.swing.JCheckBox();
         checkSituacao = new javax.swing.JCheckBox();
         labelAprovado = new javax.swing.JLabel();
         btSalvarOrca = new javax.swing.JButton();
@@ -562,32 +560,32 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkCaixariaAcabamento.setBackground(new java.awt.Color(255, 255, 255));
         checkCaixariaAcabamento.setText("Caixaria Acabamento");
         jPanel3.add(checkCaixariaAcabamento);
-        checkCaixariaAcabamento.setBounds(260, 40, 180, 23);
+        checkCaixariaAcabamento.setBounds(300, 40, 170, 23);
 
         checkPloterRecorte.setBackground(new java.awt.Color(255, 255, 255));
         checkPloterRecorte.setText("Ploter Recorte");
         jPanel3.add(checkPloterRecorte);
-        checkPloterRecorte.setBounds(750, 20, 130, 23);
+        checkPloterRecorte.setBounds(700, 40, 130, 23);
 
         checkProjeto.setBackground(new java.awt.Color(255, 255, 255));
         checkProjeto.setText("Projeto");
         jPanel3.add(checkProjeto);
-        checkProjeto.setBounds(130, 20, 120, 23);
+        checkProjeto.setBounds(150, 20, 120, 23);
 
         checkPlotagem.setBackground(new java.awt.Color(255, 255, 255));
         checkPlotagem.setText("Plotagem");
         jPanel3.add(checkPlotagem);
-        checkPlotagem.setBounds(260, 20, 130, 23);
+        checkPlotagem.setBounds(300, 20, 130, 23);
 
         checkImpDigital.setBackground(new java.awt.Color(255, 255, 255));
         checkImpDigital.setText("Impressão Digital");
         jPanel3.add(checkImpDigital);
-        checkImpDigital.setBounds(440, 20, 140, 23);
+        checkImpDigital.setBounds(500, 20, 140, 23);
 
         checkAcabImpressao.setBackground(new java.awt.Color(255, 255, 255));
         checkAcabImpressao.setText("Acabamento Impressão");
         jPanel3.add(checkAcabImpressao);
-        checkAcabImpressao.setBounds(590, 20, 170, 23);
+        checkAcabImpressao.setBounds(700, 20, 170, 23);
 
         checkCriacao.setBackground(new java.awt.Color(255, 255, 255));
         checkCriacao.setText("Criação");
@@ -599,20 +597,10 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel3.add(checkSerralheria);
         checkSerralheria.setBounds(10, 40, 100, 23);
 
-        checkEntrega.setBackground(new java.awt.Color(255, 255, 255));
-        checkEntrega.setText("Instalação Entrega");
-        checkEntrega.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkEntregaActionPerformed(evt);
-            }
-        });
-        jPanel3.add(checkEntrega);
-        checkEntrega.setBounds(750, 40, 130, 23);
-
         checkPintura.setBackground(new java.awt.Color(255, 255, 255));
         checkPintura.setText("Pintura");
         jPanel3.add(checkPintura);
-        checkPintura.setBounds(130, 40, 120, 23);
+        checkPintura.setBounds(150, 40, 120, 23);
 
         checkCorteRouter.setBackground(new java.awt.Color(255, 255, 255));
         checkCorteRouter.setText("Corte Router");
@@ -622,12 +610,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(checkCorteRouter);
-        checkCorteRouter.setBounds(440, 40, 140, 23);
-
-        checkFaturamento.setBackground(new java.awt.Color(255, 255, 255));
-        checkFaturamento.setText("Faturamento");
-        jPanel3.add(checkFaturamento);
-        checkFaturamento.setBounds(590, 40, 150, 23);
+        checkCorteRouter.setBounds(500, 40, 140, 23);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(10, 120, 890, 70);
@@ -1172,10 +1155,10 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             itemOrcamento.setCheckRouter(checkCorteRouter.isSelected());
             
             itemOrcamento.setCheckAcabamentoImp(checkAcabImpressao.isSelected());
-            itemOrcamento.setCheckFaturamento(checkFaturamento.isSelected());
+            itemOrcamento.setCheckFaturamento(false);
             
             itemOrcamento.setCheckPloterRecorte(checkPloterRecorte.isSelected());
-            itemOrcamento.setCheckEntrega(checkEntrega.isSelected());
+            itemOrcamento.setCheckEntrega(false);
                 
             listaItem.add(itemOrcamento);
             
@@ -1258,8 +1241,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     checkCaixariaAcabamento.setSelected(itemOrcamento.getCheckCaixariaAcabamento());
                     checkCorteRouter.setSelected(itemOrcamento.getCheckRouter());
                     checkCriacao.setSelected(itemOrcamento.getCheckCriacao());
-                    checkEntrega.setSelected(itemOrcamento.getCheckEntrega());
-                    checkFaturamento.setSelected(itemOrcamento.getCheckFaturamento());
                     checkImpDigital.setSelected(itemOrcamento.getCheckImpressaoDigital());
                     checkPintura.setSelected(itemOrcamento.getCheckPintura());
                     checkPlotagem.setSelected(itemOrcamento.getCheckPlotagem());
@@ -1294,10 +1275,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_codClienteFocusLost
-
-    private void checkEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEntregaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkEntregaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
@@ -1573,9 +1550,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkImpDigital.setSelected(false);
         checkCorteRouter.setSelected(false);
         checkAcabImpressao.setSelected(false);
-        checkFaturamento.setSelected(false);
         checkPloterRecorte.setSelected(false);
-        checkEntrega.setSelected(false);
 
     }
 
@@ -1615,9 +1590,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkImpDigital.setSelected(false);
         checkCorteRouter.setSelected(false);
         checkAcabImpressao.setSelected(false);
-        checkFaturamento.setSelected(false);
         checkPloterRecorte.setSelected(false);
-        checkEntrega.setSelected(false);
 
     }
 
@@ -1655,9 +1628,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkImpDigital.setEnabled(b);
         checkCorteRouter.setEnabled(b);
         checkAcabImpressao.setEnabled(b);
-        checkFaturamento.setEnabled(b);
         checkPloterRecorte.setEnabled(b);
-        checkEntrega.setEnabled(b);
         
     }
 
@@ -1921,8 +1892,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox checkCaixariaAcabamento;
     private javax.swing.JCheckBox checkCorteRouter;
     private javax.swing.JCheckBox checkCriacao;
-    private javax.swing.JCheckBox checkEntrega;
-    private javax.swing.JCheckBox checkFaturamento;
     private javax.swing.JCheckBox checkImpDigital;
     private javax.swing.JCheckBox checkPintura;
     private javax.swing.JCheckBox checkPlotagem;
