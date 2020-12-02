@@ -95,6 +95,11 @@ public class FLogin extends javax.swing.JFrame {
         jBProducao.setForeground(new java.awt.Color(255, 255, 255));
         jBProducao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PRODUÇÃO SEM FUNDO.png"))); // NOI18N
         jBProducao.setBorderPainted(false);
+        jBProducao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBProducaoActionPerformed(evt);
+            }
+        });
         getContentPane().add(jBProducao);
         jBProducao.setBounds(620, 540, 80, 100);
 
@@ -131,6 +136,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 570, 60, 20);
 
+        login.setText("danilo");
         login.setToolTipText("");
         jPanel2.add(login);
         login.setBounds(70, 570, 180, 20);
@@ -141,6 +147,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(10, 590, 60, 20);
 
+        senhaUsuario.setText("2987dfb");
         senhaUsuario.setToolTipText("");
         jPanel2.add(senhaUsuario);
         senhaUsuario.setBounds(70, 590, 180, 20);
@@ -193,7 +200,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel7);
         jLabel7.setBounds(20, 130, 80, 20);
 
-        host.setText("192.168.0.166");
+        host.setText("localhost");
         jPanel2.add(host);
         host.setBounds(100, 70, 150, 20);
 
@@ -351,6 +358,22 @@ public class FLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
     }//GEN-LAST:event_jBRelatoriosActionPerformed
+
+    private void jBProducaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProducaoActionPerformed
+        try {
+            FProducao clComp;
+            if (FProducao.isInicializado() != 1) {
+                clComp = FProducao.getInstance();
+                clComp.setVisible(true);
+            } else {
+                clComp = FProducao.getInstance();
+            }
+            clComp.toFront();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBProducaoActionPerformed
 
     /**
      * @param args the command line arguments
