@@ -54,10 +54,12 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
     private OrdemServicoDAO ordemDao = new OrdemServicoDAO();
             
     private JFormattedTextField cpf;
-
+    
     public FOrdemServico() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+         salvar.setEnabled(true);
+         refazer.setEnabled(false);
     }
 
     public static int isInicializado() {
@@ -111,6 +113,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         tabConcluido = new javax.swing.JTable();
         jLSelecao = new javax.swing.JLabel();
+        refazer = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -143,7 +146,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(730, 80, 180, 40);
+        salvar.setBounds(720, 80, 190, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -164,7 +167,13 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(jCBSetor);
-        jCBSetor.setBounds(40, 80, 690, 38);
+        jCBSetor.setBounds(40, 80, 500, 38);
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -246,7 +255,18 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
         jLSelecao.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel10.add(jLSelecao);
-        jLSelecao.setBounds(40, 120, 690, 20);
+        jLSelecao.setBounds(40, 120, 1000, 20);
+
+        refazer.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        refazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/colaborador2.png"))); // NOI18N
+        refazer.setText("Refazer Tarefa");
+        refazer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refazerActionPerformed(evt);
+            }
+        });
+        jPanel10.add(refazer);
+        refazer.setBounds(540, 80, 180, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -376,6 +396,29 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCBSetorItemStateChanged
 
+    private void refazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refazerActionPerformed
+        try {
+            refazer();
+            pesquisarFazer();
+            pesquisarConcluido();
+            jLSelecao.setText("");
+            JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_refazerActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+       if(jTabbedPane1.getSelectedIndex()==0){
+            salvar.setEnabled(true);
+            refazer.setEnabled(false);
+       }else{
+            salvar.setEnabled(false);
+            refazer.setEnabled(true);
+       }
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
 
@@ -396,6 +439,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton refazer;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
     private javax.swing.JTable tabConcluido;
@@ -732,5 +776,72 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             return false;
         }
     }
+
+    private void refazer() throws Exception {
+        int setor = jCBSetor.getSelectedIndex();
+        ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+        if (ordem != null) {
+
+            switch (setor) {
+                //Criação
+                case 1:
+                    ordem.setDataFimCriacao(null);
+                    ordem.setUsuarioFimCriacao("");
+                    break;
+                //Projeto    
+                case 2:
+                    ordem.setDataFimProjeto(null);
+                    ordem.setUsuarioFimProjeto("");
+                    break;
+                //Plotagem     
+                case 3:
+                    ordem.setDataFimPlotagem(null);
+                    ordem.setUsuarioFimPlotagem("");
+                    break;
+                //Impressão Digital    
+                case 4:
+                    ordem.setDataFimImpressaoDigital(null);
+                    ordem.setUsuarioFimImpressaoDigital("");
+                    break;
+                //Acabamento Impressão    
+                case 5:
+                    ordem.setDataFimAcabamentoImp(null);
+                    ordem.setUsuarioFimAcabamentoImp("");
+                    break;
+                //Plotagem Recorte
+                case 6:
+                    ordem.setDataFimPloterRecorte(null);
+                    ordem.setUsuarioFimPloterRecorte("");
+                    break;
+                //Serralheria    
+                case 7:
+                    ordem.setDataFimSerralheria(null);
+                    ordem.setUsuarioFimSerralheria("");
+                    break;
+                //Pintura    
+                case 8:
+                    ordem.setDataFimPintura(null);
+                    ordem.setUsuarioFimPintura("");
+                    break;
+                //Caixaria    
+                case 9:
+                    ordem.setDataFimCaixariaAcabamento(null);
+                    ordem.setUsuarioFimCaixariaAcabamento("");
+                    break;
+                //Corte    
+                case 10:
+                    ordem.setDataFimRouter(null);
+                    ordem.setUsuarioFimRouter("");
+                    break;
+                default:
+                    break;
+            }
+            ordem = ordemDao.addOrdem(ordem);
+            enviarEmail();
+        } else {
+            JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
+        }
+    }
+
 }
     
