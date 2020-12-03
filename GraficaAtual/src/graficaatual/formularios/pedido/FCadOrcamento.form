@@ -698,9 +698,6 @@
                       <Properties>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="valortotalProdutoFocusLost"/>
-                      </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="792" y="40" width="110" height="-1"/>
@@ -923,9 +920,6 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Corte Router"/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkCorteRouterActionPerformed"/>
-                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                               <AbsoluteConstraints x="500" y="40" width="140" height="-1"/>
@@ -984,7 +978,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="350" y="630" width="170" height="40"/>
+                      <AbsoluteConstraints x="220" y="630" width="170" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1000,7 +994,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="170" y="630" width="180" height="40"/>
+                      <AbsoluteConstraints x="40" y="630" width="180" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1052,6 +1046,9 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JTextField" name="totalGeralOrc">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="690" y="590" width="130" height="-1"/>
@@ -1059,6 +1056,9 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="dataOrc">
+                  <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dataOrcFocusLost"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try{&#xa;dataOrc = new JFormattedTextField(new MaskFormatter(&quot;##/##/####&quot;));&#xa;}catch(Exception e){};"/>
                   </AuxValues>
@@ -1234,7 +1234,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="700" y="630" width="180" height="40"/>
+                      <AbsoluteConstraints x="570" y="630" width="180" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1287,7 +1287,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="880" y="630" width="140" height="40"/>
+                      <AbsoluteConstraints x="750" y="630" width="140" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1328,7 +1328,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="520" y="630" width="180" height="40"/>
+                      <AbsoluteConstraints x="390" y="630" width="180" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1490,7 +1490,7 @@
                     <Component class="javax.swing.JTable" name="tabOrcamento">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="4">
+                          <Table columnCount="4" rowCount="0">
                             <Column editable="false" title="C&#xf3;d.Or&#xe7;amento" type="java.lang.Integer"/>
                             <Column editable="false" title="Cliente" type="java.lang.String"/>
                             <Column editable="false" title="Valor (R$)" type="java.lang.Double"/>
@@ -1603,7 +1603,7 @@
                     <Component class="javax.swing.JTable" name="tabPedido">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="4">
+                          <Table columnCount="4" rowCount="0">
                             <Column editable="false" title="C&#xf3;d.Pedido" type="java.lang.Integer"/>
                             <Column editable="false" title="Cliente" type="java.lang.String"/>
                             <Column editable="false" title="Valor (R$)" type="java.lang.Double"/>
