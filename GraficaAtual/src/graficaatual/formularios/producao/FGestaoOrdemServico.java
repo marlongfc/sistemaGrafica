@@ -408,7 +408,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
             String sql = getSql(true);
             sql = sql + pesq
-                    + " order by orc.prazoentrega desc, orc.codorcamento ";
+                    + " order by orc.prazoentrega, orc.codorcamento ";
             ResultSet rs = bancoConsulta.executeQuery(sql);
             while (rs.next()) {
                 Object[] o = new Object[]{

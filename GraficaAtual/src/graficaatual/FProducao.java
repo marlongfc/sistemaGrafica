@@ -10,6 +10,8 @@ import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Permissao;
 import graficaatual.formularios.cadastro.FCadCliente;
 import graficaatual.formularios.producao.FGestaoOrdemServico;
+import graficaatual.formularios.producao.FGrupoEntrega;
+import graficaatual.formularios.producao.FOrdemEntrega;
 import graficaatual.formularios.producao.FOrdemServico;
 import javax.swing.JButton;
 
@@ -162,7 +164,7 @@ public class FProducao extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBEntrega);
-        jBEntrega.setBounds(30, 300, 180, 30);
+        jBEntrega.setBounds(30, 260, 180, 30);
 
         jBGrupoEntrega.setBackground(new java.awt.Color(71, 37, 131));
         jBGrupoEntrega.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
@@ -179,7 +181,7 @@ public class FProducao extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBGrupoEntrega);
-        jBGrupoEntrega.setBounds(30, 260, 180, 30);
+        jBGrupoEntrega.setBounds(30, 300, 180, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,19 +243,32 @@ public class FProducao extends javax.swing.JFrame {
     }//GEN-LAST:event_jBProducaoActionPerformed
 
     private void jBEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEntregaActionPerformed
-        // TODO add your handling code here:
+        try {
+            deskTop.removeAll();
+            FOrdemEntrega clComp;
+
+            clComp = FOrdemEntrega.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
     }//GEN-LAST:event_jBEntregaActionPerformed
 
     private void jBGrupoEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGrupoEntregaActionPerformed
         try {
-//            deskTop.removeAll();
-//             clComp;
-//
-//            clComp = FGestaoOrdemServico.getInstance();
-//            deskTop.add(clComp);
-//            clComp.setVisible(true);
-//            deskTop.add(jLabel1);
-//            jLabel1.setVisible(true);
+            deskTop.removeAll();
+            FGrupoEntrega clComp;
+
+            clComp = FGrupoEntrega.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -41,13 +41,12 @@ import javax.swing.text.MaskFormatter;
  *
  * @author si10
  */
-public class FOrdemServico extends javax.swing.JInternalFrame {
+public class FOrdemEntrega extends javax.swing.JInternalFrame {
 
     // Tela
     private static int initControle;
     private int localIncusao;
-    private static FOrdemServico instance;
-    private static FOrdemServico instanceCont;
+    private static FOrdemEntrega instance;
 
     //Entidades para trabalhar
     private OrdemServico ordem  = null;
@@ -55,20 +54,21 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             
     private JFormattedTextField cpf;
     
-    public FOrdemServico() {
+    public FOrdemEntrega() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
          salvar.setEnabled(true);
          refazer.setEnabled(false);
+         pesquisarFazer();
     }
 
     public static int isInicializado() {
         return initControle;
     }
 
-    public synchronized static FOrdemServico getInstance() {
+    public synchronized static FOrdemEntrega getInstance() {
         if (instance == null) {
-            instance = new FOrdemServico();
+            instance = new FOrdemEntrega();
             initControle = 1;
         }
         return instance;
@@ -103,6 +103,10 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         tabConcluido = new javax.swing.JTable();
         jLSelecao = new javax.swing.JLabel();
         refazer = new javax.swing.JButton();
+        refazer1 = new javax.swing.JButton();
+        imprimirEquipe = new javax.swing.JButton();
+        imprimirLista = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -122,20 +126,20 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("ORDEM DE PRODUÇÃO");
+        jLabel2.setText("ORDEM DE ENTREGA");
         jPanel10.add(jLabel2);
         jLabel2.setBounds(0, 0, 1030, 70);
 
         salvar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/colaborador2.png"))); // NOI18N
-        salvar.setText("Finalizar Tarefa");
+        salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/material2.png"))); // NOI18N
+        salvar.setText("Finalizar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvarActionPerformed(evt);
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(720, 80, 190, 40);
+        salvar.setBounds(690, 80, 190, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -146,17 +150,17 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(910, 80, 130, 40);
+        sair.setBounds(690, 620, 130, 40);
 
         jCBSetor.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jCBSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um setor", "CRIAÇÃO", "PROJETO", "PLOTAGEM", "IMPRESSÃO DIGITAL", "ACABAMENTO IMPRESSÃO", "PLOTAGEM RECORTE", "SERRALHERIA", "PINTURA", "CAIXARIA ACABAMENTO", "CORTE ROUTER" }));
+        jCBSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha uma Equipe" }));
         jCBSetor.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCBSetorItemStateChanged(evt);
             }
         });
         jPanel10.add(jCBSetor);
-        jCBSetor.setBounds(40, 80, 500, 38);
+        jCBSetor.setBounds(40, 80, 320, 38);
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -172,14 +176,14 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega"
+                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Equipe"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -197,7 +201,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         });
         jScrollPane6.setViewportView(tabOrdensFazer);
 
-        jTabbedPane1.addTab("Lista de Produção  - A Fazer", jScrollPane6);
+        jTabbedPane1.addTab("Lista Entrega  - A Fazer", jScrollPane6);
 
         jPanel1.setLayout(null);
 
@@ -209,14 +213,14 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Pedido (cód.)", "Item Pedido (cód.)", "Descrição", "Cliente", "Data Entrega"
+                "Pedido (cód.)", "Item Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Equipe"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -235,27 +239,71 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         jScrollPane7.setViewportView(tabConcluido);
 
         jPanel1.add(jScrollPane7);
-        jScrollPane7.setBounds(0, 0, 1040, 510);
+        jScrollPane7.setBounds(0, 0, 1000, 510);
 
-        jTabbedPane1.addTab("Lista de Produção - Concluída", jPanel1);
+        jTabbedPane1.addTab("Lista de Entregas- Concluída", jPanel1);
 
         jPanel10.add(jTabbedPane1);
-        jTabbedPane1.setBounds(40, 140, 1000, 520);
+        jTabbedPane1.setBounds(40, 140, 1000, 470);
 
         jLSelecao.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel10.add(jLSelecao);
         jLSelecao.setBounds(40, 120, 1000, 20);
 
         refazer.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        refazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/colaborador2.png"))); // NOI18N
-        refazer.setText("Refazer Tarefa");
+        refazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDO3.png"))); // NOI18N
+        refazer.setText("Escolher Equipe");
         refazer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refazerActionPerformed(evt);
             }
         });
         jPanel10.add(refazer);
-        refazer.setBounds(540, 80, 180, 40);
+        refazer.setBounds(360, 80, 180, 40);
+
+        refazer1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        refazer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REMOVER2.png"))); // NOI18N
+        refazer1.setText("Refazer ");
+        refazer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refazer1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(refazer1);
+        refazer1.setBounds(540, 80, 150, 40);
+
+        imprimirEquipe.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        imprimirEquipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        imprimirEquipe.setText("Imprimir por Equipe");
+        imprimirEquipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirEquipeActionPerformed(evt);
+            }
+        });
+        jPanel10.add(imprimirEquipe);
+        imprimirEquipe.setBounds(500, 620, 190, 40);
+
+        imprimirLista.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        imprimirLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        imprimirLista.setText("Imprimir Lista Geral");
+        imprimirLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirListaActionPerformed(evt);
+            }
+        });
+        jPanel10.add(imprimirLista);
+        imprimirLista.setBounds(310, 620, 190, 40);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/turno2.png"))); // NOI18N
+        jButton1.setText("Atualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton1);
+        jButton1.setBounds(880, 80, 160, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -282,60 +330,9 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
         if (ordem != null) {
 
-            switch (setor) {
-                //Criação
-                case 1:
-                    ordem.setDataFimCriacao(new Date());
-                    ordem.setUsuarioFimCriacao(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Projeto    
-                case 2:
-                    ordem.setDataFimProjeto(new Date());
-                    ordem.setUsuarioFimProjeto(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Plotagem     
-                case 3:
-                    ordem.setDataFimPlotagem(new Date());
-                    ordem.setUsuarioFimPlotagem(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Impressão Digital    
-                case 4:
-                    ordem.setDataFimImpressaoDigital(new Date());
-                    ordem.setUsuarioFimImpressaoDigital(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Acabamento Impressão    
-                case 5:
-                    ordem.setDataFimAcabamentoImp(new Date());
-                    ordem.setUsuarioFimAcabamentoImp(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Plotagem Recorte
-                case 6:
-                    ordem.setDataFimPloterRecorte(new Date());
-                    ordem.setUsuarioFimPloterRecorte(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Serralheria    
-                case 7:
-                    ordem.setDataFimSerralheria(new Date());
-                    ordem.setUsuarioFimSerralheria(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Pintura    
-                case 8:
-                    ordem.setDataFimPintura(new Date());
-                    ordem.setUsuarioFimPintura(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Caixaria    
-                case 9:
-                    ordem.setDataFimCaixariaAcabamento(new Date());
-                    ordem.setUsuarioFimCaixariaAcabamento(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                //Corte    
-                case 10:
-                    ordem.setDataFimRouter(new Date());
-                    ordem.setUsuarioFimRouter(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                    break;
-                default:
-                    break;    
-            }
+            ordem.setDataFimEntrega(new Date());
+            ordem.setUsuarioFimEntrega(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
+
             ordem = ordemDao.addOrdem(ordem);
             enviarEmail();
         } else {
@@ -411,6 +408,28 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
        }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
+    private void refazer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refazer1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refazer1ActionPerformed
+
+    private void imprimirEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirEquipeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imprimirEquipeActionPerformed
+
+    private void imprimirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirListaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imprimirListaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            pesquisarFazer();
+            pesquisarConcluido();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro :" + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
 
@@ -423,6 +442,9 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton imprimirEquipe;
+    private javax.swing.JButton imprimirLista;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCBSetor;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
@@ -432,6 +454,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton refazer;
+    private javax.swing.JButton refazer1;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
     private javax.swing.JTable tabConcluido;
@@ -484,7 +507,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
             String sql = getSql();
             sql = sql + pesq
-                    + " order by orc.prazoentrega desc, orc.codorcamento ";
+                    + " order by orc.prazoentrega , orc.codorcamento ";
             //System.out.println(" vvvvvv "+sql);
             ResultSet rs = bancoConsulta.executeQuery(sql);
             while (rs.next()) {
@@ -493,7 +516,8 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
                     rs.getInt("codorcamento"),
                     rs.getString("descricao"),
                     rs.getString("nome"),
-                    Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR)
+                    Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
+                    rs.getString("equipe")
                 };
                 model.addRow(o);
 
@@ -529,8 +553,8 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
             String sql = getSql();
             sql = sql + pesq
-                    + " order by orc.prazoentrega desc, orc.codorcamento ";
-            //System.out.println(" uuuuuuuuuuuu "+sql);
+                    + " order by orc.prazoentrega , orc.codorcamento ";
+            System.out.println(" uuuuuuuuuuuu "+sql);
             ResultSet rs = bancoConsulta.executeQuery(sql);
             while (rs.next()) {
                 Object[] o = new Object[]{
@@ -559,71 +583,36 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         }
     }
 
-    // tipo 0 - a fazer
-    // tipo 1 - concluida
     private String getSetor(int tipo) {
-        int setor = jCBSetor.getSelectedIndex();
+        
         String aux = "";
-
+        
         // tipo 0 - a fazer
         // tipo 1 - concluida
         if (tipo == 1) {
             aux = " not ";
         }
-        String ret = "";
-        switch (setor) {
-            case 1:
-                ret = " and ord.checkcriacao and  ord.datafimcriacao is" + aux + " null";
-                break;
-            case 2:
-                ret = " and ord.checkprojeto and ord.datafimprojeto is" + aux + " null";
-                break;
-            case 3:
-                ret = " and  ord.checkplotagem and ord.datafimplotagem is" + aux + " null";
-                break;
-            case 4:
-                ret = " and ord.checkimpressaodigital and ord.datafimimpressaodigital is" + aux + " null";
-                break;
-            case 5:
-                ret = " and ord.checkacabamentoimp and ord.datafimacabamentoimp is" + aux + " null";
-                break;
-            case 6:
-                ret = " and ord.checkploterrecorte and ord.datafimploterrecorte is" + aux + " null";
-                break;
-            case 7:
-                ret = " and ord.checkserralheria and ord.datafimserralheria is" + aux + " null";
-                break;
-            case 8:
-                ret = " and ord.checkpintura and ord.datafimpintura is" + aux + " null";
-                break;
-            case 9:
-                ret = " and ord.checkcaixariaacabamento and ord.datafimcaixariaacabamento is" + aux + " null";
-                break;
-            case 10:
-                ret = " and ord.checkrouter and ord.datafimrouter is" + aux + " null";
-                break;
-            default:
-                removeLinhas(tabOrdensFazer);
-                removeLinhas(tabConcluido);
-                break;
-        }
 
+        String ret = " ord.checkentrega and  ord.datafimentrega is " + aux + " null";
+             
         return ret;
     }
 
     private String getSql() {
         return " select ord.codordemservico as  codordemservico,"
-                + "  orc.codorcamento as codorcamento , "
-                + "  prod.descricao as descricao , "
+                + " orc.codorcamento as codorcamento , "
+                + " prod.descricao as descricao , "
                 + " (pes.cnpj || ' ' || pes.nome) as nome , "
-                + " orc.prazoentrega  as prazoentrega "
+                + " orc.prazoentrega  as prazoentrega,"
+                + " ord.equipeentrega || ' ' || equipe.nome as equipe"
                 + " from ordemservico as ord "
                 + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
                 + " inner join itemorcamento as item on (item.orcamento = orc.codorcamento)"
                 + " left join produto as prod on (item.produto = prod.codproduto)"
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                 + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
-                + " where (ord.checkfaturamento = false and ord.checkfaturamento = false ) ";
+                + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
+                + " where ";
     }
 
     private boolean enviarEmail() throws Exception {

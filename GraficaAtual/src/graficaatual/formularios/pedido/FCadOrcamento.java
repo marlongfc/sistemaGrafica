@@ -1399,7 +1399,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     private void btAprovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAprovarActionPerformed
         try {
-            if (prazoEntrega.getText().length() < 2) {
+            if (prazoEntrega.getText().length() > 2) {
                 aprovarOrcamento();
             } else {
                 throw new Exception("Favor inserir um Data de Entrega Válida.");

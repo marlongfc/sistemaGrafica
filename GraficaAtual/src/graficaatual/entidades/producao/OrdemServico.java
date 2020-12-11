@@ -119,10 +119,19 @@ public class OrdemServico implements Serializable {
     @Column(name = "usuarioFimCaixariaAcabamento", length = 200)
     private String usuarioFimCaixariaAcabamento;
     
-    
-    
+    @ManyToOne()
+    @JoinColumn(name = "equipeEntrega")
+    private EquipeEntrega equipeEntrega;
 
     public OrdemServico() {
+    }
+
+    public EquipeEntrega getEquipeEntrega() {
+        return equipeEntrega;
+    }
+
+    public void setEquipeEntrega(EquipeEntrega equipeEntrega) {
+        this.equipeEntrega = equipeEntrega;
     }
 
     public Integer getCodOrdemServico() {
