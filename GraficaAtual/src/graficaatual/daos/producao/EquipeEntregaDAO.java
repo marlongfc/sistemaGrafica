@@ -73,6 +73,17 @@ public class EquipeEntregaDAO extends EquipeEntregaRNE {
         return null;
     }
     
+    public List<EquipeEntrega> getList() {
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
+        try {
+            return super.getList(session);
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    
      public List<EquipeEntrega> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, EquipeEntrega.class, SQL, parametros);
     }

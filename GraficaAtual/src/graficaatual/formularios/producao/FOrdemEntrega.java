@@ -5,13 +5,16 @@
  */
 package graficaatual.formularios.producao;
 
+import graficaatual.daos.producao.EquipeEntregaDAO;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.producao.AnexoDTO;
+import graficaatual.entidades.producao.EquipeEntrega;
 import graficaatual.entidades.producao.OrdemServico;
 import graficaatual.utilitarios.Conexao;
 import graficaatual.utilitarios.Data;
+import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -49,17 +52,22 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
     private static FOrdemEntrega instance;
 
     //Entidades para trabalhar
-    private OrdemServico ordem  = null;
+    private OrdemServico ordem = null;
     private OrdemServicoDAO ordemDao = new OrdemServicoDAO();
-            
+    private EquipeEntrega equipe = null;
+    private EquipeEntregaDAO equipeDao = new EquipeEntregaDAO();
+
     private JFormattedTextField cpf;
-    
+
     public FOrdemEntrega() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-         salvar.setEnabled(true);
-         refazer.setEnabled(false);
-         pesquisarFazer();
+        salvar.setEnabled(true);
+        selecionar.setEnabled(true);
+        refazer.setEnabled(false);
+        carregaComboEquipe();
+        pesquisarFazer();
+
     }
 
     public static int isInicializado() {
@@ -94,7 +102,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         salvar = new javax.swing.JButton();
         sair = new javax.swing.JButton();
-        jCBSetor = new javax.swing.JComboBox<>();
+        jCBEquipe = new javax.swing.JComboBox<>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         tabOrdensFazer = new javax.swing.JTable();
@@ -102,11 +110,11 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         tabConcluido = new javax.swing.JTable();
         jLSelecao = new javax.swing.JLabel();
+        selecionar = new javax.swing.JButton();
         refazer = new javax.swing.JButton();
-        refazer1 = new javax.swing.JButton();
         imprimirEquipe = new javax.swing.JButton();
         imprimirLista = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        atualizar = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -152,15 +160,15 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jPanel10.add(sair);
         sair.setBounds(690, 620, 130, 40);
 
-        jCBSetor.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jCBSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha uma Equipe" }));
-        jCBSetor.addItemListener(new java.awt.event.ItemListener() {
+        jCBEquipe.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jCBEquipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha uma Equipe" }));
+        jCBEquipe.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCBSetorItemStateChanged(evt);
+                jCBEquipeItemStateChanged(evt);
             }
         });
-        jPanel10.add(jCBSetor);
-        jCBSetor.setBounds(40, 80, 320, 38);
+        jPanel10.add(jCBEquipe);
+        jCBEquipe.setBounds(40, 80, 320, 38);
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -213,7 +221,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Pedido (cód.)", "Item Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Equipe"
+                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Equipe"
             }
         ) {
             Class[] types = new Class [] {
@@ -250,27 +258,27 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jPanel10.add(jLSelecao);
         jLSelecao.setBounds(40, 120, 1000, 20);
 
+        selecionar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        selecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDO3.png"))); // NOI18N
+        selecionar.setText("Escolher Equipe");
+        selecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionarActionPerformed(evt);
+            }
+        });
+        jPanel10.add(selecionar);
+        selecionar.setBounds(360, 80, 180, 40);
+
         refazer.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        refazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDO3.png"))); // NOI18N
-        refazer.setText("Escolher Equipe");
+        refazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REMOVER2.png"))); // NOI18N
+        refazer.setText("Refazer ");
         refazer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refazerActionPerformed(evt);
             }
         });
         jPanel10.add(refazer);
-        refazer.setBounds(360, 80, 180, 40);
-
-        refazer1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        refazer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REMOVER2.png"))); // NOI18N
-        refazer1.setText("Refazer ");
-        refazer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refazer1ActionPerformed(evt);
-            }
-        });
-        jPanel10.add(refazer1);
-        refazer1.setBounds(540, 80, 150, 40);
+        refazer.setBounds(540, 80, 150, 40);
 
         imprimirEquipe.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         imprimirEquipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
@@ -294,16 +302,16 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jPanel10.add(imprimirLista);
         imprimirLista.setBounds(310, 620, 190, 40);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/turno2.png"))); // NOI18N
-        jButton1.setText("Atualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        atualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        atualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/turno2.png"))); // NOI18N
+        atualizar.setText("Atualizar");
+        atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                atualizarActionPerformed(evt);
             }
         });
-        jPanel10.add(jButton1);
-        jButton1.setBounds(880, 80, 160, 40);
+        jPanel10.add(atualizar);
+        atualizar.setBounds(880, 80, 160, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -317,6 +325,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             salvar();
             pesquisarFazer();
             pesquisarConcluido();
+            enviarEmail();
             jLSelecao.setText("");
             JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
         } catch (Exception e) {
@@ -326,15 +335,16 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_salvarActionPerformed
 
     private void salvar() throws Exception {
-        int setor = jCBSetor.getSelectedIndex();
         ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
         if (ordem != null) {
-
-            ordem.setDataFimEntrega(new Date());
-            ordem.setUsuarioFimEntrega(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-
-            ordem = ordemDao.addOrdem(ordem);
-            enviarEmail();
+            if (ordem.getEquipeEntrega() != null) {
+                ordem.setDataFimEntrega(new Date());
+                ordem.setUsuarioFimEntrega(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
+                ordem = ordemDao.addOrdem(ordem);
+                enviarEmail();
+            } else {
+                JOptionPane.showMessageDialog(this, " Item sem Equipe. ");
+            }
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
         }
@@ -347,10 +357,10 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
 
     private void tabOrdensFazerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabOrdensFazerMouseClicked
         try {
-            jLSelecao.setText(" Ordem de Serviço Selecionada: "+tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0) 
-                    + " Pedido - "+ tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 1) 
+            jLSelecao.setText(" Ordem de Serviço Selecionada: " + tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0)
+                    + " Pedido - " + tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 1)
                     + " Produto - " + tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 2)
-                    + " Pedido - "+ tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 3)  );
+                    + " Pedido - " + tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 3));
             if (evt.getClickCount() > 1) {
                 imprimir((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 1));
             }
@@ -361,13 +371,13 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabOrdensFazerMouseClicked
 
     private void tabConcluidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabConcluidoMouseClicked
-         try {
-          jLSelecao.setText(" Ordem de Serviço Selecionada: "+tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 0) 
-                    + " Pedido - "+ tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 1) 
+        try {
+            jLSelecao.setText(" Ordem de Serviço Selecionada: " + tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 0)
+                    + " Pedido - " + tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 1)
                     + " Produto - " + tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 2)
-                    + " Pedido - "+ tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 3)  );
+                    + " Pedido - " + tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 3));
             if (evt.getClickCount() > 1) {
-                 imprimir((Integer) tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 1));
+                imprimir((Integer) tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 1));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -375,7 +385,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tabConcluidoMouseClicked
 
-    private void jCBSetorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBSetorItemStateChanged
+    private void jCBEquipeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBEquipeItemStateChanged
         try {
             pesquisarFazer();
             pesquisarConcluido();
@@ -383,7 +393,48 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_jCBSetorItemStateChanged
+    }//GEN-LAST:event_jCBEquipeItemStateChanged
+
+    private void selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarActionPerformed
+        try {
+            ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+            if (ordem != null) {
+                if (jCBEquipe.getSelectedIndex() != 0) {
+                    String[] setor = jCBEquipe.getSelectedItem().toString().split(" - ");
+                    int codEquipe = ValidarValor.getInt(setor[0]);
+                    equipe = equipeDao.get(codEquipe);
+                    if (equipe != null) {
+                        ordem.setEquipeEntrega(equipe);
+                        ordem = ordemDao.addOrdem(ordem);
+                        pesquisarFazer();
+                        pesquisarConcluido();
+                    } else {
+                        throw new Exception(" Equipe não encontrada!");
+                    }
+                } else {
+                    throw new Exception(" Selecione uma Equipe! ");
+                }
+
+            } else {
+                throw new Exception(" Selecione uma Ordem de Serviço! ");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_selecionarActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        if (jTabbedPane1.getSelectedIndex() == 0) {
+            salvar.setEnabled(true);
+            selecionar.setEnabled(true);
+            refazer.setEnabled(false);
+        } else {
+            salvar.setEnabled(false);
+            selecionar.setEnabled(false);
+            refazer.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void refazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refazerActionPerformed
         try {
@@ -398,20 +449,6 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_refazerActionPerformed
 
-    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-       if(jTabbedPane1.getSelectedIndex()==0){
-            salvar.setEnabled(true);
-            refazer.setEnabled(false);
-       }else{
-            salvar.setEnabled(false);
-            refazer.setEnabled(true);
-       }
-    }//GEN-LAST:event_jTabbedPane1MouseClicked
-
-    private void refazer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refazer1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_refazer1ActionPerformed
-
     private void imprimirEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirEquipeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_imprimirEquipeActionPerformed
@@ -420,7 +457,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_imprimirListaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
         try {
             pesquisarFazer();
             pesquisarConcluido();
@@ -428,7 +465,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro :" + e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_atualizarActionPerformed
 
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
@@ -442,10 +479,10 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton atualizar;
     private javax.swing.JButton imprimirEquipe;
     private javax.swing.JButton imprimirLista;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jCBSetor;
+    private javax.swing.JComboBox<String> jCBEquipe;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -454,9 +491,9 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton refazer;
-    private javax.swing.JButton refazer1;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
+    private javax.swing.JButton selecionar;
     private javax.swing.JTable tabConcluido;
     private javax.swing.JTable tabOrdensFazer;
     // End of variables declaration//GEN-END:variables
@@ -478,7 +515,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
                     + " LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro "
                     + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro "
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
-                    + " LEFT JOIN produto prod ON prod.codproduto = orc.produto"
+                    + " LEFT JOIN produto prod ON prod.codproduto = item.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
                     + " WHERE orc.codOrcamento = " + valor;
 
@@ -554,7 +591,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             String sql = getSql();
             sql = sql + pesq
                     + " order by orc.prazoentrega , orc.codorcamento ";
-            System.out.println(" uuuuuuuuuuuu "+sql);
+            System.out.println(" uuuuuuuuuuuu " + sql);
             ResultSet rs = bancoConsulta.executeQuery(sql);
             while (rs.next()) {
                 Object[] o = new Object[]{
@@ -562,7 +599,8 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
                     rs.getInt("codorcamento"),
                     rs.getString("descricao"),
                     rs.getString("nome"),
-                    Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR)
+                    Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
+                    rs.getString("equipe")
                 };
                 model.addRow(o);
 
@@ -584,9 +622,9 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
     }
 
     private String getSetor(int tipo) {
-        
+
         String aux = "";
-        
+
         // tipo 0 - a fazer
         // tipo 1 - concluida
         if (tipo == 1) {
@@ -594,12 +632,12 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         }
 
         String ret = " ord.checkentrega and  ord.datafimentrega is " + aux + " null";
-             
+
         return ret;
     }
 
     private String getSql() {
-        return " select ord.codordemservico as  codordemservico,"
+        return    " select ord.codordemservico as  codordemservico,"
                 + " orc.codorcamento as codorcamento , "
                 + " prod.descricao as descricao , "
                 + " (pes.cnpj || ' ' || pes.nome) as nome , "
@@ -607,8 +645,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
                 + " ord.equipeentrega || ' ' || equipe.nome as equipe"
                 + " from ordemservico as ord "
                 + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
-                + " inner join itemorcamento as item on (item.orcamento = orc.codorcamento)"
-                + " left join produto as prod on (item.produto = prod.codproduto)"
+                + " left join produto as prod on (ord.produto = prod.codproduto)"
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                 + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
                 + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
@@ -623,38 +660,34 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         String senha = "";
         String assunto = "teste de envio";
         String msg;
-        String nomeAnexo = "Pedido - "+ordem.getOrcamento().getCodOrcamento();
+        String nomeAnexo = "Pedido - " + ordem.getOrcamento().getCodOrcamento();
 
+        msg = " <p>Prezado " + ordem.getOrcamento().getCliente().getPessoa().getNome() + ","
+                + " <br/> Os imóveis listados abaixo são os que se encontram atrelados ao cpf/cnpj: "
+                + ", caso algum esteja com informações incorretas ou ausente, deve-se comparecer à prefeitura para a correção e ajustes necessários.</p> ";
 
-            msg = " <p>Prezado " + ordem.getOrcamento().getCliente().getPessoa().getNome() + ","
-                    + " <br/> Os imóveis listados abaixo são os que se encontram atrelados ao cpf/cnpj: "
-                    + ", caso algum esteja com informações incorretas ou ausente, deve-se comparecer à prefeitura para a correção e ajustes necessários.</p> ";
+        para.add("danilo.alfenas@gmail.com");
+        nomeAnexo = "Relacao_de_Imoveis";
+        byte[] anexo = null;
+        anexo = gerarRelatorioByteArray();
 
-  
-                    
-            para.add("danilo.alfenas@gmail.com");
-            nomeAnexo = "Relacao_de_Imoveis";
-            byte[] anexo = null;
-            anexo = gerarRelatorioByteArray();
+        AnexoDTO anexoPdf = new AnexoDTO();
+        anexoPdf.setNome(nomeAnexo + ".pdf");
+        anexoPdf.setMimeType("application/pdf");
+        anexoPdf.setConteudo(anexo);
 
-            AnexoDTO anexoPdf = new AnexoDTO();
-            anexoPdf.setNome(nomeAnexo + ".pdf");
-            anexoPdf.setMimeType("application/pdf");
-            anexoPdf.setConteudo(anexo);
+        List<AnexoDTO> anexos = new ArrayList<AnexoDTO>();
+        anexos.add(anexoPdf);
 
-            List<AnexoDTO> anexos = new ArrayList<AnexoDTO>();
-            anexos.add(anexoPdf);
+        System.out.println("--------------- Chegou ao final do processo ---------------");
 
-            System.out.println("--------------- Chegou ao final do processo ---------------");
+        return sendEmailAnexos(de, deNome, senha, assunto, msg, anexos, nomeAnexo, para.toArray(new String[para.size()]));
 
-            return sendEmailAnexos(de, deNome, senha, assunto, msg, anexos, nomeAnexo, para.toArray(new String[para.size()]));
-     
     }
-    
-     private byte[] gerarRelatorioByteArray() throws Exception {
+
+    private byte[] gerarRelatorioByteArray() throws Exception {
 
         byte[] pdf = null;
-      
 
         String SQL = " SELECT I.PESSOA, P.NOME, I.CODIGO, ( I.CODDISTRITO || '.' || I.SETOR || '.' || I.QUADRA || '.' || I.LOTE ||'.' || I.UNIDADE) INSCIMOB,"
                 + " (TL.ABREVIATURA || ' ' || L.LOGRADOURO || ', ' || I.NUMERO || ' ' || I.COMPLEMENTO) ENDERECO,"
@@ -672,19 +705,17 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
                 + " LEFT JOIN BAIRROS B ON (B.CODBAIRRO = EI.CODBAIRRO)"
                 + " LEFT JOIN DISTRITOS D ON (D.CODDISTRITO = B.CODDISTRITO)"
                 + " LEFT JOIN PESSOAS P ON (P.CODPESSOA = I.PESSOA)"
-        //        + " WHERE P.CODPESSOA =" + p.getCodigo()
+                //        + " WHERE P.CODPESSOA =" + p.getCodigo()
                 + " ORDER BY I.codigo,L.LOGRADOURO, I.NUMERO";
 
         Map<String, Object> map = new HashMap<String, Object>();
-       
 
-      
-        
         //new VisualizaRelatorio().visRel("hlh/tributos/relatorios/imovel/RTribImov_Contr.jasper", "Relatórios Imóveis por Contribuintes", null, SQL);
-       // return gerarRelatorioByteArray(SQL,"Relatórios Imóveis por Contribuintes", "RTribImov_Contr.jasper", map);
-       return null;
+        // return gerarRelatorioByteArray(SQL,"Relatórios Imóveis por Contribuintes", "RTribImov_Contr.jasper", map);
+        return null;
     }
-        public static boolean sendEmailAnexos(String from, String fromName, String pass, String assunto, String msg,
+
+    public static boolean sendEmailAnexos(String from, String fromName, String pass, String assunto, String msg,
             List<AnexoDTO> anexos, String nomeAnexo, String to[]) {
         if (to == null || to.length < 1 || to[0].trim().length() < 5) {
             return false;
@@ -759,70 +790,27 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
     }
 
     private void refazer() throws Exception {
-        int setor = jCBSetor.getSelectedIndex();
+        
         ordem = new OrdemServicoDAO().get((Integer) tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 0));
-        if (ordem != null) {
+         if (ordem != null) {
+                 ordem.setDataFimEntrega(null);
+                ordem.setUsuarioFimEntrega(null);
+                ordem.setEquipeEntrega(null);
+                ordem = ordemDao.addOrdem(ordem);
+               
 
-            switch (setor) {
-                //Criação
-                case 1:
-                    ordem.setDataFimCriacao(null);
-                    ordem.setUsuarioFimCriacao("");
-                    break;
-                //Projeto    
-                case 2:
-                    ordem.setDataFimProjeto(null);
-                    ordem.setUsuarioFimProjeto("");
-                    break;
-                //Plotagem     
-                case 3:
-                    ordem.setDataFimPlotagem(null);
-                    ordem.setUsuarioFimPlotagem("");
-                    break;
-                //Impressão Digital    
-                case 4:
-                    ordem.setDataFimImpressaoDigital(null);
-                    ordem.setUsuarioFimImpressaoDigital("");
-                    break;
-                //Acabamento Impressão    
-                case 5:
-                    ordem.setDataFimAcabamentoImp(null);
-                    ordem.setUsuarioFimAcabamentoImp("");
-                    break;
-                //Plotagem Recorte
-                case 6:
-                    ordem.setDataFimPloterRecorte(null);
-                    ordem.setUsuarioFimPloterRecorte("");
-                    break;
-                //Serralheria    
-                case 7:
-                    ordem.setDataFimSerralheria(null);
-                    ordem.setUsuarioFimSerralheria("");
-                    break;
-                //Pintura    
-                case 8:
-                    ordem.setDataFimPintura(null);
-                    ordem.setUsuarioFimPintura("");
-                    break;
-                //Caixaria    
-                case 9:
-                    ordem.setDataFimCaixariaAcabamento(null);
-                    ordem.setUsuarioFimCaixariaAcabamento("");
-                    break;
-                //Corte    
-                case 10:
-                    ordem.setDataFimRouter(null);
-                    ordem.setUsuarioFimRouter("");
-                    break;
-                default:
-                    break;
-            }
-            ordem = ordemDao.addOrdem(ordem);
-            enviarEmail();
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
         }
     }
 
+    private void carregaComboEquipe() {
+        List<EquipeEntrega> listaEquipe = new EquipeEntregaDAO().getList();
+        if (listaEquipe != null && !listaEquipe.isEmpty()) {
+            for (EquipeEntrega equipe : listaEquipe) {
+                jCBEquipe.addItem(equipe.getCodEquipeEntrega() + " - " + equipe.getNome());
+            }
+        }
+    }
+
 }
-    

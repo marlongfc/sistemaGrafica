@@ -26,8 +26,8 @@ public class EquipeEntregaRNE extends GenericDAO{
         return super.deletePojo(session, cliente);
     }
 
-    public List<EquipeEntrega> getList(EntityManager session, EquipeEntrega cliente) throws Exception {
-        return super.getPureList(session, EquipeEntrega.class, "Select e from EquipeEntrega e");
+    public List<EquipeEntrega> getList(EntityManager session) throws Exception {
+        return super.getPureList(session, EquipeEntrega.class, "Select e from EquipeEntrega e order by e.codEquipeEntrega ");
     }
     
      public EquipeEntrega get(Integer codigo, EntityManager session) throws Exception {

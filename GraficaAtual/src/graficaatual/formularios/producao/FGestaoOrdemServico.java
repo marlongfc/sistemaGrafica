@@ -5,17 +5,24 @@
  */
 package graficaatual.formularios.producao;
 
+import graficaatual.daos.pedido.ItemOrcamentoDAO;
+import graficaatual.daos.pedido.OrcamentoDAO;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
+import graficaatual.entidades.pedido.ItemOrcamento;
+import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.producao.OrdemServico;
 import graficaatual.utilitarios.Conexao;
 import graficaatual.utilitarios.Data;
+import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.persistence.EntityManager;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -39,6 +46,9 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     //Entidades para trabalhar
     private OrdemServico ordem = null;
     private OrdemServicoDAO ordemDao = new OrdemServicoDAO();
+    
+    private ItemOrcamentoDAO itemDao = new ItemOrcamentoDAO();
+    private OrcamentoDAO orcamentoDao = new OrcamentoDAO();
 
     DefaultTableCellRenderer cellRender = new DefaultTableCellRenderer();
 
@@ -103,6 +113,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         tabOrdensFazer= new TabelaConsultaOrdem();
         jLSelecao = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -146,7 +157,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(290, 590, 130, 40);
+        sair.setBounds(560, 590, 130, 40);
 
         jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -267,6 +278,17 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         jPanel10.add(jButton1);
         jButton1.setBounds(860, 70, 200, 40);
 
+        cancelar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
+        cancelar.setText("Cancelar Pedido");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
+        jPanel10.add(cancelar);
+        cancelar.setBounds(290, 590, 270, 40);
+
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
@@ -333,8 +355,67 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tabConcluidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabConcluidaMouseClicked
-        // TODO add your handling code here:
+        try {
+
+            jLSelecao.setText(" Ordem de Serviço Selecionada: " + tabConcluida.getValueAt(tabConcluida.getSelectedRow(), 0)
+                    + ", Pedido - " + tabConcluida.getValueAt(tabConcluida.getSelectedRow(), 1));
+
+            if (evt.getClickCount() > 1) {
+                imprimir((Integer) tabConcluida.getValueAt(tabConcluida.getSelectedRow(), 1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
+        }
     }//GEN-LAST:event_tabConcluidaMouseClicked
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+        try {
+            ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+            if (ordem != null) {
+                Orcamento orcamento = ordem.getOrcamento();
+                if(orcamento !=null){
+                    //Delete Itens OrdemDeSeviço
+                    List<ItemOrcamento> listaItenOrcamento = itemDao.getListOrcamento(session,orcamento.getCodOrcamento());
+                    if(listaItenOrcamento !=null && !listaItenOrcamento.isEmpty()){
+                        for(ItemOrcamento item : listaItenOrcamento){
+                            itemDao.deletePojo(session, item);
+                        }
+                    
+                     //Delete Ordens de Serviço
+                        List<OrdemServico> listaOrdens = ordemDao.getListByOrcamento(orcamento.getCodOrcamento(),session);
+                        if(listaOrdens != null && !listaOrdens.isEmpty()){
+                                for(OrdemServico o : listaOrdens ){
+                                    ordemDao.deletePojo(session, o);
+                                }
+                        }
+                        
+                     //Cancela Orcamento
+                        orcamento.setSituacao(true);
+                        orcamento = new OrcamentoDAO().salvar(session, orcamento);
+                        
+                        session.getTransaction().commit();
+                        session.close();
+                        pesquisarFazer();
+                        pesquisarConcluido();
+                        
+                          JOptionPane.showMessageDialog(this, " Cancelado com Sucesso! ");
+                    }
+                }else{
+                    throw new Exception("Problema na Ordem, sem Pedido Vinculado.");
+                }
+            } else {
+                throw new Exception("Selecione um Ordem/Pedido");
+            }
+
+
+        } catch (Exception ex) {
+            session.getTransaction().rollback();
+            session.close();
+            JOptionPane.showMessageDialog(this, "Erro ao Cancelar. Tente Novamente");
+        }
+    }//GEN-LAST:event_cancelarActionPerformed
 
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
@@ -348,6 +429,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
@@ -379,7 +461,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                     + " LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro "
                     + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro "
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
-                    + " LEFT JOIN produto prod ON prod.codproduto = orc.produto"
+                    + " LEFT JOIN produto prod ON prod.codproduto = item.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
                     + " WHERE orc.codOrcamento = " + valor;
 
@@ -519,8 +601,8 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
     private String getSql(boolean aFazer) {
         String sql = " select ord.codordemservico as  codordemservico,"
-                + " orc.codorcamento as codorcamento , "
-                + " (item.coditemorca ||' '|| prod.descricao) as coditemorca  , "
+                + "  orc.codorcamento as codorcamento , "
+                + " (ord.produto ||' '|| prod.descricao) as coditemorca  , "
                 + " orc.prazoentrega  as prazoentrega,"
                 + " ord.checkcriacao, ord.datafimcriacao, ord.usuariofimcriacao,"
                 + " ord.checkprojeto, ord.datafimprojeto, ord.usuariofimprojeto,"
@@ -534,8 +616,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                 + " ord.checkrouter,ord.datafimrouter,ord.usuariofimrouter"
                 + " from ordemservico as ord "
                 + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
-                + " inner join itemorcamento as item on (item.orcamento = orc.codorcamento)"
-                + " left join produto as prod on (item.produto = prod.codproduto)"
+                + " left join produto as prod on (ord.produto = prod.codproduto)"
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                 + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)";
         if (aFazer) {

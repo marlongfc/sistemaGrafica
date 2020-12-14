@@ -455,7 +455,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
                     + " LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro "
                     + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro "
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
-                    + " LEFT JOIN produto prod ON prod.codproduto = orc.produto"
+                    + " LEFT JOIN produto prod ON prod.codproduto = item.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
                     + " WHERE orc.codOrcamento = " + valor;
 
@@ -619,8 +619,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
                 + " orc.prazoentrega  as prazoentrega "
                 + " from ordemservico as ord "
                 + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
-                + " inner join itemorcamento as item on (item.orcamento = orc.codorcamento)"
-                + " left join produto as prod on (item.produto = prod.codproduto)"
+                + " left join produto as prod on (ord.produto = prod.codproduto)"
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                 + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
                 + " where (ord.checkfaturamento = false and ord.checkfaturamento = false ) ";

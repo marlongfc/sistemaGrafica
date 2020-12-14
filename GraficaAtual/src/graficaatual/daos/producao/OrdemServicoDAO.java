@@ -79,6 +79,16 @@ public class OrdemServicoDAO extends OrdemServicoRNE {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, OrdemServico.class, SQL, parametros);
     }
 
+     public List<OrdemServico> getListByOrcamento(int cod) {
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
+        try {
+            return super.getListByOrcamento(cod, session);
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
      
 public Boolean gerarOrdemServico(List<ItemOrcamento> listaItens,EntityManager session)throws Exception {
        return super.gerarOrdemServico(listaItens, session);

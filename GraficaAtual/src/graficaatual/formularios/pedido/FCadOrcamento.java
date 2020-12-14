@@ -1301,7 +1301,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     + " LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro "
                     + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro "
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
-                    + " LEFT JOIN produto prod ON prod.codproduto = orc.produto"
+                    + " LEFT JOIN produto prod ON prod.codproduto = item.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
                     + " WHERE orc.codOrcamento = " + codOrcamento.getText();
 
@@ -1401,6 +1401,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         try {
             if (prazoEntrega.getText().length() > 2) {
                 aprovarOrcamento();
+                codOrcamentoFocusLost(null);
             } else {
                 throw new Exception("Favor inserir um Data de Entrega Válida.");
             }
@@ -1971,7 +1972,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 try {
                     orcamento.setSituacao(true);
                     orcamento = orcamentoDAO.salvar(session, orcamento);
+                    System.out.println("fffffffffff "+ listaItem.size());
                     Boolean aux = new OrdemServicoDAO().gerarOrdemServico(listaItem, session);
+                    
                     if (aux == null || aux == false) {
                         throw new Exception(" Erro ao gerar Ordem(ns) de Serviço(s). ");
                     } else {

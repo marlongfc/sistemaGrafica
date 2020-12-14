@@ -1,5 +1,6 @@
 package graficaatual.entidades.producao;
 
+import graficaatual.entidades.Produto;
 import graficaatual.entidades.pedido.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -122,10 +123,22 @@ public class OrdemServico implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "equipeEntrega")
     private EquipeEntrega equipeEntrega;
+    
+    @ManyToOne()
+    @JoinColumn(name = "produto")
+    private Produto produto; 
 
     public OrdemServico() {
     }
 
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+    
     public EquipeEntrega getEquipeEntrega() {
         return equipeEntrega;
     }

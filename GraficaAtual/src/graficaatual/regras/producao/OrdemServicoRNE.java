@@ -28,7 +28,7 @@ public class OrdemServicoRNE extends GenericDAO{
     }
 
     public List<OrdemServico> getList(EntityManager session, OrdemServico cliente) throws Exception {
-        return super.getPureList(session, OrdemServico.class, "Select e from Cliente e");
+        return super.getPureList(session, OrdemServico.class, "Select e from OrdemServico e");
     }
     
      public OrdemServico get(Integer codigo, EntityManager session) throws Exception {
@@ -40,11 +40,18 @@ public class OrdemServicoRNE extends GenericDAO{
         String sql = " select e from OrdemServico e where e.orcamento.codOrcamento=?1 ";
         return getPojoUnique(session, OrdemServico.class, sql, codigo);
     }
+      
+    public List<OrdemServico> getListByOrcamento(Integer codigo, EntityManager session) throws Exception {
+        String sql = " select e from OrdemServico e where e.orcamento.codOrcamento=?1 ";
+        return getPureList(session, OrdemServico.class, sql, codigo);
+    }
 
     public Boolean gerarOrdemServico(List<ItemOrcamento> listaItens,EntityManager session) throws Exception {
         if (listaItens != null && (!listaItens.isEmpty())) {
+            System.out.println("ffffffffffffffffffffffff "+ listaItens.size());
             OrdemServico ordemS = null;
             for (ItemOrcamento item : listaItens) {
+                System.out.println("ggggggggggggggggggggggg "+ item.getCodItemOrca());
                 ordemS = new OrdemServico();
                 ordemS.setDataCadastro(new Date());
                 ordemS.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
@@ -61,7 +68,9 @@ public class OrdemServicoRNE extends GenericDAO{
                 ordemS.setCheckPloterRecorte(item.getCheckPloterRecorte());
                 ordemS.setCheckEntrega(item.getCheckEntrega());
                 ordemS.setCheckCaixariaAcabamento(item.getCheckCaixariaAcabamento());
+                ordemS.setProduto(item.getProduto());
                 ordemS = salvar(session, ordemS);
+                
             }
         } else {
             throw new Exception("Verificar lista de itens do Pedido");
