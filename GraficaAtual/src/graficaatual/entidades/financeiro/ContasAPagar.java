@@ -19,16 +19,16 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity//(name="graficaatual.entidades.financeiro.lancamentoCaixa")
-@Table(name = "lancamentoCaixa")
-public class LancamentoCaixa implements java.io.Serializable {
+@Entity
+@Table(name = "contasAPagar")
+public class ContasAPagar implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codLancamento")
+    @Column(name = "codContasPag")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codLancamento;
+    private Integer codContasPag;
 
     @Column(nullable = false, length = 300)
     private String descricao;
@@ -37,15 +37,14 @@ public class LancamentoCaixa implements java.io.Serializable {
     @JoinColumn(name = "caixa", nullable = false)
     private Caixa caixa;
 
-    @ManyToOne()
-    @JoinColumn(name = "planoConta", nullable = false)
-    private PlanoDeContas planoConta;
+    @Column()
+    private Double valorTotal;
 
-    @Column(nullable = true)
-    private Double valorEntrada;
+    @Column()
+    private Double valorPago;
 
-    @Column(nullable = true)
-    private Double valorSaida;
+    @Column()
+    private Double valorPagar;
 
     @Column(length = 300)
     private String observacao;
@@ -62,12 +61,12 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodLancamento() {
-        return codLancamento;
+    public Integer getCodContasPag() {
+        return codContasPag;
     }
 
-    public void setCodLancamento(Integer codLancamento) {
-        this.codLancamento = codLancamento;
+    public void setCodContasPag(Integer codContasPag) {
+        this.codContasPag = codContasPag;
     }
 
     public String getDescricao() {
@@ -86,28 +85,28 @@ public class LancamentoCaixa implements java.io.Serializable {
         this.caixa = caixa;
     }
 
-    public PlanoDeContas getPlanoConta() {
-        return planoConta;
+    public Double getValorTotal() {
+        return valorTotal;
     }
 
-    public void setPlanoConta(PlanoDeContas planoConta) {
-        this.planoConta = planoConta;
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
-    public Double getValorEntrada() {
-        return valorEntrada;
+    public Double getValorPago() {
+        return valorPago;
     }
 
-    public void setValorEntrada(Double valorEntrada) {
-        this.valorEntrada = valorEntrada;
+    public void setValorPago(Double valorPago) {
+        this.valorPago = valorPago;
     }
 
-    public Double getValorSaida() {
-        return valorSaida;
+    public Double getValorPagar() {
+        return valorPagar;
     }
 
-    public void setValorSaida(Double valorSaida) {
-        this.valorSaida = valorSaida;
+    public void setValorPagar(Double valorPagar) {
+        this.valorPagar = valorPagar;
     }
 
     public String getObservacao() {
@@ -153,19 +152,19 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codLancamento != null ? codLancamento.hashCode() : 0);
+        hash += (codContasPag != null ? codContasPag.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LancamentoCaixa)) {
+        if (!(object instanceof ContasAPagar)) {
             return false;
         }
-        LancamentoCaixa other = (LancamentoCaixa) object;
-        if ((this.codLancamento == null && other.codLancamento != null)
-                || (this.codLancamento != null && !this.codLancamento.equals(other.codLancamento))) {
+        ContasAPagar other = (ContasAPagar) object;
+        if ((this.codContasPag == null && other.codContasPag != null)
+                || (this.codContasPag != null && !this.codContasPag.equals(other.codContasPag))) {
             return false;
         }
         return true;
@@ -173,7 +172,7 @@ public class LancamentoCaixa implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.financeiro.LancamentoCaixa[ codLancamento=" + codLancamento + " ]";
+        return "graficaatual.entidades.financeiro.ContasAPagar[ codContasPag=" + codContasPag + " ]";
     }
 
 }

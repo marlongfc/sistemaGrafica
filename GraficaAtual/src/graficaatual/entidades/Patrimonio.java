@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.entidades.financeiro;
+package graficaatual.entidades;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -11,43 +11,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author Moisés
  */
-@Entity//(name="graficaatual.entidades.financeiro.lancamentoCaixa")
-@Table(name = "lancamentoCaixa")
-public class LancamentoCaixa implements java.io.Serializable {
+@Entity
+@Table(name = "patrimonio")
+public class Patrimonio implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codLancamento")
+    @Column(name = "codPatrimonio")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codLancamento;
+    private Integer codPatrimonio;
 
     @Column(nullable = false, length = 300)
     private String descricao;
 
-    @ManyToOne()
-    @JoinColumn(name = "caixa", nullable = false)
-    private Caixa caixa;
+    @Column(nullable = false)
+    private Integer numPatrimonio;
 
-    @ManyToOne()
-    @JoinColumn(name = "planoConta", nullable = false)
-    private PlanoDeContas planoConta;
+    @Column(nullable = false, length = 100)
+    private String marca;
 
-    @Column(nullable = true)
-    private Double valorEntrada;
+    @Column(nullable = false, length = 100)
+    private String modelo;
 
     @Column(nullable = true)
-    private Double valorSaida;
-
-    @Column(length = 300)
     private String observacao;
 
     @Column(name = "dataCadastro")
@@ -62,12 +55,15 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodLancamento() {
-        return codLancamento;
+    @Column(nullable = false)
+    private Integer ano;
+
+    public Integer getCodPatrimonio() {
+        return codPatrimonio;
     }
 
-    public void setCodLancamento(Integer codLancamento) {
-        this.codLancamento = codLancamento;
+    public void setCodPatrimonio(Integer codPatrimonio) {
+        this.codPatrimonio = codPatrimonio;
     }
 
     public String getDescricao() {
@@ -78,36 +74,28 @@ public class LancamentoCaixa implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public Caixa getCaixa() {
-        return caixa;
+    public Integer getNumPatrimonio() {
+        return numPatrimonio;
     }
 
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
+    public void setNumPatrimonio(Integer numPatrimonio) {
+        this.numPatrimonio = numPatrimonio;
     }
 
-    public PlanoDeContas getPlanoConta() {
-        return planoConta;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setPlanoConta(PlanoDeContas planoConta) {
-        this.planoConta = planoConta;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    public Double getValorEntrada() {
-        return valorEntrada;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setValorEntrada(Double valorEntrada) {
-        this.valorEntrada = valorEntrada;
-    }
-
-    public Double getValorSaida() {
-        return valorSaida;
-    }
-
-    public void setValorSaida(Double valorSaida) {
-        this.valorSaida = valorSaida;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public String getObservacao() {
@@ -150,22 +138,30 @@ public class LancamentoCaixa implements java.io.Serializable {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
 
+    public Integer getAno() {
+        return ano;
+    }
+
+    public void setAno(Integer ano) {
+        this.ano = ano;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codLancamento != null ? codLancamento.hashCode() : 0);
+        hash += (codPatrimonio != null ? codPatrimonio.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LancamentoCaixa)) {
+        if (!(object instanceof Patrimonio)) {
             return false;
         }
-        LancamentoCaixa other = (LancamentoCaixa) object;
-        if ((this.codLancamento == null && other.codLancamento != null)
-                || (this.codLancamento != null && !this.codLancamento.equals(other.codLancamento))) {
+        Patrimonio other = (Patrimonio) object;
+        if ((this.codPatrimonio == null && other.codPatrimonio != null)
+                || (this.codPatrimonio != null && !this.codPatrimonio.equals(other.codPatrimonio))) {
             return false;
         }
         return true;
@@ -173,7 +169,7 @@ public class LancamentoCaixa implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.financeiro.LancamentoCaixa[ codLancamento=" + codLancamento + " ]";
+        return "graficaatual.entidades.Patrimonio[ codPatrimonio=" + codPatrimonio + " ]";
     }
 
 }

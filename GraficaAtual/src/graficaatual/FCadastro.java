@@ -16,6 +16,7 @@ import graficaatual.formularios.cadastro.FCadColaborador;
 import graficaatual.formularios.cadastro.FCadFornecedor;
 import graficaatual.formularios.cadastro.FCadLogradouro;
 import graficaatual.formularios.cadastro.FCadMaterial;
+import graficaatual.formularios.cadastro.FCadPatrimonio;
 import graficaatual.formularios.cadastro.FCadProduto;
 import graficaatual.formularios.cadastro.FCadTurno;
 import graficaatual.formularios.cadastro.FCadUsuario;
@@ -57,6 +58,7 @@ public class FCadastro extends javax.swing.JFrame {
         acessotela(jBProduto,"FCadProduto");
         acessotela(jBAcabamento,"FCadAcabamento");
         acessotela(jBFormaPagamento,"FCadFormaDePagamento");
+        acessotela(jBPatrimonio, "FCadPatrimonio");
         
        
     }
@@ -93,6 +95,7 @@ public class FCadastro extends javax.swing.JFrame {
         jBSair = new javax.swing.JButton();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jBPatrimonio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
@@ -347,7 +350,7 @@ public class FCadastro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBSair);
-        jBSair.setBounds(30, 660, 180, 30);
+        jBSair.setBounds(30, 700, 180, 30);
 
         deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -362,6 +365,23 @@ public class FCadastro extends javax.swing.JFrame {
 
         jPanel1.add(deskTop);
         deskTop.setBounds(210, 10, 1070, 700);
+
+        jBPatrimonio.setBackground(new java.awt.Color(71, 37, 131));
+        jBPatrimonio.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBPatrimonio.setForeground(new java.awt.Color(255, 255, 255));
+        jBPatrimonio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
+        jBPatrimonio.setText("Patrimônio");
+        jBPatrimonio.setBorderPainted(false);
+        jBPatrimonio.setFocusPainted(false);
+        jBPatrimonio.setFocusable(false);
+        jBPatrimonio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBPatrimonio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPatrimonioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBPatrimonio);
+        jBPatrimonio.setBounds(30, 660, 180, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -608,6 +628,23 @@ public class FCadastro extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_jBSairActionPerformed
 
+    private void jBPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPatrimonioActionPerformed
+      try {
+            deskTop.removeAll();
+            FCadPatrimonio clComp;
+
+            clComp = FCadPatrimonio.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBPatrimonioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBAcabamento;
@@ -620,6 +657,7 @@ public class FCadastro extends javax.swing.JFrame {
     private javax.swing.JButton jBFornecedor;
     private javax.swing.JButton jBLogradouro;
     private javax.swing.JButton jBMaterial;
+    private javax.swing.JButton jBPatrimonio;
     private javax.swing.JButton jBProduto;
     private javax.swing.JButton jBSair;
     private javax.swing.JButton jBTurno;

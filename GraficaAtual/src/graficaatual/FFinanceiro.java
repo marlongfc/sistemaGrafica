@@ -8,8 +8,11 @@ package graficaatual;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Permissao;
 import graficaatual.formularios.financeiro.FCadBanco;
+import graficaatual.formularios.financeiro.FCadCaixa;
+import graficaatual.formularios.financeiro.FCadCentroDeCustos;
 import graficaatual.formularios.financeiro.FCadFormaDePagamento;
 import graficaatual.formularios.financeiro.FCadLancamento;
+import graficaatual.formularios.financeiro.FCadPlanoDeContas;
 import graficaatual.formularios.financeiro.FCadSangria;
 import javax.swing.JButton;
 
@@ -34,8 +37,12 @@ public class FFinanceiro extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         //verificação de acesso as telas
+        acessotela(jBCaixa, "FCadCaixa");
+        acessotela(jBBanco, "FCadBanco");
+        acessotela(jBCentroCusto, "FCadCentroDeCustos");
+        acessotela(jBPlanoContas, "FCadPlanoDeContas");
         acessotela(jBLancCaixa,"FCadLancamento");
-        acessotela(jBSangria,"FCadSangria");
+       
         acessotela(jBBanco,"FCadBanco");
 
 
@@ -60,9 +67,11 @@ public class FFinanceiro extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jBLancCaixa = new javax.swing.JButton();
-        jBSair = new javax.swing.JButton();
+        jBPlanoContas = new javax.swing.JButton();
         jBBanco = new javax.swing.JButton();
-        jBSangria = new javax.swing.JButton();
+        jBSair1 = new javax.swing.JButton();
+        jBCaixa = new javax.swing.JButton();
+        jBCentroCusto = new javax.swing.JButton();
 
         jBLancamento.setBackground(new java.awt.Color(71, 37, 131));
         jBLancamento.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,24 +133,24 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBLancCaixa);
-        jBLancCaixa.setBounds(20, 180, 200, 30);
+        jBLancCaixa.setBounds(20, 320, 200, 30);
 
-        jBSair.setBackground(new java.awt.Color(71, 37, 131));
-        jBSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
-        jBSair.setForeground(new java.awt.Color(255, 255, 255));
-        jBSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
-        jBSair.setText("SAIR");
-        jBSair.setBorderPainted(false);
-        jBSair.setFocusPainted(false);
-        jBSair.setFocusable(false);
-        jBSair.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBSair.addActionListener(new java.awt.event.ActionListener() {
+        jBPlanoContas.setBackground(new java.awt.Color(71, 37, 131));
+        jBPlanoContas.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBPlanoContas.setForeground(new java.awt.Color(255, 255, 255));
+        jBPlanoContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
+        jBPlanoContas.setText("Plano de Contas");
+        jBPlanoContas.setBorderPainted(false);
+        jBPlanoContas.setFocusPainted(false);
+        jBPlanoContas.setFocusable(false);
+        jBPlanoContas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBPlanoContas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBSairActionPerformed(evt);
+                jBPlanoContasActionPerformed(evt);
             }
         });
-        jPanel1.add(jBSair);
-        jBSair.setBounds(20, 300, 200, 30);
+        jPanel1.add(jBPlanoContas);
+        jBPlanoContas.setBounds(20, 280, 200, 30);
 
         jBBanco.setBackground(new java.awt.Color(71, 37, 131));
         jBBanco.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
@@ -158,24 +167,58 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBBanco);
-        jBBanco.setBounds(20, 260, 200, 30);
+        jBBanco.setBounds(20, 200, 200, 30);
 
-        jBSangria.setBackground(new java.awt.Color(71, 37, 131));
-        jBSangria.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
-        jBSangria.setForeground(new java.awt.Color(255, 255, 255));
-        jBSangria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
-        jBSangria.setText("Sangrias");
-        jBSangria.setBorderPainted(false);
-        jBSangria.setFocusPainted(false);
-        jBSangria.setFocusable(false);
-        jBSangria.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBSangria.addActionListener(new java.awt.event.ActionListener() {
+        jBSair1.setBackground(new java.awt.Color(71, 37, 131));
+        jBSair1.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBSair1.setForeground(new java.awt.Color(255, 255, 255));
+        jBSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        jBSair1.setText("SAIR");
+        jBSair1.setBorderPainted(false);
+        jBSair1.setFocusPainted(false);
+        jBSair1.setFocusable(false);
+        jBSair1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBSair1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBSangriaActionPerformed(evt);
+                jBSair1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jBSangria);
-        jBSangria.setBounds(20, 220, 200, 30);
+        jPanel1.add(jBSair1);
+        jBSair1.setBounds(20, 420, 200, 30);
+
+        jBCaixa.setBackground(new java.awt.Color(71, 37, 131));
+        jBCaixa.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        jBCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
+        jBCaixa.setText("Caixa");
+        jBCaixa.setBorderPainted(false);
+        jBCaixa.setFocusPainted(false);
+        jBCaixa.setFocusable(false);
+        jBCaixa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCaixaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBCaixa);
+        jBCaixa.setBounds(20, 160, 200, 30);
+
+        jBCentroCusto.setBackground(new java.awt.Color(71, 37, 131));
+        jBCentroCusto.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBCentroCusto.setForeground(new java.awt.Color(255, 255, 255));
+        jBCentroCusto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
+        jBCentroCusto.setText("Centro de Custos");
+        jBCentroCusto.setBorderPainted(false);
+        jBCentroCusto.setFocusPainted(false);
+        jBCentroCusto.setFocusable(false);
+        jBCentroCusto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBCentroCusto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCentroCustoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBCentroCusto);
+        jBCentroCusto.setBounds(20, 240, 200, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -198,9 +241,22 @@ public class FFinanceiro extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deskTopComponentResized
 
-    private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
-        dispose();
-    }//GEN-LAST:event_jBSairActionPerformed
+    private void jBPlanoContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPlanoContasActionPerformed
+      try {
+            deskTop.removeAll();
+            FCadPlanoDeContas clComp;
+
+            clComp = FCadPlanoDeContas.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBPlanoContasActionPerformed
 
     private void jBLancCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLancCaixaActionPerformed
         try {
@@ -253,12 +309,16 @@ public class FFinanceiro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBBancoActionPerformed
 
-    private void jBSangriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSangriaActionPerformed
+    private void jBSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSair1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSair1ActionPerformed
+
+    private void jBCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCaixaActionPerformed
        try {
             deskTop.removeAll();
-            FCadSangria clComp;
+            FCadCaixa clComp;
 
-            clComp = FCadSangria.getInstancia().getInstancia();
+            clComp = FCadCaixa.getInstancia().getInstancia();
             deskTop.add(clComp);
             clComp.setVisible(true);
             deskTop.add(jLabel1);
@@ -268,15 +328,34 @@ public class FFinanceiro extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBSangriaActionPerformed
+    }//GEN-LAST:event_jBCaixaActionPerformed
+
+    private void jBCentroCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCentroCustoActionPerformed
+       try {
+            deskTop.removeAll();
+            FCadCentroDeCustos clComp;
+
+            clComp = FCadCentroDeCustos.getInstancia().getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBCentroCustoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBBanco;
+    private javax.swing.JButton jBCaixa;
+    private javax.swing.JButton jBCentroCusto;
     private javax.swing.JButton jBLancCaixa;
     private javax.swing.JButton jBLancamento;
-    private javax.swing.JButton jBSair;
-    private javax.swing.JButton jBSangria;
+    private javax.swing.JButton jBPlanoContas;
+    private javax.swing.JButton jBSair1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

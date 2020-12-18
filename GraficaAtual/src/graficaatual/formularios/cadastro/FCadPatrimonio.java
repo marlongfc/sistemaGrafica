@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficaatual.formularios.financeiro;
+package graficaatual.formularios.cadastro;
 
-import graficaatual.daos.financeiro.RequisicaoFinanceiraDAO;
-import graficaatual.entidades.financeiro.RequisicaoFinanceira;
+import graficaatual.daos.cadastro.PatrimonioDAO;
+import graficaatual.entidades.Patrimonio;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,42 +22,41 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author Moisés
  */
-public class FRequisicao extends javax.swing.JInternalFrame {
+public class FCadPatrimonio extends javax.swing.JInternalFrame {
 
-    private RequisicaoFinanceira requisicao;
-    private RequisicaoFinanceiraDAO requisicaoDAO = new RequisicaoFinanceiraDAO();
+    private Patrimonio patrimonio;
+    private PatrimonioDAO patrimonioDao = new PatrimonioDAO();
 
-    private List<RequisicaoFinanceira> listaRequisicao = null;
+    private List<Patrimonio> listaPatrimonio = null;
 
-    public FRequisicao() {
+    public FCadPatrimonio() {
         initComponents();
 
         atualizatabela();
 
-        listaRequisicao = ObservableCollections.observableList(new LinkedList<RequisicaoFinanceira>());
-        Componentes comp2 = new Componentes(listaRequisicao, false, codRequisicao, descRequisicao, this, jPanel18, descRequisicao.getWidth(), 100);
-        comp2.addCol(0, "codRequisicao", "Código", 50, Integer.class.getName());
-        comp2.addCol(1, "descricao", "Requisição", 200, String.class.getName());
+        listaPatrimonio = ObservableCollections.observableList(new LinkedList<Patrimonio>());
+        Componentes comp2 = new Componentes(listaPatrimonio, false, codPatrimonio, descPatrimonio, this, jPanel18, descPatrimonio.getWidth(), 100);
+        comp2.addCol(0, "codPatrimonio", "Código", 50, Integer.class.getName());
+        comp2.addCol(1, "descricao", "Patrimônio", 200, String.class.getName());
         comp2.bind();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
 
-    private static FRequisicao instancia;
-    private static FRequisicao instanceCont;
+    private static FCadPatrimonio instancia;
+    private static FCadPatrimonio instanceCont;
     private static int initControle;
 
     public static int isInicializado() {
         return initControle;
     }
 
-    public synchronized static FRequisicao getInstancia() {
+    public synchronized static FCadPatrimonio getInstancia() {
         if (instancia == null) {
-            instancia = new FRequisicao();
+            instancia = new FCadPatrimonio();
             initControle = 1;
         }
-
         return instancia;
     }
 
@@ -67,8 +65,9 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel18 = new javax.swing.JPanel();
+        codPatrimonio = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
-        descRequisicao = new javax.swing.JTextField();
+        descPatrimonio = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jTextField49 = new javax.swing.JTextField();
         jTextField50 = new javax.swing.JTextField();
@@ -108,15 +107,19 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        codRequisicao = new javax.swing.JTextField();
-        jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
-        valorUnit = new javax.swing.JTextField();
-        jLabel82 = new javax.swing.JLabel();
-        quantidade = new javax.swing.JTextField();
+        jLabel79 = new javax.swing.JLabel();
         btSair1 = new javax.swing.JButton();
+        jLabel82 = new javax.swing.JLabel();
+        marcaPatrimonio = new javax.swing.JTextField();
         jLabel83 = new javax.swing.JLabel();
-        valorTotal = new javax.swing.JTextField();
+        modeloPatrimonio = new javax.swing.JTextField();
+        jLabel84 = new javax.swing.JLabel();
+        ano = new javax.swing.JTextField();
+        jLabel80 = new javax.swing.JLabel();
+        numPatrimonio = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        observacao = new javax.swing.JTextArea();
+        jLabel81 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -124,22 +127,32 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(1100, 700));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setMaximumSize(new java.awt.Dimension(999999, 999999));
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
-        jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel78.setText("Requisição");
-        jPanel18.add(jLabel78);
-        jLabel78.setBounds(140, 70, 290, 20);
-
-        descRequisicao.setBackground(new java.awt.Color(255, 255, 204));
-        descRequisicao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                descRequisicaoKeyReleased(evt);
+        codPatrimonio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codPatrimonio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codPatrimonioFocusLost(evt);
             }
         });
-        jPanel18.add(descRequisicao);
-        descRequisicao.setBounds(140, 90, 910, 20);
+        jPanel18.add(codPatrimonio);
+        codPatrimonio.setBounds(30, 90, 80, 20);
+
+        jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel78.setText("Descrição");
+        jPanel18.add(jLabel78);
+        jLabel78.setBounds(210, 70, 420, 20);
+
+        descPatrimonio.setBackground(new java.awt.Color(255, 255, 204));
+        descPatrimonio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                descPatrimonioKeyReleased(evt);
+            }
+        });
+        jPanel18.add(descPatrimonio);
+        descPatrimonio.setBounds(210, 90, 850, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -265,7 +278,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(110, 200, 180, 40);
+        btNovo.setBounds(100, 280, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -275,7 +288,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(290, 200, 180, 40);
+        btSalvar.setBounds(280, 280, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -285,7 +298,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(470, 200, 180, 40);
+        btExcluir.setBounds(460, 280, 180, 40);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         btSair.setText("Imprimir");
@@ -295,21 +308,21 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(650, 200, 180, 40);
+        btSair.setBounds(640, 280, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Quantidade", "Requisição", "Valor Unitário (R$)", "Valor Total (R$)"
+                "Código", "Patrimônio", "Marca", "Modelo", "Ano"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -327,61 +340,26 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         });
         jScrollPane11.setViewportView(tab);
         if (tab.getColumnModel().getColumnCount() > 0) {
-            tab.getColumnModel().getColumn(0).setPreferredWidth(70);
-            tab.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tab.getColumnModel().getColumn(2).setPreferredWidth(700);
-            tab.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tab.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(600);
+            tab.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tab.getColumnModel().getColumn(3).setPreferredWidth(300);
+            tab.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 280, 1050, 310);
+        jScrollPane11.setBounds(20, 340, 1040, 240);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REQUISIÇÃO DE RETIRADA");
+        jLabel1.setText("CADASTRO DE PATRIMÔNIO");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1130, 70);
+        jLabel1.setBounds(0, 0, 1100, 70);
 
-        codRequisicao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        codRequisicao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                codRequisicaoFocusLost(evt);
-            }
-        });
-        jPanel18.add(codRequisicao);
-        codRequisicao.setBounds(20, 90, 120, 20);
-
-        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel80.setText("Código");
-        jPanel18.add(jLabel80);
-        jLabel80.setBounds(20, 70, 80, 20);
-
-        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Valor Unitário (R$)");
-        jPanel18.add(jLabel81);
-        jLabel81.setBounds(140, 120, 120, 20);
-
-        valorUnit.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorUnitFocusLost(evt);
-            }
-        });
-        jPanel18.add(valorUnit);
-        valorUnit.setBounds(140, 140, 120, 20);
-
-        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel82.setText("Quantidade");
-        jPanel18.add(jLabel82);
-        jLabel82.setBounds(20, 120, 110, 20);
-
-        quantidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                quantidadeFocusLost(evt);
-            }
-        });
-        jPanel18.add(quantidade);
-        quantidade.setBounds(20, 140, 80, 20);
+        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel79.setText("Código");
+        jPanel18.add(jLabel79);
+        jLabel79.setBounds(30, 70, 70, 20);
 
         btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair1.setText("Sair");
@@ -391,77 +369,152 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair1);
-        btSair1.setBounds(830, 200, 180, 40);
+        btSair1.setBounds(820, 280, 180, 40);
 
-        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel83.setText("Valor Total (R$)");
-        jPanel18.add(jLabel83);
-        jLabel83.setBounds(290, 120, 130, 20);
+        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel82.setText("Marca");
+        jPanel18.add(jLabel82);
+        jLabel82.setBounds(30, 110, 110, 20);
 
-        valorTotal.setEnabled(false);
-        valorTotal.addFocusListener(new java.awt.event.FocusAdapter() {
+        marcaPatrimonio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                valorTotalFocusLost(evt);
+                marcaPatrimonioFocusLost(evt);
             }
         });
-        jPanel18.add(valorTotal);
-        valorTotal.setBounds(290, 140, 120, 20);
+        jPanel18.add(marcaPatrimonio);
+        marcaPatrimonio.setBounds(30, 130, 310, 20);
+
+        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel83.setText("Modelo");
+        jPanel18.add(jLabel83);
+        jLabel83.setBounds(350, 110, 450, 20);
+
+        modeloPatrimonio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                modeloPatrimonioFocusLost(evt);
+            }
+        });
+        modeloPatrimonio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modeloPatrimonioActionPerformed(evt);
+            }
+        });
+        jPanel18.add(modeloPatrimonio);
+        modeloPatrimonio.setBounds(350, 130, 590, 20);
+
+        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel84.setText("Ano");
+        jPanel18.add(jLabel84);
+        jLabel84.setBounds(950, 110, 100, 20);
+
+        ano.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                anoFocusLost(evt);
+            }
+        });
+        ano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anoActionPerformed(evt);
+            }
+        });
+        jPanel18.add(ano);
+        ano.setBounds(950, 130, 110, 20);
+
+        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel80.setText("Número");
+        jPanel18.add(jLabel80);
+        jLabel80.setBounds(110, 70, 100, 20);
+
+        numPatrimonio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        numPatrimonio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                numPatrimonioFocusLost(evt);
+            }
+        });
+        jPanel18.add(numPatrimonio);
+        numPatrimonio.setBounds(110, 90, 100, 20);
+
+        observacao.setColumns(20);
+        observacao.setLineWrap(true);
+        observacao.setRows(5);
+        jScrollPane1.setViewportView(observacao);
+
+        jPanel18.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 180, 1030, 80);
+
+        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel81.setText("Observação");
+        jPanel18.add(jLabel81);
+        jLabel81.setBounds(30, 160, 220, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1335, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 700, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE))
         );
+
+        jPanel18.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carregaRequisicao() throws Exception {
-
-        requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-        if (requisicao != null) {
-            descRequisicao.setText(requisicao.getDescricao());
-            valorUnit.setText(ValidarValor.getDouble(requisicao.getValorUnitario()));
-            quantidade.setText(requisicao.getQuantidade().toString());
-            valorTotal.setText(ValidarValor.getDouble(requisicao.getValorTotal()));
-        } else {
-            descRequisicao.setText("");
-            valorUnit.setText("");
-            quantidade.setText("");
-            valorTotal.setText("");
+    private void codPatrimonioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codPatrimonioFocusLost
+        try {
+            carregaPatrimonio();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
+    }//GEN-LAST:event_codPatrimonioFocusLost
 
+    private void carregaPatrimonio() throws Exception {
+        patrimonio = patrimonioDao.get(ValidarValor.getInt(codPatrimonio.getText()));
+        if (patrimonio != null) {
+            numPatrimonio.setText(patrimonio.getNumPatrimonio().toString());
+            descPatrimonio.setText(patrimonio.getDescricao());
+            marcaPatrimonio.setText(patrimonio.getMarca());
+            modeloPatrimonio.setText(patrimonio.getModelo());
+            ano.setText(patrimonio.getAno().toString());
+            observacao.setText(patrimonio.getDescricao());
+
+        } else {
+            numPatrimonio.setText("");
+            descPatrimonio.setText("");
+            marcaPatrimonio.setText("");
+            modeloPatrimonio.setText("");
+            ano.setText("");
+            observacao.setText("");
+        }
     }
 
 
-    private void descRequisicaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descRequisicaoKeyReleased
+    private void descPatrimonioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descPatrimonioKeyReleased
         try {
-            List<RequisicaoFinanceira> merged = requisicaoDAO.getList(12,
-                    "select e from RequisicaoFinanceira e where  lower ( trim(e.descricao) ) like ?1 order by e.codRequisicao",
-                    descRequisicao.getText().trim().toLowerCase() + "%");
-            listaRequisicao.clear();
-            listaRequisicao.addAll(merged);
+            List<Patrimonio> merged = patrimonioDao.getList(12,
+                    "select e from Patrimonio e where  lower ( trim(e.descricao) ) like ?1 order by e.codPatrimonio",
+                    descPatrimonio.getText().trim().toLowerCase() + "%");
+            listaPatrimonio.clear();
+            listaPatrimonio.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Requisições. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Patrimônio. Erro: " + e);
         }
-
-    }//GEN-LAST:event_descRequisicaoKeyReleased
+    }//GEN-LAST:event_descPatrimonioKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            requisicao = new RequisicaoFinanceira();
+            patrimonio = new Patrimonio();
             limpaCampos();
             habilitaCampos(true);
-            descRequisicao.requestFocus();
+            descPatrimonio.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -470,23 +523,25 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-            if (requisicao == null) {
-                requisicao = new RequisicaoFinanceira();
-                setRequisicao();
-                requisicao.setDataCadastro(new Date());
-                requisicao.setDataAtualizacao(new Date());
-                if (requisicaoDAO.confereRequisicao(requisicao)) {
-                    requisicao = requisicaoDAO.salvar(requisicao);
-                    codRequisicao.setText(requisicao.getCodRequisicao().toString());
-                    requisicao.setDataAtualizacao(new Date());
+
+            patrimonio = patrimonioDao.get(ValidarValor.getInt(codPatrimonio.getText()));
+            if (patrimonio == null) {
+                patrimonio = new Patrimonio();
+                setPatrimonio();
+                patrimonio.setDataCadastro(new Date());
+                patrimonio.setDataAtualizacao(new Date());
+                if (patrimonioDao.conferePatrimonio(patrimonio)) {
+                    patrimonio = patrimonioDao.salvar(patrimonio);
+                    codPatrimonio.setText(patrimonio.getCodPatrimonio().toString());
+                    patrimonio.setDataAtualizacao(new Date());
                     btSalvar.setEnabled(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Requisição já Cadastrada");
+                    JOptionPane.showMessageDialog(this, "Patrimônio já Cadastrado");
                 }
             }
-            setRequisicao();
-            requisicaoDAO.salvar(requisicao);
+            setPatrimonio();
+            patrimonioDao.salvar(patrimonio);
+            limpaCampos();
             atualizatabela();
 
         } catch (Exception e) {
@@ -497,15 +552,15 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-            if (requisicao == null) {
+            patrimonio = patrimonioDao.get(ValidarValor.getInt(codPatrimonio.getText()));
+            if (patrimonio == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setRequisicao();
-                requisicaoDAO.delete(requisicao);
+                setPatrimonio();
+                patrimonioDao.delete(patrimonio);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descRequisicao.requestFocus();
+                descPatrimonio.requestFocus();
             }
             atualizatabela();
         } catch (Exception e) {
@@ -515,100 +570,93 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         try {
+            String sql = "SELECT * FROM Patrimonio ORDER BY descricao asc";
 
-            if (codRequisicao.getText() == null || codRequisicao.getText().isEmpty()) {
-                throw new Exception("Favor inserir um Valor válido");
-            } else {
-
-                String sql = "SELECT codRequisicao, descricao, valorUnitario,valorTotal,quantidade, quantidade "
-                        + " FROM requisicaofinanceira "
-                        + " WHERE codRequisicao = " + codRequisicao.getText()
-                        + " ORDER BY descricao asc";
-
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelRequisicaoFinanceira.jasper", "Requisição Financeira", null, sql);
-
-            }
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelPatrimonio.jasper", "RELATÓRIO DE PATRIMÔNIOS", null, sql);
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Requisição! \n " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Patrimônio! \n " + e);
         }
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         try {
             if (evt.getClickCount() > 1) {
-                codRequisicao.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-                carregaRequisicao();
+                codPatrimonio.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                patrimonio = patrimonioDao.get(ValidarValor.getInt(codPatrimonio.getText()));
+                carregaPatrimonio();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_tabMouseClicked
-
-    private void codRequisicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codRequisicaoFocusLost
-        try {
-            carregaRequisicao();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_codRequisicaoFocusLost
-
-    private void valorUnitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorUnitFocusLost
-        if (quantidade.getText() != null) {
-            valorTotal.setText(ValidarValor.getDouble(ValidarValor.getDouble(quantidade.getText()) * ValidarValor.getDouble(valorUnit.getText())));
-        }
-    }//GEN-LAST:event_valorUnitFocusLost
-
-    private void quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantidadeFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quantidadeFocusLost
 
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
-    private void valorTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorTotalFocusLost
+    private void marcaPatrimonioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_marcaPatrimonioFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_valorTotalFocusLost
+    }//GEN-LAST:event_marcaPatrimonioFocusLost
+
+    private void modeloPatrimonioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_modeloPatrimonioFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modeloPatrimonioFocusLost
+
+    private void modeloPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloPatrimonioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modeloPatrimonioActionPerformed
+
+    private void anoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anoFocusLost
+
+    private void anoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anoActionPerformed
+
+    private void numPatrimonioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numPatrimonioFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numPatrimonioFocusLost
 
     private void limpaCampos() {
-        codRequisicao.setText("");
-        descRequisicao.setText("");
-        valorUnit.setText("");
-        quantidade.setText("");
-        valorTotal.setText("");
+        codPatrimonio.setText("");
+        numPatrimonio.setText("");
+        descPatrimonio.setText("");
+        marcaPatrimonio.setText("");
+        modeloPatrimonio.setText("");
+        ano.setText("");
+        observacao.setText("");
     }
 
     private void habilitaCampos(boolean b) {
-        codRequisicao.setEnabled(b);
-        descRequisicao.setEnabled(b);
-        valorUnit.setEnabled(b);
-        quantidade.setEnabled(b);
-        valorTotal.setEnabled(b);
+        codPatrimonio.setEnabled(b);
+        numPatrimonio.setEnabled(b);
+        descPatrimonio.setEnabled(b);
+        marcaPatrimonio.setEnabled(b);
+        modeloPatrimonio.setEnabled(b);
+        ano.setEnabled(b);
+        observacao.setEnabled(b);
         btSalvar.setEnabled(b);
     }
 
-    private void setRequisicao() throws Exception {
-
-        if (descRequisicao.getText().length() < 2) {
-            throw new Exception("Favor inserir uma Requisição");
+    private void setPatrimonio() throws Exception {
+        if (descPatrimonio.getText().length() < 2) {
+            throw new Exception("Favor inserir um Patrimônio");
         }
 
-        if (quantidade.getText().length() < 0) {
-            throw new Exception("Favor inserir uma Quantidade válida");
+        if (marcaPatrimonio.getText().length() < 2) {
+            throw new Exception("Favor inserir uma marca");
         }
+        patrimonio.setNumPatrimonio(ValidarValor.getInt(numPatrimonio.getText()));
+        patrimonio.setDescricao(descPatrimonio.getText());
+        patrimonio.setMarca(marcaPatrimonio.getText());
+        patrimonio.setModelo(modeloPatrimonio.getText());
+        patrimonio.setAno(ValidarValor.getInt(ano.getText()));
+        patrimonio.setObservacao(observacao.getText());
 
-        if (valorUnit.getText().length() < 0) {
-            throw new Exception("Favor inserir um Valor válido");
-        }
-
-        requisicao.setDescricao(descRequisicao.getText());
-        requisicao.setValorUnitario(ValidarValor.getBigD(valorUnit.getText()));
-        requisicao.setQuantidade(ValidarValor.getInt(quantidade.getText()));
-        requisicao.setValorTotal(ValidarValor.getDouble(valorTotal.getText()));
     }
 
     public static void removeLinhas(JTable table) {
@@ -625,17 +673,16 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
             removeLinhas(tab);
-
-            List<RequisicaoFinanceira> listaT = requisicaoDAO.getList();
+            List<Patrimonio> listaT = patrimonioDao.getList();
             if (listaT.size() > 0) {
                 model.setNumRows(0);
-                for (RequisicaoFinanceira r : listaT) {
+                for (Patrimonio p : listaT) {
                     Object o[] = new Object[]{
-                        r.getCodRequisicao(),
-                        r.getQuantidade(),
-                        r.getDescricao(),
-                        r.getValorUnitario(),
-                        r.getValorTotal()};
+                        p.getCodPatrimonio(),
+                        p.getDescricao(),
+                        p.getMarca(),
+                        p.getModelo(),
+                        p.getAno()};
 
                     model.addRow(o);
                 }
@@ -645,17 +692,19 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             removeLinhas(tab);
             e.printStackTrace();
         }
+
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ano;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codRequisicao;
-    private javax.swing.JTextField descRequisicao;
+    private javax.swing.JTextField codPatrimonio;
+    private javax.swing.JTextField descPatrimonio;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
@@ -663,10 +712,12 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -679,6 +730,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JTextField jTextField49;
     private javax.swing.JTextField jTextField50;
@@ -696,9 +748,10 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
-    private javax.swing.JTextField quantidade;
+    private javax.swing.JTextField marcaPatrimonio;
+    private javax.swing.JTextField modeloPatrimonio;
+    private javax.swing.JTextField numPatrimonio;
+    private javax.swing.JTextArea observacao;
     private javax.swing.JTable tab;
-    private javax.swing.JTextField valorTotal;
-    private javax.swing.JTextField valorUnit;
     // End of variables declaration//GEN-END:variables
 }

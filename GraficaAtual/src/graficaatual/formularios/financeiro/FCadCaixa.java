@@ -5,12 +5,11 @@
  */
 package graficaatual.formularios.financeiro;
 
-import graficaatual.daos.financeiro.RequisicaoFinanceiraDAO;
-import graficaatual.entidades.financeiro.RequisicaoFinanceira;
+import graficaatual.daos.financeiro.CaixaDAO;
+import graficaatual.entidades.financeiro.Caixa;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,41 +20,42 @@ import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
- * @author Moisés
+ * @author User
  */
-public class FRequisicao extends javax.swing.JInternalFrame {
+public class FCadCaixa extends javax.swing.JInternalFrame {
 
-    private RequisicaoFinanceira requisicao;
-    private RequisicaoFinanceiraDAO requisicaoDAO = new RequisicaoFinanceiraDAO();
+    private Caixa caixa;
+    private CaixaDAO caixaDAO = new CaixaDAO();
 
-    private List<RequisicaoFinanceira> listaRequisicao = null;
+    private List<Caixa> listaCaixa = null;
 
-    public FRequisicao() {
+    public FCadCaixa() {
         initComponents();
 
-        atualizatabela();
-
-        listaRequisicao = ObservableCollections.observableList(new LinkedList<RequisicaoFinanceira>());
-        Componentes comp2 = new Componentes(listaRequisicao, false, codRequisicao, descRequisicao, this, jPanel18, descRequisicao.getWidth(), 100);
-        comp2.addCol(0, "codRequisicao", "Código", 50, Integer.class.getName());
-        comp2.addCol(1, "descricao", "Requisição", 200, String.class.getName());
+        listaCaixa = ObservableCollections.observableList(new LinkedList<Caixa>());
+        Componentes comp2 = new Componentes(listaCaixa, false, codCaixa, descCaixa, this, jPanel18, descCaixa.getWidth(), 100);
+        comp2.addCol(0, "codCaixa", "Código", 50, Integer.class.getName());
+        comp2.addCol(1, "descricao", "Caixa", 200, String.class.getName());
+        comp2.addCol(2, "valorInicial", "Valor Abertura", 60, String.class.getName());
         comp2.bind();
+
+        atualizatabela();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
 
-    private static FRequisicao instancia;
-    private static FRequisicao instanceCont;
+    private static FCadCaixa instancia;
+    private static FCadCaixa instanceCont;
     private static int initControle;
 
     public static int isInicializado() {
         return initControle;
     }
 
-    public synchronized static FRequisicao getInstancia() {
+    public synchronized static FCadCaixa getInstancia() {
         if (instancia == null) {
-            instancia = new FRequisicao();
+            instancia = new FCadCaixa();
             initControle = 1;
         }
 
@@ -67,8 +67,9 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel18 = new javax.swing.JPanel();
+        valorInicial = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
-        descRequisicao = new javax.swing.JTextField();
+        descCaixa = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jTextField49 = new javax.swing.JTextField();
         jTextField50 = new javax.swing.JTextField();
@@ -108,15 +109,10 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        codRequisicao = new javax.swing.JTextField();
+        jLabel79 = new javax.swing.JLabel();
+        codCaixa = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
-        valorUnit = new javax.swing.JTextField();
-        jLabel82 = new javax.swing.JLabel();
-        quantidade = new javax.swing.JTextField();
         btSair1 = new javax.swing.JButton();
-        jLabel83 = new javax.swing.JLabel();
-        valorTotal = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -125,21 +121,26 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jPanel18.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
-        jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel78.setText("Requisição");
-        jPanel18.add(jLabel78);
-        jLabel78.setBounds(140, 70, 290, 20);
+        valorInicial.setText("0,00");
+        jPanel18.add(valorInicial);
+        valorInicial.setBounds(910, 90, 130, 20);
 
-        descRequisicao.setBackground(new java.awt.Color(255, 255, 204));
-        descRequisicao.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel78.setText("Caixa");
+        jPanel18.add(jLabel78);
+        jLabel78.setBounds(110, 70, 70, 20);
+
+        descCaixa.setBackground(new java.awt.Color(255, 255, 204));
+        descCaixa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                descRequisicaoKeyReleased(evt);
+                descCaixaKeyReleased(evt);
             }
         });
-        jPanel18.add(descRequisicao);
-        descRequisicao.setBounds(140, 90, 910, 20);
+        jPanel18.add(descCaixa);
+        descCaixa.setBounds(110, 90, 800, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -265,7 +266,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(110, 200, 180, 40);
+        btNovo.setBounds(80, 130, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -275,7 +276,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(290, 200, 180, 40);
+        btSalvar.setBounds(260, 130, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -285,7 +286,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(470, 200, 180, 40);
+        btExcluir.setBounds(440, 130, 180, 40);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         btSair.setText("Imprimir");
@@ -295,21 +296,21 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(650, 200, 180, 40);
+        btSair.setBounds(620, 130, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Quantidade", "Requisição", "Valor Unitário (R$)", "Valor Total (R$)"
+                "Código", "Caixa", "Valor Inicial"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -327,61 +328,38 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         });
         jScrollPane11.setViewportView(tab);
         if (tab.getColumnModel().getColumnCount() > 0) {
-            tab.getColumnModel().getColumn(0).setPreferredWidth(70);
-            tab.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tab.getColumnModel().getColumn(2).setPreferredWidth(700);
-            tab.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tab.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(700);
+            tab.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 280, 1050, 310);
+        jScrollPane11.setBounds(20, 190, 1020, 250);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REQUISIÇÃO DE RETIRADA");
+        jLabel1.setText("CADASTRO DE CAIXAS");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1130, 70);
+        jLabel1.setBounds(0, 0, 1100, 70);
 
-        codRequisicao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        codRequisicao.addFocusListener(new java.awt.event.FocusAdapter() {
+        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel79.setText("Valor Abertura");
+        jPanel18.add(jLabel79);
+        jLabel79.setBounds(910, 70, 130, 20);
+
+        codCaixa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codCaixa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codRequisicaoFocusLost(evt);
+                codCaixaFocusLost(evt);
             }
         });
-        jPanel18.add(codRequisicao);
-        codRequisicao.setBounds(20, 90, 120, 20);
+        jPanel18.add(codCaixa);
+        codCaixa.setBounds(20, 90, 90, 20);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Código");
         jPanel18.add(jLabel80);
         jLabel80.setBounds(20, 70, 80, 20);
-
-        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Valor Unitário (R$)");
-        jPanel18.add(jLabel81);
-        jLabel81.setBounds(140, 120, 120, 20);
-
-        valorUnit.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorUnitFocusLost(evt);
-            }
-        });
-        jPanel18.add(valorUnit);
-        valorUnit.setBounds(140, 140, 120, 20);
-
-        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel82.setText("Quantidade");
-        jPanel18.add(jLabel82);
-        jLabel82.setBounds(20, 120, 110, 20);
-
-        quantidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                quantidadeFocusLost(evt);
-            }
-        });
-        jPanel18.add(quantidade);
-        quantidade.setBounds(20, 140, 80, 20);
 
         btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair1.setText("Sair");
@@ -391,77 +369,56 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair1);
-        btSair1.setBounds(830, 200, 180, 40);
-
-        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel83.setText("Valor Total (R$)");
-        jPanel18.add(jLabel83);
-        jLabel83.setBounds(290, 120, 130, 20);
-
-        valorTotal.setEnabled(false);
-        valorTotal.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorTotalFocusLost(evt);
-            }
-        });
-        jPanel18.add(valorTotal);
-        valorTotal.setBounds(290, 140, 120, 20);
+        btSair1.setBounds(800, 130, 180, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1335, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 673, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 673, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carregaRequisicao() throws Exception {
-
-        requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-        if (requisicao != null) {
-            descRequisicao.setText(requisicao.getDescricao());
-            valorUnit.setText(ValidarValor.getDouble(requisicao.getValorUnitario()));
-            quantidade.setText(requisicao.getQuantidade().toString());
-            valorTotal.setText(ValidarValor.getDouble(requisicao.getValorTotal()));
+    private void carregaBanco() throws Exception {
+        caixa = caixaDAO.get(ValidarValor.getInt(codCaixa.getText()));
+        if (caixa != null) {
+            descCaixa.setText(caixa.getDescricao());
+            valorInicial.setText(ValidarValor.getDouble(caixa.getValorInicial()));
         } else {
-            descRequisicao.setText("");
-            valorUnit.setText("");
-            quantidade.setText("");
-            valorTotal.setText("");
+            descCaixa.setText("");
+            valorInicial.setText("");
         }
-
     }
 
 
-    private void descRequisicaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descRequisicaoKeyReleased
+    private void descCaixaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCaixaKeyReleased
         try {
-            List<RequisicaoFinanceira> merged = requisicaoDAO.getList(12,
-                    "select e from RequisicaoFinanceira e where  lower ( trim(e.descricao) ) like ?1 order by e.codRequisicao",
-                    descRequisicao.getText().trim().toLowerCase() + "%");
-            listaRequisicao.clear();
-            listaRequisicao.addAll(merged);
+            List<Caixa> merged = caixaDAO.getList(12,
+                    "select e from Caixa e where  lower ( trim(e.descricao) ) like ?1 order by e.codCaixa",
+                    descCaixa.getText().trim().toLowerCase() + "%");
+            listaCaixa.clear();
+            listaCaixa.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Requisições. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Caixas. Erro: " + e);
         }
-
-    }//GEN-LAST:event_descRequisicaoKeyReleased
+    }//GEN-LAST:event_descCaixaKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            requisicao = new RequisicaoFinanceira();
+            caixa = new Caixa();
             limpaCampos();
             habilitaCampos(true);
-            descRequisicao.requestFocus();
+            descCaixa.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -470,23 +427,23 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-            if (requisicao == null) {
-                requisicao = new RequisicaoFinanceira();
-                setRequisicao();
-                requisicao.setDataCadastro(new Date());
-                requisicao.setDataAtualizacao(new Date());
-                if (requisicaoDAO.confereRequisicao(requisicao)) {
-                    requisicao = requisicaoDAO.salvar(requisicao);
-                    codRequisicao.setText(requisicao.getCodRequisicao().toString());
-                    requisicao.setDataAtualizacao(new Date());
+            caixa = caixaDAO.get(ValidarValor.getInt(codCaixa.getText()));
+            if (caixa == null) {
+                caixa = new Caixa();
+                setCaixa();
+                caixa.setDataCadastro(new Date());
+                caixa.setDataAtualizacao(new Date());
+                if (caixaDAO.confereCaixa(caixa)) {
+                    caixa = caixaDAO.salvar(caixa);
+                    codCaixa.setText(caixa.getCodCaixa().toString());
+                    caixa.setDataAtualizacao(new Date());
                     btSalvar.setEnabled(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Requisição já Cadastrada");
+                    JOptionPane.showMessageDialog(this, "Caixa já Cadastrado");
                 }
             }
-            setRequisicao();
-            requisicaoDAO.salvar(requisicao);
+            setCaixa();
+            caixaDAO.salvar(caixa);
             atualizatabela();
 
         } catch (Exception e) {
@@ -497,15 +454,15 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-            if (requisicao == null) {
+            caixa = caixaDAO.get(ValidarValor.getInt(codCaixa.getText()));
+            if (caixa == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setRequisicao();
-                requisicaoDAO.delete(requisicao);
+                setCaixa();
+                caixaDAO.delete(caixa);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descRequisicao.requestFocus();
+                descCaixa.requestFocus();
             }
             atualizatabela();
         } catch (Exception e) {
@@ -515,100 +472,69 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         try {
+            String sql = "SELECT codCaixa, descricao, valorInicial "
+                    + " FROM Caixa "
+                    + " ORDER BY descricao asc";
 
-            if (codRequisicao.getText() == null || codRequisicao.getText().isEmpty()) {
-                throw new Exception("Favor inserir um Valor válido");
-            } else {
-
-                String sql = "SELECT codRequisicao, descricao, valorUnitario,valorTotal,quantidade, quantidade "
-                        + " FROM requisicaofinanceira "
-                        + " WHERE codRequisicao = " + codRequisicao.getText()
-                        + " ORDER BY descricao asc";
-
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelRequisicaoFinanceira.jasper", "Requisição Financeira", null, sql);
-
-            }
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelCaixaLista.jasper", "RELATÓRIO DE CAIXAS", null, sql);
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Requisição! \n " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bancos! \n " + e);
         }
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         try {
             if (evt.getClickCount() > 1) {
-                codRequisicao.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-                carregaRequisicao();
+                codCaixa.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                caixa = caixaDAO.get(ValidarValor.getInt(codCaixa.getText()));
+                carregaBanco();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_tabMouseClicked
 
-    private void codRequisicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codRequisicaoFocusLost
+    private void codCaixaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCaixaFocusLost
         try {
-            carregaRequisicao();
+            carregaBanco();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_codRequisicaoFocusLost
-
-    private void valorUnitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorUnitFocusLost
-        if (quantidade.getText() != null) {
-            valorTotal.setText(ValidarValor.getDouble(ValidarValor.getDouble(quantidade.getText()) * ValidarValor.getDouble(valorUnit.getText())));
-        }
-    }//GEN-LAST:event_valorUnitFocusLost
-
-    private void quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantidadeFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quantidadeFocusLost
+    }//GEN-LAST:event_codCaixaFocusLost
 
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
-    private void valorTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorTotalFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorTotalFocusLost
-
     private void limpaCampos() {
-        codRequisicao.setText("");
-        descRequisicao.setText("");
-        valorUnit.setText("");
-        quantidade.setText("");
-        valorTotal.setText("");
+        codCaixa.setText("");
+        descCaixa.setText("");
+        valorInicial.setText("");
     }
 
     private void habilitaCampos(boolean b) {
-        codRequisicao.setEnabled(b);
-        descRequisicao.setEnabled(b);
-        valorUnit.setEnabled(b);
-        quantidade.setEnabled(b);
-        valorTotal.setEnabled(b);
+        codCaixa.setEnabled(b);
+        descCaixa.setEnabled(b);
+        valorInicial.setEnabled(b);
         btSalvar.setEnabled(b);
     }
 
-    private void setRequisicao() throws Exception {
+    private void setCaixa() throws Exception {
 
-        if (descRequisicao.getText().length() < 2) {
-            throw new Exception("Favor inserir uma Requisição");
+        if (descCaixa.getText().length() < 2) {
+            throw new Exception("Favor inserir um Caixa");
         }
 
-        if (quantidade.getText().length() < 0) {
-            throw new Exception("Favor inserir uma Quantidade válida");
+        if (valorInicial.getText().length() < 2) {
+            throw new Exception("Favor inserir um Valor");
         }
 
-        if (valorUnit.getText().length() < 0) {
-            throw new Exception("Favor inserir um Valor válido");
-        }
-
-        requisicao.setDescricao(descRequisicao.getText());
-        requisicao.setValorUnitario(ValidarValor.getBigD(valorUnit.getText()));
-        requisicao.setQuantidade(ValidarValor.getInt(quantidade.getText()));
-        requisicao.setValorTotal(ValidarValor.getDouble(valorTotal.getText()));
+        caixa.setDescricao(descCaixa.getText());
+        caixa.setValorInicial((ValidarValor.getArredondamento(ValidarValor.getDouble(valorInicial.getText()))));
     }
 
     public static void removeLinhas(JTable table) {
@@ -625,17 +551,14 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
             removeLinhas(tab);
-
-            List<RequisicaoFinanceira> listaT = requisicaoDAO.getList();
+            List<Caixa> listaT = caixaDAO.getList();
             if (listaT.size() > 0) {
                 model.setNumRows(0);
-                for (RequisicaoFinanceira r : listaT) {
+                for (Caixa c : listaT) {
                     Object o[] = new Object[]{
-                        r.getCodRequisicao(),
-                        r.getQuantidade(),
-                        r.getDescricao(),
-                        r.getValorUnitario(),
-                        r.getValorTotal()};
+                        c.getCodCaixa(),
+                        c.getDescricao(),
+                        c.getValorInicial()};
 
                     model.addRow(o);
                 }
@@ -645,6 +568,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             removeLinhas(tab);
             e.printStackTrace();
         }
+
     }
 
 
@@ -654,8 +578,8 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codRequisicao;
-    private javax.swing.JTextField descRequisicao;
+    private javax.swing.JTextField codCaixa;
+    private javax.swing.JTextField descCaixa;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
@@ -663,10 +587,8 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
-    private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -696,9 +618,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
-    private javax.swing.JTextField quantidade;
     private javax.swing.JTable tab;
-    private javax.swing.JTextField valorTotal;
-    private javax.swing.JTextField valorUnit;
+    private javax.swing.JTextField valorInicial;
     // End of variables declaration//GEN-END:variables
 }

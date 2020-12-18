@@ -5,12 +5,11 @@
  */
 package graficaatual.formularios.financeiro;
 
-import graficaatual.daos.financeiro.RequisicaoFinanceiraDAO;
-import graficaatual.entidades.financeiro.RequisicaoFinanceira;
+import graficaatual.daos.financeiro.CentroDeCustoDAO;
+import graficaatual.entidades.financeiro.CentroDeCustos;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,41 +20,41 @@ import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
- * @author Moisés
+ * @author User
  */
-public class FRequisicao extends javax.swing.JInternalFrame {
+public class FCadCentroDeCustos extends javax.swing.JInternalFrame {
 
-    private RequisicaoFinanceira requisicao;
-    private RequisicaoFinanceiraDAO requisicaoDAO = new RequisicaoFinanceiraDAO();
+    private CentroDeCustos centro;
+    private CentroDeCustoDAO centroDAO = new CentroDeCustoDAO();
 
-    private List<RequisicaoFinanceira> listaRequisicao = null;
+    private List<CentroDeCustos> listaCentro = null;
 
-    public FRequisicao() {
+    public FCadCentroDeCustos() {
         initComponents();
 
-        atualizatabela();
-
-        listaRequisicao = ObservableCollections.observableList(new LinkedList<RequisicaoFinanceira>());
-        Componentes comp2 = new Componentes(listaRequisicao, false, codRequisicao, descRequisicao, this, jPanel18, descRequisicao.getWidth(), 100);
-        comp2.addCol(0, "codRequisicao", "Código", 50, Integer.class.getName());
-        comp2.addCol(1, "descricao", "Requisição", 200, String.class.getName());
+        listaCentro = ObservableCollections.observableList(new LinkedList<CentroDeCustos>());
+        Componentes comp2 = new Componentes(listaCentro, false, codCentro, descCentro, this, jPanel18, descCentro.getWidth(), 100);
+        comp2.addCol(0, "codCentro", "Código", 50, Integer.class.getName());
+        comp2.addCol(1, "descricao", "Centro de Custos", 200, String.class.getName());
         comp2.bind();
+
+        atualizatabela();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
     }
 
-    private static FRequisicao instancia;
-    private static FRequisicao instanceCont;
+    private static FCadCentroDeCustos instancia;
+    private static FCadCentroDeCustos instanceCont;
     private static int initControle;
 
     public static int isInicializado() {
         return initControle;
     }
 
-    public synchronized static FRequisicao getInstancia() {
+    public synchronized static FCadCentroDeCustos getInstancia() {
         if (instancia == null) {
-            instancia = new FRequisicao();
+            instancia = new FCadCentroDeCustos();
             initControle = 1;
         }
 
@@ -68,7 +67,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
         jPanel18 = new javax.swing.JPanel();
         jLabel78 = new javax.swing.JLabel();
-        descRequisicao = new javax.swing.JTextField();
+        descCentro = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jTextField49 = new javax.swing.JTextField();
         jTextField50 = new javax.swing.JTextField();
@@ -108,15 +107,11 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        codRequisicao = new javax.swing.JTextField();
+        codCentro = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
-        valorUnit = new javax.swing.JTextField();
-        jLabel82 = new javax.swing.JLabel();
-        quantidade = new javax.swing.JTextField();
         btSair1 = new javax.swing.JButton();
-        jLabel83 = new javax.swing.JLabel();
-        valorTotal = new javax.swing.JTextField();
+        jLabel79 = new javax.swing.JLabel();
+        tipoCentro = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -125,21 +120,22 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jPanel18.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel78.setText("Requisição");
+        jLabel78.setText("Tipo");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(140, 70, 290, 20);
+        jLabel78.setBounds(840, 70, 150, 20);
 
-        descRequisicao.setBackground(new java.awt.Color(255, 255, 204));
-        descRequisicao.addKeyListener(new java.awt.event.KeyAdapter() {
+        descCentro.setBackground(new java.awt.Color(255, 255, 204));
+        descCentro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                descRequisicaoKeyReleased(evt);
+                descCentroKeyReleased(evt);
             }
         });
-        jPanel18.add(descRequisicao);
-        descRequisicao.setBounds(140, 90, 910, 20);
+        jPanel18.add(descCentro);
+        descCentro.setBounds(110, 90, 730, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -265,7 +261,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(110, 200, 180, 40);
+        btNovo.setBounds(70, 130, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -275,7 +271,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(290, 200, 180, 40);
+        btSalvar.setBounds(250, 130, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -285,7 +281,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(470, 200, 180, 40);
+        btExcluir.setBounds(430, 130, 180, 40);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         btSair.setText("Imprimir");
@@ -295,21 +291,21 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(650, 200, 180, 40);
+        btSair.setBounds(610, 130, 180, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Quantidade", "Requisição", "Valor Unitário (R$)", "Valor Total (R$)"
+                "Código", "Centro de Custos", "Tipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -327,61 +323,33 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         });
         jScrollPane11.setViewportView(tab);
         if (tab.getColumnModel().getColumnCount() > 0) {
-            tab.getColumnModel().getColumn(0).setPreferredWidth(70);
-            tab.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tab.getColumnModel().getColumn(2).setPreferredWidth(700);
-            tab.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tab.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(700);
+            tab.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
         jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 280, 1050, 310);
+        jScrollPane11.setBounds(10, 210, 1020, 310);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REQUISIÇÃO DE RETIRADA");
+        jLabel1.setText("CADASTRO DE CENTRO DE CUSTOS");
         jPanel18.add(jLabel1);
-        jLabel1.setBounds(0, 0, 1130, 70);
+        jLabel1.setBounds(0, 0, 1100, 70);
 
-        codRequisicao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        codRequisicao.addFocusListener(new java.awt.event.FocusAdapter() {
+        codCentro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codCentro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codRequisicaoFocusLost(evt);
+                codCentroFocusLost(evt);
             }
         });
-        jPanel18.add(codRequisicao);
-        codRequisicao.setBounds(20, 90, 120, 20);
+        jPanel18.add(codCentro);
+        codCentro.setBounds(20, 90, 90, 20);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Código");
         jPanel18.add(jLabel80);
         jLabel80.setBounds(20, 70, 80, 20);
-
-        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Valor Unitário (R$)");
-        jPanel18.add(jLabel81);
-        jLabel81.setBounds(140, 120, 120, 20);
-
-        valorUnit.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorUnitFocusLost(evt);
-            }
-        });
-        jPanel18.add(valorUnit);
-        valorUnit.setBounds(140, 140, 120, 20);
-
-        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel82.setText("Quantidade");
-        jPanel18.add(jLabel82);
-        jLabel82.setBounds(20, 120, 110, 20);
-
-        quantidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                quantidadeFocusLost(evt);
-            }
-        });
-        jPanel18.add(quantidade);
-        quantidade.setBounds(20, 140, 80, 20);
 
         btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair1.setText("Sair");
@@ -391,77 +359,67 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair1);
-        btSair1.setBounds(830, 200, 180, 40);
+        btSair1.setBounds(790, 130, 180, 40);
 
-        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel83.setText("Valor Total (R$)");
-        jPanel18.add(jLabel83);
-        jLabel83.setBounds(290, 120, 130, 20);
+        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel79.setText("Centro de Custos");
+        jPanel18.add(jLabel79);
+        jLabel79.setBounds(110, 70, 140, 20);
 
-        valorTotal.setEnabled(false);
-        valorTotal.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                valorTotalFocusLost(evt);
-            }
-        });
-        jPanel18.add(valorTotal);
-        valorTotal.setBounds(290, 140, 120, 20);
+        tipoCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Receita", "Despesa" }));
+        jPanel18.add(tipoCentro);
+        tipoCentro.setBounds(840, 90, 190, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1335, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 120, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carregaRequisicao() throws Exception {
-
-        requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-        if (requisicao != null) {
-            descRequisicao.setText(requisicao.getDescricao());
-            valorUnit.setText(ValidarValor.getDouble(requisicao.getValorUnitario()));
-            quantidade.setText(requisicao.getQuantidade().toString());
-            valorTotal.setText(ValidarValor.getDouble(requisicao.getValorTotal()));
+    private void carregaCentro() throws Exception {
+        centro = centroDAO.get(ValidarValor.getInt(codCentro.getText()));
+        if (centro != null) {
+            descCentro.setText(centro.getDescricao());
+            tipoCentro.setSelectedIndex(centro.getTipo());
         } else {
-            descRequisicao.setText("");
-            valorUnit.setText("");
-            quantidade.setText("");
-            valorTotal.setText("");
-        }
+            descCentro.setText("");
+            tipoCentro.setSelectedIndex(-1);
 
+        }
     }
 
 
-    private void descRequisicaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descRequisicaoKeyReleased
+    private void descCentroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCentroKeyReleased
         try {
-            List<RequisicaoFinanceira> merged = requisicaoDAO.getList(12,
-                    "select e from RequisicaoFinanceira e where  lower ( trim(e.descricao) ) like ?1 order by e.codRequisicao",
-                    descRequisicao.getText().trim().toLowerCase() + "%");
-            listaRequisicao.clear();
-            listaRequisicao.addAll(merged);
+            List<CentroDeCustos> merged = centroDAO.getList(12,
+                    "select e from CentroDeCustos e where  lower ( trim(e.descricao) ) like ?1 order by e.codCentro",
+                    descCentro.getText().trim().toLowerCase() + "%");
+            listaCentro.clear();
+            listaCentro.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Requisições. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Centro de Custos. Erro: " + e);
         }
-
-    }//GEN-LAST:event_descRequisicaoKeyReleased
+    }//GEN-LAST:event_descCentroKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            requisicao = new RequisicaoFinanceira();
+            centro = new CentroDeCustos();
             limpaCampos();
             habilitaCampos(true);
-            descRequisicao.requestFocus();
+            descCentro.requestFocus();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -470,23 +428,23 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-            if (requisicao == null) {
-                requisicao = new RequisicaoFinanceira();
-                setRequisicao();
-                requisicao.setDataCadastro(new Date());
-                requisicao.setDataAtualizacao(new Date());
-                if (requisicaoDAO.confereRequisicao(requisicao)) {
-                    requisicao = requisicaoDAO.salvar(requisicao);
-                    codRequisicao.setText(requisicao.getCodRequisicao().toString());
-                    requisicao.setDataAtualizacao(new Date());
+            centro = centroDAO.get(ValidarValor.getInt(codCentro.getText()));
+            if (centro == null) {
+                centro = new CentroDeCustos();
+                setCentro();
+                centro.setDataCadastro(new Date());
+                centro.setDataAtualizacao(new Date());
+                if (centroDAO.confereCentro(centro)) {
+                    centro = centroDAO.salvar(centro);
+                    codCentro.setText(centro.getCodCentro().toString());
+                    centro.setDataAtualizacao(new Date());
                     btSalvar.setEnabled(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Requisição já Cadastrada");
+                    JOptionPane.showMessageDialog(this, "Centro de Custo já Cadastrado");
                 }
             }
-            setRequisicao();
-            requisicaoDAO.salvar(requisicao);
+            setCentro();
+            centroDAO.salvar(centro);
             atualizatabela();
 
         } catch (Exception e) {
@@ -497,15 +455,15 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-            if (requisicao == null) {
+            centro = centroDAO.get(ValidarValor.getInt(codCentro.getText()));
+            if (centro == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setRequisicao();
-                requisicaoDAO.delete(requisicao);
+                setCentro();
+                centroDAO.delete(centro);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descRequisicao.requestFocus();
+                descCentro.requestFocus();
             }
             atualizatabela();
         } catch (Exception e) {
@@ -515,100 +473,67 @@ public class FRequisicao extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         try {
+            String sql = "SELECT codCentro, descricao, tipo "
+                    + " FROM CentroDeCustos "
+                    + " ORDER BY descricao asc";
 
-            if (codRequisicao.getText() == null || codRequisicao.getText().isEmpty()) {
-                throw new Exception("Favor inserir um Valor válido");
-            } else {
-
-                String sql = "SELECT codRequisicao, descricao, valorUnitario,valorTotal,quantidade, quantidade "
-                        + " FROM requisicaofinanceira "
-                        + " WHERE codRequisicao = " + codRequisicao.getText()
-                        + " ORDER BY descricao asc";
-
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelRequisicaoFinanceira.jasper", "Requisição Financeira", null, sql);
-
-            }
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelCentroCustoLista.jasper", "RELATÓRIO DE CENTRO DE CUSTOS", null, sql);
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Requisição! \n " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de Centro De Custos! \n " + e);
         }
     }//GEN-LAST:event_btSairActionPerformed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         try {
             if (evt.getClickCount() > 1) {
-                codRequisicao.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                requisicao = requisicaoDAO.get(ValidarValor.getInt(codRequisicao.getText()));
-                carregaRequisicao();
+                codCentro.setText("" + tab.getValueAt(tab.getSelectedRow(), 0));
+                codCentroFocusLost(null);
+                descCentro.requestFocus();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_tabMouseClicked
 
-    private void codRequisicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codRequisicaoFocusLost
+    private void codCentroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCentroFocusLost
         try {
-            carregaRequisicao();
+            carregaCentro();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_codRequisicaoFocusLost
-
-    private void valorUnitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorUnitFocusLost
-        if (quantidade.getText() != null) {
-            valorTotal.setText(ValidarValor.getDouble(ValidarValor.getDouble(quantidade.getText()) * ValidarValor.getDouble(valorUnit.getText())));
-        }
-    }//GEN-LAST:event_valorUnitFocusLost
-
-    private void quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantidadeFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quantidadeFocusLost
+    }//GEN-LAST:event_codCentroFocusLost
 
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
-    private void valorTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorTotalFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorTotalFocusLost
-
     private void limpaCampos() {
-        codRequisicao.setText("");
-        descRequisicao.setText("");
-        valorUnit.setText("");
-        quantidade.setText("");
-        valorTotal.setText("");
+        codCentro.setText("");
+        descCentro.setText("");
+        tipoCentro.setSelectedIndex(-1);
+
     }
 
     private void habilitaCampos(boolean b) {
-        codRequisicao.setEnabled(b);
-        descRequisicao.setEnabled(b);
-        valorUnit.setEnabled(b);
-        quantidade.setEnabled(b);
-        valorTotal.setEnabled(b);
+        codCentro.setEnabled(b);
+        descCentro.setEnabled(b);
+        tipoCentro.setEnabled(b);
         btSalvar.setEnabled(b);
     }
 
-    private void setRequisicao() throws Exception {
+    private void setCentro() throws Exception {
 
-        if (descRequisicao.getText().length() < 2) {
-            throw new Exception("Favor inserir uma Requisição");
+        if (descCentro.getText().length() < 2) {
+            throw new Exception("Favor inserir um Centro de Custo");
         }
 
-        if (quantidade.getText().length() < 0) {
-            throw new Exception("Favor inserir uma Quantidade válida");
-        }
+        centro.setDescricao(descCentro.getText());
+        centro.setTipo(tipoCentro.getSelectedIndex());
 
-        if (valorUnit.getText().length() < 0) {
-            throw new Exception("Favor inserir um Valor válido");
-        }
-
-        requisicao.setDescricao(descRequisicao.getText());
-        requisicao.setValorUnitario(ValidarValor.getBigD(valorUnit.getText()));
-        requisicao.setQuantidade(ValidarValor.getInt(quantidade.getText()));
-        requisicao.setValorTotal(ValidarValor.getDouble(valorTotal.getText()));
     }
 
     public static void removeLinhas(JTable table) {
@@ -625,17 +550,23 @@ public class FRequisicao extends javax.swing.JInternalFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
             removeLinhas(tab);
+            List<CentroDeCustos> listaT = centroDAO.getList();
 
-            List<RequisicaoFinanceira> listaT = requisicaoDAO.getList();
             if (listaT.size() > 0) {
                 model.setNumRows(0);
-                for (RequisicaoFinanceira r : listaT) {
+                for (CentroDeCustos c : listaT) {
+
+                    String tipo = "";
+                    if (c.getTipo() == 0) {
+                        tipo = "Receita";
+                    } else {
+                        tipo = "Despesa";
+                    }
+
                     Object o[] = new Object[]{
-                        r.getCodRequisicao(),
-                        r.getQuantidade(),
-                        r.getDescricao(),
-                        r.getValorUnitario(),
-                        r.getValorTotal()};
+                        c.getCodCentro(),
+                        c.getDescricao(),
+                        tipo};
 
                     model.addRow(o);
                 }
@@ -645,6 +576,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
             removeLinhas(tab);
             e.printStackTrace();
         }
+
     }
 
 
@@ -654,8 +586,8 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codRequisicao;
-    private javax.swing.JTextField descRequisicao;
+    private javax.swing.JTextField codCentro;
+    private javax.swing.JTextField descCentro;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
@@ -663,10 +595,8 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
-    private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -696,9 +626,7 @@ public class FRequisicao extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
-    private javax.swing.JTextField quantidade;
     private javax.swing.JTable tab;
-    private javax.swing.JTextField valorTotal;
-    private javax.swing.JTextField valorUnit;
+    private javax.swing.JComboBox<String> tipoCentro;
     // End of variables declaration//GEN-END:variables
 }

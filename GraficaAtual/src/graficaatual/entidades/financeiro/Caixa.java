@@ -4,48 +4,41 @@
  * and open the template in the editor.
  */
 package graficaatual.entidades.financeiro;
-
+ 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author Moisés
  */
-@Entity//(name="graficaatual.entidades.financeiro.lancamentoCaixa")
-@Table(name = "lancamentoCaixa")
-public class LancamentoCaixa implements java.io.Serializable {
+@Entity
+@Table(name = "caixa")
+public class Caixa implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codLancamento")
+    @Column(name = "codCaixa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codLancamento;
+    private Integer codCaixa;
 
-    @Column(nullable = false, length = 300)
+    @Column(length = 300)
     private String descricao;
 
-    @ManyToOne()
-    @JoinColumn(name = "caixa", nullable = false)
-    private Caixa caixa;
-
-    @ManyToOne()
-    @JoinColumn(name = "planoConta", nullable = false)
-    private PlanoDeContas planoConta;
-
-    @Column(nullable = true)
-    private Double valorEntrada;
-
-    @Column(nullable = true)
-    private Double valorSaida;
+    @Column()
+    private Double valorInicial; 
+    
+    @Column()
+    private Double valorAberturaDia;
+    
+    @Column()
+    private Double valorFechamentoDia;
 
     @Column(length = 300)
     private String observacao;
@@ -62,12 +55,12 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodLancamento() {
-        return codLancamento;
+    public Integer getCodCaixa() {
+        return codCaixa;
     }
 
-    public void setCodLancamento(Integer codLancamento) {
-        this.codLancamento = codLancamento;
+    public void setCodCaixa(Integer codCaixa) {
+        this.codCaixa = codCaixa;
     }
 
     public String getDescricao() {
@@ -78,36 +71,28 @@ public class LancamentoCaixa implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public Caixa getCaixa() {
-        return caixa;
+    public Double getValorInicial() {
+        return valorInicial;
     }
 
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
+    public void setValorInicial(Double valorInicial) {
+        this.valorInicial = valorInicial;
     }
 
-    public PlanoDeContas getPlanoConta() {
-        return planoConta;
+    public Double getValorAberturaDia() {
+        return valorAberturaDia;
     }
 
-    public void setPlanoConta(PlanoDeContas planoConta) {
-        this.planoConta = planoConta;
+    public void setValorAberturaDia(Double valorAberturaDia) {
+        this.valorAberturaDia = valorAberturaDia;
     }
 
-    public Double getValorEntrada() {
-        return valorEntrada;
+    public Double getValorFechamentoDia() {
+        return valorFechamentoDia;
     }
 
-    public void setValorEntrada(Double valorEntrada) {
-        this.valorEntrada = valorEntrada;
-    }
-
-    public Double getValorSaida() {
-        return valorSaida;
-    }
-
-    public void setValorSaida(Double valorSaida) {
-        this.valorSaida = valorSaida;
+    public void setValorFechamentoDia(Double valorFechamentoDia) {
+        this.valorFechamentoDia = valorFechamentoDia;
     }
 
     public String getObservacao() {
@@ -150,22 +135,31 @@ public class LancamentoCaixa implements java.io.Serializable {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
 
+     
+     
+    
+
+     
+ 
+
+  
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codLancamento != null ? codLancamento.hashCode() : 0);
+        hash += (codCaixa != null ? codCaixa.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LancamentoCaixa)) {
+        if (!(object instanceof Caixa)) {
             return false;
         }
-        LancamentoCaixa other = (LancamentoCaixa) object;
-        if ((this.codLancamento == null && other.codLancamento != null)
-                || (this.codLancamento != null && !this.codLancamento.equals(other.codLancamento))) {
+        Caixa other = (Caixa) object;
+        if ((this.codCaixa == null && other.codCaixa != null)
+                || (this.codCaixa != null && !this.codCaixa.equals(other.codCaixa))) {
             return false;
         }
         return true;
@@ -173,7 +167,7 @@ public class LancamentoCaixa implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.financeiro.LancamentoCaixa[ codLancamento=" + codLancamento + " ]";
+        return "graficaatual.entidades.financeiro.Caixa[ codCaixa=" + codCaixa + " ]";
     }
 
 }

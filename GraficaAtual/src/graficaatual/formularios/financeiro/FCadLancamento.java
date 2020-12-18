@@ -5,8 +5,12 @@
  */
 package graficaatual.formularios.financeiro;
 
+import graficaatual.daos.financeiro.CaixaDAO;
 import graficaatual.daos.financeiro.LancamentoCaixaDAO;
+import graficaatual.daos.financeiro.PlanoDeContasDAO;
+import graficaatual.entidades.financeiro.Caixa;
 import graficaatual.entidades.financeiro.LancamentoCaixa;
+import graficaatual.entidades.financeiro.PlanoDeContas;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
@@ -27,7 +31,15 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private LancamentoCaixa lancamento;
     private LancamentoCaixaDAO lancamentoDAO = new LancamentoCaixaDAO();
 
+    private PlanoDeContas plano;
+    private PlanoDeContasDAO planoDAO = new PlanoDeContasDAO();
+
+    private Caixa caixa;
+    private CaixaDAO caixaDAO = new CaixaDAO();
+
     private List<LancamentoCaixa> listaLancamento = null;
+    private List<Caixa> listaCaixa = null;
+    private List<PlanoDeContas> listaPlano = null;
 
     public FCadLancamento() {
         initComponents();
@@ -39,6 +51,20 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         comp2.addCol(0, "codLancamento", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Lançamento", 200, String.class.getName());
         comp2.bind();
+
+        listaPlano = ObservableCollections.observableList(new LinkedList<PlanoDeContas>());
+        Componentes comp3 = new Componentes(listaPlano, false, codConta, descConta, this, jPanel18, descConta.getWidth(), 100);
+        comp3.addCol(0, "codPlano", "Código", 50, Integer.class.getName());
+        comp3.addCol(1, "descricao", "Conta", 200, String.class.getName());
+        comp3.bind();
+
+        listaCaixa = ObservableCollections.observableList(new LinkedList<Caixa>());
+        Componentes comp4 = new Componentes(listaCaixa, false, codCaixa, descCaixa, this, jPanel18, descCaixa.getWidth(), 100);
+        comp4.addCol(0, "codCaixa", "Código", 50, Integer.class.getName());
+        comp4.addCol(1, "descricao", "Caixa", 200, String.class.getName());
+        comp4.bind();
+
+        tipoConta.setEnabled(false);
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
@@ -65,61 +91,46 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel18 = new javax.swing.JPanel();
         jLabel78 = new javax.swing.JLabel();
         descLancamento = new javax.swing.JTextField();
-        jPanel19 = new javax.swing.JPanel();
-        jTextField49 = new javax.swing.JTextField();
-        jTextField50 = new javax.swing.JTextField();
-        jTextField51 = new javax.swing.JTextField();
-        jTextField52 = new javax.swing.JTextField();
-        jTextField53 = new javax.swing.JTextField();
-        jTextField54 = new javax.swing.JTextField();
-        jTextField55 = new javax.swing.JTextField();
-        jTextField56 = new javax.swing.JTextField();
-        jTextField57 = new javax.swing.JTextField();
-        jTextField58 = new javax.swing.JTextField();
-        jTextField59 = new javax.swing.JTextField();
-        jTextField60 = new javax.swing.JTextField();
-        jTextField61 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel90 = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
-        jLabel92 = new javax.swing.JLabel();
-        jLabel93 = new javax.swing.JLabel();
-        jLabel94 = new javax.swing.JLabel();
-        jLabel95 = new javax.swing.JLabel();
-        jLabel96 = new javax.swing.JLabel();
-        jLabel97 = new javax.swing.JLabel();
-        jLabel98 = new javax.swing.JLabel();
-        jLabel99 = new javax.swing.JLabel();
-        jLabel100 = new javax.swing.JLabel();
-        jLabel101 = new javax.swing.JLabel();
-        jTextField62 = new javax.swing.JTextField();
-        jTextField63 = new javax.swing.JTextField();
-        jTextField64 = new javax.swing.JTextField();
-        jLabel102 = new javax.swing.JLabel();
-        jLabel103 = new javax.swing.JLabel();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        tab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
         codLancamento = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
-        valor = new javax.swing.JTextField();
+        valorEntrada = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         observacao = new javax.swing.JTextArea();
         btSair1 = new javax.swing.JButton();
+        codConta = new javax.swing.JTextField();
+        descConta = new javax.swing.JTextField();
+        jLabel82 = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        valorSaida = new javax.swing.JTextField();
+        jLabel85 = new javax.swing.JLabel();
+        tipoConta = new javax.swing.JTextField();
+        jLabel86 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        codCaixa = new javax.swing.JTextField();
+        descCaixa = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tab = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
         setMinimumSize(new java.awt.Dimension(1100, 700));
         setPreferredSize(new java.awt.Dimension(1100, 700));
+
+        jTabbedPane2.setMinimumSize(new java.awt.Dimension(1100, 700));
+        jTabbedPane2.setPreferredSize(new java.awt.Dimension(1100, 700));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setMinimumSize(new java.awt.Dimension(1100, 700));
@@ -140,122 +151,6 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jPanel18.add(descLancamento);
         descLancamento.setBounds(140, 90, 900, 20);
 
-        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel19.setLayout(null);
-        jPanel19.add(jTextField49);
-        jTextField49.setBounds(160, 10, 90, 20);
-
-        jTextField50.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel19.add(jTextField50);
-        jTextField50.setBounds(340, 30, 310, 20);
-
-        jTextField51.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel19.add(jTextField51);
-        jTextField51.setBounds(160, 50, 490, 20);
-        jPanel19.add(jTextField52);
-        jTextField52.setBounds(120, 160, 80, 20);
-        jPanel19.add(jTextField53);
-        jTextField53.setBounds(200, 160, 470, 20);
-        jPanel19.add(jTextField54);
-        jTextField54.setBounds(780, 160, 140, 20);
-        jPanel19.add(jTextField55);
-        jTextField55.setBounds(120, 180, 80, 20);
-        jPanel19.add(jTextField56);
-        jTextField56.setBounds(200, 180, 470, 20);
-        jPanel19.add(jTextField57);
-        jTextField57.setBounds(780, 180, 140, 20);
-        jPanel19.add(jTextField58);
-        jTextField58.setBounds(120, 200, 80, 20);
-        jPanel19.add(jTextField59);
-        jTextField59.setBounds(200, 200, 310, 20);
-        jPanel19.add(jTextField60);
-        jTextField60.setBounds(780, 200, 140, 20);
-        jPanel19.add(jTextField61);
-        jTextField61.setBounds(580, 200, 90, 20);
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Física", "Juridica" }));
-        jPanel19.add(jComboBox3);
-        jComboBox3.setBounds(160, 30, 180, 18);
-
-        jLabel90.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel90.setText("UF: ");
-        jPanel19.add(jLabel90);
-        jLabel90.setBounds(510, 200, 70, 20);
-
-        jLabel91.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel91.setText("CEP: ");
-        jPanel19.add(jLabel91);
-        jLabel91.setBounds(670, 200, 110, 20);
-
-        jLabel92.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel92.setText("Código: ");
-        jPanel19.add(jLabel92);
-        jLabel92.setBounds(80, 10, 80, 20);
-
-        jLabel93.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel93.setText("Data Nascimento: ");
-        jPanel19.add(jLabel93);
-        jLabel93.setBounds(650, 70, 140, 20);
-
-        jLabel94.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel94.setText("Número: ");
-        jPanel19.add(jLabel94);
-        jLabel94.setBounds(670, 160, 110, 20);
-
-        jLabel95.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel95.setText("Insc. Estadual:");
-        jPanel19.add(jLabel95);
-        jLabel95.setBounds(650, 50, 140, 20);
-
-        jLabel96.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel96.setText("Bairro: ");
-        jPanel19.add(jLabel96);
-        jLabel96.setBounds(20, 180, 100, 20);
-
-        jLabel97.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel97.setText("Logradouro: ");
-        jPanel19.add(jLabel97);
-        jLabel97.setBounds(20, 160, 100, 20);
-
-        jLabel98.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel98.setText("Complemento: ");
-        jPanel19.add(jLabel98);
-        jLabel98.setBounds(670, 180, 110, 20);
-
-        jLabel99.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel99.setText("Cidade: ");
-        jPanel19.add(jLabel99);
-        jLabel99.setBounds(20, 200, 100, 20);
-
-        jLabel100.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel100.setBorder(javax.swing.BorderFactory.createTitledBorder("Endeço:"));
-        jPanel19.add(jLabel100);
-        jLabel100.setBounds(10, 130, 920, 110);
-
-        jLabel101.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel101.setText("CPF/CNPJ: ");
-        jPanel19.add(jLabel101);
-        jLabel101.setBounds(80, 30, 80, 20);
-        jPanel19.add(jTextField62);
-        jTextField62.setBounds(790, 70, 130, 20);
-        jPanel19.add(jTextField63);
-        jTextField63.setBounds(790, 30, 130, 20);
-        jPanel19.add(jTextField64);
-        jTextField64.setBounds(790, 50, 130, 20);
-
-        jLabel102.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel102.setText("Nome/Razão Socia: ");
-        jPanel19.add(jLabel102);
-        jLabel102.setBounds(10, 50, 150, 20);
-
-        jLabel103.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel103.setText("Insc. Munícipal:");
-        jPanel19.add(jLabel103);
-        jLabel103.setBounds(650, 30, 140, 20);
-
-        jPanel18.add(jPanel19);
-        jPanel19.setBounds(0, 0, 0, 0);
-
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +159,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(90, 290, 180, 40);
+        btNovo.setBounds(90, 420, 180, 40);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar/Atualizar");
@@ -274,7 +169,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(270, 290, 180, 40);
+        btSalvar.setBounds(270, 420, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -284,7 +179,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(450, 290, 180, 40);
+        btExcluir.setBounds(450, 420, 180, 40);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         btSair.setText("Imprimir");
@@ -294,45 +189,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(630, 290, 180, 40);
-
-        tab.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Lançamento", "Valor (R$)"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tab.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
-            }
-        });
-        jScrollPane11.setViewportView(tab);
-        if (tab.getColumnModel().getColumnCount() > 0) {
-            tab.getColumnModel().getColumn(0).setPreferredWidth(70);
-            tab.getColumnModel().getColumn(1).setPreferredWidth(700);
-            tab.getColumnModel().getColumn(2).setPreferredWidth(100);
-        }
-
-        jPanel18.add(jScrollPane11);
-        jScrollPane11.setBounds(20, 350, 1020, 250);
+        btSair.setBounds(630, 420, 180, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -343,7 +200,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel79.setText("Observação");
         jPanel18.add(jLabel79);
-        jLabel79.setBounds(20, 160, 230, 20);
+        jLabel79.setBounds(20, 280, 230, 20);
 
         codLancamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codLancamento.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -360,18 +217,18 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jLabel80.setBounds(20, 70, 80, 20);
 
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Valor (R$)");
+        jLabel81.setText("Valor Enrtrada (R$)");
         jPanel18.add(jLabel81);
-        jLabel81.setBounds(20, 115, 130, 20);
+        jLabel81.setBounds(20, 220, 130, 20);
 
-        valor.setText("0,00");
-        valor.addFocusListener(new java.awt.event.FocusAdapter() {
+        valorEntrada.setText("0,00");
+        valorEntrada.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                valorFocusLost(evt);
+                valorEntradaFocusLost(evt);
             }
         });
-        jPanel18.add(valor);
-        valor.setBounds(20, 135, 120, 20);
+        jPanel18.add(valorEntrada);
+        valorEntrada.setBounds(20, 240, 120, 20);
 
         observacao.setColumns(20);
         observacao.setLineWrap(true);
@@ -379,7 +236,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(observacao);
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 180, 1020, 96);
+        jScrollPane1.setBounds(20, 300, 1030, 96);
 
         btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair1.setText("Sair");
@@ -389,21 +246,155 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair1);
-        btSair1.setBounds(810, 290, 180, 40);
+        btSair1.setBounds(810, 420, 180, 40);
+
+        codConta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codConta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codContaFocusLost(evt);
+            }
+        });
+        jPanel18.add(codConta);
+        codConta.setBounds(20, 140, 120, 20);
+
+        descConta.setBackground(new java.awt.Color(255, 255, 204));
+        descConta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                descContaKeyReleased(evt);
+            }
+        });
+        jPanel18.add(descConta);
+        descConta.setBounds(140, 140, 780, 20);
+
+        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel82.setText("Código");
+        jPanel18.add(jLabel82);
+        jLabel82.setBounds(20, 120, 80, 20);
+
+        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel83.setText("Conta");
+        jPanel18.add(jLabel83);
+        jLabel83.setBounds(140, 120, 130, 20);
+
+        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel84.setText("Valor Saída (R$)");
+        jPanel18.add(jLabel84);
+        jLabel84.setBounds(170, 220, 130, 20);
+
+        valorSaida.setText("0,00");
+        valorSaida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                valorSaidaFocusLost(evt);
+            }
+        });
+        jPanel18.add(valorSaida);
+        valorSaida.setBounds(170, 240, 120, 20);
+
+        jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel85.setText("Tipo");
+        jPanel18.add(jLabel85);
+        jLabel85.setBounds(920, 120, 120, 20);
+
+        tipoConta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tipoContaFocusLost(evt);
+            }
+        });
+        jPanel18.add(tipoConta);
+        tipoConta.setBounds(920, 140, 120, 20);
+
+        jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel86.setText("Código");
+        jPanel18.add(jLabel86);
+        jLabel86.setBounds(20, 170, 80, 20);
+
+        jLabel87.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel87.setText("Caixa");
+        jPanel18.add(jLabel87);
+        jLabel87.setBounds(140, 170, 130, 20);
+
+        codCaixa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codCaixa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codCaixaFocusLost(evt);
+            }
+        });
+        jPanel18.add(codCaixa);
+        codCaixa.setBounds(20, 190, 120, 20);
+
+        descCaixa.setBackground(new java.awt.Color(255, 255, 204));
+        descCaixa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                descCaixaKeyReleased(evt);
+            }
+        });
+        jPanel18.add(descCaixa);
+        descCaixa.setBounds(140, 190, 900, 20);
+
+        jTabbedPane2.addTab("Lançamentos", jPanel18);
+
+        jPanel1.setLayout(null);
+
+        tab.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Código", "Lançamento", "Caixa", "Valor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab.setPreferredSize(new java.awt.Dimension(1000, 64));
+        tab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tab);
+        if (tab.getColumnModel().getColumnCount() > 0) {
+            tab.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(600);
+            tab.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tab.getColumnModel().getColumn(3).setPreferredWidth(100);
+        }
+
+        jPanel1.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 11, 1000, 600);
+
+        jTabbedPane2.addTab("Lançamentos Cadastrados", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1344, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 673, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 673, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -413,12 +404,64 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
         if (lancamento != null) {
             descLancamento.setText(lancamento.getDescricao());
-            valor.setText(ValidarValor.getDouble(lancamento.getValor()));
+            codConta.setText(lancamento.getPlanoConta().getCodPlano().toString());
+            descConta.setText(lancamento.getPlanoConta().getDescricao());
+            codCaixa.setText(lancamento.getCaixa().getCodCaixa().toString());
+            descCaixa.setText(lancamento.getCaixa().getDescricao());
+            if (lancamento.getValorEntrada() == null) {
+                valorEntrada.setText("0,00");
+            } else {
+                valorEntrada.setText(ValidarValor.getDouble(lancamento.getValorEntrada()));
+            }
+            if (lancamento.getValorSaida() == null) {
+                valorSaida.setText("0,00");
+            } else {
+                valorSaida.setText(ValidarValor.getDouble(lancamento.getValorSaida()));
+            }
+
             observacao.setText(lancamento.getObservacao());
         } else {
             descLancamento.setText("");
-            valor.setText("");
+            codConta.setText("");
+            descConta.setText("");
+            codCaixa.setText("");
+            descCaixa.setText("");
+            valorEntrada.setText("0.00");
+            valorSaida.setText("0.00");
             observacao.setText("");
+        }
+    }
+
+    private void carregaConta() throws Exception {
+        plano = planoDAO.get(ValidarValor.getInt(codConta.getText()));
+        if (plano != null) {
+            descConta.setText(plano.getDescricao());
+
+            String tipo = "";
+            if (plano.getCentro().getTipo() == 0) {
+                tipo = "Receita";
+                valorEntrada.setEnabled(true);
+                valorSaida.setEnabled(false);
+
+            } else {
+                tipo = "Despesa";
+                valorEntrada.setEnabled(false);
+                valorSaida.setEnabled(true);
+            }
+
+            tipoConta.setText(tipo);
+        } else {
+            descConta.setText("");
+            tipoConta.setText("");
+        }
+    }
+
+    private void carregaCaixa() throws Exception {
+        caixa = caixaDAO.get(ValidarValor.getInt(codCaixa.getText()));
+        if (caixa != null) {
+            descCaixa.setText(caixa.getDescricao());
+        } else {
+            descCaixa.setText("");
         }
     }
 
@@ -504,48 +547,117 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        try {
-            if (evt.getClickCount() > 1) {
-                codLancamento.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
-                carregaLancamento();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_tabMouseClicked
-
     private void codLancamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codLancamentoFocusLost
         try {
             carregaLancamento();
+            carregaConta();
+            carregaCaixa();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_codLancamentoFocusLost
 
-    private void valorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorFocusLost
+    private void valorEntradaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorEntradaFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_valorFocusLost
+    }//GEN-LAST:event_valorEntradaFocusLost
 
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
+    private void codContaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codContaFocusLost
+        try {
+            carregaConta();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_codContaFocusLost
+
+    private void descContaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descContaKeyReleased
+        try {
+            List<PlanoDeContas> merged = planoDAO.getList(15,
+                    "select e from PlanoDeContas e where  lower ( trim(e.descricao) ) like ?1 order by e.descricao",
+                    descConta.getText().trim().toLowerCase() + "%");
+            listaPlano.clear();
+            listaPlano.addAll(merged);
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar pesquisar Plano de Contas. Erro: " + e);
+        }
+    }//GEN-LAST:event_descContaKeyReleased
+
+    private void valorSaidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorSaidaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valorSaidaFocusLost
+
+    private void tipoContaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tipoContaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoContaFocusLost
+
+    private void codCaixaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCaixaFocusLost
+        try {
+            carregaCaixa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_codCaixaFocusLost
+
+    private void descCaixaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCaixaKeyReleased
+        try {
+            List<Caixa> merged = caixaDAO.getList(15,
+                    "select e from Caixa e where  lower ( trim(e.descricao) ) like ?1 order by e.descricao",
+                    descCaixa.getText().trim().toLowerCase() + "%");
+            listaCaixa.clear();
+            listaCaixa.addAll(merged);
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar pesquisar Caixas. Erro: " + e);
+        }
+    }//GEN-LAST:event_descCaixaKeyReleased
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        try {
+            if (evt.getClickCount() > 1) {
+                codLancamento.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
+                carregaLancamento();
+
+                jTabbedPane2.setSelectedIndex(0);
+
+                codLancamento.requestFocus();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_tabMouseClicked
+
     private void limpaCampos() {
         codLancamento.setText("");
         descLancamento.setText("");
-        valor.setText("0,00");
+        codConta.setText("");
+        descConta.setText("");
+        tipoConta.setText("");
+        codCaixa.setText("");
+        descCaixa.setText("");
+        valorEntrada.setText("0,00");
+        valorSaida.setText("0,00");
         observacao.setText("");
     }
 
     private void habilitaCampos(boolean b) {
+
         codLancamento.setEnabled(b);
         descLancamento.setEnabled(b);
-        valor.setEnabled(b);
+        codConta.setEnabled(b);
+        descConta.setEnabled(b);
+        codCaixa.setEnabled(b);
+        descCaixa.setEnabled(b);
+        valorEntrada.setEnabled(b);
+        valorSaida.setEnabled(b);
         observacao.setEnabled(b);
-        btSalvar.setEnabled(b);
+
     }
 
     private void setLancamento() throws Exception {
@@ -554,13 +666,23 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             throw new Exception("Favor inserir um Lançamento");
         }
 
-        if (ValidarValor.getDouble(valor.getText()) <= 0.00) {
+        if (descCaixa.getText().length() < 2) {
+            throw new Exception("Favor inserir uma conta");
+        }
+
+        if (descCaixa.getText().length() < 2) {
+            throw new Exception("Favor inserir uma caixa");
+        }
+
+        if (ValidarValor.getDouble(valorEntrada.getText()) <= 0.00 && ValidarValor.getDouble(valorSaida.getText()) <= 0.00) {
             throw new Exception("Favor inserir um Valor válido");
         }
 
         lancamento.setDescricao(descLancamento.getText());
-        lancamento.setValor(ValidarValor.getDouble(valor.getText()));
-        lancamento.setObservacao(observacao.getText());
+        lancamento.setPlanoConta(plano);
+        lancamento.setCaixa(caixa);
+        lancamento.setValorEntrada(ValidarValor.getDouble(valorEntrada.getText()));
+        lancamento.setValorEntrada(ValidarValor.getDouble(valorSaida.getText()));
     }
 
     public static void removeLinhas(JTable table) {
@@ -581,10 +703,20 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             if (listaT.size() > 0) {
                 model.setNumRows(0);
                 for (LancamentoCaixa l : listaT) {
+
+                    Double valor = 0.00;
+
+                    if (l.getValorEntrada() != null) {
+                        valor = l.getValorEntrada();
+                    } else {
+                        valor = l.getValorSaida();
+                    }
+
                     Object o[] = new Object[]{
                         l.getCodLancamento(),
                         l.getDescricao(),
-                        l.getValor()};
+                        l.getCaixa().getDescricao(),
+                        valor};
 
                     model.addRow(o);
                 }
@@ -603,50 +735,32 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JTextField codCaixa;
+    private javax.swing.JTextField codConta;
     private javax.swing.JTextField codLancamento;
+    private javax.swing.JTextField descCaixa;
+    private javax.swing.JTextField descConta;
     private javax.swing.JTextField descLancamento;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel102;
-    private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel93;
-    private javax.swing.JLabel jLabel94;
-    private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel97;
-    private javax.swing.JLabel jLabel98;
-    private javax.swing.JLabel jLabel99;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane11;
-    private javax.swing.JTextField jTextField49;
-    private javax.swing.JTextField jTextField50;
-    private javax.swing.JTextField jTextField51;
-    private javax.swing.JTextField jTextField52;
-    private javax.swing.JTextField jTextField53;
-    private javax.swing.JTextField jTextField54;
-    private javax.swing.JTextField jTextField55;
-    private javax.swing.JTextField jTextField56;
-    private javax.swing.JTextField jTextField57;
-    private javax.swing.JTextField jTextField58;
-    private javax.swing.JTextField jTextField59;
-    private javax.swing.JTextField jTextField60;
-    private javax.swing.JTextField jTextField61;
-    private javax.swing.JTextField jTextField62;
-    private javax.swing.JTextField jTextField63;
-    private javax.swing.JTextField jTextField64;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextArea observacao;
     private javax.swing.JTable tab;
-    private javax.swing.JTextField valor;
+    private javax.swing.JTextField tipoConta;
+    private javax.swing.JTextField valorEntrada;
+    private javax.swing.JTextField valorSaida;
     // End of variables declaration//GEN-END:variables
 }

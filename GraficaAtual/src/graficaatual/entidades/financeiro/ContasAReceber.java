@@ -19,16 +19,16 @@ import javax.persistence.Table;
  *
  * @author Moisés
  */
-@Entity//(name="graficaatual.entidades.financeiro.lancamentoCaixa")
-@Table(name = "lancamentoCaixa")
-public class LancamentoCaixa implements java.io.Serializable {
+@Entity
+@Table(name = "contasAReceber")
+public class ContasAReceber implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codLancamento")
+    @Column(name = "codContasRec")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codLancamento;
+    private Integer codContasRec;
 
     @Column(nullable = false, length = 300)
     private String descricao;
@@ -37,15 +37,14 @@ public class LancamentoCaixa implements java.io.Serializable {
     @JoinColumn(name = "caixa", nullable = false)
     private Caixa caixa;
 
-    @ManyToOne()
-    @JoinColumn(name = "planoConta", nullable = false)
-    private PlanoDeContas planoConta;
+    @Column()
+    private Double valorTotal;
 
-    @Column(nullable = true)
-    private Double valorEntrada;
+    @Column()
+    private Double valorRecebido;
 
-    @Column(nullable = true)
-    private Double valorSaida;
+    @Column()
+    private Double valorReceber;
 
     @Column(length = 300)
     private String observacao;
@@ -62,12 +61,12 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
-    public Integer getCodLancamento() {
-        return codLancamento;
+    public Integer getCodContasRec() {
+        return codContasRec;
     }
 
-    public void setCodLancamento(Integer codLancamento) {
-        this.codLancamento = codLancamento;
+    public void setCodContasRec(Integer codContasRec) {
+        this.codContasRec = codContasRec;
     }
 
     public String getDescricao() {
@@ -86,30 +85,35 @@ public class LancamentoCaixa implements java.io.Serializable {
         this.caixa = caixa;
     }
 
-    public PlanoDeContas getPlanoConta() {
-        return planoConta;
+    public Double getValorTotal() {
+        return valorTotal;
     }
 
-    public void setPlanoConta(PlanoDeContas planoConta) {
-        this.planoConta = planoConta;
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
-    public Double getValorEntrada() {
-        return valorEntrada;
+    public Double getValorRecebido() {
+        return valorRecebido;
     }
 
-    public void setValorEntrada(Double valorEntrada) {
-        this.valorEntrada = valorEntrada;
+    public void setValorRecebido(Double valorRecebido) {
+        this.valorRecebido = valorRecebido;
     }
 
-    public Double getValorSaida() {
-        return valorSaida;
+    public Double getValorReceber() {
+        return valorReceber;
     }
 
-    public void setValorSaida(Double valorSaida) {
-        this.valorSaida = valorSaida;
+    public void setValorReceber(Double valorReceber) {
+        this.valorReceber = valorReceber;
     }
-
+ 
+    
+    
+    
+    
+    
     public String getObservacao() {
         return observacao;
     }
@@ -153,19 +157,19 @@ public class LancamentoCaixa implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codLancamento != null ? codLancamento.hashCode() : 0);
+        hash += (codContasRec != null ? codContasRec.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LancamentoCaixa)) {
+        if (!(object instanceof ContasAReceber)) {
             return false;
         }
-        LancamentoCaixa other = (LancamentoCaixa) object;
-        if ((this.codLancamento == null && other.codLancamento != null)
-                || (this.codLancamento != null && !this.codLancamento.equals(other.codLancamento))) {
+        ContasAReceber other = (ContasAReceber) object;
+        if ((this.codContasRec == null && other.codContasRec != null)
+                || (this.codContasRec != null && !this.codContasRec.equals(other.codContasRec))) {
             return false;
         }
         return true;
@@ -173,7 +177,7 @@ public class LancamentoCaixa implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "graficaatual.entidades.financeiro.LancamentoCaixa[ codLancamento=" + codLancamento + " ]";
+        return "graficaatual.entidades.financeiro.ContasAReceber[ codContasRec=" + codContasRec + " ]";
     }
 
 }
