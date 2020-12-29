@@ -113,7 +113,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel18 = new javax.swing.JPanel();
         codProduto = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
@@ -150,6 +149,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jTextField64 = new javax.swing.JTextField();
         jLabel102 = new javax.swing.JLabel();
         jLabel103 = new javax.swing.JLabel();
+        codMaterial = new javax.swing.JTextField();
+        descMaterial = new javax.swing.JTextField();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
@@ -171,8 +172,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         valorUnitario = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        codMaterial = new javax.swing.JTextField();
-        descMaterial = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         btAddMaterial = new javax.swing.JButton();
         msgMaterial = new javax.swing.JLabel();
@@ -194,6 +193,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -239,14 +239,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-
-        setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(1335, 700));
-        setPreferredSize(new java.awt.Dimension(1335, 700));
-
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setMinimumSize(new java.awt.Dimension(1335, 700));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1335, 700));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setLayout(null);
@@ -389,6 +381,24 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 
         jPanel18.add(jPanel19);
         jPanel19.setBounds(0, 0, 0, 0);
+
+        codMaterial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codMaterialFocusLost(evt);
+            }
+        });
+        jPanel18.add(codMaterial);
+        codMaterial.setBounds(20, 170, 100, 20);
+
+        descMaterial.setBackground(new java.awt.Color(255, 255, 204));
+        descMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                descMaterialKeyReleased(evt);
+            }
+        });
+        jPanel18.add(descMaterial);
+        descMaterial.setBounds(120, 170, 570, 20);
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
         btNovo.setText("Novo Cadastro");
@@ -584,24 +594,6 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel8);
         jLabel8.setBounds(20, 150, 80, 14);
 
-        codMaterial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                codMaterialFocusLost(evt);
-            }
-        });
-        jPanel18.add(codMaterial);
-        codMaterial.setBounds(20, 170, 100, 20);
-
-        descMaterial.setBackground(new java.awt.Color(255, 255, 204));
-        descMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                descMaterialKeyReleased(evt);
-            }
-        });
-        jPanel18.add(descMaterial);
-        descMaterial.setBounds(120, 170, 570, 20);
-
         jLabel9.setText("Material");
         jPanel18.add(jLabel9);
         jLabel9.setBounds(140, 150, 100, 14);
@@ -715,7 +707,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jPanel18.add(jButton2);
         jButton2.setBounds(610, 590, 190, 39);
 
-        jTabbedPane1.addTab("Cadastrar", jPanel18);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1335, 700));
+        setPreferredSize(new java.awt.Dimension(1335, 700));
+
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(1335, 700));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1335, 700));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
