@@ -5,10 +5,8 @@
  */
 package graficaatual;
 
-import graficaatual.*;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Permissao;
-import graficaatual.formularios.cadastro.FCadCliente;
 import graficaatual.formularios.producao.FGestaoOrdemServico;
 import graficaatual.formularios.producao.FGrupoEntrega;
 import graficaatual.formularios.producao.FOrdemEntrega;
@@ -37,8 +35,10 @@ public class FProducao extends javax.swing.JFrame {
         
         
         //verificação de acesso as telas
-        acessotela(jBGgestaoProducao,"FCadCliente");
-       
+        acessotela(jBGgestaoProducao,"FGestaoOrdemServico");
+        acessotela(jBProducao,"FOrdemServico");
+        acessotela(jBEntrega,"FOrdemEntrega");
+        acessotela(jBGrupoEntrega,"FGrupoEntrega");
         
        
     }
@@ -289,7 +289,7 @@ public class FProducao extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void acessotela(JButton jB, String fCadCliente) {
-        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente,"CADASTRO");
+        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente,"PRODUCAO");
         if(p!= null){
             jB.setEnabled(p.isAcesso());
         }else{

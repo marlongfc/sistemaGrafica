@@ -116,7 +116,6 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         cancelar = new javax.swing.JButton();
 
         setBorder(null);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cliente");
         setMinimumSize(new java.awt.Dimension(1100, 700));
         setNormalBounds(new java.awt.Rectangle(0, 0, 0, 0));
