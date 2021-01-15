@@ -376,7 +376,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         }
 
         jPanel1.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 11, 1000, 600);
+        jScrollPane3.setBounds(10, 11, 1020, 520);
 
         jTabbedPane2.addTab("Lançamentos Cadastrados", jPanel1);
 
@@ -657,6 +657,8 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         valorEntrada.setEnabled(b);
         valorSaida.setEnabled(b);
         observacao.setEnabled(b);
+        
+        btSalvar.setEnabled(b);
 
     }
 
