@@ -42,6 +42,7 @@ public class FFinanceiro extends javax.swing.JFrame {
         acessotela(jBCentroCusto, "FCadCentroDeCustos");
         acessotela(jBPlanoContas, "FCadPlanoDeContas");
         acessotela(jBLancCaixa,"FCadLancamento");
+        acessotela(jBFormaPagamento, "FCadFormaDePagamento");
        
         acessotela(jBBanco,"FCadBanco");
 
@@ -72,6 +73,7 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBSair1 = new javax.swing.JButton();
         jBCaixa = new javax.swing.JButton();
         jBCentroCusto = new javax.swing.JButton();
+        jBFormaPagamento = new javax.swing.JButton();
 
         jBLancamento.setBackground(new java.awt.Color(71, 37, 131));
         jBLancamento.setForeground(new java.awt.Color(255, 255, 255));
@@ -220,6 +222,23 @@ public class FFinanceiro extends javax.swing.JFrame {
         jPanel1.add(jBCentroCusto);
         jBCentroCusto.setBounds(20, 240, 200, 30);
 
+        jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBFormaPagamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
+        jBFormaPagamento.setText("Forma de Pagamento");
+        jBFormaPagamento.setBorderPainted(false);
+        jBFormaPagamento.setFocusPainted(false);
+        jBFormaPagamento.setFocusable(false);
+        jBFormaPagamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFormaPagamentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBFormaPagamento);
+        jBFormaPagamento.setBounds(20, 360, 200, 30);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -347,11 +366,29 @@ public class FFinanceiro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBCentroCustoActionPerformed
 
+    private void jBFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFormaPagamentoActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadFormaDePagamento clComp;
+
+            clComp = FCadFormaDePagamento.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBFormaPagamentoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBBanco;
     private javax.swing.JButton jBCaixa;
     private javax.swing.JButton jBCentroCusto;
+    private javax.swing.JButton jBFormaPagamento;
     private javax.swing.JButton jBLancCaixa;
     private javax.swing.JButton jBLancamento;
     private javax.swing.JButton jBPlanoContas;

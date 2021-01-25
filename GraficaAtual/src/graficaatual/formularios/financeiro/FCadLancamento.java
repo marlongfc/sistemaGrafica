@@ -657,7 +657,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         valorEntrada.setEnabled(b);
         valorSaida.setEnabled(b);
         observacao.setEnabled(b);
-        
+
         btSalvar.setEnabled(b);
 
     }
@@ -685,6 +685,9 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         lancamento.setCaixa(caixa);
         lancamento.setValorEntrada(ValidarValor.getDouble(valorEntrada.getText()));
         lancamento.setValorEntrada(ValidarValor.getDouble(valorSaida.getText()));
+
+        
+
     }
 
     public static void removeLinhas(JTable table) {
