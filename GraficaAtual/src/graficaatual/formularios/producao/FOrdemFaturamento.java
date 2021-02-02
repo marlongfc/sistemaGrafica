@@ -111,15 +111,16 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         sair = new javax.swing.JButton();
         jCBCaixa = new javax.swing.JComboBox<>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabOrdensFazer = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tabConcluido = new javax.swing.JTable();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tabOrdensFazer = new javax.swing.JTable();
         jLSelecao = new javax.swing.JLabel();
         refazer = new javax.swing.JButton();
         imprimirLista = new javax.swing.JButton();
         atualizar = new javax.swing.JButton();
+        refazer1 = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -173,53 +174,13 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(jCBCaixa);
-        jCBCaixa.setBounds(40, 80, 500, 38);
+        jCBCaixa.setBounds(40, 80, 330, 38);
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
             }
         });
-
-        jPanel1.setLayout(null);
-
-        jScrollPane7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-
-        tabConcluido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        tabConcluido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Equipe"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabConcluido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabConcluidoMouseClicked(evt);
-            }
-        });
-        jScrollPane7.setViewportView(tabConcluido);
-
-        jPanel1.add(jScrollPane7);
-        jScrollPane7.setBounds(0, 0, 1000, 510);
-
-        jTabbedPane1.addTab("Faturados", jPanel1);
 
         jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -255,6 +216,46 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         jScrollPane6.setViewportView(tabOrdensFazer);
 
         jTabbedPane1.addTab("A Faturar", jScrollPane6);
+
+        jPanel1.setLayout(null);
+
+        jScrollPane7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        tabConcluido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tabConcluido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Caixa"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabConcluido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabConcluidoMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tabConcluido);
+
+        jPanel1.add(jScrollPane7);
+        jScrollPane7.setBounds(0, 0, 1000, 510);
+
+        jTabbedPane1.addTab("Faturados", jPanel1);
 
         jPanel10.add(jTabbedPane1);
         jTabbedPane1.setBounds(40, 140, 1000, 470);
@@ -297,6 +298,17 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         jPanel10.add(atualizar);
         atualizar.setBounds(880, 80, 160, 40);
 
+        refazer1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        refazer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
+        refazer1.setText("Escolher Caixa");
+        refazer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refazer1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(refazer1);
+        refazer1.setBounds(370, 80, 170, 40);
+
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
@@ -310,19 +322,19 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
-            ordem = ordemDao.get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(),0));
-            if(ordem != null){
-            gerarContasAReceber(session);
-            salvarOrdem(session);
-            pesquisarFazer();
-            pesquisarConcluido();
-            enviarEmail();
-            jLSelecao.setText("");
-            
-            session.getTransaction().commit();
-            session.close();
-            JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
-            }else{
+            ordem = ordemDao.get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+            if (ordem != null) {
+                gerarContasAReceber(session);
+                salvarOrdem(session);
+                //   enviarEmail();
+                jLSelecao.setText("");
+
+                session.getTransaction().commit();
+                session.close();
+                pesquisarFazer();
+                pesquisarConcluido();
+                JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+            } else {
                 throw new Exception(" Selecione uma Ordem de Serviço");
             }
         } catch (Exception e) {
@@ -339,8 +351,8 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
             if (ordem.getCaixa() != null) {
                 ordem.setDataFimFaturamento(new Date());
                 ordem.setUsuarioFimFaturamento(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                ordem = ordemDao.addOrdem(session,ordem);
-                enviarEmail();
+                ordem = ordemDao.addOrdem(session, ordem);
+              //  enviarEmail();
             } else {
                 JOptionPane.showMessageDialog(this, " Selecione um Caixa. ");
             }
@@ -433,7 +445,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                     + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
                     + " where ord.checkentrega and  ord.datafimentrega is null"
                     + " order by orc.prazoentrega , orc.codorcamento , prod.descricao ";
-                    
+
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaEntrega.jasper", "RELATÓRIO  - LISTA DE ENTREGAS", null, sql);
 
         } catch (Exception e) {
@@ -455,6 +467,36 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
     private void jCBEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBEquipeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCBEquipeActionPerformed
+
+    private void refazer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refazer1ActionPerformed
+        try {
+            ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+            if (ordem != null) {
+                if (jCBCaixa.getSelectedIndex() != 0) {
+                    String[] setor = jCBCaixa.getSelectedItem().toString().split(" - ");
+                    int codEquipe = ValidarValor.getInt(setor[0]);
+                    caixa = caixaDao.get(codEquipe);
+                    if (caixa != null) {
+                        ordem.setCaixa(caixa);
+                        ordem = ordemDao.addOrdem(ordem);
+                        pesquisarFazer();
+                        pesquisarConcluido();
+                    } else {
+                        throw new Exception(" Caixa não encontrada!");
+                    }
+                } else {
+                    throw new Exception(" Selecione um Caixa! ");
+                }
+
+            } else {
+                throw new Exception(" Selecione uma Ordem de Serviço! ");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
+    }//GEN-LAST:event_refazer1ActionPerformed
 
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
@@ -479,6 +521,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton refazer;
+    private javax.swing.JButton refazer1;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
     private javax.swing.JTable tabConcluido;
@@ -624,7 +667,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
     }
 
     private String getSql() {
-        return    " select ord.codordemservico as  codordemservico,"
+        return " select ord.codordemservico as  codordemservico,"
                 + " orc.codorcamento as codorcamento , "
                 + " prod.descricao as descricao , "
                 + " (pes.cnpj || ' ' || pes.nome) as nome , "
@@ -777,14 +820,13 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
     }
 
     private void refazer() throws Exception {
-        
+
         ordem = new OrdemServicoDAO().get((Integer) tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 0));
-         if (ordem != null) {
-                 ordem.setDataFimEntrega(null);
-                ordem.setUsuarioFimEntrega(null);
-                ordem.setEquipeEntrega(null);
-                ordem = ordemDao.addOrdem(ordem);
-               
+        if (ordem != null) {
+            ordem.setDataFimEntrega(null);
+            ordem.setUsuarioFimEntrega(null);
+            ordem.setEquipeEntrega(null);
+            ordem = ordemDao.addOrdem(ordem);
 
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
@@ -795,7 +837,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         List<Caixa> listaCaixa = caixaDao.getList();
         if (listaCaixa != null && !listaCaixa.isEmpty()) {
             for (Caixa c : listaCaixa) {
-                jCBCaixa.addItem(c.getCodCaixa()+ " - " + c.getDescricao());
+                jCBCaixa.addItem(c.getCodCaixa() + " - " + c.getDescricao());
             }
         }
     }
@@ -805,71 +847,82 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         FormaDePagamento forma = orc.getFormaPagamento();
         ContasAReceberDAO receberDao = new ContasAReceberDAO();
         ContasAReceber receber = null;
-        
-        
-        Calendar cal = Calendar.getInstance(); 
-        cal.setTime(new Date() ); 
 
-        Double valorJaUsado =0.0;
-        Double valorJaUsadoEntrada =0.0;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+
+        Double valorJaUsado = 0.0;
+        Double valorJaUsadoEntrada = 0.0;
         Double totalSemEntrada = 0.0;
         if (forma != null) {
-            if(forma.getQuantParcelas()>0){
-                for(int i =1 ; forma.getQuantParcelas()<=i;i++){
+            System.out.println("codContaReceber1-------");
+            if (forma.getQuantParcelas() > 0) {
+                System.out.println("codContaReceber2-------");
+                System.out.println("qtdparcelas-------"+forma.getQuantParcelas());
+                for (int i = 1; forma.getQuantParcelas() >= i; i++) {
+                    System.out.println("codContaReceber3-------"+i);
                     receber = new ContasAReceber();
-                    receber.setCaixa(caixa);
+                    cal.setTime(new Date());
+                    receber.setCaixa(ordem.getCaixa());
                     receber.setDataCadastro(new Date());
-                    receber.setDescricao(" Faturamento Pedido:"+ordem.getOrcamento().getCodOrcamento()+ " "+ordem.getOrcamento().getCliente().getPessoa().getNome());
-                    receber.setObservacao(" Faturamento Pedido:"+ordem.getOrcamento().getCodOrcamento()+ " "+ordem.getOrcamento().getCliente().getPessoa().getNome());
-                    receber.setUsuarioCadastro(ControleAcesso.usuario.getColaborador().getPessoa().getCodPessoa()+" - "+ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+                    receber.setDescricao(" Faturamento Pedido:" + ordem.getOrcamento().getCodOrcamento() + " " + ordem.getOrcamento().getCliente().getPessoa().getNome());
+                    receber.setObservacao(" Faturamento Pedido:" + ordem.getOrcamento().getCodOrcamento() + " " + ordem.getOrcamento().getCliente().getPessoa().getNome());
+                    receber.setUsuarioCadastro(ControleAcesso.usuario.getColaborador().getPessoa().getCodPessoa() + " - " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                     receber.setDataPagamento(null);
                     receber.setOrcamento(orc);
                     // Verifica Entrada 
-                    if(i==1){
+                    if (i == 1) {
+                        if (forma.isEntrada()) {
+                            cal.add(Calendar.DATE, 1);
+                            receber.setDataPrevista(cal.getTime());
+                        } else {
+                            cal.add(Calendar.DATE, forma.getDiasIntervalo());
+                            receber.setDataPrevista(cal.getTime());
+                        }
+                        if (forma.isVlrEspecial()) {
+                            valorJaUsado = ValidarValor.getArredondamento(orc.getValorTotal() * (forma.getPercentEspecial() / 100), ValidarValor.Tipo.ArredondamentoParaCima);
+                            valorJaUsadoEntrada = ValidarValor.getArredondamento(orc.getValorTotal() * (forma.getPercentEspecial() / 100), ValidarValor.Tipo.ArredondamentoParaCima);
+                            totalSemEntrada = orc.getValorTotal() - valorJaUsadoEntrada;
+                            receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal() * (forma.getPercentEspecial() / 100), ValidarValor.Tipo.ArredondamentoParaCima));
+                        } else {
+                            valorJaUsado = ValidarValor.getArredondamento(orc.getValorTotal() / forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima);
+                            valorJaUsadoEntrada = ValidarValor.getArredondamento(orc.getValorTotal() / forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima);
+                            totalSemEntrada = orc.getValorTotal() - valorJaUsadoEntrada;
+                            receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal() / forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima));
+                        }
+                    } else {
+                        
                         if(forma.isEntrada()){
-                           cal.add(Calendar.DATE, 1);
-                           receber.setDataPrevista(cal.getTime());
+                             cal.add(Calendar.DATE, (forma.getDiasIntervalo() *(i-1)));
                         }else{
-                           cal.add(Calendar.DATE,forma.getDiasIntervalo());
-                           receber.setDataPrevista(cal.getTime()); 
-                        }
-                        if(forma.isVlrEspecial()){
-                            valorJaUsado = ValidarValor.getArredondamento(orc.getValorTotal()*(forma.getPercentEspecial()/100), ValidarValor.Tipo.ArredondamentoParaCima);
-                            valorJaUsadoEntrada = ValidarValor.getArredondamento(orc.getValorTotal()*(forma.getPercentEspecial()/100), ValidarValor.Tipo.ArredondamentoParaCima);
-                            totalSemEntrada = orc.getValorTotal() - valorJaUsadoEntrada;
-                            receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal()*(forma.getPercentEspecial()/100), ValidarValor.Tipo.ArredondamentoParaCima));
-                        }else{
-                            valorJaUsado = ValidarValor.getArredondamento(orc.getValorTotal()/forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima);
-                            valorJaUsadoEntrada = ValidarValor.getArredondamento(orc.getValorTotal()/forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima);
-                            totalSemEntrada = orc.getValorTotal() - valorJaUsadoEntrada;
-                            receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal()/forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima));
-                        }
-                    }else{
-                        cal.add(Calendar.DATE,(forma.getDiasIntervalo()*i));
+                            cal.add(Calendar.DATE, (forma.getDiasIntervalo() * i));
+                        } 
                         receber.setDataPrevista(cal.getTime());
                         //Verifica se é ultima parcela para realizar o arredondamento
-                        if(i== forma.getQuantParcelas()){
-                            receber.setValorReceber((orc.getValorTotal()-valorJaUsado));
-                        }else{
-                            if(forma.isVlrEspecial()){
-                                valorJaUsado = valorJaUsado+ ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()-1), ValidarValor.Tipo.ArredondamentoParaCima);
-                                receber.setValorReceber(ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()-1), ValidarValor.Tipo.ArredondamentoParaCima));
-                            }else{
-                                valorJaUsado = valorJaUsado+ ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()), ValidarValor.Tipo.ArredondamentoParaCima);
-                                receber.setValorReceber(ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()), ValidarValor.Tipo.ArredondamentoParaCima));
+                        if (i == forma.getQuantParcelas()) {
+                            receber.setValorReceber((orc.getValorTotal() - valorJaUsado));
+                        } else {
+                            if (forma.isVlrEspecial()) {
+                                valorJaUsado = valorJaUsado + ValidarValor.getArredondamento(totalSemEntrada / (forma.getQuantParcelas() - 1), ValidarValor.Tipo.ArredondamentoParaCima);
+                                receber.setValorReceber(ValidarValor.getArredondamento(totalSemEntrada / (forma.getQuantParcelas() - 1), ValidarValor.Tipo.ArredondamentoParaCima));
+                            } else {
+                                valorJaUsado = valorJaUsado + ValidarValor.getArredondamento(orc.getValorTotal() / (forma.getQuantParcelas()), ValidarValor.Tipo.ArredondamentoParaCima);
+                                receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal() / (forma.getQuantParcelas()), ValidarValor.Tipo.ArredondamentoParaCima));
                             }
-                       }
-                    
+                        }
+
                     }
-                    receberDao.salvar(session, receber);
-                }   
-            }else{
+                    receber=receberDao.salvar(session, receber);
+                    
+                    System.out.println("codContaReceber-------"+receber.getCodContasRec());
+                }
+            } else {
                 throw new Exception(" Sem Parcela na forma de Pagamento");
             }
         } else {
             throw new Exception(" Sem forma de Pagamento");
         }
-        
+
     }
 
 }
