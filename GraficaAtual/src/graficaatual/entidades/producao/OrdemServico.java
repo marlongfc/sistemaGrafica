@@ -1,6 +1,7 @@
 package graficaatual.entidades.producao;
 
 import graficaatual.entidades.Produto;
+import graficaatual.entidades.financeiro.Caixa;
 import graficaatual.entidades.pedido.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -125,11 +126,25 @@ public class OrdemServico implements Serializable {
     private EquipeEntrega equipeEntrega;
     
     @ManyToOne()
+    @JoinColumn(name = "caixa")
+    private Caixa caixa;
+    
+    @ManyToOne()
     @JoinColumn(name = "produto")
     private Produto produto; 
 
     public OrdemServico() {
     }
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
+    
+    
 
     public Produto getProduto() {
         return produto;

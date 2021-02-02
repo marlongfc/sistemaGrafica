@@ -5,21 +5,28 @@
  */
 package graficaatual.formularios.producao;
 
-import graficaatual.daos.producao.EquipeEntregaDAO;
+import graficaatual.daos.financeiro.CaixaDAO;
+import graficaatual.daos.financeiro.ContasAReceberDAO;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.ControleAcesso;
+import graficaatual.entidades.financeiro.Caixa;
+import graficaatual.entidades.financeiro.ContasAReceber;
+import graficaatual.entidades.financeiro.FormaDePagamento;
+import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.producao.AnexoDTO;
 import graficaatual.entidades.producao.EquipeEntrega;
 import graficaatual.entidades.producao.OrdemServico;
 import graficaatual.utilitarios.Conexao;
 import graficaatual.utilitarios.Data;
+import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +41,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
+import javax.persistence.EntityManager;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -44,28 +52,27 @@ import javax.swing.text.MaskFormatter;
  *
  * @author si10
  */
-public class FOrdemEntrega extends javax.swing.JInternalFrame {
+public class FOrdemFaturamento extends javax.swing.JInternalFrame {
 
     // Tela
     private static int initControle;
     private int localIncusao;
-    private static FOrdemEntrega instance;
+    private static FOrdemFaturamento instance;
 
     //Entidades para trabalhar
     private OrdemServico ordem = null;
     private OrdemServicoDAO ordemDao = new OrdemServicoDAO();
-    private EquipeEntrega equipe = null;
-    private EquipeEntregaDAO equipeDao = new EquipeEntregaDAO();
+    private Caixa caixa = null;
+    private CaixaDAO caixaDao = new CaixaDAO();
 
     private JFormattedTextField cpf;
 
-    public FOrdemEntrega() {
+    public FOrdemFaturamento() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         salvar.setEnabled(true);
-        selecionar.setEnabled(true);
         refazer.setEnabled(false);
-        carregaComboEquipe();
+        carregaComboCaixa();
         pesquisarFazer();
 
     }
@@ -74,9 +81,9 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         return initControle;
     }
 
-    public synchronized static FOrdemEntrega getInstance() {
+    public synchronized static FOrdemFaturamento getInstance() {
         if (instance == null) {
-            instance = new FOrdemEntrega();
+            instance = new FOrdemFaturamento();
             initControle = 1;
         }
         return instance;
@@ -102,24 +109,21 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         salvar = new javax.swing.JButton();
         sair = new javax.swing.JButton();
-        jCBEquipe = new javax.swing.JComboBox<>();
+        jCBCaixa = new javax.swing.JComboBox<>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tabOrdensFazer = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tabConcluido = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabOrdensFazer = new javax.swing.JTable();
         jLSelecao = new javax.swing.JLabel();
-        selecionar = new javax.swing.JButton();
         refazer = new javax.swing.JButton();
-        imprimirEquipe = new javax.swing.JButton();
         imprimirLista = new javax.swing.JButton();
         atualizar = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Entrega");
-        setToolTipText("");
+        setTitle("Faturamento");
         setMinimumSize(new java.awt.Dimension(1100, 700));
         setNormalBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setPreferredSize(new java.awt.Dimension(1100, 700));
@@ -135,7 +139,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("ORDEM DE ENTREGA");
+        jLabel2.setText("FATURAMENTO");
         jPanel10.add(jLabel2);
         jLabel2.setBounds(0, 0, 1030, 70);
 
@@ -161,56 +165,21 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jPanel10.add(sair);
         sair.setBounds(690, 620, 130, 40);
 
-        jCBEquipe.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jCBEquipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha uma Equipe" }));
-        jCBEquipe.addItemListener(new java.awt.event.ItemListener() {
+        jCBCaixa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jCBCaixa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um Caixa" }));
+        jCBCaixa.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCBEquipeItemStateChanged(evt);
+                jCBCaixaItemStateChanged(evt);
             }
         });
-        jPanel10.add(jCBEquipe);
-        jCBEquipe.setBounds(40, 80, 320, 38);
+        jPanel10.add(jCBCaixa);
+        jCBCaixa.setBounds(40, 80, 500, 38);
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
             }
         });
-
-        jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-
-        tabOrdensFazer.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        tabOrdensFazer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Equipe"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabOrdensFazer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabOrdensFazerMouseClicked(evt);
-            }
-        });
-        jScrollPane6.setViewportView(tabOrdensFazer);
-
-        jTabbedPane1.addTab("Lista Entrega  - A Fazer", jScrollPane6);
 
         jPanel1.setLayout(null);
 
@@ -250,25 +219,50 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jPanel1.add(jScrollPane7);
         jScrollPane7.setBounds(0, 0, 1000, 510);
 
-        jTabbedPane1.addTab("Lista de Entregas- Concluída", jPanel1);
+        jTabbedPane1.addTab("Faturados", jPanel1);
+
+        jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        tabOrdensFazer.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tabOrdensFazer.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Forma De Pag."
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabOrdensFazer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabOrdensFazerMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tabOrdensFazer);
+
+        jTabbedPane1.addTab("A Faturar", jScrollPane6);
 
         jPanel10.add(jTabbedPane1);
         jTabbedPane1.setBounds(40, 140, 1000, 470);
+        jTabbedPane1.getAccessibleContext().setAccessibleName("Faturados");
 
         jLSelecao.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel10.add(jLSelecao);
         jLSelecao.setBounds(40, 120, 1000, 20);
-
-        selecionar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        selecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/PEDIDO3.png"))); // NOI18N
-        selecionar.setText("Escolher Equipe");
-        selecionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selecionarActionPerformed(evt);
-            }
-        });
-        jPanel10.add(selecionar);
-        selecionar.setBounds(360, 80, 180, 40);
 
         refazer.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         refazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REMOVER2.png"))); // NOI18N
@@ -281,17 +275,6 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jPanel10.add(refazer);
         refazer.setBounds(540, 80, 150, 40);
 
-        imprimirEquipe.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        imprimirEquipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
-        imprimirEquipe.setText("Imprimir por Equipe");
-        imprimirEquipe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imprimirEquipeActionPerformed(evt);
-            }
-        });
-        jPanel10.add(imprimirEquipe);
-        imprimirEquipe.setBounds(500, 620, 190, 40);
-
         imprimirLista.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         imprimirLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         imprimirLista.setText("Imprimir Lista Geral");
@@ -301,7 +284,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(imprimirLista);
-        imprimirLista.setBounds(310, 620, 190, 40);
+        imprimirLista.setBounds(500, 620, 190, 40);
 
         atualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         atualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/turno2.png"))); // NOI18N
@@ -318,33 +301,48 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         jPanel10.setBounds(0, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
 
+        getAccessibleContext().setAccessibleName("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
         try {
-            salvar();
+            ordem = ordemDao.get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(),0));
+            if(ordem != null){
+            gerarContasAReceber(session);
+            salvarOrdem(session);
             pesquisarFazer();
             pesquisarConcluido();
             enviarEmail();
             jLSelecao.setText("");
+            
+            session.getTransaction().commit();
+            session.close();
             JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+            }else{
+                throw new Exception(" Selecione uma Ordem de Serviço");
+            }
         } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_salvarActionPerformed
 
-    private void salvar() throws Exception {
+    private void salvarOrdem(EntityManager session) throws Exception {
         ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
         if (ordem != null) {
-            if (ordem.getEquipeEntrega() != null) {
-                ordem.setDataFimEntrega(new Date());
-                ordem.setUsuarioFimEntrega(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                ordem = ordemDao.addOrdem(ordem);
+            if (ordem.getCaixa() != null) {
+                ordem.setDataFimFaturamento(new Date());
+                ordem.setUsuarioFimFaturamento(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
+                ordem = ordemDao.addOrdem(session,ordem);
                 enviarEmail();
             } else {
-                JOptionPane.showMessageDialog(this, " Item sem Equipe. ");
+                JOptionPane.showMessageDialog(this, " Selecione um Caixa. ");
             }
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
@@ -386,7 +384,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tabConcluidoMouseClicked
 
-    private void jCBEquipeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBEquipeItemStateChanged
+    private void jCBCaixaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBCaixaItemStateChanged
         try {
             pesquisarFazer();
             pesquisarConcluido();
@@ -394,45 +392,14 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_jCBEquipeItemStateChanged
-
-    private void selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarActionPerformed
-        try {
-            ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
-            if (ordem != null) {
-                if (jCBEquipe.getSelectedIndex() != 0) {
-                    String[] setor = jCBEquipe.getSelectedItem().toString().split(" - ");
-                    int codEquipe = ValidarValor.getInt(setor[0]);
-                    equipe = equipeDao.get(codEquipe);
-                    if (equipe != null) {
-                        ordem.setEquipeEntrega(equipe);
-                        ordem = ordemDao.addOrdem(ordem);
-                        pesquisarFazer();
-                        pesquisarConcluido();
-                    } else {
-                        throw new Exception(" Equipe não encontrada!");
-                    }
-                } else {
-                    throw new Exception(" Selecione uma Equipe! ");
-                }
-
-            } else {
-                throw new Exception(" Selecione uma Ordem de Serviço! ");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_selecionarActionPerformed
+    }//GEN-LAST:event_jCBCaixaItemStateChanged
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         if (jTabbedPane1.getSelectedIndex() == 0) {
             salvar.setEnabled(true);
-            selecionar.setEnabled(true);
             refazer.setEnabled(false);
         } else {
             salvar.setEnabled(false);
-            selecionar.setEnabled(false);
             refazer.setEnabled(true);
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
@@ -449,38 +416,6 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_refazerActionPerformed
-
-    private void imprimirEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirEquipeActionPerformed
-       try {
-            String sql = " select orc.codorcamento as codorcamento ,"
-                    + " orc.prazoentrega  as prazoentrega,"
-                    + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome ,"
-                    + " orc.enderecosecundario as endereco,"
-                    + " prod.descricao as descricao ,"
-                    + " ord.equipeentrega || ' ' || equipe.nome as equipe,"
-                    + " equipe.telefone1 as fone1,"
-                    + " equipe.telefone2 as fone2,"
-                    + " equipe.placacarro as placa,"
-                    + " equipe.modelocarro as modelo,"
-                    + " pes2.nome as colabnome"
-                    + " from ordemservico as ord"
-                    + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
-                    + " left join produto as prod on (ord.produto = prod.codproduto)"
-                    + " left join cliente as cli on (cli.codcliente = orc.cliente)"
-                    + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
-                    + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
-                    + " left join colaborador as colab on (equipe.colaborador1 = colab.codcolaborador)"
-                    + " left join pessoa as pes2 on (colab.pessoa = pes2.codpessoa)"
-                    + " where ord.checkentrega and  ord.datafimentrega is null"
-                    + " order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao";
-            
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaEntregaEquipe.jasper", "RELATÓRIO  - LISTA DE ENTREGAS", null, sql);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de entregas: \n " + e);
-        }
-    }//GEN-LAST:event_imprimirEquipeActionPerformed
 
     private void imprimirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirListaActionPerformed
         try {
@@ -517,6 +452,10 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_atualizarActionPerformed
 
+    private void jCBEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBEquipeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCBEquipeActionPerformed
+
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
 
@@ -530,9 +469,8 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizar;
-    private javax.swing.JButton imprimirEquipe;
     private javax.swing.JButton imprimirLista;
-    private javax.swing.JComboBox<String> jCBEquipe;
+    private javax.swing.JComboBox<String> jCBCaixa;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -543,7 +481,6 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
     private javax.swing.JButton refazer;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
-    private javax.swing.JButton selecionar;
     private javax.swing.JTable tabConcluido;
     private javax.swing.JTable tabOrdensFazer;
     // End of variables declaration//GEN-END:variables
@@ -604,7 +541,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
                     rs.getString("descricao"),
                     rs.getString("nome"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
-                    rs.getString("equipe")
+                    rs.getString("forma")
                 };
                 model.addRow(o);
 
@@ -650,7 +587,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
                     rs.getString("descricao"),
                     rs.getString("nome"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
-                    rs.getString("equipe")
+                    rs.getString("forma")
                 };
                 model.addRow(o);
 
@@ -681,7 +618,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             aux = " not ";
         }
 
-        String ret = " ord.checkentrega and  ord.datafimentrega is " + aux + " null";
+        String ret = " ord.checkFaturamento and  ord.dataFimFaturamento is " + aux + " null";
 
         return ret;
     }
@@ -692,13 +629,13 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
                 + " prod.descricao as descricao , "
                 + " (pes.cnpj || ' ' || pes.nome) as nome , "
                 + " orc.prazoentrega  as prazoentrega,"
-                + " ord.equipeentrega || ' ' || equipe.nome as equipe"
+                + " orc.formaPagamento || ' ' || forma.descricao as forma"
                 + " from ordemservico as ord "
                 + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
                 + " left join produto as prod on (ord.produto = prod.codproduto)"
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                 + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
-                + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
+                + " left join formaDePagamento as forma on (orc.formaPagamento = forma.codForma)"
                 + " where ";
     }
 
@@ -854,13 +791,85 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         }
     }
 
-    private void carregaComboEquipe() {
-        List<EquipeEntrega> listaEquipe = new EquipeEntregaDAO().getList();
-        if (listaEquipe != null && !listaEquipe.isEmpty()) {
-            for (EquipeEntrega equipe : listaEquipe) {
-                jCBEquipe.addItem(equipe.getCodEquipeEntrega() + " - " + equipe.getNome());
+    private void carregaComboCaixa() {
+        List<Caixa> listaCaixa = caixaDao.getList();
+        if (listaCaixa != null && !listaCaixa.isEmpty()) {
+            for (Caixa c : listaCaixa) {
+                jCBCaixa.addItem(c.getCodCaixa()+ " - " + c.getDescricao());
             }
         }
+    }
+
+    private void gerarContasAReceber(EntityManager session) throws Exception {
+        Orcamento orc = ordem.getOrcamento();
+        FormaDePagamento forma = orc.getFormaPagamento();
+        ContasAReceberDAO receberDao = new ContasAReceberDAO();
+        ContasAReceber receber = null;
+        
+        
+        Calendar cal = Calendar.getInstance(); 
+        cal.setTime(new Date() ); 
+
+        Double valorJaUsado =0.0;
+        Double valorJaUsadoEntrada =0.0;
+        Double totalSemEntrada = 0.0;
+        if (forma != null) {
+            if(forma.getQuantParcelas()>0){
+                for(int i =1 ; forma.getQuantParcelas()<=i;i++){
+                    receber = new ContasAReceber();
+                    receber.setCaixa(caixa);
+                    receber.setDataCadastro(new Date());
+                    receber.setDescricao(" Faturamento Pedido:"+ordem.getOrcamento().getCodOrcamento()+ " "+ordem.getOrcamento().getCliente().getPessoa().getNome());
+                    receber.setObservacao(" Faturamento Pedido:"+ordem.getOrcamento().getCodOrcamento()+ " "+ordem.getOrcamento().getCliente().getPessoa().getNome());
+                    receber.setUsuarioCadastro(ControleAcesso.usuario.getColaborador().getPessoa().getCodPessoa()+" - "+ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+                    receber.setDataPagamento(null);
+                    receber.setOrcamento(orc);
+                    // Verifica Entrada 
+                    if(i==1){
+                        if(forma.isEntrada()){
+                           cal.add(Calendar.DATE, 1);
+                           receber.setDataPrevista(cal.getTime());
+                        }else{
+                           cal.add(Calendar.DATE,forma.getDiasIntervalo());
+                           receber.setDataPrevista(cal.getTime()); 
+                        }
+                        if(forma.isVlrEspecial()){
+                            valorJaUsado = ValidarValor.getArredondamento(orc.getValorTotal()*(forma.getPercentEspecial()/100), ValidarValor.Tipo.ArredondamentoParaCima);
+                            valorJaUsadoEntrada = ValidarValor.getArredondamento(orc.getValorTotal()*(forma.getPercentEspecial()/100), ValidarValor.Tipo.ArredondamentoParaCima);
+                            totalSemEntrada = orc.getValorTotal() - valorJaUsadoEntrada;
+                            receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal()*(forma.getPercentEspecial()/100), ValidarValor.Tipo.ArredondamentoParaCima));
+                        }else{
+                            valorJaUsado = ValidarValor.getArredondamento(orc.getValorTotal()/forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima);
+                            valorJaUsadoEntrada = ValidarValor.getArredondamento(orc.getValorTotal()/forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima);
+                            totalSemEntrada = orc.getValorTotal() - valorJaUsadoEntrada;
+                            receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal()/forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima));
+                        }
+                    }else{
+                        cal.add(Calendar.DATE,(forma.getDiasIntervalo()*i));
+                        receber.setDataPrevista(cal.getTime());
+                        //Verifica se é ultima parcela para realizar o arredondamento
+                        if(i== forma.getQuantParcelas()){
+                            receber.setValorReceber((orc.getValorTotal()-valorJaUsado));
+                        }else{
+                            if(forma.isVlrEspecial()){
+                                valorJaUsado = valorJaUsado+ ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()-1), ValidarValor.Tipo.ArredondamentoParaCima);
+                                receber.setValorReceber(ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()-1), ValidarValor.Tipo.ArredondamentoParaCima));
+                            }else{
+                                valorJaUsado = valorJaUsado+ ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()), ValidarValor.Tipo.ArredondamentoParaCima);
+                                receber.setValorReceber(ValidarValor.getArredondamento(totalSemEntrada/(forma.getQuantParcelas()), ValidarValor.Tipo.ArredondamentoParaCima));
+                            }
+                       }
+                    
+                    }
+                    receberDao.salvar(session, receber);
+                }   
+            }else{
+                throw new Exception(" Sem Parcela na forma de Pagamento");
+            }
+        } else {
+            throw new Exception(" Sem forma de Pagamento");
+        }
+        
     }
 
 }

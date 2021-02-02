@@ -132,6 +132,8 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         obs = new javax.swing.JTextArea();
         jLabel89 = new javax.swing.JLabel();
+        jLabel104 = new javax.swing.JLabel();
+        dataPrevista = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -441,12 +443,12 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel84.setText("Data Pagamento");
         jPanel18.add(jLabel84);
-        jLabel84.setBounds(530, 170, 100, 20);
+        jLabel84.setBounds(680, 170, 100, 20);
 
         jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel85.setText("Valor a Pagar");
         jPanel18.add(jLabel85);
-        jLabel85.setBounds(730, 170, 80, 20);
+        jLabel85.setBounds(840, 170, 80, 20);
 
         valorAPagar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valorAPagar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -455,9 +457,9 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(valorAPagar);
-        valorAPagar.setBounds(730, 190, 90, 20);
+        valorAPagar.setBounds(840, 190, 90, 20);
         jPanel18.add(dataPagamento);
-        dataPagamento.setBounds(530, 190, 120, 20);
+        dataPagamento.setBounds(680, 190, 130, 20);
 
         jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel86.setText("Valor Pago");
@@ -513,6 +515,13 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jLabel89.setText("Código");
         jPanel18.add(jLabel89);
         jLabel89.setBounds(20, 170, 80, 20);
+
+        jLabel104.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel104.setText("Data Prevista");
+        jPanel18.add(jLabel104);
+        jLabel104.setBounds(530, 170, 100, 20);
+        jPanel18.add(dataPrevista);
+        dataPrevista.setBounds(530, 190, 120, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -755,6 +764,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
     private javax.swing.JTextField codFormaPagamento;
     private javax.swing.JTextField codPlanoDeContas;
     private javax.swing.JFormattedTextField dataPagamento;
+    private javax.swing.JFormattedTextField dataPrevista;
     private javax.swing.JTextField descCentroDeCusto;
     private javax.swing.JTextField descCliente;
     private javax.swing.JTextField descFormaPagamento;
@@ -765,6 +775,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel104;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;

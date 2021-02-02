@@ -57,6 +57,7 @@ public class FCadastro extends javax.swing.JFrame {
         acessotela(jBMaterial,"FCadMaterial");
         acessotela(jBProduto,"FCadProduto");
         acessotela(jBAcabamento,"FCadAcabamento");
+        acessotela(jBFormaPagamento,"FCadFormaDePagamento");
         acessotela(jBPatrimonio, "FCadPatrimonio");
         
        
@@ -90,6 +91,7 @@ public class FCadastro extends javax.swing.JFrame {
         jBMaterial = new javax.swing.JButton();
         jBProduto = new javax.swing.JButton();
         jBAcabamento = new javax.swing.JButton();
+        jBFormaPagamento = new javax.swing.JButton();
         jBSair = new javax.swing.JButton();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
@@ -316,6 +318,23 @@ public class FCadastro extends javax.swing.JFrame {
         jPanel1.add(jBAcabamento);
         jBAcabamento.setBounds(30, 580, 180, 30);
 
+        jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBFormaPagamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
+        jBFormaPagamento.setText("Forma de Pagamento");
+        jBFormaPagamento.setBorderPainted(false);
+        jBFormaPagamento.setFocusPainted(false);
+        jBFormaPagamento.setFocusable(false);
+        jBFormaPagamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFormaPagamentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBFormaPagamento);
+        jBFormaPagamento.setBounds(30, 620, 180, 30);
+
         jBSair.setBackground(new java.awt.Color(71, 37, 131));
         jBSair.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         jBSair.setForeground(new java.awt.Color(255, 255, 255));
@@ -537,6 +556,23 @@ public class FCadastro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBAcabamentoActionPerformed
 
+    private void jBFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFormaPagamentoActionPerformed
+       try {
+            deskTop.removeAll();
+            FCadFormaDePagamento clComp;
+
+            clComp = FCadFormaDePagamento.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBFormaPagamentoActionPerformed
+
     private void jBLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLogradouroActionPerformed
         try {
             deskTop.removeAll();
@@ -617,6 +653,7 @@ public class FCadastro extends javax.swing.JFrame {
     private javax.swing.JButton jBCidade;
     private javax.swing.JButton jBCliente;
     private javax.swing.JButton jBColaborador;
+    private javax.swing.JButton jBFormaPagamento;
     private javax.swing.JButton jBFornecedor;
     private javax.swing.JButton jBLogradouro;
     private javax.swing.JButton jBMaterial;

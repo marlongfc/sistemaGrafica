@@ -10,6 +10,7 @@ import graficaatual.entidades.Permissao;
 import graficaatual.formularios.producao.FGestaoOrdemServico;
 import graficaatual.formularios.producao.FGrupoEntrega;
 import graficaatual.formularios.producao.FOrdemEntrega;
+import graficaatual.formularios.producao.FOrdemFaturamento;
 import graficaatual.formularios.producao.FOrdemServico;
 import javax.swing.JButton;
 
@@ -35,10 +36,10 @@ public class FProducao extends javax.swing.JFrame {
         
         
         //verificação de acesso as telas
-        acessotela(jBGgestaoProducao,"FGestaoOrdemServico");
-        acessotela(jBProducao,"FOrdemServico");
-        acessotela(jBEntrega,"FOrdemEntrega");
-        acessotela(jBGrupoEntrega,"FGrupoEntrega");
+        //acessotela(jBGgestaoProducao,"FGestaoOrdemServico");
+        //acessotela(jBProducao,"FOrdemServico");
+        //acessotela(jBEntrega,"FOrdemEntrega");
+        //acessotela(jBGrupoEntrega,"FGrupoEntrega");
         
        
     }
@@ -66,6 +67,7 @@ public class FProducao extends javax.swing.JFrame {
         jBProducao = new javax.swing.JButton();
         jBEntrega = new javax.swing.JButton();
         jBGrupoEntrega = new javax.swing.JButton();
+        jBFatura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
@@ -181,7 +183,25 @@ public class FProducao extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBGrupoEntrega);
-        jBGrupoEntrega.setBounds(30, 300, 180, 30);
+        jBGrupoEntrega.setBounds(30, 340, 180, 30);
+
+        jBFatura.setBackground(new java.awt.Color(71, 37, 131));
+        jBFatura.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBFatura.setForeground(new java.awt.Color(255, 255, 255));
+        jBFatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes2.png"))); // NOI18N
+        jBFatura.setText("Faturamento");
+        jBFatura.setBorderPainted(false);
+        jBFatura.setFocusPainted(false);
+        jBFatura.setFocusable(false);
+        jBFatura.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBFatura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFaturaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBFatura);
+        jBFatura.setBounds(30, 300, 180, 30);
+        jBFatura.getAccessibleContext().setAccessibleName("Fatura");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,9 +296,27 @@ public class FProducao extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBGrupoEntregaActionPerformed
 
+    private void jBFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFaturaActionPerformed
+        try {
+            deskTop.removeAll();
+            FOrdemFaturamento clComp;
+
+            clComp = FOrdemFaturamento.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBFaturaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBEntrega;
+    private javax.swing.JButton jBFatura;
     private javax.swing.JButton jBGgestaoProducao;
     private javax.swing.JButton jBGrupoEntrega;
     private javax.swing.JButton jBProducao;

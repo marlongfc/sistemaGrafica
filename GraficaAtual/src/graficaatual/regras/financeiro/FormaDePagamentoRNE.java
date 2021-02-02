@@ -29,6 +29,7 @@ public class FormaDePagamentoRNE extends GenericDAO {
     }
 
     public List<FormaDePagamento> getList(EntityManager session) throws Exception {
+        
         return super.getPureList(session, FormaDePagamento.class, "Select e from FormaDePagamento e order by e.codForma");
     }
 

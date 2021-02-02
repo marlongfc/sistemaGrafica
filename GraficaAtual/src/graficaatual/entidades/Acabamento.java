@@ -45,7 +45,7 @@ public class Acabamento implements java.io.Serializable {
 
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
-
+    
     public Integer getCodAcabamento() {
         return codAcabamento;
     }

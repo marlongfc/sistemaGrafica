@@ -45,6 +45,63 @@ public class FormaDePagamento implements java.io.Serializable {
 
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
+    
+        @Column(name = "entrada")
+    private boolean entrada;
+    
+    @Column(name = "vlrEspecial")
+    private boolean vlrEspecial;
+    
+    @Column(name = "quantParcelas")
+    private int quantParcelas;
+    
+    @Column(name = "diasIntervalo")
+    private int diasIntervalo;
+    
+    @Column(name = "percentEspecial")
+    private Double percentEspecial;
+
+    public int getDiasIntervalo() {
+        return diasIntervalo;
+    }
+
+    public void setDiasIntervalo(int diasIntervalo) {
+        this.diasIntervalo = diasIntervalo;
+    }
+    
+    public boolean isEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(boolean entrada) {
+        this.entrada = entrada;
+    }
+
+    public boolean isVlrEspecial() {
+        return vlrEspecial;
+    }
+
+    public void setVlrEspecial(boolean vlrEspecial) {
+        this.vlrEspecial = vlrEspecial;
+    }
+
+    public int getQuantParcelas() {
+        return quantParcelas;
+    }
+
+    public void setQuantParcelas(int quantParcelas) {
+        this.quantParcelas = quantParcelas;
+    }
+
+    public Double getPercentEspecial() {
+        return percentEspecial;
+    }
+
+    public void setPercentEspecial(Double percentEspecial) {
+        this.percentEspecial = percentEspecial;
+    }
+   
+
 
     public Integer getCodForma() {
         return codForma;

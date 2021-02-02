@@ -5,6 +5,7 @@
  */
 package graficaatual.entidades.financeiro;
 
+import graficaatual.entidades.pedido.Orcamento;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,10 @@ public class ContasAReceber implements java.io.Serializable {
     @ManyToOne()
     @JoinColumn(name = "caixa", nullable = false)
     private Caixa caixa;
+    
+    @ManyToOne()
+    @JoinColumn(name = "orcamento")
+    private Orcamento orcamento;
 
     @Column()
     private Double valorTotal;
@@ -45,6 +50,12 @@ public class ContasAReceber implements java.io.Serializable {
 
     @Column()
     private Double valorReceber;
+    
+    @Column(name = "dataPrevista")
+    private Date dataPrevista;
+    
+    @Column(name = "dataPagamento")
+    private Date dataPagamento;
 
     @Column(length = 300)
     private String observacao;
@@ -61,6 +72,30 @@ public class ContasAReceber implements java.io.Serializable {
     @Column(name = "usuarioAtualizacao", length = 200)
     private String usuarioAtualizacao;
 
+    public Date getDataPrevista() {
+        return dataPrevista;
+    }
+
+    public void setDataPrevista(Date dataPrevista) {
+        this.dataPrevista = dataPrevista;
+    }
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public Orcamento getOrcamento() {
+        return orcamento;
+    }
+
+    public void setOrcamento(Orcamento orcamento) {
+        this.orcamento = orcamento;
+    }
+    
     public Integer getCodContasRec() {
         return codContasRec;
     }

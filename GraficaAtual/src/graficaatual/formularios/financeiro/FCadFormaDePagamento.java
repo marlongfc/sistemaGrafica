@@ -13,9 +13,11 @@ import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -33,7 +35,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         initComponents();
 
         atualizatabela();
-
+        limpaCampos();
         listaForma = ObservableCollections.observableList(new LinkedList<FormaDePagamento>());
         Componentes comp2 = new Componentes(listaForma, false, codForma, descForma, this, jPanel18, descForma.getWidth(), 100);
         comp2.addCol(0, "codForma", "Código", 50, Integer.class.getName());
@@ -112,6 +114,14 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         observacao = new javax.swing.JTextArea();
         btSair1 = new javax.swing.JButton();
+        jLabel82 = new javax.swing.JLabel();
+        qParcelas = new javax.swing.JTextField();
+        jLabel83 = new javax.swing.JLabel();
+        diasParcelas = new javax.swing.JTextField();
+        jCheckEntrada = new javax.swing.JCheckBox();
+        jCheckEspecial = new javax.swing.JCheckBox();
+        jLabel81 = new javax.swing.JLabel();
+        vlrEspecial = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -338,7 +348,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel79.setText("Observação");
         jPanel18.add(jLabel79);
-        jLabel79.setBounds(40, 125, 210, 20);
+        jLabel79.setBounds(40, 160, 210, 20);
 
         codForma.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codForma.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -360,7 +370,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(observacao);
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(40, 150, 1020, 130);
+        jScrollPane1.setBounds(40, 184, 1020, 96);
 
         btSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair1.setText("Sair");
@@ -371,6 +381,48 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         });
         jPanel18.add(btSair1);
         btSair1.setBounds(800, 290, 180, 40);
+
+        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel82.setText("Quant. Parcelas");
+        jPanel18.add(jLabel82);
+        jLabel82.setBounds(40, 120, 110, 20);
+
+        qParcelas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel18.add(qParcelas);
+        qParcelas.setBounds(40, 140, 110, 20);
+
+        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel83.setText("Intervalo Dias entre as Parcelas");
+        jPanel18.add(jLabel83);
+        jLabel83.setBounds(150, 120, 210, 20);
+
+        diasParcelas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel18.add(diasParcelas);
+        diasParcelas.setBounds(150, 140, 160, 20);
+
+        jCheckEntrada.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckEntrada.setText("Entrada");
+        jPanel18.add(jCheckEntrada);
+        jCheckEntrada.setBounds(310, 140, 100, 20);
+
+        jCheckEspecial.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckEspecial.setText("% de Entrada Especial");
+        jCheckEspecial.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckEspecialItemStateChanged(evt);
+            }
+        });
+        jPanel18.add(jCheckEspecial);
+        jCheckEspecial.setBounds(430, 140, 170, 20);
+
+        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel81.setText("% Entrada Especial");
+        jPanel18.add(jLabel81);
+        jLabel81.setBounds(600, 120, 160, 20);
+
+        vlrEspecial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel18.add(vlrEspecial);
+        vlrEspecial.setBounds(600, 140, 160, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -395,7 +447,26 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         if (formaPagamento != null) {
             descForma.setText(formaPagamento.getDescricao());
             observacao.setText(formaPagamento.getObservacao());
+            qParcelas.setText(formaPagamento.getQuantParcelas() + "");
+            diasParcelas.setText(formaPagamento.getDiasIntervalo() + "");
+            jCheckEntrada.setSelected(formaPagamento.isEntrada());
+            jCheckEspecial.setSelected(formaPagamento.isVlrEspecial());
+            if (formaPagamento.isVlrEspecial()) {
+                vlrEspecial.setEnabled(true);
+                vlrEspecial.setText(ValidarValor.getDouble(formaPagamento.getPercentEspecial()));
+            } else {
+                vlrEspecial.setEnabled(false);
+                vlrEspecial.setText("0,00");
+            }
+
         } else {
+            qParcelas.setText("1");
+            diasParcelas.setText("15");
+            jCheckEntrada.setSelected(false);
+            jCheckEspecial.setSelected(false);
+            vlrEspecial.setEnabled(false);
+            vlrEspecial.setText("0,00");
+
             descForma.setText("");
             observacao.setText("");
         }
@@ -508,10 +579,23 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
+    private void jCheckEspecialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckEspecialItemStateChanged
+
+        vlrEspecial.setEnabled(jCheckEspecial.isSelected());
+        vlrEspecial.setText("0,00");
+
+    }//GEN-LAST:event_jCheckEspecialItemStateChanged
+
     private void limpaCampos() {
         codForma.setText("");
         descForma.setText("");
         observacao.setText("");
+
+        qParcelas.setText("1");
+        diasParcelas.setText("15");
+        jCheckEntrada.setSelected(false);
+        jCheckEspecial.setSelected(false);
+        jCheckEspecialItemStateChanged(null);
     }
 
     private void habilitaCampos(boolean b) {
@@ -526,6 +610,20 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
         if (descForma.getText().length() < 2) {
             throw new Exception("Favor inserir uma Forma de Pagamento");
         }
+
+        if (ValidarValor.getInt(qParcelas.getText()) <= 0) {
+            throw new Exception("Parcelas tem que ser maior que 0");
+        }
+
+        if (jCheckEspecial.isSelected() && ValidarValor.getDouble(vlrEspecial.getText()) <= 0) {
+            throw new Exception("Valor Especial tem que ser maior que 0");
+        }
+
+        formaPagamento.setQuantParcelas(ValidarValor.getInt(qParcelas.getText()));
+        formaPagamento.setDiasIntervalo(ValidarValor.getInt(diasParcelas.getText()));
+        formaPagamento.setEntrada(jCheckEntrada.isSelected());
+        formaPagamento.setVlrEspecial(jCheckEspecial.isSelected());
+        formaPagamento.setPercentEspecial(ValidarValor.getDouble(vlrEspecial.getText()));
 
         formaPagamento.setDescricao(descForma.getText());
         formaPagamento.setObservacao(observacao.getText());
@@ -546,7 +644,7 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
             removeLinhas(tab);
             List<FormaDePagamento> listaT = formaPagamentoDAO.getList();
-            if (listaT.size() > 0) {
+            if (listaT !=null && !listaT.isEmpty()) {
                 model.setNumRows(0);
                 for (FormaDePagamento f : listaT) {
                     Object o[] = new Object[]{
@@ -574,6 +672,9 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField codForma;
     private javax.swing.JTextField descForma;
+    private javax.swing.JTextField diasParcelas;
+    private javax.swing.JCheckBox jCheckEntrada;
+    private javax.swing.JCheckBox jCheckEspecial;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
@@ -583,6 +684,9 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -614,6 +718,8 @@ public class FCadFormaDePagamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
     private javax.swing.JTextArea observacao;
+    private javax.swing.JTextField qParcelas;
     private javax.swing.JTable tab;
+    private javax.swing.JTextField vlrEspecial;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,9 +13,11 @@ import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -33,7 +35,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         initComponents();
 
         atualizatabela();
-
+        
         listaAcabamento = ObservableCollections.observableList(new LinkedList<Acabamento>());
         Componentes comp2 = new Componentes(listaAcabamento, false, codAcabamento, descAcabamento, this, jPanel18, descAcabamento.getWidth(), 100);
         comp2.addCol(0, "codAcabamento", "Código", 50, Integer.class.getName());
@@ -108,11 +110,11 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         tab = new javax.swing.JTable();
         jLabel79 = new javax.swing.JLabel();
         codAcabamento = new javax.swing.JTextField();
-        jLabel80 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         observacao = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         btSair1 = new javax.swing.JButton();
+        jLabel81 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -335,7 +337,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel79.setText("Observação");
         jPanel18.add(jLabel79);
-        jLabel79.setBounds(30, 120, 220, 20);
+        jLabel79.setBounds(30, 170, 220, 20);
 
         codAcabamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         codAcabamento.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -346,18 +348,13 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         jPanel18.add(codAcabamento);
         codAcabamento.setBounds(30, 90, 110, 20);
 
-        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel80.setText("Código");
-        jPanel18.add(jLabel80);
-        jLabel80.setBounds(30, 70, 70, 20);
-
         observacao.setColumns(20);
         observacao.setLineWrap(true);
         observacao.setRows(5);
         jScrollPane1.setViewportView(observacao);
 
         jPanel18.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 150, 1030, 130);
+        jScrollPane1.setBounds(30, 190, 1030, 90);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -374,6 +371,11 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
         });
         jPanel18.add(btSair1);
         btSair1.setBounds(810, 290, 180, 40);
+
+        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel81.setText("Código");
+        jPanel18.add(jLabel81);
+        jLabel81.setBounds(30, 70, 70, 20);
 
         getContentPane().add(jPanel18);
         jPanel18.setBounds(0, 0, 1100, 700);
@@ -573,7 +575,7 @@ public class FCadAcabamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
-    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;

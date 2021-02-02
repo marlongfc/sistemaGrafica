@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package graficaatual.entidades.financeiro;
-
+ 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -32,17 +32,13 @@ public class Caixa implements java.io.Serializable {
     private String descricao;
 
     @Column()
-    private Double valorInicial;
-
+    private Double valorInicial; 
+    
     @Column()
     private Double valorAberturaDia;
-
+    
     @Column()
     private Double valorFechamentoDia;
-    @Column()
-    private Double valorAtual;
-    @Column()
-    private Double valorAnterior;
 
     @Column(length = 300)
     private String observacao;
@@ -139,21 +135,14 @@ public class Caixa implements java.io.Serializable {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
 
-    public Double getValorAtual() {
-        return valorAtual;
-    }
+     
+     
+    
 
-    public void setValorAtual(Double valorAtual) {
-        this.valorAtual = valorAtual;
-    }
+     
+ 
 
-    public Double getValorAnterior() {
-        return valorAnterior;
-    }
-
-    public void setValorAnterior(Double valorAnterior) {
-        this.valorAnterior = valorAnterior;
-    }
+  
 
     @Override
     public int hashCode() {

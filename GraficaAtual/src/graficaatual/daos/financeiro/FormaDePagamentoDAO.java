@@ -100,6 +100,7 @@ public class FormaDePagamentoDAO extends FormaDePagamentoRNE {
             aux = super.getList(session);
             return aux;
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             session.close();
         }
