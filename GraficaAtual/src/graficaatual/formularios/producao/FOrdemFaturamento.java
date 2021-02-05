@@ -71,9 +71,9 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         salvar.setEnabled(true);
-        refazer.setEnabled(false);
         carregaComboCaixa();
         pesquisarFazer();
+        pesquisarConcluido();
 
     }
 
@@ -117,8 +117,6 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         tabConcluido = new javax.swing.JTable();
         jLSelecao = new javax.swing.JLabel();
-        refazer = new javax.swing.JButton();
-        imprimirLista = new javax.swing.JButton();
         atualizar = new javax.swing.JButton();
         refazer1 = new javax.swing.JButton();
 
@@ -164,7 +162,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(690, 620, 130, 40);
+        sair.setBounds(490, 620, 130, 40);
 
         jCBCaixa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jCBCaixa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um Caixa" }));
@@ -174,7 +172,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(jCBCaixa);
-        jCBCaixa.setBounds(40, 80, 330, 38);
+        jCBCaixa.setBounds(40, 80, 430, 40);
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -190,14 +188,14 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Forma De Pag."
+                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Forma De Pag.", "Caixa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -227,14 +225,14 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Caixa"
+                "Ordem Serviço", "Pedido (cód.)", "Descrição", "Cliente", "Data Entrega", "Forma Pagamento", "Caixa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -265,28 +263,6 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         jPanel10.add(jLSelecao);
         jLSelecao.setBounds(40, 120, 1000, 20);
 
-        refazer.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        refazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/REMOVER2.png"))); // NOI18N
-        refazer.setText("Refazer ");
-        refazer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refazerActionPerformed(evt);
-            }
-        });
-        jPanel10.add(refazer);
-        refazer.setBounds(540, 80, 150, 40);
-
-        imprimirLista.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        imprimirLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
-        imprimirLista.setText("Imprimir Lista Geral");
-        imprimirLista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imprimirListaActionPerformed(evt);
-            }
-        });
-        jPanel10.add(imprimirLista);
-        imprimirLista.setBounds(500, 620, 190, 40);
-
         atualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         atualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/turno2.png"))); // NOI18N
         atualizar.setText("Atualizar");
@@ -307,7 +283,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(refazer1);
-        refazer1.setBounds(370, 80, 170, 40);
+        refazer1.setBounds(470, 80, 220, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -324,16 +300,20 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         try {
             ordem = ordemDao.get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
             if (ordem != null) {
-                gerarContasAReceber(session);
-                salvarOrdem(session);
-                //   enviarEmail();
-                jLSelecao.setText("");
+                if (ordem.getCaixa() != null) {
+                    gerarContasAReceber(session);
+                    salvarOrdem(session);
+                    //   enviarEmail();
+                    jLSelecao.setText("");
 
-                session.getTransaction().commit();
-                session.close();
-                pesquisarFazer();
-                pesquisarConcluido();
-                JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+                    session.getTransaction().commit();
+                    session.close();
+                    pesquisarFazer();
+                    pesquisarConcluido();
+                    JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+                } else {
+                    throw new Exception(" Não foi selecionado Caixa para esse Faturamento. ");
+                }
             } else {
                 throw new Exception(" Selecione uma Ordem de Serviço");
             }
@@ -352,7 +332,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                 ordem.setDataFimFaturamento(new Date());
                 ordem.setUsuarioFimFaturamento(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
                 ordem = ordemDao.addOrdem(session, ordem);
-              //  enviarEmail();
+                //  enviarEmail();
             } else {
                 JOptionPane.showMessageDialog(this, " Selecione um Caixa. ");
             }
@@ -409,50 +389,12 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         if (jTabbedPane1.getSelectedIndex() == 0) {
             salvar.setEnabled(true);
-            refazer.setEnabled(false);
         } else {
             salvar.setEnabled(false);
-            refazer.setEnabled(true);
         }
+        pesquisarFazer();
+        pesquisarConcluido();
     }//GEN-LAST:event_jTabbedPane1MouseClicked
-
-    private void refazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refazerActionPerformed
-        try {
-            refazer();
-            pesquisarFazer();
-            pesquisarConcluido();
-            jLSelecao.setText("");
-            JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_refazerActionPerformed
-
-    private void imprimirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirListaActionPerformed
-        try {
-            String sql = " select orc.codorcamento as codorcamento , "
-                    + " orc.prazoentrega  as prazoentrega,"
-                    + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome , "
-                    + " orc.enderecosecundario as endereco,"
-                    + " prod.descricao as descricao , "
-                    + " ord.equipeentrega || ' ' || equipe.nome as equipe"
-                    + " from ordemservico as ord "
-                    + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
-                    + " left join produto as prod on (ord.produto = prod.codproduto)"
-                    + " left join cliente as cli on (cli.codcliente = orc.cliente)"
-                    + " left join pessoa as pes on (cli.pessoa = pes.codpessoa) "
-                    + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
-                    + " where ord.checkentrega and  ord.datafimentrega is null"
-                    + " order by orc.prazoentrega , orc.codorcamento , prod.descricao ";
-
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/listaEntrega.jasper", "RELATÓRIO  - LISTA DE ENTREGAS", null, sql);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de entregas: \n " + e);
-        }
-    }//GEN-LAST:event_imprimirListaActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
         try {
@@ -511,7 +453,6 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizar;
-    private javax.swing.JButton imprimirLista;
     private javax.swing.JComboBox<String> jCBCaixa;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
@@ -520,7 +461,6 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton refazer;
     private javax.swing.JButton refazer1;
     private javax.swing.JButton sair;
     private javax.swing.JButton salvar;
@@ -552,7 +492,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
             Map tx = new HashMap();
 
             tx.put("TEXTOPADRAO", new TextoPadraoDAO().get(1).getTextoOrcamento());
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelOrcamentoSemValor.jasper", "Orçamento/Pedido", tx, sql);
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelOrcamento.jasper", "Orçamento/Pedido", tx, sql);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -584,7 +524,8 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                     rs.getString("descricao"),
                     rs.getString("nome"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
-                    rs.getString("forma")
+                    rs.getString("forma"),
+                    rs.getString("caixa")
                 };
                 model.addRow(o);
 
@@ -630,7 +571,8 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                     rs.getString("descricao"),
                     rs.getString("nome"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
-                    rs.getString("forma")
+                    rs.getString("forma"),
+                    rs.getString("caixa")
                 };
                 model.addRow(o);
 
@@ -672,13 +614,15 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                 + " prod.descricao as descricao , "
                 + " (pes.cnpj || ' ' || pes.nome) as nome , "
                 + " orc.prazoentrega  as prazoentrega,"
-                + " orc.formaPagamento || ' ' || forma.descricao as forma"
+                + " orc.formaPagamento || ' ' || forma.descricao as forma,"
+                + " case when ord.caixa is null then '' else ord.caixa || ' ' || caixa.descricao end caixa"
                 + " from ordemservico as ord "
                 + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
                 + " left join produto as prod on (ord.produto = prod.codproduto)"
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                 + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
                 + " left join formaDePagamento as forma on (orc.formaPagamento = forma.codForma)"
+                + " left join caixa as caixa on (caixa.codcaixa = ord.caixa)"
                 + " where ";
     }
 
@@ -858,9 +802,9 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
             System.out.println("codContaReceber1-------");
             if (forma.getQuantParcelas() > 0) {
                 System.out.println("codContaReceber2-------");
-                System.out.println("qtdparcelas-------"+forma.getQuantParcelas());
+                System.out.println("qtdparcelas-------" + forma.getQuantParcelas());
                 for (int i = 1; forma.getQuantParcelas() >= i; i++) {
-                    System.out.println("codContaReceber3-------"+i);
+                    System.out.println("codContaReceber3-------" + i);
                     receber = new ContasAReceber();
                     cal.setTime(new Date());
                     receber.setCaixa(ordem.getCaixa());
@@ -891,12 +835,12 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                             receber.setValorReceber(ValidarValor.getArredondamento(orc.getValorTotal() / forma.getQuantParcelas(), ValidarValor.Tipo.ArredondamentoParaCima));
                         }
                     } else {
-                        
-                        if(forma.isEntrada()){
-                             cal.add(Calendar.DATE, (forma.getDiasIntervalo() *(i-1)));
-                        }else{
+
+                        if (forma.isEntrada()) {
+                            cal.add(Calendar.DATE, (forma.getDiasIntervalo() * (i - 1)));
+                        } else {
                             cal.add(Calendar.DATE, (forma.getDiasIntervalo() * i));
-                        } 
+                        }
                         receber.setDataPrevista(cal.getTime());
                         //Verifica se é ultima parcela para realizar o arredondamento
                         if (i == forma.getQuantParcelas()) {
@@ -912,9 +856,9 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                         }
 
                     }
-                    receber=receberDao.salvar(session, receber);
-                    
-                    System.out.println("codContaReceber-------"+receber.getCodContasRec());
+                    receber = receberDao.salvar(session, receber);
+
+                    System.out.println("codContaReceber-------" + receber.getCodContasRec());
                 }
             } else {
                 throw new Exception(" Sem Parcela na forma de Pagamento");

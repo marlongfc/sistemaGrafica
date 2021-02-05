@@ -10,6 +10,7 @@ import graficaatual.entidades.Permissao;
 import graficaatual.formularios.financeiro.FCadBanco;
 import graficaatual.formularios.financeiro.FCadCaixa;
 import graficaatual.formularios.financeiro.FCadCentroDeCustos;
+import graficaatual.formularios.financeiro.FCadContasAReceber;
 import graficaatual.formularios.financeiro.FCadFormaDePagamento;
 import graficaatual.formularios.financeiro.FCadLancamento;
 import graficaatual.formularios.financeiro.FCadPlanoDeContas;
@@ -37,13 +38,13 @@ public class FFinanceiro extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         //verificação de acesso as telas
-        acessotela(jBCaixa, "FCadCaixa");
-        acessotela(jBBanco, "FCadBanco");
-        acessotela(jBCentroCusto, "FCadCentroDeCustos");
-        acessotela(jBPlanoContas, "FCadPlanoDeContas");
-        acessotela(jBLancCaixa,"FCadLancamento");
-       
-        acessotela(jBBanco,"FCadBanco");
+//        acessotela(jBCaixa, "FCadCaixa");
+//        acessotela(jBBanco, "FCadBanco");
+//        acessotela(jBCentroCusto, "FCadCentroDeCustos");
+//        acessotela(jBPlanoContas, "FCadPlanoDeContas");
+//        acessotela(jBLancCaixa,"FCadLancamento");
+//       
+//        acessotela(jBBanco,"FCadBanco");
 
 
     }
@@ -72,6 +73,7 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBSair1 = new javax.swing.JButton();
         jBCaixa = new javax.swing.JButton();
         jBCentroCusto = new javax.swing.JButton();
+        jBContasReceber = new javax.swing.JButton();
 
         jBLancamento.setBackground(new java.awt.Color(71, 37, 131));
         jBLancamento.setForeground(new java.awt.Color(255, 255, 255));
@@ -220,6 +222,23 @@ public class FFinanceiro extends javax.swing.JFrame {
         jPanel1.add(jBCentroCusto);
         jBCentroCusto.setBounds(20, 240, 200, 30);
 
+        jBContasReceber.setBackground(new java.awt.Color(71, 37, 131));
+        jBContasReceber.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBContasReceber.setForeground(new java.awt.Color(255, 255, 255));
+        jBContasReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
+        jBContasReceber.setText("Contas à Receber");
+        jBContasReceber.setBorderPainted(false);
+        jBContasReceber.setFocusPainted(false);
+        jBContasReceber.setFocusable(false);
+        jBContasReceber.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBContasReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBContasReceberActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBContasReceber);
+        jBContasReceber.setBounds(20, 360, 200, 30);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -347,11 +366,29 @@ public class FFinanceiro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBCentroCustoActionPerformed
 
+    private void jBContasReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBContasReceberActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadContasAReceber clComp;
+
+            clComp = FCadContasAReceber.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBContasReceberActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBBanco;
     private javax.swing.JButton jBCaixa;
     private javax.swing.JButton jBCentroCusto;
+    private javax.swing.JButton jBContasReceber;
     private javax.swing.JButton jBLancCaixa;
     private javax.swing.JButton jBLancamento;
     private javax.swing.JButton jBPlanoContas;
