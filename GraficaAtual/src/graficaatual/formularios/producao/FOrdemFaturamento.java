@@ -7,12 +7,14 @@ package graficaatual.formularios.producao;
 
 import graficaatual.daos.financeiro.CaixaDAO;
 import graficaatual.daos.financeiro.ContasAReceberDAO;
+import graficaatual.daos.financeiro.PlanoDeContasDAO;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.financeiro.Caixa;
 import graficaatual.entidades.financeiro.ContasAReceber;
 import graficaatual.entidades.financeiro.FormaDePagamento;
+import graficaatual.entidades.financeiro.PlanoDeContas;
 import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.producao.AnexoDTO;
 import graficaatual.entidades.producao.EquipeEntrega;
@@ -799,15 +801,15 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         Double valorJaUsadoEntrada = 0.0;
         Double totalSemEntrada = 0.0;
         if (forma != null) {
-            System.out.println("codContaReceber1-------");
             if (forma.getQuantParcelas() > 0) {
-                System.out.println("codContaReceber2-------");
-                System.out.println("qtdparcelas-------" + forma.getQuantParcelas());
                 for (int i = 1; forma.getQuantParcelas() >= i; i++) {
-                    System.out.println("codContaReceber3-------" + i);
                     receber = new ContasAReceber();
                     cal.setTime(new Date());
+                    
                     receber.setCaixa(ordem.getCaixa());
+                    receber.setCliente(orc.getCliente());
+                    receber.setPlanoContas(new PlanoDeContasDAO().get(1));//Sempre vai ser como vendas -1
+                    receber.setFormaPagamento(orc.getFormaPagamento());
                     receber.setDataCadastro(new Date());
                     receber.setDescricao(" Faturamento Pedido:" + ordem.getOrcamento().getCodOrcamento() + " " + ordem.getOrcamento().getCliente().getPessoa().getNome());
                     receber.setObservacao(" Faturamento Pedido:" + ordem.getOrcamento().getCodOrcamento() + " " + ordem.getOrcamento().getCliente().getPessoa().getNome());

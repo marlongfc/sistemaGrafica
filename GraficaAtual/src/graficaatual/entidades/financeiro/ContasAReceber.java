@@ -5,6 +5,7 @@
  */
 package graficaatual.entidades.financeiro;
 
+import graficaatual.entidades.Cliente;
 import graficaatual.entidades.pedido.Orcamento;
 import java.util.Date;
 import javax.persistence.Column;
@@ -41,7 +42,19 @@ public class ContasAReceber implements java.io.Serializable {
     @ManyToOne()
     @JoinColumn(name = "orcamento")
     private Orcamento orcamento;
+    
+    @ManyToOne()
+    @JoinColumn(name = "cliente")
+    private Cliente cliente;
 
+    @ManyToOne()
+    @JoinColumn(name = "planoContas")
+    private PlanoDeContas planoContas;
+    
+    @ManyToOne()
+    @JoinColumn(name = "formaPagamento")
+    private FormaDePagamento formaPagamento;
+    
     @Column()
     private Double valorTotal;
 
@@ -75,6 +88,32 @@ public class ContasAReceber implements java.io.Serializable {
     public Date getDataPrevista() {
         return dataPrevista;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public PlanoDeContas getPlanoContas() {
+        return planoContas;
+    }
+
+    public void setPlanoContas(PlanoDeContas planoContas) {
+        this.planoContas = planoContas;
+    }
+
+    public FormaDePagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaDePagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+    
+    
 
     public void setDataPrevista(Date dataPrevista) {
         this.dataPrevista = dataPrevista;

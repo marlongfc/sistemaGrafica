@@ -711,6 +711,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
                 if (dataPagamento.getText().length() >5) {
                     //Salvar a Data de Pagamento no a receber
                     receber.setDataPagamento(Data.getDateParse(dataPagamento.getText(), Data.FORMAT_DATA_BR));
+                    receber.setValorRecebido(ValidarValor.getDouble(valorPago.getText()));
                     receberDao.salvar(session,receber);
                     
                     //Faz o Lancamento 
@@ -718,7 +719,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
                     lancCaixa.setCaixa(receber.getCaixa());
                     lancCaixa.setDataCadastro(new Date());
                     lancCaixa.setDescricao("Conta "+receber.getCodContasRec()+ " confirmado o pagamento");
-                    lancCaixa.setPlanoConta(plano);
+                    lancCaixa.setPlanoConta(receber.getPlanoContas());
                     lancCaixa.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario()+" "
                             + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                     lancCaixa.setValorEntrada(ValidarValor.getDouble(valorPago.getText()));
