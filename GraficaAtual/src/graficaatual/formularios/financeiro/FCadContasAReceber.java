@@ -136,10 +136,6 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         codCliente = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
         btSair1 = new javax.swing.JButton();
-        jLabel81 = new javax.swing.JLabel();
-        codCentrodeCusto = new javax.swing.JTextField();
-        jLabel79 = new javax.swing.JLabel();
-        descCentroDeCusto = new javax.swing.JTextField();
         jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         codPlanoDeContas = new javax.swing.JTextField();
@@ -412,34 +408,6 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jPanel18.add(btSair1);
         btSair1.setBounds(890, 330, 150, 40);
 
-        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Código");
-        jPanel18.add(jLabel81);
-        jLabel81.setBounds(530, 120, 80, 20);
-
-        codCentrodeCusto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        codCentrodeCusto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                codCentrodeCustoFocusLost(evt);
-            }
-        });
-        jPanel18.add(codCentrodeCusto);
-        codCentrodeCusto.setBounds(530, 140, 90, 20);
-
-        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel79.setText("Centro de Custo");
-        jPanel18.add(jLabel79);
-        jLabel79.setBounds(620, 120, 140, 20);
-
-        descCentroDeCusto.setBackground(new java.awt.Color(255, 255, 204));
-        descCentroDeCusto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                descCentroDeCustoKeyReleased(evt);
-            }
-        });
-        jPanel18.add(descCentroDeCusto);
-        descCentroDeCusto.setBounds(620, 140, 420, 20);
-
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel82.setText("Código");
         jPanel18.add(jLabel82);
@@ -466,7 +434,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descPlanoDeContas);
-        descPlanoDeContas.setBounds(110, 140, 400, 20);
+        descPlanoDeContas.setBounds(110, 140, 930, 20);
 
         jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel84.setText("Data Pagamento");
@@ -713,14 +681,6 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
-    private void codCentrodeCustoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCentrodeCustoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codCentrodeCustoFocusLost
-
-    private void descCentroDeCustoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCentroDeCustoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descCentroDeCustoKeyReleased
-
     private void codPlanoDeContasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codPlanoDeContasFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_codPlanoDeContasFocusLost
@@ -865,14 +825,12 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codCentrodeCusto;
     private javax.swing.JTextField codCliente;
     private javax.swing.JTextField codFormaPagamento;
     private javax.swing.JTextField codPlanoDeContas;
     private javax.swing.JTextField codReceber;
     private javax.swing.JFormattedTextField dataPagamento;
     private javax.swing.JFormattedTextField dataPrevista;
-    private javax.swing.JTextField descCentroDeCusto;
     private javax.swing.JTextField descCliente;
     private javax.swing.JTextField descFormaPagamento;
     private javax.swing.JTextField descPlanoDeContas;
@@ -885,9 +843,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel104;
     private javax.swing.JLabel jLabel105;
     private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
