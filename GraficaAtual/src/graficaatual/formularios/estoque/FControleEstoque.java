@@ -1346,9 +1346,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 709, Short.MAX_VALUE))
+                .addGap(0, 713, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jInternalFrame1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1497,8 +1497,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         rs.getDouble("quantTotal") > 0 ? ValidarValor.getDouble(rs.getDouble("quantTotal")) : null,
                         rs.getBoolean("estoqueAbaixoMinimo")
                     };
-
-                    System.out.println("Teste, entrou aqui: " + rs.getLong("codMaterial"));
 
                     if ((Boolean) os[10] == true) {
                         listaAbaixoMinimo.add(os);
