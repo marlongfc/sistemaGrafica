@@ -36,17 +36,16 @@ public class FFinanceiro extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         //verificação de acesso as telas
 //        acessotela(jBCaixa, "FCadCaixa");
 //        acessotela(jBBanco, "FCadBanco");
+        //acessotela(jBFormaPagamento,"FCadFormaDePagamento");
 //        acessotela(jBCentroCusto, "FCadCentroDeCustos");
 //        acessotela(jBPlanoContas, "FCadPlanoDeContas");
 //        acessotela(jBLancCaixa,"FCadLancamento");
 //       
 //        acessotela(jBBanco,"FCadBanco");
-
-
     }
 
     public static FFinanceiro getInstance() {
@@ -73,6 +72,8 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBSair1 = new javax.swing.JButton();
         jBCaixa = new javax.swing.JButton();
         jBCentroCusto = new javax.swing.JButton();
+        jBContasPagar = new javax.swing.JButton();
+        jBFormaPagamento = new javax.swing.JButton();
         jBContasReceber = new javax.swing.JButton();
 
         jBLancamento.setBackground(new java.awt.Color(71, 37, 131));
@@ -135,7 +136,7 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBLancCaixa);
-        jBLancCaixa.setBounds(20, 320, 200, 30);
+        jBLancCaixa.setBounds(20, 360, 200, 30);
 
         jBPlanoContas.setBackground(new java.awt.Color(71, 37, 131));
         jBPlanoContas.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
@@ -152,7 +153,7 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBPlanoContas);
-        jBPlanoContas.setBounds(20, 280, 200, 30);
+        jBPlanoContas.setBounds(20, 320, 200, 30);
 
         jBBanco.setBackground(new java.awt.Color(71, 37, 131));
         jBBanco.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
@@ -186,7 +187,7 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBSair1);
-        jBSair1.setBounds(20, 420, 200, 30);
+        jBSair1.setBounds(20, 480, 200, 30);
 
         jBCaixa.setBackground(new java.awt.Color(71, 37, 131));
         jBCaixa.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
@@ -220,7 +221,42 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBCentroCusto);
-        jBCentroCusto.setBounds(20, 240, 200, 30);
+        jBCentroCusto.setBounds(20, 280, 200, 30);
+
+        jBContasPagar.setBackground(new java.awt.Color(71, 37, 131));
+        jBContasPagar.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBContasPagar.setForeground(new java.awt.Color(255, 255, 255));
+        jBContasPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
+        jBContasPagar.setText("Contas à Pagar");
+        jBContasPagar.setBorderPainted(false);
+        jBContasPagar.setEnabled(false);
+        jBContasPagar.setFocusPainted(false);
+        jBContasPagar.setFocusable(false);
+        jBContasPagar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBContasPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBContasPagarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBContasPagar);
+        jBContasPagar.setBounds(20, 440, 200, 30);
+
+        jBFormaPagamento.setBackground(new java.awt.Color(71, 37, 131));
+        jBFormaPagamento.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBFormaPagamento.setForeground(new java.awt.Color(255, 255, 255));
+        jBFormaPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
+        jBFormaPagamento.setText("Forma de Pagamento");
+        jBFormaPagamento.setBorderPainted(false);
+        jBFormaPagamento.setFocusPainted(false);
+        jBFormaPagamento.setFocusable(false);
+        jBFormaPagamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFormaPagamentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBFormaPagamento);
+        jBFormaPagamento.setBounds(20, 240, 200, 30);
 
         jBContasReceber.setBackground(new java.awt.Color(71, 37, 131));
         jBContasReceber.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
@@ -237,7 +273,7 @@ public class FFinanceiro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBContasReceber);
-        jBContasReceber.setBounds(20, 360, 200, 30);
+        jBContasReceber.setBounds(20, 400, 200, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,7 +297,7 @@ public class FFinanceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_deskTopComponentResized
 
     private void jBPlanoContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPlanoContasActionPerformed
-      try {
+        try {
             deskTop.removeAll();
             FCadPlanoDeContas clComp;
 
@@ -333,7 +369,7 @@ public class FFinanceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBSair1ActionPerformed
 
     private void jBCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCaixaActionPerformed
-       try {
+        try {
             deskTop.removeAll();
             FCadCaixa clComp;
 
@@ -350,7 +386,7 @@ public class FFinanceiro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCaixaActionPerformed
 
     private void jBCentroCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCentroCustoActionPerformed
-       try {
+        try {
             deskTop.removeAll();
             FCadCentroDeCustos clComp;
 
@@ -365,6 +401,40 @@ public class FFinanceiro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
     }//GEN-LAST:event_jBCentroCustoActionPerformed
+
+    private void jBContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBContasPagarActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadContasAReceber clComp;
+
+            clComp = FCadContasAReceber.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBContasPagarActionPerformed
+
+    private void jBFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFormaPagamentoActionPerformed
+        try {
+            deskTop.removeAll();
+            FCadFormaDePagamento clComp;
+
+            clComp = FCadFormaDePagamento.getInstancia();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_jBFormaPagamentoActionPerformed
 
     private void jBContasReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBContasReceberActionPerformed
         try {
@@ -388,7 +458,9 @@ public class FFinanceiro extends javax.swing.JFrame {
     private javax.swing.JButton jBBanco;
     private javax.swing.JButton jBCaixa;
     private javax.swing.JButton jBCentroCusto;
+    private javax.swing.JButton jBContasPagar;
     private javax.swing.JButton jBContasReceber;
+    private javax.swing.JButton jBFormaPagamento;
     private javax.swing.JButton jBLancCaixa;
     private javax.swing.JButton jBLancamento;
     private javax.swing.JButton jBPlanoContas;
@@ -398,10 +470,10 @@ public class FFinanceiro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 private void acessotela(JButton jB, String fCadCliente) {
-        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente,"FINANCEIRO");
-        if(p!= null){
+        Permissao p = ControleAcesso.getPermissaoFormulario(fCadCliente, "FINANCEIRO");
+        if (p != null) {
             jB.setEnabled(p.isAcesso());
-        }else{
+        } else {
             jB.setEnabled(false);
         }
     }

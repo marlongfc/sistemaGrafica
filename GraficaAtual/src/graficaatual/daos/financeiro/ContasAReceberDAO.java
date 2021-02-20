@@ -92,6 +92,20 @@ public class ContasAReceberDAO extends ContasAReceberRNE {
         }
         return null;
     }
+    
+        public List<ContasAReceber> getList2() {
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
+        List<ContasAReceber> aux;
+        try {
+            aux = super.getList2(session);
+            return aux;
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
 
     public ContasAReceber getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
@@ -109,7 +123,7 @@ public class ContasAReceberDAO extends ContasAReceberRNE {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, ContasAReceber.class, SQL, parametros);
     }
 
-    public boolean confereContaPagar(ContasAReceber c) {
+    public boolean confereContasReceber(ContasAReceber c) {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
         try {
             return super.confereContas(session, c);

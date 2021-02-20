@@ -5,14 +5,28 @@
  */
 package graficaatual.formularios.financeiro;
 
+import graficaatual.daos.cadastro.FornecedorDAO;
 import graficaatual.daos.financeiro.CaixaDAO;
+import graficaatual.daos.financeiro.ContasAPagarDAO;
+import graficaatual.daos.financeiro.FormaDePagamentoDAO;
+import graficaatual.daos.financeiro.LancamentoCaixaDAO;
+import graficaatual.daos.financeiro.PlanoDeContasDAO;
+import graficaatual.entidades.ControleAcesso;
+import graficaatual.entidades.Fornecedor;
 import graficaatual.entidades.financeiro.Caixa;
+import graficaatual.entidades.financeiro.ContasAPagar;
+import graficaatual.entidades.financeiro.FormaDePagamento;
+import graficaatual.entidades.financeiro.LancamentoCaixa;
+import graficaatual.entidades.financeiro.PlanoDeContas;
 import graficaatual.utilitarios.Componentes;
+import graficaatual.utilitarios.Data;
+import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -27,17 +41,44 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     private Caixa caixa;
     private CaixaDAO caixaDAO = new CaixaDAO();
 
-    private List<Caixa> listaCaixa = null;
+    private ContasAPagar pagar = null;
+    private ContasAPagarDAO pagarDao = new ContasAPagarDAO();
+
+    private PlanoDeContas plano = null;
+    private PlanoDeContasDAO planoDao = new PlanoDeContasDAO();
+
+    private LancamentoCaixaDAO lancCaixaDao = new LancamentoCaixaDAO();
+
+    private Fornecedor fornecedor;
+    private FornecedorDAO fornecedorDao = new FornecedorDAO();
+
+    private FormaDePagamento forma;
+    private FormaDePagamentoDAO formaDao = new FormaDePagamentoDAO();
+
+    private List<Fornecedor> listaFornecedor = null;
+    private List<PlanoDeContas> listaPlano = null;
+    private List<FormaDePagamento> listaForma = null;
 
     public FCadContasPagar() {
         initComponents();
 
-        listaCaixa = ObservableCollections.observableList(new LinkedList<Caixa>());
-        Componentes comp2 = new Componentes(listaCaixa, false, codFornecedor, descFornecedor, this, jPanel18, descFornecedor.getWidth(), 100);
-        comp2.addCol(0, "codCaixa", "Código", 50, Integer.class.getName());
-        comp2.addCol(1, "descricao", "Caixa", 200, String.class.getName());
-        comp2.addCol(2, "valorInicial", "Valor Abertura", 60, String.class.getName());
+        listaFornecedor = ObservableCollections.observableList(new LinkedList<Fornecedor>());
+        Componentes comp2 = new Componentes(listaFornecedor, false, codFornecedor, descFornecedor, this, jPanel18, descFornecedor.getWidth(), 100);
+        comp2.addCol(0, "codFornecedor", "Código", 50, Long.class.getName());
+        comp2.addCol(1, "pessoa.nome", "Nome", 200, String.class.getName());
         comp2.bind();
+
+        listaPlano = ObservableCollections.observableList(new LinkedList<PlanoDeContas>());
+        Componentes comp3 = new Componentes(listaPlano, false, codPlanoDeContas, descPlanoDeContas, this, jPanel18, descPlanoDeContas.getWidth(), 100);
+        comp3.addCol(0, "codPlano", "Código", 50, Integer.class.getName());
+        comp3.addCol(1, "descricao", "Plano de Contas", 200, String.class.getName());
+        comp3.bind();
+
+        listaForma = ObservableCollections.observableList(new LinkedList<FormaDePagamento>());
+        Componentes comp4 = new Componentes(listaForma, false, codFormaPagamento, descFormaPagamento, this, jPanel18, descFormaPagamento.getWidth(), 100);
+        comp4.addCol(0, "codForma", "Código", 50, Integer.class.getName());
+        comp4.addCol(1, "descricao", "Forma de Pagamento", 200, String.class.getName());
+        comp4.bind();
 
         atualizatabela();
 
@@ -108,13 +149,9 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        codFornecedor = new javax.swing.JTextField();
+        codPagar = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
         btSair1 = new javax.swing.JButton();
-        jLabel81 = new javax.swing.JLabel();
-        codCentrodeCusto = new javax.swing.JTextField();
-        jLabel79 = new javax.swing.JLabel();
-        descCentroDeCusto = new javax.swing.JTextField();
         jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         codPlanoDeContas = new javax.swing.JTextField();
@@ -122,7 +159,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
         valorAPagar = new javax.swing.JTextField();
-        dataPagamento = new javax.swing.JFormattedTextField();
+        dataPrevista = new javax.swing.JFormattedTextField();
         jLabel86 = new javax.swing.JLabel();
         valorPago = new javax.swing.JTextField();
         jLabel87 = new javax.swing.JLabel();
@@ -132,6 +169,11 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         obs = new javax.swing.JTextArea();
         jLabel89 = new javax.swing.JLabel();
+        jLabel104 = new javax.swing.JLabel();
+        codFornecedor = new javax.swing.JTextField();
+        jLabel105 = new javax.swing.JLabel();
+        dataPagamento = new javax.swing.JFormattedTextField();
+        btSalvar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -146,16 +188,19 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel78.setText("Fornecedor");
         jPanel18.add(jLabel78);
-        jLabel78.setBounds(110, 70, 140, 20);
+        jLabel78.setBounds(200, 70, 380, 20);
 
         descFornecedor.setBackground(new java.awt.Color(255, 255, 204));
         descFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descFornecedorKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 descFornecedorKeyReleased(evt);
             }
         });
         jPanel18.add(descFornecedor);
-        descFornecedor.setBounds(110, 90, 930, 20);
+        descFornecedor.setBounds(200, 90, 840, 20);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setLayout(null);
@@ -281,17 +326,17 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(80, 340, 180, 40);
+        btNovo.setBounds(20, 340, 160, 40);
 
-        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
-        btSalvar.setText("Salvar/Atualizar");
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
+        btSalvar.setText("Conf.Pag.");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarActionPerformed(evt);
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(260, 340, 180, 40);
+        btSalvar.setBounds(360, 340, 180, 40);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Deletar");
@@ -301,7 +346,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(440, 340, 180, 40);
+        btExcluir.setBounds(540, 340, 170, 40);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         btSair.setText("Imprimir");
@@ -311,7 +356,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(620, 340, 180, 40);
+        btSair.setBounds(710, 340, 170, 40);
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -358,14 +403,14 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel1);
         jLabel1.setBounds(0, 0, 1100, 70);
 
-        codFornecedor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        codFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+        codPagar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codPagar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codFornecedorFocusLost(evt);
+                codPagarFocusLost(evt);
             }
         });
-        jPanel18.add(codFornecedor);
-        codFornecedor.setBounds(20, 90, 90, 20);
+        jPanel18.add(codPagar);
+        codPagar.setBounds(20, 90, 90, 20);
 
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel80.setText("Código");
@@ -380,35 +425,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair1);
-        btSair1.setBounds(800, 340, 180, 40);
-
-        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("Código");
-        jPanel18.add(jLabel81);
-        jLabel81.setBounds(530, 120, 80, 20);
-
-        codCentrodeCusto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        codCentrodeCusto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                codCentrodeCustoFocusLost(evt);
-            }
-        });
-        jPanel18.add(codCentrodeCusto);
-        codCentrodeCusto.setBounds(530, 140, 90, 20);
-
-        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel79.setText("Centro de Custo");
-        jPanel18.add(jLabel79);
-        jLabel79.setBounds(620, 120, 140, 20);
-
-        descCentroDeCusto.setBackground(new java.awt.Color(255, 255, 204));
-        descCentroDeCusto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                descCentroDeCustoKeyReleased(evt);
-            }
-        });
-        jPanel18.add(descCentroDeCusto);
-        descCentroDeCusto.setBounds(620, 140, 420, 20);
+        btSair1.setBounds(880, 340, 160, 40);
 
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel82.setText("Código");
@@ -436,17 +453,17 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descPlanoDeContas);
-        descPlanoDeContas.setBounds(110, 140, 400, 20);
+        descPlanoDeContas.setBounds(110, 140, 930, 20);
 
         jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel84.setText("Data Pagamento");
+        jLabel84.setText("Data Prevista");
         jPanel18.add(jLabel84);
         jLabel84.setBounds(530, 170, 100, 20);
 
         jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel85.setText("Valor a Pagar");
         jPanel18.add(jLabel85);
-        jLabel85.setBounds(740, 170, 80, 20);
+        jLabel85.setBounds(820, 170, 80, 20);
 
         valorAPagar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valorAPagar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -455,9 +472,9 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(valorAPagar);
-        valorAPagar.setBounds(740, 190, 90, 20);
-        jPanel18.add(dataPagamento);
-        dataPagamento.setBounds(530, 190, 120, 20);
+        valorAPagar.setBounds(820, 190, 90, 20);
+        jPanel18.add(dataPrevista);
+        dataPrevista.setBounds(530, 190, 120, 20);
 
         jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel86.setText("Valor Pago");
@@ -507,12 +524,43 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         jScrollPane4.setViewportView(obs);
 
         jPanel18.add(jScrollPane4);
-        jScrollPane4.setBounds(20, 240, 1000, 80);
+        jScrollPane4.setBounds(20, 240, 1020, 80);
 
         jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel89.setText("Código");
         jPanel18.add(jLabel89);
         jLabel89.setBounds(20, 170, 80, 20);
+
+        jLabel104.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel104.setText("Código");
+        jPanel18.add(jLabel104);
+        jLabel104.setBounds(110, 70, 80, 20);
+
+        codFornecedor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codFornecedorFocusLost(evt);
+            }
+        });
+        jPanel18.add(codFornecedor);
+        codFornecedor.setBounds(110, 90, 90, 20);
+
+        jLabel105.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel105.setText("Data Pagamento");
+        jPanel18.add(jLabel105);
+        jLabel105.setBounds(680, 170, 100, 20);
+        jPanel18.add(dataPagamento);
+        dataPagamento.setBounds(680, 190, 120, 20);
+
+        btSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
+        btSalvar1.setText("Salvar/Atualizar");
+        btSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvar1ActionPerformed(evt);
+            }
+        });
+        jPanel18.add(btSalvar1);
+        btSalvar1.setBounds(180, 340, 180, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -531,33 +579,22 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void carregaBanco() throws Exception {
-        caixa = caixaDAO.get(ValidarValor.getInt(codFornecedor.getText()));
-        if (caixa != null) {
-            descFornecedor.setText(caixa.getDescricao());
-            
-        } else {
-            descFornecedor.setText("");
-            
-        }
-    }
-
 
     private void descFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descFornecedorKeyReleased
         try {
-            List<Caixa> merged = caixaDAO.getList(12,
-                    "select e from Caixa e where  lower ( trim(e.descricao) ) like ?1 order by e.codCaixa",
+            List<Fornecedor> merged = fornecedorDao.getList(12,
+                    "select e from Fornecedor e where  lower ( trim(e.pessoa.nome) ) like ?1 order by e.codFornecedor",
                     descFornecedor.getText().trim().toLowerCase() + "%");
-            listaCaixa.clear();
-            listaCaixa.addAll(merged);
+            listaFornecedor.clear();
+            listaFornecedor.addAll(merged);
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro ao tentar pesquisar Caixas. Erro: " + e);
+            System.out.println("Ocorreu um erro ao tentar pesquisar Fornecedores. Erro: " + e);
         }
     }//GEN-LAST:event_descFornecedorKeyReleased
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         try {
-            caixa = new Caixa();
+            pagar = new ContasAPagar();
             limpaCampos();
             habilitaCampos(true);
             descFornecedor.requestFocus();
@@ -568,40 +605,63 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        try {
-            caixa = caixaDAO.get(ValidarValor.getInt(codFornecedor.getText()));
-            if (caixa == null) {
-                caixa = new Caixa();
-                setCaixa();
-                caixa.setDataCadastro(new Date());
-                caixa.setDataAtualizacao(new Date());
-                if (caixaDAO.confereCaixa(caixa)) {
-                    caixa = caixaDAO.salvar(caixa);
-                    codFornecedor.setText(caixa.getCodCaixa().toString());
-                    caixa.setDataAtualizacao(new Date());
-                    btSalvar.setEnabled(false);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Caixa já Cadastrado");
-                }
-            }
-            setCaixa();
-            caixaDAO.salvar(caixa);
-            atualizatabela();
 
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
+        try {
+            pagar = pagarDao.get(ValidarValor.getInt(codPagar.getText()));
+            if (pagar != null) {
+                if (dataPagamento.getText().length() > 5) {
+                    //Salvar a Data de Pagamento no a receber
+                    pagar.setDataPagamento(Data.getDateParse(dataPagamento.getText(), Data.FORMAT_DATA_BR));
+                    pagar.setValorPago(ValidarValor.getDouble(valorPago.getText()));
+                    pagarDao.salvar(session, pagar);
+
+                    //Faz o Lancamento 
+                    LancamentoCaixa lancCaixa = new LancamentoCaixa();
+                    lancCaixa.setCaixa(pagar.getCaixa());
+                    lancCaixa.setDataCadastro(new Date());
+                    lancCaixa.setDescricao("Conta " + pagar.getCodContasPag() + " confirmado o pagamento");
+                    lancCaixa.setPlanoConta(pagar.getPlanoContas());
+                    lancCaixa.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " "
+                            + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+                    lancCaixa.setValorEntrada(ValidarValor.getDouble(valorPago.getText()));
+                    lancCaixa.setValorSaida(0.0);
+
+                    lancCaixa = lancCaixaDao.salvar(session, lancCaixa);
+
+                    //Atualizar valor Caixa
+                    caixa = pagar.getCaixa();
+                    caixa.setValorFechamentoDia(caixa.getValorInicial());
+                    caixa.setValorInicial(caixa.getValorInicial() - ValidarValor.getDouble(valorPago.getText()));
+                    caixa = caixaDAO.salvar(session, caixa);
+
+                    session.getTransaction().commit();
+                    session.close();
+
+                    JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+                } else {
+                    throw new Exception(" Insira Uma data de Pagamento");
+                }
+            } else {
+                throw new Exception(" Selecione uma Conta à Pagar");
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            session.getTransaction().rollback();
+            session.close();
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
-            caixa = caixaDAO.get(ValidarValor.getInt(codFornecedor.getText()));
-            if (caixa == null) {
+            pagar = pagarDao.get(ValidarValor.getInt(codPagar.getText()));
+            if (pagar == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setCaixa();
-                caixaDAO.delete(caixa);
+                setPagar();
+                pagarDao.delete(pagar);
                 limpaCampos();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
                 descFornecedor.requestFocus();
@@ -629,9 +689,9 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         try {
             if (evt.getClickCount() > 1) {
-                codFornecedor.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
-                caixa = caixaDAO.get(ValidarValor.getInt(codFornecedor.getText()));
-                carregaBanco();
+                codPagar.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
+                caixa = caixaDAO.get(ValidarValor.getInt(codPagar.getText()));
+                carregaTudo();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -639,33 +699,45 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tabMouseClicked
 
-    private void codFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codFornecedorFocusLost
+    private void codPagarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codPagarFocusLost
         try {
-            carregaBanco();
+            pagar = pagarDao.get(ValidarValor.getInt(codPagar.getText()));
+            if (pagar != null) {
+                carregaTudo();
+            } else {
+                limpaCampos();
+            }
+
+            atualizatabela();
+
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_codFornecedorFocusLost
+    }//GEN-LAST:event_codPagarFocusLost
 
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         dispose();
     }//GEN-LAST:event_btSair1ActionPerformed
 
-    private void codCentrodeCustoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCentrodeCustoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codCentrodeCustoFocusLost
-
-    private void descCentroDeCustoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCentroDeCustoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descCentroDeCustoKeyReleased
-
     private void codPlanoDeContasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codPlanoDeContasFocusLost
-        // TODO add your handling code here:
+        try {
+            carregaPlano();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_codPlanoDeContasFocusLost
 
     private void descPlanoDeContasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descPlanoDeContasKeyReleased
-        // TODO add your handling code here:
+        try {
+            List<PlanoDeContas> merged = planoDao.getList(12,
+                    "select e from PlanoDeContas e where  lower ( trim(e.descricao) ) like ?1 order by e.codPlano",
+                    descPlanoDeContas.getText().trim().toLowerCase() + "%");
+            listaPlano.clear();
+            listaPlano.addAll(merged);
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar pesquisar Plano de Contas. Erro: " + e);
+        }
     }//GEN-LAST:event_descPlanoDeContasKeyReleased
 
     private void valorAPagarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorAPagarFocusLost
@@ -677,36 +749,116 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_valorPagoFocusLost
 
     private void codFormaPagamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codFormaPagamentoFocusLost
-        // TODO add your handling code here:
+        try {
+            carregaForma();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_codFormaPagamentoFocusLost
 
     private void descFormaPagamentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descFormaPagamentoKeyReleased
-        // TODO add your handling code here:
+        try {
+            List<FormaDePagamento> merged = formaDao.getList(12,
+                    "select e from FormaDePagamento e where  lower ( trim(e.descricao) ) like ?1 order by e.codForma",
+                    descFormaPagamento.getText().trim().toLowerCase() + "%");
+            listaForma.clear();
+            listaForma.addAll(merged);
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar pesquisar Plano de Contas. Erro: " + e);
+        }
     }//GEN-LAST:event_descFormaPagamentoKeyReleased
 
+    private void codFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codFornecedorFocusLost
+        try {
+            carregaFornecedor();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_codFornecedorFocusLost
+
+    private void btSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvar1ActionPerformed
+        try {
+            pagar = pagarDao.get(ValidarValor.getInt(codPagar.getText()));
+            if (pagar == null) {
+                pagar = new ContasAPagar();
+                setPagar();
+                pagar.setDataCadastro(new Date());
+                pagar.setDataAtualizacao(new Date());
+                if (pagarDao.confereContaPagar(pagar)) {
+                    pagar = pagarDao.salvar(pagar);
+                    codPagar.setText(pagar.getCodContasPag().toString());
+                    pagar.setDataAtualizacao(new Date());
+                    btSalvar.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Contas a Pagar já Cadastrada");
+                }
+            }
+            setPagar();
+            pagarDao.salvar(pagar);
+            atualizatabela();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btSalvar1ActionPerformed
+
+    private void descFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descFornecedorKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descFornecedorKeyPressed
+
     private void limpaCampos() {
-        codFornecedor.setText("");
+        codPagar.setText("");
         descFornecedor.setText("");
-         
+        codPlanoDeContas.setText("");
+        descPlanoDeContas.setText("");
+        codFormaPagamento.setText("");
+        descFormaPagamento.setText("");
+        dataPrevista.setText("");
+        dataPagamento.setText("");
+        valorAPagar.setText("");
+        valorPago.setText("");
     }
 
     private void habilitaCampos(boolean b) {
-        codFornecedor.setEnabled(b);
+        codPagar.setEnabled(b);
         descFornecedor.setEnabled(b);
-        
+        codPlanoDeContas.setEnabled(b);
+        descPlanoDeContas.setEnabled(b);
+        codFormaPagamento.setEnabled(b);
+        descFormaPagamento.setEnabled(b);
+        dataPrevista.setEnabled(b);
+        dataPagamento.setEnabled(b);
+        valorAPagar.setEnabled(b);
+        valorPago.setEnabled(b);
+
         btSalvar.setEnabled(b);
     }
 
-    private void setCaixa() throws Exception {
+    private void setPagar() throws Exception {
 
         if (descFornecedor.getText().length() < 2) {
-            throw new Exception("Favor inserir um Caixa");
+            throw new Exception("Favor inserir um Fornecedor");
         }
 
-  
+        if (descPlanoDeContas.getText().length() < 2) {
+            throw new Exception("Favor inserir um Plano de Contas");
+        }
 
-        caixa.setDescricao(descFornecedor.getText());
-         
+        if (descFormaPagamento.getText().length() < 2) {
+            throw new Exception("Favor inserir uma Forma de Pagamento");
+        }
+
+        pagar.setFornecedor(fornecedor);
+        pagar.setPlanoContas(plano);
+        pagar.setFormaPagamento(forma);
+        pagar.setDataPrevista(Data.getDateSQL(dataPrevista.getText()));
+        pagar.setDataPagamento(Data.getDateSQL(dataPagamento.getText()));
+        pagar.setValorPago(ValidarValor.getDouble(valorAPagar.getText()));
+        pagar.setValorPagar(ValidarValor.getDouble(valorPago.getText()));
+
     }
 
     public static void removeLinhas(JTable table) {
@@ -719,18 +871,58 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         }
     }
 
+    private void carregaFornecedor() throws Exception {
+        fornecedor = fornecedorDao.get(ValidarValor.getLong(codFornecedor.getText()));
+        if (fornecedor != null) {
+            descFornecedor.setText(fornecedor.getPessoa().getNome());
+
+        } else {
+            descFornecedor.setText("");
+
+        }
+    }
+
+    private void carregaPlano() throws Exception {
+        plano = planoDao.get(ValidarValor.getInt(codPlanoDeContas.getText()));
+        if (plano != null) {
+            descPlanoDeContas.setText(plano.getDescricao());
+
+        } else {
+            descPlanoDeContas.setText("");
+
+        }
+    }
+
+    private void carregaForma() throws Exception {
+        forma = formaDao.get(ValidarValor.getInt(codFormaPagamento.getText()));
+        if (forma != null) {
+            descFormaPagamento.setText(plano.getDescricao());
+
+        } else {
+            descFormaPagamento.setText("");
+
+        }
+    }
+
+    private void carregaTudo() throws Exception {
+        carregaFornecedor();
+        carregaPlano();
+        carregaForma();
+    }
+
     private void atualizatabela() {
         try {
             DefaultTableModel model = (DefaultTableModel) tab.getModel();
             removeLinhas(tab);
-            List<Caixa> listaT = caixaDAO.getList();
+            List<ContasAPagar> listaT = pagarDao.getList();
             if (listaT.size() > 0) {
                 model.setNumRows(0);
-                for (Caixa c : listaT) {
+                for (ContasAPagar c : listaT) {
                     Object o[] = new Object[]{
-                        c.getCodCaixa(),
-                        c.getDescricao(),
-                        c.getValorInicial()};
+                        c.getCodContasPag(),
+                        c.getFornecedor().getPessoa().getNome(),
+                        c.getValorPagar(),
+                        c.getValorPago()};
 
                     model.addRow(o);
                 }
@@ -750,12 +942,13 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JTextField codCentrodeCusto;
+    private javax.swing.JButton btSalvar1;
     private javax.swing.JTextField codFormaPagamento;
     private javax.swing.JTextField codFornecedor;
+    private javax.swing.JTextField codPagar;
     private javax.swing.JTextField codPlanoDeContas;
     private javax.swing.JFormattedTextField dataPagamento;
-    private javax.swing.JTextField descCentroDeCusto;
+    private javax.swing.JFormattedTextField dataPrevista;
     private javax.swing.JTextField descFormaPagamento;
     private javax.swing.JTextField descFornecedor;
     private javax.swing.JTextField descPlanoDeContas;
@@ -765,10 +958,10 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel104;
+    private javax.swing.JLabel jLabel105;
     private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
