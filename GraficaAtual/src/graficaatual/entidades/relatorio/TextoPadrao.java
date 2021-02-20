@@ -33,12 +33,49 @@ public class TextoPadrao implements Serializable {
     @Column(name="codTextoPadrao")
     private Integer codTextoPadrao;
        
-    @Column(name="textoOrcamento", columnDefinition = "text")
-    private String textoOrcamento="";
+    @Column(name = "textoOrcamento", columnDefinition = "text")
+    private String textoOrcamento = "";
+
+    @Column(name = "textoEmail", columnDefinition = "text")
+    private String textoEmail = "";
+
+    @Column(name = "emailEnvio")
+    private String emailEnvio = "";
+    
+    @Column(name = "emailSenha")
+    private String emailSenha = "";
 
     public Integer getCodTextoPadrao() {
         return codTextoPadrao;
     }
+
+    public String getEmailSenha() {
+        return emailSenha;
+    }
+
+    public void setEmailSenha(String emailSenha) {
+        this.emailSenha = emailSenha;
+    }
+    
+    
+
+    public String getTextoEmail() {
+        return textoEmail;
+    }
+
+    public void setTextoEmail(String textoEmail) {
+        this.textoEmail = textoEmail;
+    }
+
+    public String getEmailEnvio() {
+        return emailEnvio;
+    }
+
+    public void setEmailEnvio(String emailEnvio) {
+        this.emailEnvio = emailEnvio;
+    }
+    
+    
 
     public void setCodTextoPadrao(Integer codTextoPadrao) {
         this.codTextoPadrao = codTextoPadrao;

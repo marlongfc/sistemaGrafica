@@ -8,6 +8,7 @@ package graficaatual.regras.producao;
 import graficaatual.daos.GenericDAO;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.pedido.ItemOrcamento;
+import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.producao.OrdemServico;
 import java.util.Date;
 import java.util.List;
@@ -77,6 +78,6 @@ public class OrdemServicoRNE extends GenericDAO{
         }
         return true;
     }
-    
+
     
 }

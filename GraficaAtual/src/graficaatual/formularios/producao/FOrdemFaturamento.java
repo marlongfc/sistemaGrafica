@@ -301,21 +301,31 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
 
         try {
             ordem = ordemDao.get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
-            if (ordem != null) {
-                if (ordem.getCaixa() != null) {
-                    gerarContasAReceber(session);
-                    salvarOrdem(session);
-                    //   enviarEmail();
-                    jLSelecao.setText("");
 
-                    session.getTransaction().commit();
-                    session.close();
-                    pesquisarFazer();
-                    pesquisarConcluido();
-                    JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+            if (ordem != null) {
+
+                if (maisItens()) {
+                    if (ordem.getCaixa() != null) {
+                        gerarContasAReceber(session);
+                        salvarOrdem(session);
+                        jLSelecao.setText("");
+
+                        session.getTransaction().commit();
+                        session.close();
+                        pesquisarFazer();
+                        pesquisarConcluido();
+                        if (ordem.getOrcamento().getCliente().getPessoa().getEmail() != null) {
+                            enviarEmail();
+                        }
+                        JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+                    } else {
+                        throw new Exception(" Não foi selecionado Caixa para esse Faturamento. ");
+                    }
+
                 } else {
-                    throw new Exception(" Não foi selecionado Caixa para esse Faturamento. ");
+                    throw new Exception(" Item não Pode ser faturado, itens do Pedido não finalizado.");
                 }
+
             } else {
                 throw new Exception(" Selecione uma Ordem de Serviço");
             }
@@ -327,14 +337,54 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_salvarActionPerformed
 
+    private boolean maisItens() {
+        //Busca todos os itens do Orçamento
+        List<OrdemServico> listItens = ordemDao.getListByOrcamento(ordem.getOrcamento().getCodOrcamento());
+        //Confere se a lista existe
+        if (listItens != null && !listItens.isEmpty()) {
+            //Se Lista só tem um OK
+            if (listItens.size() <= 1) {
+                return true;
+            } else {
+                boolean aux = true;
+                //Case tem mais de 1 confere - se todos estão OK
+                for (OrdemServico ord : listItens) {
+                    if (!ord.getCheckFaturamento()) {
+                        aux = false;
+                    }
+                }
+                if (aux) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+        } else {
+            return false;
+        }
+
+    }
+
     private void salvarOrdem(EntityManager session) throws Exception {
         ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+
         if (ordem != null) {
+
             if (ordem.getCaixa() != null) {
-                ordem.setDataFimFaturamento(new Date());
-                ordem.setUsuarioFimFaturamento(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
-                ordem = ordemDao.addOrdem(session, ordem);
-                //  enviarEmail();
+
+                List<OrdemServico> listItens = ordemDao.getListByOrcamento(ordem.getOrcamento().getCodOrcamento());
+                if (listItens != null && !listItens.isEmpty()) {
+
+                    for (OrdemServico ord : listItens) {
+
+                        ord.setDataFimFaturamento(new Date());
+                        ord.setUsuarioFimFaturamento(ControleAcesso.usuario.getCodUsuario() + "-" + ControleAcesso.usuario.getLogin());
+                        ord = ordemDao.addOrdem(session, ord);
+
+                    }
+                }
             } else {
                 JOptionPane.showMessageDialog(this, " Selecione um Caixa. ");
             }
@@ -630,65 +680,23 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
 
     private boolean enviarEmail() throws Exception {
         List<String> para = new ArrayList<String>();
-        String de = "";
+        
+        String de = "danilo.alfenas@gmail.com";
+        para.add(ordem.getOrcamento().getCliente().getPessoa().getEmail());
         String deNome = "Gráfica Atual - Sistema de Atendimento";
         //Conferir Senha
-        String senha = "";
-        String assunto = "teste de envio";
+        String senha = "251118Dfernandesb";
+        String assunto = " Faturamento - Concluído ";
         String msg;
-        String nomeAnexo = "Pedido - " + ordem.getOrcamento().getCodOrcamento();
 
         msg = " <p>Prezado " + ordem.getOrcamento().getCliente().getPessoa().getNome() + ","
-                + " <br/> Os imóveis listados abaixo são os que se encontram atrelados ao cpf/cnpj: "
-                + ", caso algum esteja com informações incorretas ou ausente, deve-se comparecer à prefeitura para a correção e ajustes necessários.</p> ";
-
-        para.add("danilo.alfenas@gmail.com");
-        nomeAnexo = "Relacao_de_Imoveis";
-        byte[] anexo = null;
-        anexo = gerarRelatorioByteArray();
-
-        AnexoDTO anexoPdf = new AnexoDTO();
-        anexoPdf.setNome(nomeAnexo + ".pdf");
-        anexoPdf.setMimeType("application/pdf");
-        anexoPdf.setConteudo(anexo);
-
-        List<AnexoDTO> anexos = new ArrayList<AnexoDTO>();
-        anexos.add(anexoPdf);
+                + " <br/> O Produto: " + ordem.getOrcamento().getProduto().getDescricao() + " , "
+                + " do Seu edido. ";
 
         System.out.println("--------------- Chegou ao final do processo ---------------");
 
-        return sendEmailAnexos(de, deNome, senha, assunto, msg, anexos, nomeAnexo, para.toArray(new String[para.size()]));
+        return sendEmailAnexos(de, deNome, senha, assunto, msg, null, null, para.toArray(new String[para.size()]));
 
-    }
-
-    private byte[] gerarRelatorioByteArray() throws Exception {
-
-        byte[] pdf = null;
-
-        String SQL = " SELECT I.PESSOA, P.NOME, I.CODIGO, ( I.CODDISTRITO || '.' || I.SETOR || '.' || I.QUADRA || '.' || I.LOTE ||'.' || I.UNIDADE) INSCIMOB,"
-                + " (TL.ABREVIATURA || ' ' || L.LOGRADOURO || ', ' || I.NUMERO || ' ' || I.COMPLEMENTO) ENDERECO,"
-                + " I.AREATERRENOLANCADA, AREACONSTRUIDALANCADA,"
-                + " CASE"
-                + " WHEN I.TIPODETRIBUTACAO = 0 THEN 'Tributável' "
-                + " WHEN I.TIPODETRIBUTACAO = 1 THEN 'Imune' "
-                + " WHEN I.TIPODETRIBUTACAO = 2 THEN 'Isento' "
-                + " END"
-                + " TIPOTRIBUTACAO"
-                + " FROM IMOVEL I"
-                + " LEFT JOIN ENDERECOS EI ON (EI.CODENDERECO = I.ENDERECO)"
-                + " LEFT JOIN LOGRADOUROS L ON (L.CODLOGRADOURO = EI.CODLOGRADOURO)"
-                + " LEFT JOIN TIPOLOGRADOURO TL ON (TL.CODIGO = L.TIPO)"
-                + " LEFT JOIN BAIRROS B ON (B.CODBAIRRO = EI.CODBAIRRO)"
-                + " LEFT JOIN DISTRITOS D ON (D.CODDISTRITO = B.CODDISTRITO)"
-                + " LEFT JOIN PESSOAS P ON (P.CODPESSOA = I.PESSOA)"
-                //        + " WHERE P.CODPESSOA =" + p.getCodigo()
-                + " ORDER BY I.codigo,L.LOGRADOURO, I.NUMERO";
-
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        //new VisualizaRelatorio().visRel("hlh/tributos/relatorios/imovel/RTribImov_Contr.jasper", "Relatórios Imóveis por Contribuintes", null, SQL);
-        // return gerarRelatorioByteArray(SQL,"Relatórios Imóveis por Contribuintes", "RTribImov_Contr.jasper", map);
-        return null;
     }
 
     public static boolean sendEmailAnexos(String from, String fromName, String pass, String assunto, String msg,
@@ -765,20 +773,6 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
         }
     }
 
-    private void refazer() throws Exception {
-
-        ordem = new OrdemServicoDAO().get((Integer) tabConcluido.getValueAt(tabConcluido.getSelectedRow(), 0));
-        if (ordem != null) {
-            ordem.setDataFimEntrega(null);
-            ordem.setUsuarioFimEntrega(null);
-            ordem.setEquipeEntrega(null);
-            ordem = ordemDao.addOrdem(ordem);
-
-        } else {
-            JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
-        }
-    }
-
     private void carregaComboCaixa() {
         List<Caixa> listaCaixa = caixaDao.getList();
         if (listaCaixa != null && !listaCaixa.isEmpty()) {
@@ -805,7 +799,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                 for (int i = 1; forma.getQuantParcelas() >= i; i++) {
                     receber = new ContasAReceber();
                     cal.setTime(new Date());
-                    
+
                     receber.setCaixa(ordem.getCaixa());
                     receber.setCliente(orc.getCliente());
                     receber.setPlanoContas(new PlanoDeContasDAO().get(1));//Sempre vai ser como vendas -1

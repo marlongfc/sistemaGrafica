@@ -7,6 +7,7 @@ package graficaatual.daos.producao;
 
 
 import graficaatual.entidades.pedido.ItemOrcamento;
+import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.producao.OrdemServico;
 import graficaatual.regras.producao.OrdemServicoRNE;
 import graficaatual.utilitarios.Persistencia;
@@ -62,7 +63,7 @@ public class OrdemServicoDAO extends OrdemServicoRNE {
         }
         return null;
     }
-    
+       
     public OrdemServico getList(int cod) {
         EntityManager session = Persistencia.getInstance().getSessionSemBegin();
         try {
@@ -93,5 +94,7 @@ public class OrdemServicoDAO extends OrdemServicoRNE {
 public Boolean gerarOrdemServico(List<ItemOrcamento> listaItens,EntityManager session)throws Exception {
        return super.gerarOrdemServico(listaItens, session);
 }
+
+
   
 }

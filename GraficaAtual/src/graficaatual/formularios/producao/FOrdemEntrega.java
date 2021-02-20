@@ -326,7 +326,9 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
             salvar();
             pesquisarFazer();
             pesquisarConcluido();
-            enviarEmail();
+            if (ordem.getOrcamento().getCliente().getPessoa().getEmail() != null) {
+                enviarEmail();
+            }
             jLSelecao.setText("");
             JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
         } catch (Exception e) {
@@ -704,65 +706,24 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
 
     private boolean enviarEmail() throws Exception {
         List<String> para = new ArrayList<String>();
-        String de = "";
-        String deNome = "Gráfica Atual - Sistema de Atendimento";
-        //Conferir Senha
-        String senha = "";
-        String assunto = "teste de envio";
-        String msg;
-        String nomeAnexo = "Pedido - " + ordem.getOrcamento().getCodOrcamento();
-
-        msg = " <p>Prezado " + ordem.getOrcamento().getCliente().getPessoa().getNome() + ","
-                + " <br/> Os imóveis listados abaixo são os que se encontram atrelados ao cpf/cnpj: "
-                + ", caso algum esteja com informações incorretas ou ausente, deve-se comparecer à prefeitura para a correção e ajustes necessários.</p> ";
-
+        String de = "danilo.alfenas@gmail.com";
         para.add("danilo.alfenas@gmail.com");
-        nomeAnexo = "Relacao_de_Imoveis";
-        byte[] anexo = null;
-        anexo = gerarRelatorioByteArray();
+        String deNome = "Danilo Fernandes Bispo";
+        //Conferir Senha
+        String senha = "251118Dfernandesb";
+        String assunto = " Etapa - Concluído ";
+        String msg;
+        
 
-        AnexoDTO anexoPdf = new AnexoDTO();
-        anexoPdf.setNome(nomeAnexo + ".pdf");
-        anexoPdf.setMimeType("application/pdf");
-        anexoPdf.setConteudo(anexo);
+        msg = " Prezado " + ordem.getOrcamento().getCliente().getPessoa().getNome() + ","
+                + " O Produto: " +ordem.getOrcamento().getProduto().getDescricao()+" , "
+                + " do Seu pedido.";
+        
 
-        List<AnexoDTO> anexos = new ArrayList<AnexoDTO>();
-        anexos.add(anexoPdf);
+        
 
-        System.out.println("--------------- Chegou ao final do processo ---------------");
+        return sendEmailAnexos(de, deNome, senha, assunto, msg, null, null, para.toArray(new String[para.size()]));
 
-        return sendEmailAnexos(de, deNome, senha, assunto, msg, anexos, nomeAnexo, para.toArray(new String[para.size()]));
-
-    }
-
-    private byte[] gerarRelatorioByteArray() throws Exception {
-
-        byte[] pdf = null;
-
-        String SQL = " SELECT I.PESSOA, P.NOME, I.CODIGO, ( I.CODDISTRITO || '.' || I.SETOR || '.' || I.QUADRA || '.' || I.LOTE ||'.' || I.UNIDADE) INSCIMOB,"
-                + " (TL.ABREVIATURA || ' ' || L.LOGRADOURO || ', ' || I.NUMERO || ' ' || I.COMPLEMENTO) ENDERECO,"
-                + " I.AREATERRENOLANCADA, AREACONSTRUIDALANCADA,"
-                + " CASE"
-                + " WHEN I.TIPODETRIBUTACAO = 0 THEN 'Tributável' "
-                + " WHEN I.TIPODETRIBUTACAO = 1 THEN 'Imune' "
-                + " WHEN I.TIPODETRIBUTACAO = 2 THEN 'Isento' "
-                + " END"
-                + " TIPOTRIBUTACAO"
-                + " FROM IMOVEL I"
-                + " LEFT JOIN ENDERECOS EI ON (EI.CODENDERECO = I.ENDERECO)"
-                + " LEFT JOIN LOGRADOUROS L ON (L.CODLOGRADOURO = EI.CODLOGRADOURO)"
-                + " LEFT JOIN TIPOLOGRADOURO TL ON (TL.CODIGO = L.TIPO)"
-                + " LEFT JOIN BAIRROS B ON (B.CODBAIRRO = EI.CODBAIRRO)"
-                + " LEFT JOIN DISTRITOS D ON (D.CODDISTRITO = B.CODDISTRITO)"
-                + " LEFT JOIN PESSOAS P ON (P.CODPESSOA = I.PESSOA)"
-                //        + " WHERE P.CODPESSOA =" + p.getCodigo()
-                + " ORDER BY I.codigo,L.LOGRADOURO, I.NUMERO";
-
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        //new VisualizaRelatorio().visRel("hlh/tributos/relatorios/imovel/RTribImov_Contr.jasper", "Relatórios Imóveis por Contribuintes", null, SQL);
-        // return gerarRelatorioByteArray(SQL,"Relatórios Imóveis por Contribuintes", "RTribImov_Contr.jasper", map);
-        return null;
     }
 
     public static boolean sendEmailAnexos(String from, String fromName, String pass, String assunto, String msg,
@@ -770,7 +731,7 @@ public class FOrdemEntrega extends javax.swing.JInternalFrame {
         if (to == null || to.length < 1 || to[0].trim().length() < 5) {
             return false;
         }
-        String host = "";
+        String host = "smtp.gmail.com";
         Properties props = System.getProperties();
 
         props.put("mail.smtp.starttls.enable", "false");

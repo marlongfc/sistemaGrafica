@@ -5,7 +5,6 @@
  */
 package graficaatual.formularios.relatorio;
 
-
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.relatorio.Entidade;
 import graficaatual.entidades.relatorio.TextoPadrao;
@@ -32,41 +31,38 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
     private int localIncusao;
     private static FCadTextoPadrao instance;
     private static FCadTextoPadrao instanceCont;
-    
+
     //Entidades 
-    private String FvaFiguraBrasao="";
+    private String FvaFiguraBrasao = "";
 
     private TextoPadrao texto = null;
     private TextoPadraoDAO textoDao = new TextoPadraoDAO();
-              
-            
+
     public FCadTextoPadrao() {
-        initComponents();      
+        initComponents();
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        
+
         habilitaCampos(true);
         try {
             verificaTexto();
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
         }
     }
-    
+
     public static int isInicializado() {
         return initControle;
     }
-         
-  public synchronized static FCadTextoPadrao getInstance() {
+
+    public synchronized static FCadTextoPadrao getInstance() {
         if (instance == null) {
             instance = new FCadTextoPadrao();
             initControle = 1;
         }
         return instance;
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,7 +101,7 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txOrcamento1 = new javax.swing.JTextArea();
+        txEMail = new javax.swing.JTextArea();
         bt_Negrito1 = new javax.swing.JButton();
         bt_Italico1 = new javax.swing.JButton();
         bt_Titulo1 = new javax.swing.JButton();
@@ -261,10 +257,10 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel3);
         jLabel3.setBounds(40, 320, 90, 20);
 
-        txOrcamento1.setColumns(20);
-        txOrcamento1.setLineWrap(true);
-        txOrcamento1.setRows(5);
-        jScrollPane2.setViewportView(txOrcamento1);
+        txEMail.setColumns(20);
+        txEMail.setLineWrap(true);
+        txEMail.setRows(5);
+        jScrollPane2.setViewportView(txEMail);
 
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(30, 50, 880, 230);
@@ -374,16 +370,16 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_salvarActionPerformed
-  
+
     private void salvar() throws Exception {
         try {
-            
+
             texto = textoDao.get(1);
             if (texto == null) {
-               texto = new TextoPadrao();
-               texto.setCodTextoPadrao(1);
-            } 
-                       
+                texto = new TextoPadrao();
+                texto.setCodTextoPadrao(1);
+            }
+
             setTextoPadrao();
             texto = textoDao.addTextoPadrao(texto);
 
@@ -392,10 +388,13 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
             throw new Exception(" Erro ao Salvar ");
         }
     }
-    
-    private void setTextoPadrao() throws Exception {   
+
+    private void setTextoPadrao() throws Exception {
         texto.setTextoOrcamento(txOrcamento.getText());
-    }    
+        texto.setTextoEmail(txEMail.getText());
+        texto.setEmailEnvio(emailEnvio.getText());
+        texto.setEmailSenha(senhaEmailEnvio.getText());
+    }
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
         dispose();
     }//GEN-LAST:event_sairActionPerformed
@@ -415,7 +414,7 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
     private void bt_fonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_fonteActionPerformed
 
         String txt = "<font face=" + comboFonte.getSelectedItem() + " size =" + tamanho.getText() + " color=" + getCor() + " >"
-        + txOrcamento.getSelectedText() + " </font>";
+                + txOrcamento.getSelectedText() + " </font>";
         txOrcamento.setText(txOrcamento.getText().replace(txOrcamento.getSelectedText(), txt));
     }//GEN-LAST:event_bt_fonteActionPerformed
 
@@ -434,8 +433,8 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
     private void bt_fonte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_fonte1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_fonte1ActionPerformed
-    
-     private String getCor() {
+
+    private String getCor() {
         String r = "";
 
         switch (comboCor.getSelectedIndex()) {
@@ -464,7 +463,7 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
 
         return r;
     }
-    
+
     private void habilitaCampos(boolean b) {
         txOrcamento.setEnabled(b);
         cpf.setVisible(false);
@@ -503,25 +502,39 @@ public class FCadTextoPadrao extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField senhaEmailEnvio;
     private javax.swing.JTextField tamanho;
     private javax.swing.JTextField tamanho1;
+    private javax.swing.JTextArea txEMail;
     private javax.swing.JTextArea txOrcamento;
-    private javax.swing.JTextArea txOrcamento1;
     // End of variables declaration//GEN-END:variables
 
     private void verificaTexto() throws Exception {
         texto = textoDao.get(1);
-        if(texto ==null){
+        if (texto == null) {
             JOptionPane.showMessageDialog(this, " Por favor, inserir dados");
-        }else{
+        } else {
             carregaEntidade();
         }
     }
 
     private void carregaEntidade() throws Exception {
         if (texto != null) {
+            if (texto.getTextoOrcamento() != null) {
+                txOrcamento.setText(texto.getTextoOrcamento());
+            } else {
+                txOrcamento.setText("");
+            }
 
-            txOrcamento.setText(texto.getTextoOrcamento());
+            if (texto.getTextoEmail() != null) {
+                txEMail.setText(texto.getTextoEmail());
+            }
+
+            if (texto.getEmailEnvio() != null) {
+                emailEnvio.setText(texto.getEmailEnvio());
+            }
+
+            if (texto.getEmailSenha() != null) {
+                senhaEmailEnvio.setText(texto.getEmailSenha());
+            }
         }
     }
-    
-  
+
 }
