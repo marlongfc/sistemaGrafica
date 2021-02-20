@@ -31,6 +31,10 @@ public class ContasAReceberRNE extends GenericDAO {
     public List<ContasAReceber> getList(EntityManager session) throws Exception {
         return super.getPureList(session, ContasAReceber.class, "Select e from ContasAReceber e order by e.codContasRec");
     }
+    
+     public List<ContasAReceber> getList2(EntityManager session) throws Exception {
+        return super.getPureList(session, ContasAReceber.class, "Select e from ContasAReceber e where e.dataPagamento is null order by e.codContasRec");
+    }
 
     public List<ContasAReceber> getListNome(EntityManager session, ContasAReceber conta) {
         return getPureList(session, ContasAReceber.class, "select t from ContasAReceber t where t.descricao  = '" + conta.getDescricao() + "' ");

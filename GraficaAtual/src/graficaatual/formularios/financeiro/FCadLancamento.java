@@ -8,15 +8,19 @@ package graficaatual.formularios.financeiro;
 import graficaatual.daos.financeiro.CaixaDAO;
 import graficaatual.daos.financeiro.LancamentoCaixaDAO;
 import graficaatual.daos.financeiro.PlanoDeContasDAO;
+import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.financeiro.Caixa;
 import graficaatual.entidades.financeiro.LancamentoCaixa;
 import graficaatual.entidades.financeiro.PlanoDeContas;
 import graficaatual.utilitarios.Componentes;
+import graficaatual.utilitarios.Data;
+import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -106,7 +110,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jLabel81 = new javax.swing.JLabel();
         valorEntrada = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        observacao = new javax.swing.JTextArea();
+        obs = new javax.swing.JTextArea();
         btSair1 = new javax.swing.JButton();
         codConta = new javax.swing.JTextField();
         descConta = new javax.swing.JTextField();
@@ -123,6 +127,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tab = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -230,10 +235,10 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         jPanel18.add(valorEntrada);
         valorEntrada.setBounds(20, 240, 120, 20);
 
-        observacao.setColumns(20);
-        observacao.setLineWrap(true);
-        observacao.setRows(5);
-        jScrollPane1.setViewportView(observacao);
+        obs.setColumns(20);
+        obs.setLineWrap(true);
+        obs.setRows(5);
+        jScrollPane1.setViewportView(obs);
 
         jPanel18.add(jScrollPane1);
         jScrollPane1.setBounds(20, 300, 1030, 96);
@@ -337,10 +342,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Lançamento", "Caixa", "Valor"
@@ -361,7 +363,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab.setPreferredSize(new java.awt.Dimension(1000, 64));
+        tab.setPreferredSize(new java.awt.Dimension(1000, 10000));
         tab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMouseClicked(evt);
@@ -376,7 +378,16 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         }
 
         jPanel1.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 11, 1020, 520);
+        jScrollPane3.setBounds(10, 51, 1020, 480);
+
+        jButton1.setText("Atualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(900, 10, 130, 30);
 
         jTabbedPane2.addTab("Lançamentos Cadastrados", jPanel1);
 
@@ -419,7 +430,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
                 valorSaida.setText(ValidarValor.getDouble(lancamento.getValorSaida()));
             }
 
-            observacao.setText(lancamento.getObservacao());
+            obs.setText(lancamento.getObservacao());
         } else {
             descLancamento.setText("");
             codConta.setText("");
@@ -428,7 +439,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             descCaixa.setText("");
             valorEntrada.setText("0.00");
             valorSaida.setText("0.00");
-            observacao.setText("");
+            obs.setText("");
         }
     }
 
@@ -491,46 +502,81 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
         try {
-            lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
-            if (lancamento == null) {
-                lancamento = new LancamentoCaixa();
-                setLancamento();
-                lancamento.setDataCadastro(new Date());
-                lancamento.setDataAtualizacao(new Date());
-                if (lancamentoDAO.confereLancamento(lancamento)) {
-                    lancamento = lancamentoDAO.salvar(lancamento);
-                    codLancamento.setText(lancamento.getCodLancamento().toString());
-                    lancamento.setDataAtualizacao(new Date());
-                    btSalvar.setEnabled(false);
+
+            if (caixa != null) {
+                if (plano != null) {
+
+                    //Faz o Lancamento 
+                    LancamentoCaixa lancCaixa = new LancamentoCaixa();
+                    lancCaixa.setCaixa(caixa);
+                    lancCaixa.setDataCadastro(new Date());
+                    lancCaixa.setDescricao(obs.getText());
+                    lancCaixa.setPlanoConta(plano);
+                    lancCaixa.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " "
+                            + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+                    lancCaixa.setValorEntrada(ValidarValor.getDouble(valorEntrada.getText()));
+                    lancCaixa.setValorSaida(ValidarValor.getDouble(valorSaida.getText()));
+
+                    lancCaixa = lancamentoDAO.salvar(session, lancCaixa);
+
+                    //Atualizar valor Caixa
+                    caixa = lancamento.getCaixa();
+                    caixa.setValorFechamentoDia(caixa.getValorInicial());
+                    caixa.setValorInicial(caixa.getValorInicial() + ValidarValor.getDouble(valorEntrada.getText()) - ValidarValor.getDouble(valorSaida.getText()));
+                    caixa = caixaDAO.salvar(session, caixa);
+
+                    session.getTransaction().commit();
+                    session.close();
+
+                    JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+
                 } else {
-                    JOptionPane.showMessageDialog(this, "Sangria já Cadastrada");
+                    throw new Exception("Favor inserir os dados de Caixa.");
                 }
+            } else {
+                throw new Exception("Favor inserir os dados de Plano de Conta.");
             }
-            setLancamento();
-            lancamentoDAO.salvar(lancamento);
-            atualizatabela();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            session.getTransaction().rollback();
+            session.close();
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
         try {
+
             lancamento = lancamentoDAO.get(ValidarValor.getInt(codLancamento.getText()));
             if (lancamento == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, insira um codigo válido. ");
             } else {
-                setLancamento();
-                lancamentoDAO.delete(lancamento);
+
+                //Atualizar valor Caixa
+                caixa = lancamento.getCaixa();
+                caixa.setValorFechamentoDia(caixa.getValorInicial());
+                caixa.setValorInicial(caixa.getValorInicial() - (lancamento.getValorEntrada()) + lancamento.getValorSaida());
+                caixa = caixaDAO.salvar(session, caixa);
+
+                lancamentoDAO.deletePojo(session, lancamento);
                 limpaCampos();
+
+                session.getTransaction().commit();
+                session.close();
+
+                atualizatabela();
                 JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
-                descLancamento.requestFocus();
+
             }
-            atualizatabela();
         } catch (Exception e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         }
     }//GEN-LAST:event_btExcluirActionPerformed
@@ -633,6 +679,10 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tabMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        atualizatabela();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void limpaCampos() {
         codLancamento.setText("");
         descLancamento.setText("");
@@ -643,7 +693,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         descCaixa.setText("");
         valorEntrada.setText("0,00");
         valorSaida.setText("0,00");
-        observacao.setText("");
+        obs.setText("");
     }
 
     private void habilitaCampos(boolean b) {
@@ -656,8 +706,8 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         descCaixa.setEnabled(b);
         valorEntrada.setEnabled(b);
         valorSaida.setEnabled(b);
-        observacao.setEnabled(b);
-        
+        obs.setEnabled(b);
+
         btSalvar.setEnabled(b);
 
     }
@@ -704,23 +754,28 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             List<LancamentoCaixa> listaT = lancamentoDAO.getList();
             if (listaT.size() > 0) {
                 model.setNumRows(0);
+                
+                System.out.println("--------------1");
+                
                 for (LancamentoCaixa l : listaT) {
 
                     Double valor = 0.00;
-
-                    if (l.getValorEntrada() != null) {
+                     System.out.println("--------------2");
+                    if (l.getValorEntrada() != 0) {
                         valor = l.getValorEntrada();
                     } else {
                         valor = l.getValorSaida();
                     }
 
+                     System.out.println("--------------3");
                     Object o[] = new Object[]{
                         l.getCodLancamento(),
                         l.getDescricao(),
                         l.getCaixa().getDescricao(),
                         valor};
-
+                     System.out.println("--------------4");
                     model.addRow(o);
+                     System.out.println("--------------5");
                 }
             }
             tab.setModel(model);
@@ -743,6 +798,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descCaixa;
     private javax.swing.JTextField descConta;
     private javax.swing.JTextField descLancamento;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
@@ -759,7 +815,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextArea observacao;
+    private javax.swing.JTextArea obs;
     private javax.swing.JTable tab;
     private javax.swing.JTextField tipoConta;
     private javax.swing.JTextField valorEntrada;

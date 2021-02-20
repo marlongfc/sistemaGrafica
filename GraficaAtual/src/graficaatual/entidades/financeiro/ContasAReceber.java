@@ -32,11 +32,11 @@ public class ContasAReceber implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codContasRec;
 
-    @Column(nullable = false, length = 300)
+    @Column(nullable = true, length = 300)
     private String descricao;
 
     @ManyToOne()
-    @JoinColumn(name = "caixa", nullable = false)
+    @JoinColumn(name = "caixa", nullable = true)
     private Caixa caixa;
     
     @ManyToOne()

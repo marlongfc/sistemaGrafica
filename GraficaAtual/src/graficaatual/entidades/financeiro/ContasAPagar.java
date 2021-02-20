@@ -5,6 +5,9 @@
  */
 package graficaatual.entidades.financeiro;
 
+import graficaatual.entidades.Cliente;
+import graficaatual.entidades.Fornecedor;
+import graficaatual.entidades.pedido.Orcamento;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -30,12 +33,28 @@ public class ContasAPagar implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codContasPag;
 
-    @Column(nullable = false, length = 300)
+    @Column(nullable = true, length = 300)
     private String descricao;
 
     @ManyToOne()
-    @JoinColumn(name = "caixa", nullable = false)
+    @JoinColumn(name = "caixa", nullable = true)
     private Caixa caixa;
+
+    @ManyToOne()
+    @JoinColumn(name = "orcamento")
+    private Orcamento orcamento;
+
+    @ManyToOne()
+    @JoinColumn(name = "fornecedor")
+    private Fornecedor fornecedor;
+
+    @ManyToOne()
+    @JoinColumn(name = "planoContas")
+    private PlanoDeContas planoContas;
+
+    @ManyToOne()
+    @JoinColumn(name = "formaPagamento")
+    private FormaDePagamento formaPagamento;
 
     @Column()
     private Double valorTotal;
@@ -45,6 +64,12 @@ public class ContasAPagar implements java.io.Serializable {
 
     @Column()
     private Double valorPagar;
+
+    @Column(name = "dataPrevista")
+    private Date dataPrevista;
+
+    @Column(name = "dataPagamento")
+    private Date dataPagamento;
 
     @Column(length = 300)
     private String observacao;
@@ -147,6 +172,54 @@ public class ContasAPagar implements java.io.Serializable {
 
     public void setUsuarioAtualizacao(String usuarioAtualizacao) {
         this.usuarioAtualizacao = usuarioAtualizacao;
+    }
+
+    public Orcamento getOrcamento() {
+        return orcamento;
+    }
+
+    public void setOrcamento(Orcamento orcamento) {
+        this.orcamento = orcamento;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public PlanoDeContas getPlanoContas() {
+        return planoContas;
+    }
+
+    public void setPlanoContas(PlanoDeContas planoContas) {
+        this.planoContas = planoContas;
+    }
+
+    public FormaDePagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaDePagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    public Date getDataPrevista() {
+        return dataPrevista;
+    }
+
+    public void setDataPrevista(Date dataPrevista) {
+        this.dataPrevista = dataPrevista;
+    }
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
     @Override

@@ -67,7 +67,7 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel18 = new javax.swing.JPanel();
-        valorInicial = new javax.swing.JTextField();
+        saldo = new javax.swing.JTextField();
         jLabel78 = new javax.swing.JLabel();
         descCaixa = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
@@ -124,9 +124,9 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
         jPanel18.setPreferredSize(new java.awt.Dimension(1100, 700));
         jPanel18.setLayout(null);
 
-        valorInicial.setText("0,00");
-        jPanel18.add(valorInicial);
-        valorInicial.setBounds(910, 90, 130, 20);
+        saldo.setText("0,00");
+        jPanel18.add(saldo);
+        saldo.setBounds(910, 90, 130, 20);
 
         jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel78.setText("Caixa");
@@ -343,7 +343,7 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
         jLabel1.setBounds(0, 0, 1100, 70);
 
         jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel79.setText("Valor Abertura");
+        jLabel79.setText("Saldo Atual");
         jPanel18.add(jLabel79);
         jLabel79.setBounds(910, 70, 130, 20);
 
@@ -393,10 +393,10 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
         caixa = caixaDAO.get(ValidarValor.getInt(codCaixa.getText()));
         if (caixa != null) {
             descCaixa.setText(caixa.getDescricao());
-            valorInicial.setText(ValidarValor.getDouble(caixa.getValorInicial()));
+            saldo.setText(ValidarValor.getDouble(caixa.getValorInicial()));
         } else {
             descCaixa.setText("");
-            valorInicial.setText("");
+            saldo.setText("");
         }
     }
 
@@ -418,6 +418,7 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
             caixa = new Caixa();
             limpaCampos();
             habilitaCampos(true);
+            atualizatabela();
             descCaixa.requestFocus();
 
         } catch (Exception e) {
@@ -513,13 +514,13 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
     private void limpaCampos() {
         codCaixa.setText("");
         descCaixa.setText("");
-        valorInicial.setText("");
+        saldo.setText("");
     }
 
     private void habilitaCampos(boolean b) {
         codCaixa.setEnabled(b);
         descCaixa.setEnabled(b);
-        valorInicial.setEnabled(b);
+        saldo.setEnabled(b);
         btSalvar.setEnabled(b);
     }
 
@@ -529,12 +530,12 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
             throw new Exception("Favor inserir um Caixa");
         }
 
-        if (valorInicial.getText().length() < 2) {
+        if (saldo.getText().length() < 2) {
             throw new Exception("Favor inserir um Valor");
         }
 
         caixa.setDescricao(descCaixa.getText());
-        caixa.setValorInicial((ValidarValor.getArredondamento(ValidarValor.getDouble(valorInicial.getText()))));
+        caixa.setValorInicial((ValidarValor.getArredondamento(ValidarValor.getDouble(saldo.getText()))));
     }
 
     public static void removeLinhas(JTable table) {
@@ -618,7 +619,7 @@ public class FCadCaixa extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
+    private javax.swing.JTextField saldo;
     private javax.swing.JTable tab;
-    private javax.swing.JTextField valorInicial;
     // End of variables declaration//GEN-END:variables
 }
