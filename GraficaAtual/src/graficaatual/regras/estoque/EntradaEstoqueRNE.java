@@ -38,9 +38,17 @@ public class EntradaEstoqueRNE extends GenericDAO {
         return getPojoUnique(session, EntradaEstoque.class, sql, codigo);
     }
     
+    /*
       public EntradaEstoque getByMaterial(long codigo, EntityManager session) throws Exception {
         String sql = " select e from EntradaEstoque e where e.codMaterial=?1 ";
         return getPojoUnique(session, EntradaEstoque.class, sql, codigo);
+    }
+    */
+
+    
+     public List<EntradaEstoque> getListPorMaterial(long codMaterial, EntityManager session) throws Exception {
+        String sql = " select e from EntradaEstoque e where e.codMaterial=?1 ";
+        return getPureList(session, EntradaEstoque.class, sql);
     }
 
 

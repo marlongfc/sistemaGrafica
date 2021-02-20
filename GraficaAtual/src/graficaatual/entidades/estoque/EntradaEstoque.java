@@ -6,7 +6,6 @@
 package graficaatual.entidades.estoque;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,26 +47,41 @@ public class EntradaEstoque implements Serializable {
     private String observacao;
 
     @Column(name = "ValorCompra", nullable = true)
-    private BigDecimal valorCompra;
+    private Double valorCompra;
 
-    @Column(name = "codLocalArmazenamento", nullable = true)
-    private Long codLocalArmazenamento;
+    @Column(name = "metragemLinear", nullable = true)
+    private Double metragemLinear;
 
-    @Column(name = "codMaterial", nullable = true)
+    @Column(name = "largura", nullable = true)
+    private Double largura;
+
+    @Column(name = "altura", nullable = true)
+    private Double altura;
+
+    @Column(name = "unidade", nullable = true)
+    private Double unidade;
+
+    @Column(name = "peso", nullable = true)
+    private Double peso;
+    
+    @Column(name = "litro", nullable = true)
+    private Double litro;
+    
+    @Column(name = "codMaterial", nullable = false)
     private Long codMaterial;
+    
+    @Column(name = "descMaterial", nullable = false)
+    private String descMaterial;
 
     @Column(name = "codFornecedor", nullable = true)
     private Long codFornecedor;
 
-    /*
-    @ManyToOne()
-    @JoinColumn(name = "material")
-    private Material material;
+    @Column(name = "descFornecedor", nullable = true)
+    private String descFornecedor;
 
-    @ManyToOne()
-    @JoinColumn(name = "fornecedor")
-    private Fornecedor fornecedor;
-     */
+    @Column(name = "cancelada", nullable = false)
+    private boolean cancelada;
+    
     @Column(name = "dataValidade", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataValidade;
@@ -122,8 +136,6 @@ public class EntradaEstoque implements Serializable {
     public void setTipoEntrada(Integer tipoEntrada) {
         this.tipoEntrada = tipoEntrada;
     }
-    
-    
 
     public String getMarca() {
         return marca;
@@ -149,28 +161,84 @@ public class EntradaEstoque implements Serializable {
         this.observacao = observacao;
     }
 
-    public BigDecimal getValorCompra() {
+    public Double getValorCompra() {
         return valorCompra;
     }
 
-    public void setValorCompra(BigDecimal valorCompra) {
+    public void setValorCompra(Double valorCompra) {
         this.valorCompra = valorCompra;
     }
 
-    public Long getCodLocalArmazenamento() {
-        return codLocalArmazenamento;
+    public Double getMetragemLinear() {
+        return metragemLinear;
     }
 
-    public void setCodLocalArmazenamento(Long codLocalArmazenamento) {
-        this.codLocalArmazenamento = codLocalArmazenamento;
+    public void setMetragemLinear(Double metragemLinear) {
+        this.metragemLinear = metragemLinear;
     }
 
+    public Double getLargura() {
+        return largura;
+    }
+
+    public void setLargura(Double largura) {
+        this.largura = largura;
+    }
+
+    public Double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Double altura) {
+        this.altura = altura;
+    }
+
+    public Double getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Double unidade) {
+        this.unidade = unidade;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getLitro() {
+        return litro;
+    }
+
+    public void setLitro(Double litro) {
+        this.litro = litro;
+    }
+
+    public String getDescFornecedor() {
+        return descFornecedor;
+    }
+
+    public void setDescFornecedor(String descFornecedor) {
+        this.descFornecedor = descFornecedor;
+    }
+    
     public Long getCodMaterial() {
         return codMaterial;
     }
 
     public void setCodMaterial(Long codMaterial) {
         this.codMaterial = codMaterial;
+    }
+
+    public String getDescMaterial() {
+        return descMaterial;
+    }
+
+    public void setDescMaterial(String descMaterial) {
+        this.descMaterial = descMaterial;
     }
 
     public Long getCodFornecedor() {
@@ -220,6 +288,17 @@ public class EntradaEstoque implements Serializable {
     public void setUsuarioAtualizacao(String usuarioAtualizacao) {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
+
+    public boolean isCancelada() {
+        return cancelada;
+    }
+
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
+    }
+
+   
+    
 
     @Override
     public int hashCode() {

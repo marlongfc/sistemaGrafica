@@ -37,19 +37,37 @@ public class SaidaEstoque implements Serializable {
 
     @Column(name = "numeroPedido", nullable = true)
     private Integer numeroPedido;
-
+      
     @Column(name = "Observacao", nullable = true)
     private String observacao;
 
-    @Column(name = "ValorVendaAvulsa", nullable = true)
-    private BigDecimal valorVendaAvulsa;
+    @Column(name = "metragemLinear", nullable = true)
+    private Double metragemLinear;
 
-    @Column(name = "codLocalArmazenamento", nullable = true)
-    private Long codLocalArmazenamento;
+    @Column(name = "largura", nullable = true)
+    private Double largura;
 
-    @Column(name = "codMaterial", nullable = true)
+    @Column(name = "altura", nullable = true)
+    private Double altura;
+
+    @Column(name = "unidade", nullable = true)
+    private Double unidade;
+
+    @Column(name = "peso", nullable = true)
+    private Double peso;
+    
+    @Column(name = "litro", nullable = true)
+    private Double litro;
+
+    @Column(name = "codMaterial", nullable = false)
     private Long codMaterial;
+    
+    @Column(name = "descMaterial", nullable = false)
+    private String descMaterial;
 
+    @Column(name = "cancelada", nullable = false)
+    private boolean cancelada;
+       
     @Column(name = "dataCadastro", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
@@ -98,14 +116,6 @@ public class SaidaEstoque implements Serializable {
         this.observacao = observacao;
     }
   
-    public Long getCodLocalArmazenamento() {
-        return codLocalArmazenamento;
-    }
-
-    public void setCodLocalArmazenamento(Long codLocalArmazenamento) {
-        this.codLocalArmazenamento = codLocalArmazenamento;
-    }
-
     public Long getCodMaterial() {
         return codMaterial;
     }
@@ -136,14 +146,6 @@ public class SaidaEstoque implements Serializable {
 
     public void setNumeroPedido(Integer numeroPedido) {
         this.numeroPedido = numeroPedido;
-    }
-
-    public BigDecimal getValorVendaAvulsa() {
-        return valorVendaAvulsa;
-    }
-
-    public void setValorVendaAvulsa(BigDecimal valorVendaAvulsa) {
-        this.valorVendaAvulsa = valorVendaAvulsa;
     }
 
     
@@ -179,6 +181,72 @@ public class SaidaEstoque implements Serializable {
     public void setUsuarioAtualizacao(String usuarioAtualizacao) {
         this.usuarioAtualizacao = usuarioAtualizacao;
     }
+
+    public Double getMetragemLinear() {
+        return metragemLinear;
+    }
+
+    public void setMetragemLinear(Double metragemLinear) {
+        this.metragemLinear = metragemLinear;
+    }
+
+    public Double getLargura() {
+        return largura;
+    }
+
+    public void setLargura(Double largura) {
+        this.largura = largura;
+    }
+
+    public Double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Double altura) {
+        this.altura = altura;
+    }
+
+    public Double getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Double unidade) {
+        this.unidade = unidade;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getLitro() {
+        return litro;
+    }
+
+    public void setLitro(Double litro) {
+        this.litro = litro;
+    }
+
+    public String getDescMaterial() {
+        return descMaterial;
+    }
+
+    public void setDescMaterial(String descMaterial) {
+        this.descMaterial = descMaterial;
+    }
+
+    public boolean isCancelada() {
+        return cancelada;
+    }
+
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
+    }
+    
+    
 
     @Override
     public int hashCode() {
