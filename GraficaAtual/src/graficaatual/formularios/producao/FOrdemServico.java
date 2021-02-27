@@ -8,15 +8,18 @@ package graficaatual.formularios.producao;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.ControleAcesso;
+import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.producao.AnexoDTO;
 import graficaatual.entidades.producao.OrdemServico;
 import graficaatual.entidades.relatorio.TextoPadrao;
 import graficaatual.utilitarios.Conexao;
 import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -203,6 +206,9 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         tabOrdensFazer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabOrdensFazerMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabOrdensFazerMouseEntered(evt);
             }
         });
         jScrollPane6.setViewportView(tabOrdensFazer);
@@ -487,6 +493,10 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
         }
     }//GEN-LAST:event_imagem1ActionPerformed
+
+    private void tabOrdensFazerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabOrdensFazerMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabOrdensFazerMouseEntered
         private byte[] getByteImage() {
         try {
             if (FvaFiguraProduto.trim().length() > 0) {
@@ -576,21 +586,37 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
     private void imprimir(Integer valor) throws Exception {
         try {
 
-            String sql = "select cli.codcliente, pes.nome, pes.cnpj, pes.inscestadual, pes.numcasa, pes.uf, pes.cep,pes.email, pes.telefone,"
-                    + " log.descricao logradouro, bai.descricao bairro, cid.descricao cidade, "
-                    + " orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario, "
-                    + " orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega, "
-                    + " prod.codproduto, prod.descricao produto,item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario,aca.descricao acabamento, orc.valortotal,"
-                    + " case when orc.situacao = true then 'PEDIDO' "
-                    + " ELSE 'ORÇAMENTO' end nomeRell "
-                    + " FROM orcamento orc "
-                    + " INNER JOIN cliente cli ON cli.codcliente = orc.cliente "
-                    + " INNER JOIN pessoa pes ON pes.codPessoa = cli.pessoa "
-                    + " INNER JOIN itemorcamento item ON item.orcamento = orc.codOrcamento "
-                    + " LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro "
-                    + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro "
-                    + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
-                    + " LEFT JOIN produto prod ON prod.codproduto = item.produto"
+            String sql = " with imagensMAX as ( "
+                    + " select orcamento , imagem, codordemservico from ordemservico "
+                    + "where orcamento = "+ valor+" and codordemservico in (select max(codordemservico) from  ordemservico where orcamento = "+ valor+")"
+                    + " ),"
+                    + " "
+                    + "  imagensMIM as ("
+                    + " select orcamento , imagem, codordemservico from ordemservico "
+                    + " where orcamento = "+ valor+" and codordemservico in (select min(codordemservico) from  ordemservico where orcamento = "+ valor+")"
+                    + " )"
+                    + " "
+                    + " "
+                    + " select cli.codcliente, pes.nome, pes.cnpj, pes.inscestadual, pes.numcasa, pes.uf, pes.cep,pes.email, pes.telefone,"
+                    + "log.descricao logradouro, bai.descricao bairro, cid.descricao cidade,"
+                    + " orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario,"
+                    + " orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega,"
+                    + " prod.codproduto, prod.descricao produto,"
+                    + " item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario, aca.descricao acabamento, orc.valortotal,"
+                    + " imagensMIM.imagem as imagem1,"
+                    + " imagensMAX.imagem as imagem2,"
+                    + " case when orc.situacao = true then 'PEDIDO'"
+                    + " ELSE 'ORÇAMENTO' end nomeRell"
+                    + " FROM orcamento orc"
+                    + " INNER JOIN cliente cli ON cli.codcliente = orc.cliente"
+                    + " INNER JOIN pessoa pes ON pes.codPessoa = cli.pessoa"
+                    + " INNER JOIN itemorcamento item ON item.orcamento = orc.codOrcamento"
+                    + " left join imagensMIM on (orc.codOrcamento = imagensMIM.orcamento)"
+                    + " left join imagensMAX on (orc.codOrcamento = imagensMAX.orcamento)"
+                    + " LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro"
+                    + " LEFT JOIN bairro bai ON bai.codbairro = pes.bairro"
+                    + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade"
+                    + " LEFT JOIN produto prod ON prod.codproduto = orc.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
                     + " WHERE orc.codOrcamento = " + valor;
 
@@ -598,7 +624,19 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
             tx.put("TEXTOPADRAO", new TextoPadraoDAO().get(1).getTextoOrcamento());
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelOrcamentoSemValor.jasper", "Orçamento/Pedido", tx, sql);
+            
+            if ((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0) < 0) {
+                throw new Exception(" Selecione um ordem de serviços ");
+            }
 
+            ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+            if(ordem != null){
+                    ByteArrayInputStream bis = new ByteArrayInputStream(ordem.getImagem(), 0, ordem.getImagem().length);
+                    InputStream is;
+                    is = (InputStream) bis;
+                    tx.put("imagem1", is);
+            
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);

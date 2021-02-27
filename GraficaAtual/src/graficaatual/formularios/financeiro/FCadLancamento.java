@@ -518,16 +518,17 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
                     lancCaixa.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " "
                             + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                     lancCaixa.setValorEntrada(ValidarValor.getDouble(valorEntrada.getText()));
+                    lancCaixa.setValorEntrada(ValidarValor.getDouble(valorEntrada.getText()));
                     lancCaixa.setValorSaida(ValidarValor.getDouble(valorSaida.getText()));
 
                     lancCaixa = lancamentoDAO.salvar(session, lancCaixa);
 
                     //Atualizar valor Caixa
-                    caixa = lancamento.getCaixa();
+                   
                     caixa.setValorFechamentoDia(caixa.getValorInicial());
                     caixa.setValorInicial(caixa.getValorInicial() + ValidarValor.getDouble(valorEntrada.getText()) - ValidarValor.getDouble(valorSaida.getText()));
                     caixa = caixaDAO.salvar(session, caixa);
-
+                    
                     session.getTransaction().commit();
                     session.close();
 

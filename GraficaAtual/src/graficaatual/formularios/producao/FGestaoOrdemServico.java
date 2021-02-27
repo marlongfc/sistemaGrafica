@@ -293,6 +293,11 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         jButton2.setText("Lista Geral");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel10.add(jButton2);
         jButton2.setBounds(560, 590, 200, 40);
 
@@ -429,6 +434,10 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Erro ao Cancelar. Tente Novamente");
         }
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
