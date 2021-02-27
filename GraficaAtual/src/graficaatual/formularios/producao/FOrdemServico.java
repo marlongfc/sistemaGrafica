@@ -14,6 +14,9 @@ import graficaatual.entidades.relatorio.TextoPadrao;
 import graficaatual.utilitarios.Conexao;
 import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.VisualizaRelatorio;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -32,6 +35,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -55,6 +60,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
     private OrdemServicoDAO ordemDao = new OrdemServicoDAO();
             
     private JFormattedTextField cpf;
+    private String FvaFiguraProduto = "";
     
     public FOrdemServico() {
         initComponents();
@@ -104,6 +110,9 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         tabConcluido = new javax.swing.JTable();
         jLSelecao = new javax.swing.JLabel();
         refazer = new javax.swing.JButton();
+        imagem = new javax.swing.JButton();
+        endImagem = new javax.swing.JTextField();
+        imagem1 = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -241,7 +250,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Lista de Produção - Concluída", jPanel1);
 
         jPanel10.add(jTabbedPane1);
-        jTabbedPane1.setBounds(40, 140, 1000, 520);
+        jTabbedPane1.setBounds(40, 140, 1000, 470);
 
         jLSelecao.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jPanel10.add(jLSelecao);
@@ -257,6 +266,32 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         });
         jPanel10.add(refazer);
         refazer.setBounds(540, 80, 180, 40);
+
+        imagem.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cargo2.png"))); // NOI18N
+        imagem.setText("Escolher Imagem");
+        imagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imagemActionPerformed(evt);
+            }
+        });
+        jPanel10.add(imagem);
+        imagem.setBounds(350, 610, 240, 40);
+
+        endImagem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel10.add(endImagem);
+        endImagem.setBounds(590, 610, 390, 40);
+
+        imagem1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        imagem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
+        imagem1.setText("inserir Imagem");
+        imagem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imagem1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(imagem1);
+        imagem1.setBounds(110, 610, 240, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -283,6 +318,11 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
     private void salvar() throws Exception {
         int setor = jCBSetor.getSelectedIndex();
+        
+        if((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0)<0){
+            throw new Exception(" Selecione um ordem de serviços ");
+        }
+        
         ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
         if (ordem != null) {
 
@@ -341,7 +381,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
                     break;    
             }
             ordem = ordemDao.addOrdem(ordem);
-            enviarEmail();
+            //enviarEmail();
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
         }
@@ -386,6 +426,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         try {
             pesquisarFazer();
             pesquisarConcluido();
+            endImagem.setText("");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -415,6 +456,56 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
        }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
+    private void imagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imagemActionPerformed
+        try {
+            buscaFigura();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        }
+    }//GEN-LAST:event_imagemActionPerformed
+
+    private void imagem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imagem1ActionPerformed
+        try { 
+            
+            if((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0)<0){
+                throw new Exception(" Selecione um ordem de serviços ");
+            }
+            
+            ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+            if(ordem != null  && endImagem.getText().length()>0){
+                ordem.setImagem(getByteImage());
+                ordem.setNomeImagem(endImagem.getText());
+                endImagem.setText("");
+                ordem = ordemDao.addOrdem(ordem);
+                JOptionPane.showMessageDialog(this, " Imagem salva!");
+            }else{
+                throw new Exception(" Selecione uma ordem de serviço. ");
+            }
+        }catch(Exception e){
+             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
+        }
+    }//GEN-LAST:event_imagem1ActionPerformed
+        private byte[] getByteImage() {
+        try {
+            if (FvaFiguraProduto.trim().length() > 0) {
+                ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+                byte buffer[] = new byte[4096];
+                int bytesRead = 0;
+                FileInputStream fi = new FileInputStream(FvaFiguraProduto);
+                while ((bytesRead = fi.read(buffer)) != -1) {
+                    arrayOutputStream.write(buffer, 0, bytesRead);
+                }
+                arrayOutputStream.close();
+                return arrayOutputStream.toByteArray();
+            }
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar buscar bytes da imagemn. Erro: " + e);
+        }
+        return null;
+    } 
+    
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
 
@@ -424,9 +515,49 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             model.removeRow(i);
         }
     }
+    
+        private void buscaFigura() {
+        FvaFiguraProduto = (FvaFiguraProduto.equals("")) ? "\\" : FvaFiguraProduto;
+        JFileChooser chose = new JFileChooser(FvaFiguraProduto);
+        chose.setFileFilter(
+                new javax.swing.filechooser.FileFilter() {
+            public boolean accept(File f) {
+                String fname = f.getName().toLowerCase();
+                return fname.endsWith(".gif")
+                        || fname.endsWith(".jpeg")
+                        || fname.endsWith(".jpg")
+                        || fname.endsWith(".png")
+                        || f.isDirectory();
+            }
 
+            public String getDescription() {
+                return "Arquivos .GIF, .JPEG, .JPG e .PNG";
+            }
+        }
+        );
+        if (chose.showOpenDialog(this) == 0) {
+            setImageIcon(chose.getSelectedFile().getPath());
+        } 
+    }
+        
+     private void setImageIcon(String path) {
+        FvaFiguraProduto = "";
+//        imagem.setIcon(null);
+        imagem.setToolTipText("");
+        if (path != null && path.length() > 0) {
+            FvaFiguraProduto = path;
+//            ImageIcon img = new ImageIcon(FvaFiguraProduto);
+//            imagem.setIcon(img);
+//            imagem.setToolTipText(FvaFiguraProduto);
+            endImagem.setText(path);
+        }
+
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField endImagem;
+    private javax.swing.JButton imagem;
+    private javax.swing.JButton imagem1;
     private javax.swing.JComboBox<String> jCBSetor;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;

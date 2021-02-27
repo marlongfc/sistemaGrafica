@@ -114,6 +114,8 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         jLSelecao = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setBorder(null);
         setTitle("Cadastro de Cliente");
@@ -156,7 +158,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(560, 590, 130, 40);
+        sair.setBounds(940, 590, 130, 40);
 
         jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -287,6 +289,18 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         });
         jPanel10.add(cancelar);
         cancelar.setBounds(290, 590, 270, 40);
+
+        jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        jButton2.setText("Lista Geral");
+        jPanel10.add(jButton2);
+        jButton2.setBounds(560, 590, 200, 40);
+
+        jButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        jButton3.setText("Lista Setor");
+        jPanel10.add(jButton3);
+        jButton3.setBounds(760, 590, 180, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -430,6 +444,8 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

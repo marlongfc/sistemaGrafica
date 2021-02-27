@@ -132,8 +132,32 @@ public class OrdemServico implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "produto")
     private Produto produto; 
+    
+    @Column(name = "imagem", nullable = true)
+    private byte[] imagem;
 
+    @Column(name = "nomeImagem", length = 600)
+    private String nomeImagem;
+        
     public OrdemServico() {
+    }
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
+    }
+    
+    
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 
     public Caixa getCaixa() {
