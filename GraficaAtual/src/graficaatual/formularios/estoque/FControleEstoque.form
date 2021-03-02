@@ -507,7 +507,7 @@
                         <Column editable="false" title="Metrag. Linear (m)" type="java.lang.String"/>
                         <Column editable="false" title="Largura (m)" type="java.lang.String"/>
                         <Column editable="false" title="Altura (m)" type="java.lang.String"/>
-                        <Column editable="false" title="Quantidade (u)" type="java.lang.String"/>
+                        <Column editable="false" title="Unidades (u)" type="java.lang.String"/>
                         <Column editable="false" title="Peso (Kg)" type="java.lang.String"/>
                         <Column editable="false" title="Litros (L)" type="java.lang.String"/>
                         <Column editable="false" title="Valor Unit&#xe1;rio" type="java.lang.String"/>
@@ -2143,7 +2143,7 @@
                                   <Component id="jScrollPane3" min="-2" pref="990" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="422" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="379" max="-2" attributes="0"/>
                                   <Component id="jButton1" min="-2" pref="170" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -2166,9 +2166,9 @@
                           <Component id="jScrollPane3" min="-2" pref="416" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
-                          <EmptySpace pref="405" max="32767" attributes="0"/>
+                          <EmptySpace pref="403" max="32767" attributes="0"/>
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="713" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="711" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">

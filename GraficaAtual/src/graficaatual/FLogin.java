@@ -8,6 +8,7 @@ package graficaatual;
 import graficaatual.daos.UsuariosDAO;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Usuario;
+import graficaatual.formularios.estoque.FControleEstoque;
 import graficaatual.utilitarios.Funcao;
 import graficaatual.utilitarios.Persistencia;
 import java.sql.Connection;
@@ -293,7 +294,7 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
-        System.exit(0);
+       System.exit(0);
     }//GEN-LAST:event_sairActionPerformed
 
     private void jBPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPedidosActionPerformed
@@ -333,7 +334,7 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCadastroActionPerformed
 
     private void jBFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFinanceiroActionPerformed
-        try {
+           try {
             FFinanceiro clComp;
             if (FCadastro.isInicializado() != 1) {
                 clComp = FFinanceiro.getInstance();
@@ -349,7 +350,7 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jBFinanceiroActionPerformed
 
     private void jBRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRelatoriosActionPerformed
-        try {
+       try {
             FRelatorio clComp;
             if (FRelatorio.isInicializado() != 1) {
                 clComp = FRelatorio.getInstance();
@@ -381,22 +382,20 @@ public class FLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jBProducaoActionPerformed
 
     private void jBEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEstoqueActionPerformed
-        try {
+          try {
             FEstoque clComp;
             if (FEstoque.isInicializado() != 1) {
                 clComp = FEstoque.getInstance();
                 clComp.setVisible(true);
             } else {
                 clComp = FEstoque.getInstance();
-                
             }
             clComp.toFront();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulÃ¡rio. Verifique o formulÃ¡rio e tente novamente. \nErro: " + e);
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+       e.printStackTrace();
         }
-
     }//GEN-LAST:event_jBEstoqueActionPerformed
 
     /**
@@ -444,9 +443,9 @@ public class FLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, erroV);
             return;
         }
-
+        
         setConfigConexao("arquivo.properties");
-
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PesistenceHibernate");
         EntityManager em = emf.createEntityManager();
         em.close();
@@ -464,11 +463,11 @@ public class FLogin extends javax.swing.JFrame {
 
                     //telas
                     habilitaMenusUsuario(us);
-
-                    //CarregaControle de Acesso
-                    carregaControle(us);
-                    login.setEditable(false);
-                    senhaUsuario.setEditable(false);
+                    
+                   //CarregaControle de Acesso
+                   carregaControle(us);
+                   login.setEditable(false);
+                   senhaUsuario.setEditable(false);
                 }
 
             } catch (Exception e) {
@@ -490,15 +489,15 @@ public class FLogin extends javax.swing.JFrame {
 
         Class.forName("org.postgresql.Driver");
         Connection conexao;
-        //   System.out.println("gerar conexão");
+     //   System.out.println("gerar conexão");
         conexao = DriverManager.getConnection("jdbc:postgresql://" + sHost + ":" + sPorta + "/" + banco.getText(), sUsr, sSenha);
-        //    System.out.println("conexão false");
+    //    System.out.println("conexão false");
         conexao.setAutoCommit(true);
-        //   System.out.println("conexão True");
+     //   System.out.println("conexão True");
         Statement banco = conexao.createStatement(1004, 1008);
-        //   System.out.println("vai fazer Pesquisa");
+     //   System.out.println("vai fazer Pesquisa");
         ResultSet rs = banco.executeQuery("select senha from usuario where ativo = 'true' and login = '" + login.getText().trim() + "'");
-        //     System.out.println("realizou pesquisa");
+   //     System.out.println("realizou pesquisa");
         if (rs.next()) {
             String str = rs.getString("senha");
             boolean b = str.equals(((JTextField) senhaUsuario).getText().trim());
@@ -528,50 +527,50 @@ public class FLogin extends javax.swing.JFrame {
         jBRelatorios.setEnabled(b);
 
     }
-
+    
     private void habilitaMenusUsuario(Usuario us) {
-        if (us.getAcessoCadastro() != null) {
+        if(us.getAcessoCadastro() != null){
             jBCadastro.setEnabled(us.getAcessoCadastro());
-        } else {
+        }else{
             jBCadastro.setEnabled(false);
         }
-
-        if (us.getAcessoEstoque() != null) {
+        
+        if(us.getAcessoEstoque() != null){
             jBEstoque.setEnabled(us.getAcessoEstoque());
-        } else {
+        }else{
             jBEstoque.setEnabled(false);
         }
-
-        if (us.getAcessoFinanceiro() != null) {
+        
+        if(us.getAcessoFinanceiro() != null){
             jBFinanceiro.setEnabled(us.getAcessoFinanceiro());
-        } else {
+        }else{
             jBFinanceiro.setEnabled(false);
         }
-
-        if (us.getAcessoPedido() != null) {
+        
+        if(us.getAcessoPedido() != null){
             jBPedidos.setEnabled(us.getAcessoPedido());
-        } else {
+        }else{
             jBPedidos.setEnabled(false);
         }
-
-        if (us.getAcessoProducao() != null) {
+        
+        if(us.getAcessoProducao() != null){
             jBProducao.setEnabled(us.getAcessoProducao());
-        } else {
+        }else{
             jBProducao.setEnabled(false);
         }
-
-        if (us.getAcessoRelatorios() != null) {
+        
+        if(us.getAcessoRelatorios() != null){
             jBRelatorios.setEnabled(us.getAcessoRelatorios());
-        } else {
-
+        }else{
+        
         }
     }
 
     private void carregaControle(Usuario us) {
         ControleAcesso.usuario = us;
-
+        
     }
-
+    
     private boolean setConfigConexao(String Arquivo) {
 
         boolean FvaRetorno = false;
@@ -595,6 +594,7 @@ public class FLogin extends javax.swing.JFrame {
             propriedade.setProperty("Porta", Persistencia.GAPorta);
             propriedade.setProperty("UserName", Persistencia.GAUserName);
             propriedade.setProperty("Password", Persistencia.GAPassword);
+
 
             Funcao.setPropriedade(propriedade, Arquivo);
             FvaRetorno = true;

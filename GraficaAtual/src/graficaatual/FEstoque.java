@@ -8,6 +8,7 @@ package graficaatual;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.Permissao;
 import graficaatual.formularios.estoque.FControleEstoque;
+import graficaatual.formularios.estoque.FRelatorioEstoque;
 import javax.swing.JButton;
 
 import javax.swing.JOptionPane;
@@ -55,6 +56,7 @@ public class FEstoque extends javax.swing.JFrame {
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         btEstoque = new javax.swing.JButton();
+        btEstoque1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
@@ -88,7 +90,7 @@ public class FEstoque extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBSair);
-        jBSair.setBounds(30, 180, 180, 30);
+        jBSair.setBounds(30, 210, 180, 30);
 
         deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -108,7 +110,7 @@ public class FEstoque extends javax.swing.JFrame {
         btEstoque.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         btEstoque.setForeground(new java.awt.Color(255, 255, 255));
         btEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
-        btEstoque.setText("ESTOQUE");
+        btEstoque.setText("RELATÓRIOS");
         btEstoque.setBorderPainted(false);
         btEstoque.setFocusPainted(false);
         btEstoque.setFocusable(false);
@@ -119,7 +121,24 @@ public class FEstoque extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btEstoque);
-        btEstoque.setBounds(30, 150, 180, 30);
+        btEstoque.setBounds(30, 180, 180, 30);
+
+        btEstoque1.setBackground(new java.awt.Color(71, 37, 131));
+        btEstoque1.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        btEstoque1.setForeground(new java.awt.Color(255, 255, 255));
+        btEstoque1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
+        btEstoque1.setText("ESTOQUE");
+        btEstoque1.setBorderPainted(false);
+        btEstoque1.setFocusPainted(false);
+        btEstoque1.setFocusable(false);
+        btEstoque1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btEstoque1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEstoque1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btEstoque1);
+        btEstoque1.setBounds(30, 150, 180, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,6 +168,23 @@ public class FEstoque extends javax.swing.JFrame {
     private void btEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEstoqueActionPerformed
          try {
             deskTop.removeAll();
+            FRelatorioEstoque clComp;
+
+            clComp = FRelatorioEstoque.getInstance();
+            deskTop.add(clComp);
+            clComp.setVisible(true);
+            deskTop.add(jLabel1);
+            jLabel1.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
+        }
+    }//GEN-LAST:event_btEstoqueActionPerformed
+
+    private void btEstoque1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEstoque1ActionPerformed
+        try {
+            deskTop.removeAll();
             FControleEstoque clComp;
 
             clComp = FControleEstoque.getInstancia();
@@ -161,10 +197,11 @@ public class FEstoque extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_btEstoqueActionPerformed
+    }//GEN-LAST:event_btEstoque1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEstoque;
+    private javax.swing.JButton btEstoque1;
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBSair;
     private javax.swing.JLabel jLabel1;

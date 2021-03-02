@@ -492,7 +492,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "  ", "Tipo", "Nota Fiscal", "Data", "Cód.", "Material", "Cód. Fornecedor", "Fornecedor", "Metrag. Linear (m)", "Largura (m)", "Altura (m)", "Quantidade (u)", "Peso (Kg)", "Litros (L)", "Valor Unitário", "Cor", "Marca", "Data Validade", "Observacao"
+                "  ", "Tipo", "Nota Fiscal", "Data", "Cód.", "Material", "Cód. Fornecedor", "Fornecedor", "Metrag. Linear (m)", "Largura (m)", "Altura (m)", "Unidades (u)", "Peso (Kg)", "Litros (L)", "Valor Unitário", "Cor", "Marca", "Data Validade", "Observacao"
             }
         ) {
             Class[] types = new Class [] {
@@ -1329,7 +1329,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGap(422, 422, 422)
+                        .addGap(379, 379, 379)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1346,9 +1346,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 403, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 713, Short.MAX_VALUE))
+                .addGap(0, 711, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jInternalFrame1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1419,7 +1419,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             removeLinhas(tabelaEstoque);
             listaAbaixoMinimo = new ArrayList<Object[]>();
             listaAbaixoMinimo.clear();
-
+            
             DefaultTableModel model = (DefaultTableModel) tabelaEstoque.getModel();
 
             String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
@@ -1474,10 +1474,10 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             ResultSet rs = null;
 
             if (conexao == null || !ValidarConexao.isValidConexao(conexao, "postgres")) {
-                throw new Exception("Conexão com o banco inválida, tente conectar novamente!");
+              throw new Exception("Conexão com o banco inválida, tente conectar novamente!");
             }
-
-            rs = banco.executeQuery(sql);
+            
+              rs = banco.executeQuery(sql);
 
             if (rs != null) {
                 Object os[] = null;
@@ -1497,6 +1497,8 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         rs.getDouble("quantTotal") > 0 ? ValidarValor.getDouble(rs.getDouble("quantTotal")) : null,
                         rs.getBoolean("estoqueAbaixoMinimo")
                     };
+
+                    System.out.println("Teste, entrou aqui: " + rs.getLong("codMaterial"));
 
                     if ((Boolean) os[10] == true) {
                         listaAbaixoMinimo.add(os);
@@ -1685,8 +1687,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             limparTelaEntrada();
 
-            atualizarEstoque();
-
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar entrada. Erro: " + e);
@@ -1708,8 +1708,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
                     JOptionPane.showMessageDialog(null, "Cancelamento concluído!");
                     limparTelaEntrada();
-
-                    atualizarEstoque();
                 }
             }
         } catch (Exception e) {
@@ -2468,8 +2466,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             limparTelaSaida();
 
-            atualizarEstoque();
-
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar saída de material. Erro: " + e);
@@ -2488,12 +2484,13 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 if (op == 0) {
 
                     saida.setCancelada(true);
-                    saidaDao.salvar(saida);
+                    saidaDao.saveOrUpdatePojo(session, saida);
+
+                    session.getTransaction().commit();
+                    session.close();
 
                     JOptionPane.showMessageDialog(null, "Cancelamento concluído!");
                     limparTelaSaida();
-
-                    atualizarEstoque();
                 }
             }
         } catch (Exception e) {
