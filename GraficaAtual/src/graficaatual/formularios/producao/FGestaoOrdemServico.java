@@ -304,6 +304,11 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         jButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         jButton3.setText("Lista Setor");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel10.add(jButton3);
         jButton3.setBounds(760, 590, 180, 40);
 
@@ -436,8 +441,48 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            String sql = "select codbairro, descricao from bairro e order by e.descricao asc";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/ordemServico.jasper", "RELATÓRIO - ORDEM DE SERVIÇOS", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bairros! \n " + e);
+        }     
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+             String sql = " select orc.codorcamento as codorcamento ,"
+                    + " orc.prazoentrega  as prazoentrega,"
+                    + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome ,"
+                    + " orc.enderecosecundario as endereco,"
+                    + " prod.descricao as descricao ,"
+                    + " ord.equipeentrega || ' ' || equipe.nome as equipe,"
+                    + " equipe.telefone1 as fone1,"
+                    + " equipe.telefone2 as fone2,"
+                    + " equipe.placacarro as placa,"
+                    + " equipe.modelocarro as modelo,"
+                    + " pes2.nome as colabnome"
+                    + " from ordemservico as ord"
+                    + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
+                    + " left join produto as prod on (ord.produto = prod.codproduto)"
+                    + " left join cliente as cli on (cli.codcliente = orc.cliente)"
+                    + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
+                    + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
+                    + " left join colaborador as colab on (equipe.colaborador1 = colab.codcolaborador)"
+                    + " left join pessoa as pes2 on (colab.pessoa = pes2.codpessoa)"
+                    + " where ord.checkentrega and  ord.datafimentrega is null"
+                    + " order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao";
+
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/ordemServicoSetor.jasper", "RELATÓRIO - ORDEM DE SERVIÇOS POR SETOR", null, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bairros! \n " + e);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();

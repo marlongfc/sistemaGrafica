@@ -622,8 +622,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
             Map tx = new HashMap();
 
-            tx.put("TEXTOPADRAO", new TextoPadraoDAO().get(1).getTextoOrcamento());
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelOrcamentoSemValor.jasper", "Orçamento/Pedido", tx, sql);
+           
             
             if ((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0) < 0) {
                 throw new Exception(" Selecione um ordem de serviços ");
@@ -631,12 +630,18 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
 
             ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
             if(ordem != null){
+                    if(ordem.getImagem()!=null){
                     ByteArrayInputStream bis = new ByteArrayInputStream(ordem.getImagem(), 0, ordem.getImagem().length);
                     InputStream is;
                     is = (InputStream) bis;
                     tx.put("imagem1", is);
-            
+                    }else{
+                        System.out.println("Imagem NULL");
+                    }
             }
+            
+            tx.put("TEXTOPADRAO", new TextoPadraoDAO().get(1).getTextoOrcamento());
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelOrcamentoSemValor.jasper", "Orçamento/Pedido", tx, sql);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
