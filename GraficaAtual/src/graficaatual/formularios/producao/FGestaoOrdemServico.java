@@ -415,7 +415,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                         }
                         
                      //Cancela Orcamento
-                        orcamento.setSituacao(true);
+                        orcamento.setSituacao(false);
                         orcamento = new OrcamentoDAO().salvar(session, orcamento);
                         
                         session.getTransaction().commit();
@@ -442,7 +442,20 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            String sql = "select codbairro, descricao from bairro e order by e.descricao asc";
+            String sql = " select orc.codorcamento as codorcamento , "
+                    + " orc.prazoentrega  as prazoentrega,"
+                    + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome , "
+                    + " orc.enderecosecundario as endereco,"
+                    + " prod.descricao as descricao , "
+                    + " ord.equipeentrega || ' ' || equipe.nome as equipe"
+                    + " from ordemservico as ord "
+                    + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
+                    + " left join produto as prod on (ord.produto = prod.codproduto)"
+                    + " left join cliente as cli on (cli.codcliente = orc.cliente)"
+                    + " left join pessoa as pes on (cli.pessoa = pes.codpessoa) "
+                    + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
+                    + " where ord.checkentrega=FALSE and  ord.datafimentrega is null"
+                    + " order by orc.prazoentrega , orc.codorcamento , prod.descricao ";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/ordemServico.jasper", "RELATÓRIO - ORDEM DE SERVIÇOS", null, sql);
 
@@ -459,21 +472,14 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                     + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome ,"
                     + " orc.enderecosecundario as endereco,"
                     + " prod.descricao as descricao ,"
-                    + " ord.equipeentrega || ' ' || equipe.nome as equipe,"
-                    + " equipe.telefone1 as fone1,"
-                    + " equipe.telefone2 as fone2,"
-                    + " equipe.placacarro as placa,"
-                    + " equipe.modelocarro as modelo,"
-                    + " pes2.nome as colabnome"
+                    + " ord.checkcriacao as criacao,"
+                    + " ord.checkprojeto as projeto "
                     + " from ordemservico as ord"
                     + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
                     + " left join produto as prod on (ord.produto = prod.codproduto)"
                     + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                     + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
-                    + " left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)"
-                    + " left join colaborador as colab on (equipe.colaborador1 = colab.codcolaborador)"
-                    + " left join pessoa as pes2 on (colab.pessoa = pes2.codpessoa)"
-                    + " where ord.checkentrega and  ord.datafimentrega is null"
+                    + " where ord.checkentrega=false and  ord.datafimentrega is null"
                     + " order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/ordemServicoSetor.jasper", "RELATÓRIO - ORDEM DE SERVIÇOS POR SETOR", null, sql);

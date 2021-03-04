@@ -21,21 +21,14 @@
 orc.prazoentrega  as prazoentrega,
 (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome ,
 orc.enderecosecundario as endereco,
-prod.descricao as descricao ,
-ord.equipeentrega || ' ' || equipe.nome as equipe,
-equipe.telefone1 as fone1,
-equipe.telefone2 as fone2,
-equipe.placacarro as placa,
-equipe.modelocarro as modelo,
-pes2.nome as colabnome
+prod.descricao as descricao,
+ord.checkcriacao as criacao,
+ord.checkprojeto as projeto
 from ordemservico as ord
 inner join orcamento as orc on (orc.codorcamento = ord.orcamento )
 left join produto as prod on (ord.produto = prod.codproduto)
 left join cliente as cli on (cli.codcliente = orc.cliente)
 left join pessoa as pes on (cli.pessoa = pes.codpessoa)
-left join equipeentrega as equipe on (ord.equipeentrega = equipe.codequipeentrega)
-left join colaborador as colab on (equipe.colaborador1 = colab.codcolaborador)
-left join pessoa as pes2 on (colab.pessoa = pes2.codpessoa)
 where ord.checkentrega and  ord.datafimentrega is null
 order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]]>
 	</queryString>
@@ -44,309 +37,8 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 	<field name="nome" class="java.lang.String"/>
 	<field name="endereco" class="java.lang.String"/>
 	<field name="descricao" class="java.lang.String"/>
-	<field name="equipe" class="java.lang.String"/>
-	<field name="fone1" class="java.lang.String"/>
-	<field name="fone2" class="java.lang.String"/>
-	<field name="placa" class="java.lang.String"/>
-	<field name="modelo" class="java.lang.String"/>
-	<field name="colabnome" class="java.lang.String"/>
-	<variable name="totalEntregas" class="java.lang.Integer" resetType="Group" resetGroup="equipe" calculation="Count">
-		<variableExpression><![CDATA[$F{prazoentrega}]]></variableExpression>
-	</variable>
-	<variable name="totalgeral" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{equipe}]]></variableExpression>
-	</variable>
-	<group name="equipe">
-		<groupExpression><![CDATA[$F{equipe}]]></groupExpression>
-		<groupHeader>
-			<band height="64">
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="614" y="24" width="188" height="13" backcolor="#E6E7E9" uuid="f454bac6-1ebf-451e-87e5-f7d98cf1ebc8"/>
-					<box leftPadding="2">
-						<pen lineColor="#FFFFFF"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineColor="#FFFFFF"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{fone2}]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="82" y="11" width="426" height="13" backcolor="#E6E7E9" uuid="ce7162b0-25ad-44f9-bbb5-5405d081f7af"/>
-					<box leftPadding="2">
-						<pen lineColor="#FFFFFF"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineColor="#FFFFFF"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{equipe}]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="614" y="37" width="188" height="13" backcolor="#E6E7E9" uuid="a56c7240-db8c-47e1-9478-6b607208c1ce"/>
-					<box leftPadding="2">
-						<pen lineColor="#FFFFFF"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineColor="#FFFFFF"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{placa}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement mode="Opaque" x="508" y="11" width="106" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="9167a0a2-f3f7-4e8a-a91e-711e2ad15d36"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Telefone 1:]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="82" y="24" width="426" height="13" backcolor="#E6E7E9" uuid="b7f0b85b-61d8-4d81-bed5-ebca436307e4"/>
-					<box leftPadding="2">
-						<pen lineColor="#FFFFFF"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineColor="#FFFFFF"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{colabnome}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement mode="Opaque" x="1" y="11" width="81" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="05bf455f-dc29-4aa5-a995-de625e00e217"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Equipe:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="1" y="37" width="81" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="945fc3ae-79da-4756-920b-07e8cee3a8ef"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Modelo:]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="614" y="11" width="188" height="13" backcolor="#E6E7E9" uuid="1fc7a11a-5f47-4bfb-a7ad-a7087104d261"/>
-					<box leftPadding="2">
-						<pen lineColor="#FFFFFF"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineColor="#FFFFFF"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{fone1}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement mode="Opaque" x="508" y="37" width="106" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="ec792eee-0e94-4fc4-a624-12d707746e9a"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Placa:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="1" y="24" width="81" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="01b8ac74-3e2b-459b-bd9e-9ce969a358da"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Colaborador:]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="82" y="37" width="426" height="13" backcolor="#E6E7E9" uuid="4ee8ac66-812e-46bc-94a7-c2a6e3ff3187"/>
-					<box leftPadding="2">
-						<pen lineColor="#FFFFFF"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineColor="#FFFFFF"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement mode="Opaque" x="508" y="24" width="106" height="13" forecolor="#000000" backcolor="#E6E7E9" uuid="aacf55a8-4d10-46b5-a048-3549a3f02e9b"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Telefone 2:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="1" y="50" width="64" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="5133f248-58ce-484e-8b87-96689d050f81"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Pedido]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="145" y="50" width="206" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="a0536af4-372d-44d2-817c-d1b5f411a1a0"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Cliente]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="351" y="50" width="187" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="e0d39a06-1916-486f-892f-5bf0bb86a5b0"/>
-					<box rightPadding="2">
-						<pen lineWidth="0.5" lineColor="#660066"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Local de Entrega]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="688" y="50" width="114" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="aa59f427-c20d-4ad8-bb51-fda823bd7c45"/>
-					<box rightPadding="2">
-						<pen lineWidth="0.5" lineColor="#660066"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Equipe]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="64" y="50" width="81" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="250c817f-65dc-41cf-ac5e-d1f6c0e49786"/>
-					<box leftPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Data Entrega]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="538" y="50" width="150" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="e3519f77-c0d7-4183-940f-d8ce495120ef"/>
-					<box rightPadding="2">
-						<pen lineWidth="0.5" lineColor="#660066"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Produto]]></text>
-				</staticText>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="23">
-				<staticText>
-					<reportElement mode="Opaque" x="538" y="3" width="150" height="20" forecolor="#FFFFFF" backcolor="#4A2680" uuid="fe538e49-565c-4ce6-a97e-119d31820dc9"/>
-					<box rightPadding="2">
-						<pen lineWidth="0.5" lineColor="#660066"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Total de Entregas Equipe: ]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="true">
-					<reportElement mode="Opaque" x="688" y="3" width="114" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="b9173657-250a-4a1a-88b3-9191878d0836"/>
-					<box>
-						<pen lineColor="#FFFFFF"/>
-						<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-						<rightPen lineColor="#FFFFFF"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{totalEntregas}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupFooter>
-	</group>
+	<field name="criacao" class="java.lang.Boolean"/>
+	<field name="projeto" class="java.lang.Boolean"/>
 	<pageHeader>
 		<band height="65" splitType="Stretch">
 			<textField>
@@ -412,9 +104,11 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="17" splitType="Stretch">
+		<band height="102" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Opaque" x="0" y="0" width="64" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="262ba1af-e338-44c5-800e-6e8b8d9214af"/>
+				<reportElement mode="Opaque" x="1" y="34" width="64" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="262ba1af-e338-44c5-800e-6e8b8d9214af">
+					<printWhenExpression><![CDATA[$F{criacao}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -428,7 +122,9 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 				<textFieldExpression><![CDATA[$F{codorcamento}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement mode="Opaque" x="64" y="0" width="81" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="63431e25-70ea-41d4-8824-0bc465b9b4e5"/>
+				<reportElement mode="Opaque" x="64" y="34" width="81" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="63431e25-70ea-41d4-8824-0bc465b9b4e5">
+					<printWhenExpression><![CDATA[$F{criacao}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -442,7 +138,9 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 				<textFieldExpression><![CDATA[$F{prazoentrega}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Opaque" x="145" y="0" width="206" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="d03f9cd4-4cd0-4b4d-b66d-fcd7798b3a67"/>
+				<reportElement mode="Opaque" x="145" y="34" width="344" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="d03f9cd4-4cd0-4b4d-b66d-fcd7798b3a67">
+					<printWhenExpression><![CDATA[$F{criacao}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -456,21 +154,9 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Opaque" x="351" y="0" width="187" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="8397bdb8-b651-4134-b090-146d7c7f6b8c"/>
-				<box>
-					<pen lineColor="#FFFFFF"/>
-					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<rightPen lineColor="#FFFFFF"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement mode="Opaque" x="538" y="0" width="150" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="f0c6ed33-1b25-41d7-a6f0-7b0eff46c08d"/>
+				<reportElement mode="Opaque" x="488" y="85" width="313" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="f0c6ed33-1b25-41d7-a6f0-7b0eff46c08d">
+					<printWhenExpression><![CDATA[$F{projeto}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -483,8 +169,80 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="72" width="64" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="5133f248-58ce-484e-8b87-96689d050f81"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="144" y="72" width="344" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="a0536af4-372d-44d2-817c-d1b5f411a1a0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="72" width="81" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="250c817f-65dc-41cf-ac5e-d1f6c0e49786"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Entrega]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="488" y="72" width="313" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="e3519f77-c0d7-4183-940f-d8ce495120ef"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5" lineColor="#660066"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="6" width="555" height="14" forecolor="#4A2680" uuid="183626f1-7693-41ce-99e2-8b0df55326d8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO - CRIAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="555" height="14" forecolor="#4A2680" uuid="6030a02f-bf01-4c03-bab0-216df28376b7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO - PROJETO]]></text>
+			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement mode="Opaque" x="688" y="0" width="114" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="bee52dd1-2bc6-4723-b235-5300661fc22b"/>
+				<reportElement mode="Opaque" x="-1" y="85" width="64" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="2bfadd39-f2de-4c29-a5dc-5b2f85c2cbc2">
+					<printWhenExpression><![CDATA[$F{projeto}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -495,7 +253,111 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{equipe}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codorcamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="63" y="85" width="81" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="fbd6d6eb-cdd2-423e-bfcd-f7a2a25e4dfb">
+					<printWhenExpression><![CDATA[$F{projeto}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prazoentrega}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="144" y="85" width="344" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="9d809445-67e8-4013-a934-d116a1195b91">
+					<printWhenExpression><![CDATA[$F{projeto}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="21" width="64" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="732d6e95-00b0-4fd7-9631-94d5e8d6c62d"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="64" y="21" width="81" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="b71a8faa-597b-45d5-a6bd-d2b2c29ce276"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Entrega]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="145" y="21" width="344" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="6a7e8d02-71e4-4e61-af79-3c309910ac04"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="489" y="21" width="313" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="e03bc21c-ec3c-44f7-a3fc-6143084d0a48"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5" lineColor="#660066"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="489" y="34" width="313" height="13" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="252089bc-6d37-40fe-869f-084cc1c1a85f">
+					<printWhenExpression><![CDATA[$F{criacao}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -513,7 +375,7 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Entregas: ]]></text>
+				<text><![CDATA[Total de Ordnes: ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement mode="Opaque" x="151" y="0" width="114" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#E6E7E9" uuid="7b3f6018-4338-4845-b25f-b16b0185e01c"/>
@@ -527,7 +389,6 @@ order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao]
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{totalgeral}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
