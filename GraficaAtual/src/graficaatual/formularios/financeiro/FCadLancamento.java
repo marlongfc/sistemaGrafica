@@ -533,7 +533,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
                     session.getTransaction().commit();
                     session.close();
 
-                    JOptionPane.showMessageDialog(this, " Tarefa Finalizada com Sucesso! ");
+                    JOptionPane.showMessageDialog(this, " Lançamento Realizado com Sucesso! ");
 
                 } else {
                     throw new Exception("Favor inserir os dados de Caixa.");
