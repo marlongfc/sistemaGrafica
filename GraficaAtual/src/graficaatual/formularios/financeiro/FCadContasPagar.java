@@ -27,9 +27,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -58,6 +60,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     private List<Fornecedor> listaFornecedor = null;
     private List<PlanoDeContas> listaPlano = null;
     private List<FormaDePagamento> listaForma = null;
+    private List<Caixa> listaCaixa = null;
 
     public FCadContasPagar() {
         initComponents();
@@ -79,6 +82,12 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         comp4.addCol(0, "codForma", "Código", 50, Integer.class.getName());
         comp4.addCol(1, "descricao", "Forma de Pagamento", 200, String.class.getName());
         comp4.bind();
+
+        listaCaixa = ObservableCollections.observableList(new LinkedList<Caixa>());
+        Componentes comp5 = new Componentes(listaCaixa, false, codCaixa, descCaixa, this, jPanel18, descCaixa.getWidth(), 100);
+        comp5.addCol(0, "codCaixa", "Código", 50, Integer.class.getName());
+        comp5.addCol(1, "descricao", "Caixa", 200, String.class.getName());
+        comp5.bind();
 
         atualizatabela();
 
@@ -160,6 +169,11 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         jLabel85 = new javax.swing.JLabel();
         valorAPagar = new javax.swing.JTextField();
         dataPrevista = new javax.swing.JFormattedTextField();
+        try{
+            dataPrevista = new JFormattedTextField(
+                new MaskFormatter("##/##/####"));
+            ((JFormattedTextField) dataPrevista).setFocusLostBehavior(0);
+        }catch(Exception e){}
         jLabel86 = new javax.swing.JLabel();
         valorPago = new javax.swing.JTextField();
         jLabel87 = new javax.swing.JLabel();
@@ -173,7 +187,16 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         codFornecedor = new javax.swing.JTextField();
         jLabel105 = new javax.swing.JLabel();
         dataPagamento = new javax.swing.JFormattedTextField();
+        try{
+            dataPagamento = new JFormattedTextField(
+                new MaskFormatter("##/##/####"));
+            ((JFormattedTextField) dataPagamento).setFocusLostBehavior(0);
+        }catch(Exception e){}
         btSalvar1 = new javax.swing.JButton();
+        jLabel106 = new javax.swing.JLabel();
+        jLabel107 = new javax.swing.JLabel();
+        codCaixa = new javax.swing.JTextField();
+        descCaixa = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -453,7 +476,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descPlanoDeContas);
-        descPlanoDeContas.setBounds(110, 140, 930, 20);
+        descPlanoDeContas.setBounds(110, 140, 400, 20);
 
         jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel84.setText("Data Prevista");
@@ -561,6 +584,34 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         });
         jPanel18.add(btSalvar1);
         btSalvar1.setBounds(180, 340, 180, 40);
+
+        jLabel106.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel106.setText("Código");
+        jPanel18.add(jLabel106);
+        jLabel106.setBounds(530, 120, 80, 20);
+
+        jLabel107.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel107.setText("Caixa");
+        jPanel18.add(jLabel107);
+        jLabel107.setBounds(620, 120, 140, 20);
+
+        codCaixa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        codCaixa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codCaixaFocusLost(evt);
+            }
+        });
+        jPanel18.add(codCaixa);
+        codCaixa.setBounds(530, 140, 90, 20);
+
+        descCaixa.setBackground(new java.awt.Color(255, 255, 204));
+        descCaixa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                descCaixaKeyReleased(evt);
+            }
+        });
+        jPanel18.add(descCaixa);
+        descCaixa.setBounds(620, 140, 400, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -674,11 +725,24 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         try {
-            String sql = "SELECT codCaixa, descricao, valorInicial "
-                    + " FROM Caixa "
-                    + " ORDER BY descricao asc";
 
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelBancoLista.jasper", "RELATÓRIO DE CAIXAS", null, sql);
+            if (codPagar.getText().length() > 0) {
+
+                String sql = " SELECT c.codcontaspag, c.valorpagar, p.nome, f.descricao as forma  "
+                        + " FROM contasapagar c "
+                        + " INNER JOIN fornecedor fornec ON fornec.codfornecedor = c.fornecedor"
+                        + " INNER JOIN pessoa p ON p.codpessoa = fornec.pessoa "
+                        + " INNER JOIN formadepagamento f ON f.codforma = c.formapagamento "
+                        + " INNER JOIN caixa cx On cx.codcaixa = c.caixa "
+                        + " WHERE c.codcontaspag = " + codPagar.getText()
+                        + " ORDER BY p.nome asc";
+
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelContasPagarIndividual.jasper", "RELATÓRIO DE CONTAS A PAGAR INDIVIDUAL", null, sql);
+
+            } else {
+
+                throw new Exception("Por favor escolha uma conta a receber.");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -691,7 +755,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
             if (evt.getClickCount() > 1) {
                 codPagar.setText(tab.getValueAt(tab.getSelectedRow(), 0).toString());
                 caixa = caixaDAO.get(ValidarValor.getInt(codPagar.getText()));
-                carregaTudo();
+                codPagarFocusLost(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -703,6 +767,12 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         try {
             pagar = pagarDao.get(ValidarValor.getInt(codPagar.getText()));
             if (pagar != null) {
+
+                codFornecedor.setText(pagar.getFornecedor().getCodFornecedor() + "");
+                codPlanoDeContas.setText(pagar.getPlanoContas().getCodPlano() + "");
+                codFormaPagamento.setText(pagar.getFormaPagamento().getCodForma() + "");
+                codCaixa.setText(pagar.getCaixa().getCodCaixa() + "");
+
                 carregaTudo();
             } else {
                 limpaCampos();
@@ -809,17 +879,42 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_descFornecedorKeyPressed
 
+    private void codCaixaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCaixaFocusLost
+        try {
+            carregaCaixa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_codCaixaFocusLost
+
+    private void descCaixaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descCaixaKeyReleased
+        try {
+            List<Caixa> merged = caixaDAO.getList(12,
+                    "select e from Caixa e where  lower ( trim(e.descricao) ) like ?1 order by e.codCaixa",
+                    descCaixa.getText().trim().toLowerCase() + "%");
+            listaCaixa.clear();
+            listaCaixa.addAll(merged);
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao tentar pesquisar Caixa. Erro: " + e);
+        }
+    }//GEN-LAST:event_descCaixaKeyReleased
+
     private void limpaCampos() {
         codPagar.setText("");
+        codFornecedor.setText("");
         descFornecedor.setText("");
         codPlanoDeContas.setText("");
         descPlanoDeContas.setText("");
         codFormaPagamento.setText("");
         descFormaPagamento.setText("");
+        codCaixa.setText("");
+        descCaixa.setText("");
         dataPrevista.setText("");
         dataPagamento.setText("");
         valorAPagar.setText("");
         valorPago.setText("");
+        obs.setText("");
     }
 
     private void habilitaCampos(boolean b) {
@@ -854,10 +949,12 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         pagar.setFornecedor(fornecedor);
         pagar.setPlanoContas(plano);
         pagar.setFormaPagamento(forma);
+        pagar.setCaixa(caixa);
+        pagar.setObservacao(obs.getText());
         pagar.setDataPrevista(Data.getDateSQL(dataPrevista.getText()));
         pagar.setDataPagamento(Data.getDateSQL(dataPagamento.getText()));
-        pagar.setValorPago(ValidarValor.getDouble(valorAPagar.getText()));
-        pagar.setValorPagar(ValidarValor.getDouble(valorPago.getText()));
+        pagar.setValorPago(ValidarValor.getDouble(valorPago.getText()));
+        pagar.setValorPagar(ValidarValor.getDouble(valorAPagar.getText()));
 
     }
 
@@ -893,6 +990,17 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         }
     }
 
+    private void carregaCaixa() throws Exception {
+        caixa = caixaDAO.get(ValidarValor.getInt(codCaixa.getText()));
+        if (caixa != null) {
+            descCaixa.setText(caixa.getDescricao());
+
+        } else {
+            descCaixa.setText("");
+
+        }
+    }
+
     private void carregaForma() throws Exception {
         forma = formaDao.get(ValidarValor.getInt(codFormaPagamento.getText()));
         if (forma != null) {
@@ -908,6 +1016,14 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
         carregaFornecedor();
         carregaPlano();
         carregaForma();
+        carregaCaixa();
+
+        dataPrevista.setText(Data.getDate(pagar.getDataPrevista()));
+        dataPagamento.setText(Data.getDate(pagar.getDataPagamento()));
+        valorAPagar.setText(ValidarValor.getDouble(pagar.getValorPagar()));
+        valorPago.setText(ValidarValor.getDouble(pagar.getValorPago()));
+        obs.setText(pagar.getObservacao());
+
     }
 
     private void atualizatabela() {
@@ -943,12 +1059,14 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSair1;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSalvar1;
+    private javax.swing.JTextField codCaixa;
     private javax.swing.JTextField codFormaPagamento;
     private javax.swing.JTextField codFornecedor;
     private javax.swing.JTextField codPagar;
     private javax.swing.JTextField codPlanoDeContas;
     private javax.swing.JFormattedTextField dataPagamento;
     private javax.swing.JFormattedTextField dataPrevista;
+    private javax.swing.JTextField descCaixa;
     private javax.swing.JTextField descFormaPagamento;
     private javax.swing.JTextField descFornecedor;
     private javax.swing.JTextField descPlanoDeContas;
@@ -960,6 +1078,8 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel104;
     private javax.swing.JLabel jLabel105;
+    private javax.swing.JLabel jLabel106;
+    private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel82;

@@ -419,6 +419,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
             descConta.setText(lancamento.getPlanoConta().getDescricao());
             codCaixa.setText(lancamento.getCaixa().getCodCaixa().toString());
             descCaixa.setText(lancamento.getCaixa().getDescricao());
+            obs.setText(lancamento.getObservacao());
             if (lancamento.getValorEntrada() == null) {
                 valorEntrada.setText("0,00");
             } else {

@@ -484,7 +484,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel84.setText("Data Pagamento");
         jPanel18.add(jLabel84);
-        jLabel84.setBounds(680, 170, 100, 20);
+        jLabel84.setBounds(690, 170, 100, 20);
 
         jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel85.setText("Valor a Pagar");
@@ -501,7 +501,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jPanel18.add(valorAPagar);
         valorAPagar.setBounds(840, 190, 90, 20);
         jPanel18.add(dataPagamento);
-        dataPagamento.setBounds(680, 190, 130, 20);
+        dataPagamento.setBounds(690, 190, 130, 20);
 
         jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel86.setText("Valor Pago");
@@ -544,7 +544,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(descFormaPagamento);
-        descFormaPagamento.setBounds(110, 190, 400, 20);
+        descFormaPagamento.setBounds(110, 190, 430, 20);
 
         obs.setColumns(20);
         obs.setLineWrap(true);
@@ -562,9 +562,9 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jLabel104.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel104.setText("Data Prevista");
         jPanel18.add(jLabel104);
-        jLabel104.setBounds(530, 170, 100, 20);
+        jLabel104.setBounds(550, 170, 100, 20);
         jPanel18.add(dataPrevista);
-        dataPrevista.setBounds(530, 190, 120, 20);
+        dataPrevista.setBounds(550, 190, 120, 20);
 
         btConfPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/formasPagamento2.png"))); // NOI18N
         btConfPago.setText("Conf. Pag.");
@@ -580,6 +580,11 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         codReceber.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codReceberFocusLost(evt);
+            }
+        });
+        codReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codReceberActionPerformed(evt);
             }
         });
         jPanel18.add(codReceber);
@@ -671,7 +676,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
     private void carregaForma() throws Exception {
         forma = formaDao.get(ValidarValor.getInt(codFormaPagamento.getText()));
         if (forma != null) {
-            descFormaPagamento.setText(plano.getDescricao());
+            descFormaPagamento.setText(forma.getDescricao());
 
         } else {
             descFormaPagamento.setText("");
@@ -764,11 +769,24 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         try {
-            String sql = "SELECT codCaixa, descricao, valorInicial "
-                    + " FROM Caixa "
-                    + " ORDER BY descricao asc";
 
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelBancoLista.jasper", "RELATÓRIO DE CAIXAS", null, sql);
+            if (codReceber.getText().length() > 0) {
+
+                String sql = "SELECT c.codcontasrec, c.valorreceber, p.nome, f.descricao as forma, cx.descricao as caixa  "
+                        + " FROM contasareceber c"
+                        + " INNER JOIN cliente cli ON cli.codcliente = c.cliente"
+                        + " INNER JOIN pessoa p ON p.codpessoa = cli.pessoa "
+                        + " INNER JOIN formadepagamento f ON f.codforma = c.formapagamento "
+                        + " INNER JOIN caixa cx On cx.codcaixa = c.caixa "
+                        + " WHERE c.codcontasrec = " + codReceber.getText()
+                        + " ORDER BY p.nome asc";
+
+                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelContasReceberIndividual.jasper", "RELATÓRIO DE CONTAS A RECEBER INDIVIDUAL", null, sql);
+
+            } else {
+
+                throw new Exception("Por favor escolha uma conta a receber.");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -851,10 +869,10 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         try {
             receber = receberDao.get(ValidarValor.getInt(codReceber.getText()));
             if (receber != null) {
-                if(receber.getCaixa() == null){
+                if (receber.getCaixa() == null) {
                     throw new Exception("Por favor insira um caixa.");
                 }
-                
+
                 if (dataPagamento.getText().length() > 5) {
                     //Salvar a Data de Pagamento no a receber
                     receber.setDataPagamento(Data.getDateParse(dataPagamento.getText(), Data.FORMAT_DATA_BR));
@@ -949,6 +967,10 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_valorPagoFocusLost
 
+    private void codReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codReceberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codReceberActionPerformed
+
     private void limpaCampos() {
         codReceber.setText("");
         codCliente.setText("");
@@ -1007,6 +1029,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         receber.setPlanoContas(plano);
         receber.setFormaPagamento(forma);
         receber.setCaixa(caixa);
+        receber.setObservacao(obs.getText());
         receber.setDataPrevista(Data.getDateSQL(dataPrevista.getText()));
         receber.setDataPagamento(Data.getDateSQL(dataPagamento.getText()));
         receber.setValorReceber(ValidarValor.getDouble(valorAPagar.getText()));

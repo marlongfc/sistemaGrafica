@@ -105,11 +105,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         adicionarComboAcabamento();
 
         dataOrc.setText(Data.getDate(new Date()));
-        
+
         Date dataTeste = new Date();
 
-        Calendar cal = Calendar.getInstance(); 
-        cal.setTime(dataTeste ); 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dataTeste);
         cal.add(Calendar.DATE, 15);
         dataTeste = cal.getTime();
         validadeProposta.setText(Data.getDate(dataTeste));
@@ -234,16 +234,17 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         enderecoSecundario = new javax.swing.JTextField();
         jLabel114 = new javax.swing.JLabel();
         comboTipoEntrega = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btImprimir = new javax.swing.JButton();
         comboFormaPag = new javax.swing.JComboBox<>();
         validadeProposta = new javax.swing.JFormattedTextField();
         prazoEntrega = new javax.swing.JFormattedTextField();
-        jButton2 = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
         jLabel117 = new javax.swing.JLabel();
         descontoPorcentagem = new javax.swing.JTextField();
         btAprovar = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
         tabItens = new javax.swing.JTable();
+        btSair = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -636,24 +637,24 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         labelAprovado.setBounds(810, 100, 140, 30);
 
         btSalvarOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
-        btSalvarOrca.setText("Salvar Orçamento");
+        btSalvarOrca.setText("Salvar");
         btSalvarOrca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarOrcaActionPerformed(evt);
             }
         });
         jPanel18.add(btSalvarOrca);
-        btSalvarOrca.setBounds(220, 630, 170, 40);
+        btSalvarOrca.setBounds(190, 630, 150, 40);
 
         btNovoOrca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NOVO2.png"))); // NOI18N
-        btNovoOrca.setText("Novo Orçamento");
+        btNovoOrca.setText("Novo");
         btNovoOrca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoOrcaActionPerformed(evt);
             }
         });
         jPanel18.add(btNovoOrca);
-        btNovoOrca.setBounds(40, 630, 180, 40);
+        btNovoOrca.setBounds(40, 630, 150, 40);
 
         descontoMoeda.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         descontoMoeda.setText("0,00");
@@ -756,15 +757,15 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(jPanel2);
         jPanel2.setBounds(40, 490, 640, 130);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
-        jButton1.setText("Imprimir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        btImprimir.setText("Imprimir");
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btImprimirActionPerformed(evt);
             }
         });
-        jPanel18.add(jButton1);
-        jButton1.setBounds(570, 630, 180, 40);
+        jPanel18.add(btImprimir);
+        btImprimir.setBounds(640, 630, 170, 40);
 
         comboFormaPag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         jPanel18.add(comboFormaPag);
@@ -782,15 +783,15 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         jPanel18.add(prazoEntrega);
         prazoEntrega.setBounds(340, 150, 120, 20);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
-        jButton2.setText("Sair");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        btExcluir.setText("Deletar");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btExcluirActionPerformed(evt);
             }
         });
-        jPanel18.add(jButton2);
-        jButton2.setBounds(750, 630, 140, 40);
+        jPanel18.add(btExcluir);
+        btExcluir.setBounds(490, 630, 150, 40);
 
         jLabel117.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel117.setText("Desconto %");
@@ -808,14 +809,14 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         descontoPorcentagem.setBounds(800, 550, 100, 20);
 
         btAprovar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
-        btAprovar.setText("Aprovar Orçamento");
+        btAprovar.setText("Aprovar");
         btAprovar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAprovarActionPerformed(evt);
             }
         });
         jPanel18.add(btAprovar);
-        btAprovar.setBounds(390, 630, 180, 40);
+        btAprovar.setBounds(340, 630, 150, 40);
 
         tabItens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -860,6 +861,16 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         jPanel18.add(jScrollPane11);
         jScrollPane11.setBounds(40, 380, 910, 100);
+
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
+        btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
+        jPanel18.add(btSair);
+        btSair.setBounds(810, 630, 130, 40);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1048,30 +1059,30 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
             if (orcamento == null) {
                 orcamento = new Orcamento();
-                orcamento.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario()+" "+ ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+                orcamento.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                 orcamento.setDataCadastro(new Date());
             } else {
                 orcamento.setUsuarioAtualizacao(ControleAcesso.usuario.getCodUsuario() + " " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                 orcamento.setDataAtualizacao(new Date());
             }
             setOrcamento();
-            
+
             orcamento = orcamentoDAO.salvar(session, orcamento);
 
-            List<ItemOrcamento> listaItemExcluir  = itemOrcaDAO.getListOrcamento(orcamento.getCodOrcamento());
+            List<ItemOrcamento> listaItemExcluir = itemOrcaDAO.getListOrcamento(orcamento.getCodOrcamento());
             for (ItemOrcamento item : listaItemExcluir) {
-                    itemOrcamento = new ItemOrcamento();
-                    itemOrcamento = item;
-                    itemOrcaDAO.salvar(session, itemOrcamento);
+                itemOrcamento = new ItemOrcamento();
+                itemOrcamento = item;
+                itemOrcaDAO.salvar(session, itemOrcamento);
             }
-            
+
             for (ItemOrcamento item : listaItem) {
-                    itemOrcamento = new ItemOrcamento();
-                    itemOrcamento = item;
-                    itemOrcamento.setOrcamento(orcamento);
-                    itemOrcaDAO.salvar(session, itemOrcamento);
+                itemOrcamento = new ItemOrcamento();
+                itemOrcamento = item;
+                itemOrcamento.setOrcamento(orcamento);
+                itemOrcaDAO.salvar(session, itemOrcamento);
             }
-            
+
             session.getTransaction().commit();
             session.close();
             limpaCampos();
@@ -1125,12 +1136,12 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             if (quantidadeProduto.getText().equals("0,00") || ValidarValor.getDouble(quantidadeProduto.getText()) <= 0) {
                 throw new Exception(" Favor Informar a quantidade. ");
             }
-            
-            if (!checkCriacao.isSelected() && !checkSerralheria.isSelected() && 
-                    !checkProjeto.isSelected() && !checkPintura.isSelected() && 
-                    !checkPlotagem.isSelected() && !checkCaixariaAcabamento.isSelected() &&
-                    !checkImpDigital.isSelected() && !checkCorteRouter.isSelected() &&
-                    !checkAcabImpressao.isSelected() && !checkPloterRecorte.isSelected()) {
+
+            if (!checkCriacao.isSelected() && !checkSerralheria.isSelected()
+                    && !checkProjeto.isSelected() && !checkPintura.isSelected()
+                    && !checkPlotagem.isSelected() && !checkCaixariaAcabamento.isSelected()
+                    && !checkImpDigital.isSelected() && !checkCorteRouter.isSelected()
+                    && !checkAcabImpressao.isSelected() && !checkPloterRecorte.isSelected()) {
                 throw new Exception(" Selecione au menos um setor da produção. ");
             }
             Double vl, vt;
@@ -1140,7 +1151,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
             acabamento = acabamentoDao.get(comboAcabamento.getSelectedIndex() + 1);
 
-           
             itemOrcamento.setAcabamento(acabamento);
             itemOrcamento.setProduto(produto);
             itemOrcamento.setQuantProd(ValidarValor.getInt(quantidadeProduto.getText()));
@@ -1148,33 +1158,33 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             itemOrcamento.setUnidade(unidadeProduto.getText());
             itemOrcamento.setValorUnitario(vl);
             itemOrcamento.setValorTotalProduto(vt);
-            
+
             itemOrcamento.setCheckCriacao(checkCriacao.isSelected());
             itemOrcamento.setCheckSerralheria(checkSerralheria.isSelected());
-            
+
             itemOrcamento.setCheckProjeto(checkProjeto.isSelected());
             itemOrcamento.setCheckPintura(checkPintura.isSelected());
-            
+
             itemOrcamento.setCheckPlotagem(checkPlotagem.isSelected());
             itemOrcamento.setCheckCaixariaAcabamento(checkCaixariaAcabamento.isSelected());
-            
+
             itemOrcamento.setCheckImpressaoDigital(checkImpDigital.isSelected());
             itemOrcamento.setCheckRouter(checkCorteRouter.isSelected());
-            
+
             itemOrcamento.setCheckAcabamentoImp(checkAcabImpressao.isSelected());
             itemOrcamento.setCheckFaturamento(false);
-            
+
             itemOrcamento.setCheckPloterRecorte(checkPloterRecorte.isSelected());
             itemOrcamento.setCheckEntrega(false);
-                
+
             listaItem.add(itemOrcamento);
-            
+
             atualizatabelaItens();
             calculaPreçoTotalOrcamentoComDesconto();
             habilitaCamposProduto(false);
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, " Erro :"+e.getMessage());
+            JOptionPane.showMessageDialog(this, " Erro :" + e.getMessage());
         }
 
     }//GEN-LAST:event_btAdicionarItemActionPerformed
@@ -1235,7 +1245,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             if (evt.getClickCount() > 1) {
                 limpaCamposProduto();
                 itemOrcamento = listaItem.get(tabItens.getSelectedRow());
-                if(itemOrcamento != null){
+                if (itemOrcamento != null) {
                     carregaTabProd();
                     codProduto.setText(itemOrcamento.getProduto().getCodProduto() + "");
                     descProduto.setText(itemOrcamento.getProduto().getDescricao());
@@ -1284,7 +1294,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_codClienteFocusLost
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
         try {
 
             String sql = "select cli.codcliente, pes.nome, pes.cnpj, pes.inscestadual, pes.numcasa, pes.uf, pes.cep,pes.email, pes.telefone,"
@@ -1292,7 +1302,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     + " orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario, "
                     + " orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega, "
                     + " prod.codproduto, prod.descricao produto,item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario,aca.descricao acabamento, orc.valortotal,"
-                    + " case when orc.situacao = true then 'PEDIDO' " 
+                    + " case when orc.situacao = true then 'PEDIDO' "
                     + " ELSE 'ORÇAMENTO' end nomeRell "
                     + " FROM orcamento orc "
                     + " INNER JOIN cliente cli ON cli.codcliente = orc.cliente "
@@ -1315,7 +1325,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar Orçamento! \n " + e);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btImprimirActionPerformed
 
     private void descontoMoedaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoMoedaFocusLost
         if (ValidarValor.getDouble(descontoMoeda.getText()) > 0.00) {
@@ -1326,10 +1336,29 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_descontoMoedaFocusLost
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        instancia = null;
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        try {
+            orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
+            if (orcamento == null) {               
+                throw new Exception("Favor selecionar um orçamento válido.");
+            } else {
+                if (orcamento.getSituacao() == true) {
+                    throw new Exception("Orçamento Aprovado não pode ser excluído.");
+                } else {
+                    setOrcamento();
+                    orcamentoDAO.delete(orcamento);
+                    limpaCampos();
+                    JOptionPane.showMessageDialog(this, "Exclusão realizada com sucesso");
+                    descCliente.requestFocus();
+                }
+            }
+
+            atualizarTabelaOrcamento();
+        } catch (Exception e) {
+            e.printStackTrace();
+             JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     private void descontoPorcentagemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descontoPorcentagemFocusLost
         if (ValidarValor.getDouble(descontoPorcentagem.getText()) > 0.00) {
@@ -1407,7 +1436,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             }
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(this, "Erro: " + e.getMessage());
-        }      
+        }
     }//GEN-LAST:event_btAprovarActionPerformed
 
     private void dataOrcFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dataOrcFocusLost
@@ -1419,6 +1448,11 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         dataTeste = cal.getTime();
         validadeProposta.setText(Data.getDate(dataTeste));
     }//GEN-LAST:event_dataOrcFocusLost
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        instancia = null;
+        dispose();
+    }//GEN-LAST:event_btSairActionPerformed
 
     private void carregaOrcamento() throws Exception {
         orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
@@ -1436,7 +1470,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             telefoneSecundario.setText(orcamento.getTelefoneSecundario());
             enderecoSecundario.setText(orcamento.getEnderecoSecundario());
             comboTipoEntrega.setSelectedIndex(orcamento.getTipoDeEntrega());
-            comboFormaPag.setSelectedIndex((orcamento.getFormaPagamento().getCodForma()-1));
+            comboFormaPag.setSelectedIndex((orcamento.getFormaPagamento().getCodForma() - 1));
             descontoMoeda.setText(ValidarValor.getDouble(orcamento.getDescontoGeral()));
             descontoPorcentagem.setText(ValidarValor.getDouble(orcamento.getDescontoGeralPorcentagem()));
             totalGlobal = orcamento.getValorTotal();
@@ -1450,18 +1484,18 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     }
 
     private void carregaTudo() throws Exception {
-       orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
+        orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
         if (orcamento != null) {
             carregaOrcamento();
             carregaCliente();
             carregaProduto();
-           
+
             atualizaTabelaProdutoBusca();
             calculaPreçoTotalOrcamentoComDesconto();
 
             conferirSituacao();
-        }else{
-             throw new Exception("Favor inserir um Orçamento Válido.");
+        } else {
+            throw new Exception("Favor inserir um Orçamento Válido.");
         }
 
     }
@@ -1542,7 +1576,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
         atualizarTabelaOrcamento();
         atualizarTabelaPedido();
-     
 
     }
 
@@ -1595,7 +1628,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         checkCorteRouter.setEnabled(b);
         checkAcabImpressao.setEnabled(b);
         checkPloterRecorte.setEnabled(b);
-        
+
     }
 
     private void habilitacampos(boolean b) {
@@ -1621,7 +1654,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         btSalvarOrca.setEnabled(b);
 
     }
-
 
     private void setOrcamento() throws Exception {
 
@@ -1649,7 +1681,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         orcamento.setFormaPagamento(formaPagamentoDao.getByDescricao(comboFormaPag.getSelectedItem().toString()));
         orcamento.setDescontoGeral(ValidarValor.getDouble(descontoMoeda.getText()));
         orcamento.setDescontoGeralPorcentagem(ValidarValor.getDouble(descontoPorcentagem.getText()));
-        orcamento.setValorTotal(ValidarValor.getDouble(totalGeralOrc.getText()));  
+        orcamento.setValorTotal(ValidarValor.getDouble(totalGeralOrc.getText()));
 
     }
 
@@ -1661,7 +1693,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 Object o[] = new Object[]{
                     null,
                     p.getQuantProd(),
-                    p.getProduto().getCodProduto()+"",
+                    p.getProduto().getCodProduto() + "",
                     p.getProduto().getDescricao(),
                     p.getMedida(),
                     p.getUnidade(),
@@ -1806,7 +1838,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
         try {
             listaItem = new ArrayList<ItemOrcamento>();
             listaItem = itemOrcaDAO.getListOrcamento(ValidarValor.getInt(codOrcamento.getText()));
-          
+
             DefaultTableModel model = (DefaultTableModel) tabItens.getModel();
             removeLinhas(tabItens);
             for (int i = 0; i < listaItem.size(); i++) {
@@ -1835,7 +1867,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     private void limpaTabelaProdutoBusca() {
         try {
-            
+
             DefaultTableModel model = (DefaultTableModel) tabItens.getModel();
             removeLinhas(tabItens);
 
@@ -1849,9 +1881,12 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionarItem;
     private javax.swing.JButton btAprovar;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btImprimir;
     private javax.swing.JButton btNovoItem;
     private javax.swing.JButton btNovoOrca;
     private javax.swing.JButton btRemoverItem;
+    private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvarOrca;
     private javax.swing.JCheckBox checkAcabImpressao;
     private javax.swing.JCheckBox checkCaixariaAcabamento;
@@ -1877,8 +1912,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descontoMoeda;
     private javax.swing.JTextField descontoPorcentagem;
     private javax.swing.JTextField enderecoSecundario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
@@ -1972,9 +2005,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 try {
                     orcamento.setSituacao(true);
                     orcamento = orcamentoDAO.salvar(session, orcamento);
-                    System.out.println("fffffffffff "+ listaItem.size());
+                    System.out.println("fffffffffff " + listaItem.size());
                     Boolean aux = new OrdemServicoDAO().gerarOrdemServico(listaItem, session);
-                    
+
                     if (aux == null || aux == false) {
                         throw new Exception(" Erro ao gerar Ordem(ns) de Serviço(s). ");
                     } else {
