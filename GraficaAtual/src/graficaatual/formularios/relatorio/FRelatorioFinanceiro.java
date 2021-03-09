@@ -17,6 +17,7 @@ import graficaatual.daos.financeiro.FormaDePagamentoDAO;
 import graficaatual.daos.financeiro.LancamentoCaixaDAO;
 import graficaatual.daos.financeiro.SangriaDAO;
 import graficaatual.pesq.cadastro.CnvCadastroCliente;
+import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import javax.swing.JFormattedTextField;
@@ -78,14 +79,24 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
         }
         jLabel2 = new javax.swing.JLabel();
         jCRelatorio = new javax.swing.JComboBox<>();
-        jRIndividual = new javax.swing.JRadioButton();
-        jRLista = new javax.swing.JRadioButton();
-        codFina = new javax.swing.JTextField();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        codInicial = new javax.swing.JTextField();
         imprimir = new javax.swing.JButton();
         sair = new javax.swing.JButton();
+        dataInicial = new javax.swing.JFormattedTextField();
+        try{
+            dataInicial = new JFormattedTextField(
+                new MaskFormatter("##/##/####"));
+            ((JFormattedTextField) dataInicial).setFocusLostBehavior(0);
+        }catch(Exception e){}
+        jLabel104 = new javax.swing.JLabel();
+        jLabel105 = new javax.swing.JLabel();
+        dataFinal = new javax.swing.JFormattedTextField();
+        try{
+            dataFinal = new JFormattedTextField(
+                new MaskFormatter("##/##/####"));
+            ((JFormattedTextField) dataFinal).setFocusLostBehavior(0);
+        }catch(Exception e){}
+        analitico = new javax.swing.JRadioButton();
+        sintetico = new javax.swing.JRadioButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -110,51 +121,9 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
         jLabel2.setBounds(50, 0, 970, 70);
 
         jCRelatorio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Cadastro", "Lançamento Caixa", "Sangria Caixa", "Bancos", "Formas de Pagamento" }));
+        jCRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Cadastro", "Contas a Receber", "Contas a Pagar" }));
         jPanel10.add(jCRelatorio);
         jCRelatorio.setBounds(60, 90, 430, 30);
-
-        jRIndividual.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRIndividual);
-        jRIndividual.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jRIndividual.setText("Relatório Individual");
-        jRIndividual.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jRIndividualStateChanged(evt);
-            }
-        });
-        jPanel10.add(jRIndividual);
-        jRIndividual.setBounds(60, 130, 210, 23);
-
-        jRLista.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRLista);
-        jRLista.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jRLista.setSelected(true);
-        jRLista.setText("Lista do Item Selecionado");
-        jPanel10.add(jRLista);
-        jRLista.setBounds(280, 130, 210, 23);
-        jPanel10.add(codFina);
-        codFina.setBounds(290, 190, 200, 20);
-
-        jLabel72.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel72.setText("Código Final");
-        jPanel10.add(jLabel72);
-        jLabel72.setBounds(290, 170, 100, 20);
-
-        jLabel73.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel73.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel73.setText("Código Inicial");
-        jPanel10.add(jLabel73);
-        jLabel73.setBounds(60, 170, 100, 20);
-
-        codInicial.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                codInicialFocusLost(evt);
-            }
-        });
-        jPanel10.add(codInicial);
-        codInicial.setBounds(60, 190, 170, 20);
 
         imprimir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
@@ -177,6 +146,45 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
         });
         jPanel10.add(sair);
         sair.setBounds(310, 320, 250, 40);
+        jPanel10.add(dataInicial);
+        dataInicial.setBounds(60, 160, 100, 20);
+
+        jLabel104.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel104.setText("Data Inicial");
+        jPanel10.add(jLabel104);
+        jLabel104.setBounds(60, 140, 100, 20);
+
+        jLabel105.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel105.setText("Data Final");
+        jPanel10.add(jLabel105);
+        jLabel105.setBounds(170, 140, 100, 20);
+        jPanel10.add(dataFinal);
+        dataFinal.setBounds(170, 160, 120, 20);
+
+        buttonGroup1.add(analitico);
+        analitico.setSelected(true);
+        analitico.setText("Analítico");
+        analitico.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                analiticoAncestorMoved(evt);
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        analitico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analiticoActionPerformed(evt);
+            }
+        });
+        jPanel10.add(analitico);
+        analitico.setBounds(300, 160, 93, 23);
+
+        buttonGroup1.add(sintetico);
+        sintetico.setText("Sintético");
+        jPanel10.add(sintetico);
+        sintetico.setBounds(400, 160, 90, 23);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -199,77 +207,116 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_sairActionPerformed
 
-    private void jRIndividualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRIndividualStateChanged
-        if (jRIndividual.isSelected()) {
-            codInicial.setText("0");
-            codFina.setText("0");
-            codFina.setEnabled(false);
-        } else {
-            codInicial.setText("0");
-            codFina.setText("9999999");
-            codFina.setEnabled(true);
-        }
-    }//GEN-LAST:event_jRIndividualStateChanged
+    private void analiticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analiticoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_analiticoActionPerformed
 
-    private void codInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codInicialFocusLost
-        if (jRIndividual.isSelected()) {
-            codFina.setText(codInicial.getText());
-        }
-    }//GEN-LAST:event_codInicialFocusLost
+    private void analiticoAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_analiticoAncestorMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_analiticoAncestorMoved
 
     private void limparTela() {
 
         jCRelatorio.setSelectedIndex(0);
-        jRIndividual.setSelected(true);
-        codInicial.setText("");
-        codFina.setText("");
-        jRLista.setEnabled(true);
-        codFina.setEnabled(true);
+        dataInicial.setText("");
+        dataFinal.setText("");
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton analitico;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextField codFina;
-    private javax.swing.JTextField codInicial;
+    private javax.swing.JFormattedTextField dataFinal;
+    private javax.swing.JFormattedTextField dataInicial;
     private javax.swing.JButton imprimir;
     private javax.swing.JComboBox<String> jCRelatorio;
+    private javax.swing.JLabel jLabel104;
+    private javax.swing.JLabel jLabel105;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JRadioButton jRIndividual;
-    private javax.swing.JRadioButton jRLista;
     private javax.swing.JButton sair;
+    private javax.swing.JRadioButton sintetico;
     // End of variables declaration//GEN-END:variables
 
     private void imprimir() throws Exception {
-        String sql = "";
-        switch (jCRelatorio.getSelectedIndex()) {
+        try {
 
-            //Ordem     
-            //1-Lançamento Caixa, 2- Sangria Caixa, 3- Bancos
-            //4- Formas de Pagamento 
-            case 1:
-                sql = new LancamentoCaixaDAO().getSqlLista(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelLancamentoCaixaLista.jasper", "Relatório de Lista de Lançamentos Caixa", null, sql);
-                break;
-            case 2:
-                sql = new SangriaDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelSangriasLista.jasper", "Relatório de Lista de Sangrias no Caixa", null, sql);
-                break;
-            case 3:
-                sql = new BancoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelBancoLista.jasper", "Relatório de Lista de Bancos", null, sql);
-                break;
-            case 4:
-                sql = new FormaDePagamentoDAO().getSqlList(ValidarValor.getInt(codInicial.getText()), ValidarValor.getInt(codFina.getText()));
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelFormaPagamento.jasper", "Relatório de Formas de Pagamento", null, sql);
-                break;
-            default:
-                JOptionPane.showMessageDialog(this, "Erro na seleção");
-                break;
+            String sql = "";
+            switch (jCRelatorio.getSelectedIndex()) {
+                //Ordem     
+                //1-Receber 2-Pagar
+                case 1:
+
+                    if (analitico.isSelected()) {
+
+                        sql = " SELECT c.codcontasrec, c.valorreceber, c.valorrecebido, p.nome, f.codforma, f.descricao as forma "
+                                + " FROM contasareceber c"
+                                + " INNER JOIN cliente cli ON cli.codcliente = c.cliente "
+                                + " INNER JOIN pessoa p ON p.codpessoa = cli.pessoa "
+                                + " INNER JOIN formadepagamento f ON f.codforma = c.formapagamento "
+                                + " WHERE c.dataprevista BETWEEN '" + Data.getDateConvertFormat(dataInicial.getText(), Data.FORMAT_DATA) + "' AND '" + Data.getDateConvertFormat(dataFinal.getText(), Data.FORMAT_DATA) + "' "
+                                + " ORDER BY p.nome asc";
+
+                        new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelContasReceberAgrupamento.jasper", "RELATÓRIO DE CONTAS A RECEBER DETALHADO", null, sql);
+
+                    } else if (sintetico.isSelected()) {
+                        sql = " SELECT c.codcontasrec, c.valorreceber, c.valorrecebido, p.nome, f.descricao as forma "
+                                + " FROM contasareceber c"
+                                + " INNER JOIN cliente cli ON cli.codcliente = c.cliente "
+                                + " INNER JOIN pessoa p ON p.codpessoa = cli.pessoa "
+                                + " INNER JOIN formadepagamento f ON f.codforma = c.formapagamento "
+                                + " WHERE c.dataprevista BETWEEN '" + Data.getDateConvertFormat(dataInicial.getText(), Data.FORMAT_DATA) + "' AND '" + Data.getDateConvertFormat(dataFinal.getText(), Data.FORMAT_DATA) + "' "
+                                + " ORDER BY p.nome asc";
+
+                        new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelContasReceberLista.jasper", "RELATÓRIO DE CONTAS A RECEBER LISTA", null, sql);
+
+                    } else {
+
+                    }
+
+                    break;
+                case 2:
+
+                    if (analitico.isSelected()) {
+
+                        sql = " SELECT c.codcontaspag, c.valorpagar, p.nome, f.codforma, f.descricao as forma  "
+                                + " FROM contasapagar c "
+                                + " INNER JOIN fornecedor fornec ON fornec.codfornecedor = c.fornecedor "
+                                + " INNER JOIN pessoa p ON p.codpessoa = fornec.pessoa "
+                                + " INNER JOIN formadepagamento f ON f.codforma = c.formapagamento "
+                                + " WHERE c.dataprevista BETWEEN '" + Data.getDateConvertFormat(dataInicial.getText(), Data.FORMAT_DATA) + "' AND '" + Data.getDateConvertFormat(dataFinal.getText(), Data.FORMAT_DATA) + "' "
+                                + " ORDER BY p.nome asc";
+
+                        new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelContasPagarAgrupamento.jasper", "RELATÓRIO DE CONTAS A PAGAR DETALHADO", null, sql);
+
+                    } else if (sintetico.isSelected()) {
+                        sql = " SELECT c.codcontaspag, c.valorpagar, p.nome, f.descricao as forma "
+                                + " FROM contasapagar c "
+                                + " INNER JOIN fornecedor fornec ON fornec.codfornecedor = c.fornecedor "
+                                + " INNER JOIN pessoa p ON p.codpessoa = fornec.pessoa "
+                                + " INNER JOIN formadepagamento f ON f.codforma = c.formapagamento "
+                                + " WHERE c.dataprevista BETWEEN '" + Data.getDateConvertFormat(dataInicial.getText(), Data.FORMAT_DATA) + "' AND '" + Data.getDateConvertFormat(dataFinal.getText(), Data.FORMAT_DATA) + "' "
+                                + " ORDER BY p.nome asc";
+
+                        new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelContasPagarLista.jasper", "RELATÓRIO DE CONTAS A PAGAR LISTA", null, sql);
+
+                    } else {
+
+                    }
+
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(this, "Erro na seleção");
+                    break;
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bancos! \n " + e);
         }
+
     }
 
 }

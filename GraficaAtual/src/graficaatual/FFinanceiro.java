@@ -11,6 +11,7 @@ import graficaatual.formularios.financeiro.FCadBanco;
 import graficaatual.formularios.financeiro.FCadCaixa;
 import graficaatual.formularios.financeiro.FCadCentroDeCustos;
 import graficaatual.formularios.financeiro.FCadContasAReceber;
+import graficaatual.formularios.financeiro.FCadContasPagar;
 import graficaatual.formularios.financeiro.FCadFormaDePagamento;
 import graficaatual.formularios.financeiro.FCadLancamento;
 import graficaatual.formularios.financeiro.FCadPlanoDeContas;
@@ -229,7 +230,6 @@ public class FFinanceiro extends javax.swing.JFrame {
         jBContasPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/tudofinanceiro2.png"))); // NOI18N
         jBContasPagar.setText("Contas à Pagar");
         jBContasPagar.setBorderPainted(false);
-        jBContasPagar.setEnabled(false);
         jBContasPagar.setFocusPainted(false);
         jBContasPagar.setFocusable(false);
         jBContasPagar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -405,9 +405,9 @@ public class FFinanceiro extends javax.swing.JFrame {
     private void jBContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBContasPagarActionPerformed
         try {
             deskTop.removeAll();
-            FCadContasAReceber clComp;
+            FCadContasPagar clComp;
 
-            clComp = FCadContasAReceber.getInstancia();
+            clComp = FCadContasPagar.getInstancia();
             deskTop.add(clComp);
             clComp.setVisible(true);
             deskTop.add(jLabel1);

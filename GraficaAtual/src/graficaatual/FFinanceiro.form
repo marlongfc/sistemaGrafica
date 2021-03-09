@@ -329,7 +329,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Contas &#xe0; Pagar"/>
             <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>

@@ -337,6 +337,11 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         cpf.setBounds(640, 90, 250, 20);
 
         nome.setBackground(new java.awt.Color(255, 255, 204));
+        nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeActionPerformed(evt);
+            }
+        });
         nome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nomeKeyReleased(evt);
@@ -870,7 +875,7 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
         logradouro= null;
         limpaCamposColaborador();
         habilitaCampos(true);
-        cpf.requestFocus();
+        nome.requestFocus();
     }//GEN-LAST:event_novoActionPerformed
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
@@ -1021,6 +1026,10 @@ public class FCadColaborador extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_inativar1ActionPerformed
+
+    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeActionPerformed
 
       
     private void limpaCamposPessoa() {

@@ -648,6 +648,7 @@ public class FCadCidade extends javax.swing.JInternalFrame {
 
                 codCidade.setText("");
                 descCidade.setText("");
+                codIbge.setText("");
                 atualizarTabela();
 
             } 

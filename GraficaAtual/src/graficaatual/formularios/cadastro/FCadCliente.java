@@ -645,6 +645,7 @@ public class FCadCliente extends javax.swing.JInternalFrame {
         ativo.setBackground(new java.awt.Color(255, 0, 51));
         ativo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ativo.setForeground(new java.awt.Color(255, 255, 255));
+        ativo.setSelected(true);
         ativo.setText("Ativo");
         ativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ativo.addChangeListener(new javax.swing.event.ChangeListener() {
