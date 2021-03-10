@@ -5,10 +5,12 @@
  */
 package graficaatual.formularios.producao;
 
+import graficaatual.daos.estoque.SaidaEstoqueDAO;
 import graficaatual.daos.pedido.ItemOrcamentoDAO;
 import graficaatual.daos.pedido.OrcamentoDAO;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
+import graficaatual.entidades.estoque.SaidaEstoque;
 import graficaatual.entidades.pedido.ItemOrcamento;
 import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.producao.OrdemServico;
@@ -46,9 +48,11 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     //Entidades para trabalhar
     private OrdemServico ordem = null;
     private OrdemServicoDAO ordemDao = new OrdemServicoDAO();
-    
+
     private ItemOrcamentoDAO itemDao = new ItemOrcamentoDAO();
     private OrcamentoDAO orcamentoDao = new OrcamentoDAO();
+
+    private SaidaEstoqueDAO saidaDao = new SaidaEstoqueDAO();
 
     DefaultTableCellRenderer cellRender = new DefaultTableCellRenderer();
 
@@ -341,7 +345,17 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             ordem.setCheckEntrega(true);
             ordem.setCheckFaturamento(true);
             ordem = ordemDao.addOrdem(ordem);
-            
+
+            //Busca as saidas de estoque geradas pelo orçamento e retira o aprovisionamento
+            String sql = "Select e from saidaEstoque e where e.numeroPedido=" + ordem.getOrcamento().getCodOrcamento();
+
+            List<SaidaEstoque> listaSaida = saidaDao.getList(sql);
+            for (SaidaEstoque s : listaSaida) {
+                s.setAprovisionada(false);
+                s.setObservacao("");
+                saidaDao.salvar(s);
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
         }
@@ -398,40 +412,50 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
             if (ordem != null) {
                 Orcamento orcamento = ordem.getOrcamento();
-                if(orcamento !=null){
+                if (orcamento != null) {
                     //Delete Itens OrdemDeSeviço
-                    List<ItemOrcamento> listaItenOrcamento = itemDao.getListOrcamento(session,orcamento.getCodOrcamento());
-                    if(listaItenOrcamento !=null && !listaItenOrcamento.isEmpty()){
-                        for(ItemOrcamento item : listaItenOrcamento){
+                    List<ItemOrcamento> listaItenOrcamento = itemDao.getListOrcamento(session, orcamento.getCodOrcamento());
+                    if (listaItenOrcamento != null && !listaItenOrcamento.isEmpty()) {
+                        for (ItemOrcamento item : listaItenOrcamento) {
                             itemDao.deletePojo(session, item);
+
+                            //Busca as saidas de estoque geradas pelo orçamento e retira o aprovisionamento
+                            String sql = "Select e from saidaEstoque e where e.numeroPedido=" + item.getOrcamento().getCodOrcamento();
+
+                            List<SaidaEstoque> listaSaida = saidaDao.getList(sql);
+                            for (SaidaEstoque s : listaSaida) {
+                                s.setAprovisionada(false);
+                                s.setCancelada(true);
+                                s.setObservacao("Pedido Cancelado.");
+                                saidaDao.salvar(s);
+                            }
                         }
-                    
-                     //Delete Ordens de Serviço
-                        List<OrdemServico> listaOrdens = ordemDao.getListByOrcamento(orcamento.getCodOrcamento(),session);
-                        if(listaOrdens != null && !listaOrdens.isEmpty()){
-                                for(OrdemServico o : listaOrdens ){
-                                    ordemDao.deletePojo(session, o);
-                                }
+
+                        //Delete Ordens de Serviço
+                        List<OrdemServico> listaOrdens = ordemDao.getListByOrcamento(orcamento.getCodOrcamento(), session);
+                        if (listaOrdens != null && !listaOrdens.isEmpty()) {
+                            for (OrdemServico o : listaOrdens) {
+                                ordemDao.deletePojo(session, o);
+                            }
                         }
-                        
-                     //Cancela Orcamento
+
+                        //Cancela Orcamento
                         orcamento.setSituacao(false);
                         orcamento = new OrcamentoDAO().salvar(session, orcamento);
-                        
+
                         session.getTransaction().commit();
                         session.close();
                         pesquisarFazer();
                         pesquisarConcluido();
-                        
-                          JOptionPane.showMessageDialog(this, " Cancelado com Sucesso! ");
+
+                        JOptionPane.showMessageDialog(this, " Cancelado com Sucesso! ");
                     }
-                }else{
+                } else {
                     throw new Exception("Problema na Ordem, sem Pedido Vinculado.");
                 }
             } else {
                 throw new Exception("Selecione um Ordem/Pedido");
             }
-
 
         } catch (Exception ex) {
             session.getTransaction().rollback();
@@ -462,12 +486,12 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bairros! \n " + e);
-        }     
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-             String sql = " select orc.codorcamento as codorcamento ,"
+            String sql = " select orc.codorcamento as codorcamento ,"
                     + " orc.prazoentrega  as prazoentrega,"
                     + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome ,"
                     + " orc.enderecosecundario as endereco,"
@@ -573,20 +597,19 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                     rs.getInt("codorcamento"),
                     rs.getString("coditemorca"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
-                    (rs.getBoolean("checkcriacao")?(rs.getDate("datafimcriacao") !=null ? "<html>"+Data.getDateParse(rs.getDate("datafimcriacao"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimcriacao")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkprojeto")?(rs.getDate("datafimprojeto") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimprojeto"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimprojeto")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkplotagem")?(rs.getDate("datafimplotagem") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimplotagem"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimplotagem")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkimpressaodigital")?(rs.getDate("datafimimpressaodigital") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimimpressaodigital"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimimpressaodigital")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkacabamentoimp")?(rs.getDate("datafimacabamentoimp") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimacabamentoimp"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimacabamentoimp")+"</html>" : "À Fazer") : ""),
-                    (rs.getBoolean("checkploterrecorte")?(rs.getDate("datafimploterrecorte") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimploterrecorte"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimploterrecorte")+"</html>" : "À Fazer"): ""),
-                    (rs.getBoolean("checkserralheria")?(rs.getDate("datafimserralheria") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimserralheria"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimserralheria")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkpintura")?(rs.getDate("datafimpintura") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimpintura"), Data.FORMAT_DATA_BR)+"<br>"+rs.getString("usuariofimpintura")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkcaixariaacabamento")?(rs.getDate("datafimcaixariaacabamento") !=null ? "<html>"+Data.getDateParse(rs.getDate("datafimcaixariaacabamento"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimcaixariaacabamento")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkrouter")?(rs.getDate("datafimrouter") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimrouter"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimrouter")+"</html>": "À Fazer") : ""),
-                };
+                    (rs.getBoolean("checkcriacao") ? (rs.getDate("datafimcriacao") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimcriacao"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimcriacao") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkprojeto") ? (rs.getDate("datafimprojeto") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimprojeto"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimprojeto") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkplotagem") ? (rs.getDate("datafimplotagem") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimplotagem"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimplotagem") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkimpressaodigital") ? (rs.getDate("datafimimpressaodigital") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimimpressaodigital"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimimpressaodigital") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkacabamentoimp") ? (rs.getDate("datafimacabamentoimp") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimacabamentoimp"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimacabamentoimp") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkploterrecorte") ? (rs.getDate("datafimploterrecorte") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimploterrecorte"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimploterrecorte") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkserralheria") ? (rs.getDate("datafimserralheria") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimserralheria"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimserralheria") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkpintura") ? (rs.getDate("datafimpintura") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimpintura"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimpintura") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkcaixariaacabamento") ? (rs.getDate("datafimcaixariaacabamento") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimcaixariaacabamento"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimcaixariaacabamento") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkrouter") ? (rs.getDate("datafimrouter") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimrouter"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimrouter") + "</html>" : "À Fazer") : ""),};
                 model.addRow(o);
             }
-            int[] posicoes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13};
+            int[] posicoes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
             alinhaTableCentro(tabOrdensFazer, posicoes);
         } catch (Exception e) {
             e.printStackTrace();
@@ -636,29 +659,28 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             sql = sql + " order by orc.prazoentrega desc, orc.codorcamento ";
             //System.out.println(" uuuuuuuuuuuu "+sql);
             ResultSet rs = bancoConsulta.executeQuery(sql);
-             while (rs.next()) {
+            while (rs.next()) {
                 Object[] o = new Object[]{
                     rs.getInt("codordemservico"),
                     rs.getInt("codorcamento"),
                     rs.getString("coditemorca"),
                     Data.getDateParse(rs.getDate("prazoentrega"), Data.FORMAT_DATA_BR),
-                    (rs.getBoolean("checkcriacao")?(rs.getDate("datafimcriacao") !=null ? "<html>"+Data.getDateParse(rs.getDate("datafimcriacao"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimcriacao")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkprojeto")?(rs.getDate("datafimprojeto") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimprojeto"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimprojeto")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkplotagem")?(rs.getDate("datafimplotagem") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimplotagem"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimplotagem")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkimpressaodigital")?(rs.getDate("datafimimpressaodigital") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimimpressaodigital"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimimpressaodigital")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkacabamentoimp")?(rs.getDate("datafimacabamentoimp") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimacabamentoimp"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimacabamentoimp")+"</html>" : "À Fazer") : ""),
-                    (rs.getBoolean("checkploterrecorte")?(rs.getDate("datafimploterrecorte") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimploterrecorte"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimploterrecorte")+"</html>" : "À Fazer"): ""),
-                    (rs.getBoolean("checkserralheria")?(rs.getDate("datafimserralheria") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimserralheria"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimserralheria")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkpintura")?(rs.getDate("datafimpintura") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimpintura"), Data.FORMAT_DATA_BR)+"<br>"+rs.getString("usuariofimpintura")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkcaixariaacabamento")?(rs.getDate("datafimcaixariaacabamento") !=null ? "<html>"+Data.getDateParse(rs.getDate("datafimcaixariaacabamento"), Data.FORMAT_DATA_BR)+"<br>"+ rs.getString("usuariofimcaixariaacabamento")+"</html>": "À Fazer") : ""),
-                    (rs.getBoolean("checkrouter")?(rs.getDate("datafimrouter") !=null ?  "<html>"+Data.getDateParse(rs.getDate("datafimrouter"), Data.FORMAT_DATA_BR) +"<br>"+ rs.getString("usuariofimrouter")+"</html>": "À Fazer") : ""),
-                };
+                    (rs.getBoolean("checkcriacao") ? (rs.getDate("datafimcriacao") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimcriacao"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimcriacao") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkprojeto") ? (rs.getDate("datafimprojeto") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimprojeto"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimprojeto") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkplotagem") ? (rs.getDate("datafimplotagem") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimplotagem"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimplotagem") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkimpressaodigital") ? (rs.getDate("datafimimpressaodigital") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimimpressaodigital"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimimpressaodigital") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkacabamentoimp") ? (rs.getDate("datafimacabamentoimp") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimacabamentoimp"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimacabamentoimp") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkploterrecorte") ? (rs.getDate("datafimploterrecorte") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimploterrecorte"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimploterrecorte") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkserralheria") ? (rs.getDate("datafimserralheria") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimserralheria"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimserralheria") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkpintura") ? (rs.getDate("datafimpintura") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimpintura"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimpintura") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkcaixariaacabamento") ? (rs.getDate("datafimcaixariaacabamento") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimcaixariaacabamento"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimcaixariaacabamento") + "</html>" : "À Fazer") : ""),
+                    (rs.getBoolean("checkrouter") ? (rs.getDate("datafimrouter") != null ? "<html>" + Data.getDateParse(rs.getDate("datafimrouter"), Data.FORMAT_DATA_BR) + "<br>" + rs.getString("usuariofimrouter") + "</html>" : "À Fazer") : ""),};
                 model.addRow(o);
             }
-            
-            int[] posicoes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13};
-            alinhaTableCentro(tabConcluida, posicoes); 
-             
+
+            int[] posicoes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+            alinhaTableCentro(tabConcluida, posicoes);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -695,9 +717,9 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                 + " left join cliente as cli on (cli.codcliente = orc.cliente)"
                 + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)";
         if (aFazer) {
-                sql = sql + " where (ord.checkfaturamento = false and ord.checkfaturamento = false ) ";
+            sql = sql + " where (ord.checkfaturamento = false and ord.checkfaturamento = false ) ";
         } else {
-               sql = sql + " where (ord.checkfaturamento = true and ord.checkfaturamento = true ) ";
+            sql = sql + " where (ord.checkfaturamento = true and ord.checkfaturamento = true ) ";
         }
         return sql;
     }

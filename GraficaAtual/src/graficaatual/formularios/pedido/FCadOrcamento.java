@@ -8,16 +8,20 @@ package graficaatual.formularios.pedido;
 import graficaatual.daos.cadastro.AcabamentoDAO;
 import graficaatual.daos.pedido.OrcamentoDAO;
 import graficaatual.daos.cadastro.ClienteDAO;
+import graficaatual.daos.cadastro.ComposicaoProdutoDAO;
 import graficaatual.daos.cadastro.ProdutoDAO;
+import graficaatual.daos.estoque.SaidaEstoqueDAO;
 import graficaatual.daos.financeiro.FormaDePagamentoDAO;
 import graficaatual.daos.pedido.ItemOrcamentoDAO;
 import graficaatual.daos.producao.OrdemServicoDAO;
 import graficaatual.daos.relatorio.TextoPadraoDAO;
 import graficaatual.entidades.Acabamento;
 import graficaatual.entidades.Cliente;
+import graficaatual.entidades.ComposicaoProduto;
 import graficaatual.entidades.ControleAcesso;
 import graficaatual.entidades.pedido.Orcamento;
 import graficaatual.entidades.Produto;
+import graficaatual.entidades.estoque.SaidaEstoque;
 import graficaatual.entidades.financeiro.FormaDePagamento;
 import graficaatual.entidades.pedido.ItemOrcamento;
 import graficaatual.utilitarios.Componentes;
@@ -51,7 +55,6 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     private Orcamento orcamento;
     private OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
-
     private ItemOrcamento itemOrcamento;
     private ItemOrcamentoDAO itemOrcaDAO = new ItemOrcamentoDAO();
     private List<ItemOrcamento> listaItem = new ArrayList<ItemOrcamento>();
@@ -67,6 +70,9 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
 
     private Produto produto;
     private ProdutoDAO produtoDAO = new ProdutoDAO();
+
+    private ComposicaoProdutoDAO composicaoDao = new ComposicaoProdutoDAO();
+    private SaidaEstoqueDAO saidaDao = new SaidaEstoqueDAO();
 
     private List<Cliente> listaCliente = null;
     private List<Produto> listaProduto = null;
@@ -1339,7 +1345,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
             orcamento = orcamentoDAO.get(ValidarValor.getInt(codOrcamento.getText()));
-            if (orcamento == null) {               
+            if (orcamento == null) {
                 throw new Exception("Favor selecionar um orçamento válido.");
             } else {
                 if (orcamento.getSituacao() == true) {
@@ -1356,7 +1362,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             atualizarTabelaOrcamento();
         } catch (Exception e) {
             e.printStackTrace();
-             JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
@@ -2005,7 +2011,40 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                 try {
                     orcamento.setSituacao(true);
                     orcamento = orcamentoDAO.salvar(session, orcamento);
-                    System.out.println("fffffffffff " + listaItem.size());
+                    //        System.out.println("fffffffffff " + listaItem.size());
+
+                    //busca uma lista de materiais para cada item de orçamento, e gera uma saída aprovisionada para cada um.
+                    for (ItemOrcamento it : listaItem) {
+
+                        List<ComposicaoProduto> listaComposicao = composicaoDao.getListPorProduto(it.getProduto().getCodProduto());
+                        for (ComposicaoProduto c : listaComposicao) {
+
+                            SaidaEstoque saida = new SaidaEstoque();
+
+                            saida.setCodSaidaEstoque(saidaDao.getNextItem());
+                            saida.setTipoSaida(0);
+                            saida.setNumeroPedido(orcamento.getCodOrcamento());
+                            saida.setDataCadastro(Data.getDateSQL(orcamento.getDataCadastro()));
+                            saida.setCodMaterial(c.getMaterial().getCodMaterial());
+                            saida.setDescMaterial(c.getMaterial().getDescricao());
+                            saida.setMetragemLinear(c.getMetragemLinear());
+                            saida.setLargura(c.getLargura());
+                            saida.setAltura(c.getAltura());
+                            saida.setUnidade(c.getUnidade());
+                            saida.setPeso(c.getPeso());
+                            saida.setLitro(c.getLitro());
+                            saida.setObservacao("Material aprovisionado por pedido sem aprovação.");
+                            saida.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " - " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+                            saida.setUsuarioAtualizacao(ControleAcesso.usuario.getCodUsuario() + " - " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
+                            saida.setDataAtualizacao(Data.getDateSQL());
+                            saida.setCancelada(false);
+                            saida.setAprovisionada(true);
+
+                            saidaDao.salvar(saida);
+
+                        }
+                    }
+
                     Boolean aux = new OrdemServicoDAO().gerarOrdemServico(listaItem, session);
 
                     if (aux == null || aux == false) {

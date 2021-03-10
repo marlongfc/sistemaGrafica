@@ -6,6 +6,7 @@
 package graficaatual.formularios.estoque;
 
 import graficaatual.utilitarios.Data;
+import graficaatual.utilitarios.ValidarValor;
 import graficaatual.utilitarios.VisualizaRelatorio;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
+        limparTela();
     }
 
     public static int isInicializado() {
@@ -66,14 +68,14 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
         }
         jLabel2 = new javax.swing.JLabel();
         jCRelatorio = new javax.swing.JComboBox<>();
-        radioData = new javax.swing.JRadioButton();
-        radioMaterial = new javax.swing.JRadioButton();
         labelData = new javax.swing.JLabel();
         data = new javax.swing.JTextField();
         imprimir = new javax.swing.JButton();
         sair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         codMaterial = new javax.swing.JTextField();
+        checkMaterial = new javax.swing.JCheckBox();
+        checkData = new javax.swing.JCheckBox();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -107,31 +109,7 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
         jPanel10.add(jCRelatorio);
         jCRelatorio.setBounds(100, 90, 430, 30);
 
-        radioData.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(radioData);
-        radioData.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        radioData.setText("Por Data");
-        radioData.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                radioDataStateChanged(evt);
-            }
-        });
-        jPanel10.add(radioData);
-        radioData.setBounds(100, 140, 210, 23);
-
-        radioMaterial.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(radioMaterial);
-        radioMaterial.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        radioMaterial.setSelected(true);
-        radioMaterial.setText("Por Material");
-        radioMaterial.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                radioMaterialStateChanged(evt);
-            }
-        });
-        jPanel10.add(radioMaterial);
-        radioMaterial.setBounds(320, 140, 210, 23);
-
+        labelData.setBackground(new java.awt.Color(255, 255, 255));
         labelData.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         labelData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelData.setText("Data");
@@ -168,10 +146,11 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
         jPanel10.add(sair);
         sair.setBounds(310, 320, 250, 40);
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel1.setText("Código Material");
         jPanel10.add(jLabel1);
-        jLabel1.setBounds(100, 230, 170, 16);
+        jLabel1.setBounds(320, 180, 170, 16);
 
         codMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -179,7 +158,34 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(codMaterial);
-        codMaterial.setBounds(100, 250, 170, 20);
+        codMaterial.setBounds(320, 200, 170, 20);
+
+        checkMaterial.setBackground(new java.awt.Color(255, 255, 255));
+        checkMaterial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        checkMaterial.setText("Por Material");
+        checkMaterial.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkMaterialItemStateChanged(evt);
+            }
+        });
+        jPanel10.add(checkMaterial);
+        checkMaterial.setBounds(320, 140, 140, 30);
+
+        checkData.setBackground(new java.awt.Color(255, 255, 255));
+        checkData.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        checkData.setText("Por Data");
+        checkData.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkDataItemStateChanged(evt);
+            }
+        });
+        checkData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkDataActionPerformed(evt);
+            }
+        });
+        jPanel10.add(checkData);
+        checkData.setBounds(100, 140, 120, 30);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -191,15 +197,124 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
     private void limparTela() {
 
         jCRelatorio.setSelectedIndex(0);
-        radioData.setSelected(true);
-        data.setText("");
-        radioMaterial.setEnabled(true);
+        checkData.setSelected(false);
+        data.setText(Data.getDate("dd/MM/yyyy"));
+        checkMaterial.setSelected(false);
+
+        codMaterial.setEnabled(false);
+        data.setEnabled(false);
     }
 
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
         try {
-            imprimir();
+            String sql = "";
+            String condData = "", condMaterial = "";
+            HashMap parametros = null;
+
+            if (checkData.isSelected()) {
+                condData = " and e.dataCadastro<=" + "'" + Data.getDateConvertFormat(data.getText(), "yyyy-MM-dd") + "'" /*Data.getDateSQL(data.getText())*/;
+
+                parametros = new HashMap();
+                parametros.put("dataParam", Data.getDateUtil(data.getText()));
+            }
+
+            if (checkMaterial.isSelected() && (codMaterial.getText() != null && ValidarValor.isNumeric(codMaterial.getText()))) {
+                condMaterial = " and e.codMaterial=" + codMaterial.getText();
+            }
+
+            switch (jCRelatorio.getSelectedIndex()) {
+
+                case 1:
+                    sql = " select * from entradaEstoque e "
+                            + " where e.cancelada=FALSE " + condData + condMaterial
+                            + " order by e.dataCadastro asc";
+
+                    new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/entradaMaterial.jasper", "RELATÓRIO DE ENTRADA DE MATERIAL", parametros, sql);
+                    break;
+                case 2:
+                    sql = " select * from saidaEstoque e "
+                            + " where e.cancelada=FALSE " + condData + condMaterial
+                            + " order by e.dataCadastro asc";
+
+                    new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/saidaMaterial.jasper", "RELATÓRIO DE SAÍDA DE MATERIAL", parametros, sql);
+                    break;
+
+                case 3:
+
+                    sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
+                            + "          t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
+                            + "          Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
+                            + "          + ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)  "
+                            + "          + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
+                            + "          +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
+                            + "          + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal"
+                            + "          "
+                            + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,"
+                            + "          Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
+                            + "          "
+                            + "          from entradaEstoque e "
+                            + "          left join material m on m.codMaterial=e.codMaterial"
+                            + "          where e.cancelada=FALSE " + condData + condMaterial
+                            + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
+                            + "          "
+                            + "          tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
+                            + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                            + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
+                            + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                            + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                            + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                            + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
+                            + "          "
+                            + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
+                            + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                            + "          "
+                            + "          from saidaEstoque e "
+                            + "          left join material m on m.codMaterial=e.codMaterial"
+                            + "          where e.cancelada=FALSE and e.aprovisionada=FALSE " + condData + condMaterial
+                            + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),"
+                            + "          "
+                            + "          tempSomaSaidaAprovisionada as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
+                            + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                            + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
+                            + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                            + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                            + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                            + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
+                            + "          "
+                            + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
+                            + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                            + "          "
+                            + "          from saidaEstoque e "
+                            + "          left join material m on m.codMaterial=e.codMaterial"
+                            + "          where e.cancelada=FALSE and e.aprovisionada=true  " + condData + condMaterial
+                            + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)"
+                            + "         "
+                            + "         Select tE.codMaterial, tE.descMaterial, "
+                            + "         ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end) - (Case when tSA.quantAlturaSaida is null then 0 else tSA.quantAlturaSaida end)) as quantAltura, "
+                            + "         ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)- (Case when tSA.quantLarguraSaida is null then 0 else tSA.quantLarguraSaida end)) as quantLargura, "
+                            + "         ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end) - (Case when tSA.quantMetragemSaida is null then 0 else tSA.quantMetragemSaida end)) as quantMetragem, "
+                            + "         ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)  - (Case when tSA.quantLitroSaida is null then 0 else tSA.quantLitroSaida end)) as quantLitro, "
+                            + "         ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)- (Case when tSA.quantPesoSaida is null then 0 else tSA.quantPesoSaida end)) as quantPeso, "
+                            + "         ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)- (Case when tSA.quantUnidadeSaida is null then 0 else tSA.quantUnidadeSaida end)) as quantUnidade, "
+                            + "         ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end)) as quantTotal, "
+                            + "         m.estoqueMinimo as estoqueMin, Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end as quantAprovisionada,"
+                            + "         Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo"
+                            + "         "
+                            + "         from tmpSomaEntrada as tE"
+                            + "         left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial"
+                            + "         left Join tempSomaSaidaAprovisionada as tSA on tE.codMaterial = tSA.codMaterial "
+                            + "         left Join material as m on m.codMaterial = tE.codMaterial"
+                            + "         "
+                            + "         order by tE.descMaterial";
+
+                    new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/estoque.jasper", "Listagem de Estoque Por Data", parametros, sql);
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(this, "Erro na seleção");
+                    break;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
@@ -210,10 +325,6 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
         limparTela();
         dispose();
     }//GEN-LAST:event_sairActionPerformed
-
-    private void radioDataStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioDataStateChanged
-
-    }//GEN-LAST:event_radioDataStateChanged
 
     private void dataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dataFocusLost
 
@@ -226,15 +337,31 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codMaterialFocusLost
 
-    private void radioMaterialStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioMaterialStateChanged
-        if (radioMaterial.isSelected()) {
-            data.setText("");
+    private void checkDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkDataActionPerformed
+
+    private void checkMaterialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkMaterialItemStateChanged
+        if (checkMaterial.isSelected()) {
+            codMaterial.setEnabled(true);
+        } else {
+            codMaterial.setEnabled(false);
         }
-    }//GEN-LAST:event_radioMaterialStateChanged
+    }//GEN-LAST:event_checkMaterialItemStateChanged
+
+    private void checkDataItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkDataItemStateChanged
+        if (checkData.isSelected()) {
+            data.setEnabled(true);
+        } else {
+            data.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkDataItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox checkData;
+    private javax.swing.JCheckBox checkMaterial;
     private javax.swing.JTextField codMaterial;
     private javax.swing.JTextField data;
     private javax.swing.JButton imprimir;
@@ -243,101 +370,7 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JLabel labelData;
-    private javax.swing.JRadioButton radioData;
-    private javax.swing.JRadioButton radioMaterial;
     private javax.swing.JButton sair;
     // End of variables declaration//GEN-END:variables
-
-    private void imprimir() throws Exception {
-        String sql = "";
-        String condData = "", condMaterial = "";
-        HashMap parametros = null;
-
-        if (radioData.isSelected()) {
-            condData = " and e.dataCadastro<=" + Data.getDateSQL(data.getText());
-            parametros = new HashMap();
-            parametros.put("dataParam", Data.getDate(data.getText()));
-        }
-
-        if (radioMaterial.isSelected()) {
-            condMaterial = " and e.codMaterial=" + codMaterial.getText();
-        }
-
-        switch (jCRelatorio.getSelectedIndex()) {
-
-            case 1:
-                sql = " select * from entradaEstoque e "
-                        + " where e.cancelada=FALSE " + condData + condMaterial
-                        + " order by e.dataCadastro asc";
-
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/entradaMaterial.jasper", "RELATÓRIO DE ENTRADA DE MATERIAL", parametros, sql);
-                break;
-            case 2:
-                sql = " select * from saidaEstoque e "
-                        + " where e.cancelada=FALSE " + condData + condMaterial
-                        + " order by e.dataCadastro asc";
-
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/saidaMaterial.jasper", "RELATÓRIO DE SAÍDA DE MATERIAL", parametros, sql);
-                break;
-
-            case 3:
-
-                sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
-                        + "                      t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
-                        + "                      Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
-                        + "                     + ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)  "
-                        + "                     + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
-                        + "                      +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
-                        + "                      + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal"
-                        + "                      "
-                        + "                      from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,"
-                        + "                      Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
-                        + "                      "
-                        + "                      from entradaEstoque e "
-                        + "                      left join material m on m.codMaterial=e.codMaterial"
-                        + "                      where e.cancelada=FALSE " + condData + condMaterial
-                        + "                      group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
-                        + "                      "
-                        + "                      tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
-                        + "                      t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
-                        + "                      Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
-                        + "                    +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
-                        + "                    +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
-                        + "                    +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
-                        + "                    +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
-                        + "                      "
-                        + "                      from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
-                        + "                      Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
-                        + "                      "
-                        + "                      from saidaEstoque e "
-                        + "                      left join material m on m.codMaterial=e.codMaterial"
-                        + "                      where e.cancelada=FALSE " + condData + condMaterial
-                        + "                      group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)"
-                        + "                      "
-                        + "                      Select tE.codMaterial, tE.descMaterial, "
-                        + "                      ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end)) as quantAltura, "
-                        + "                      ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)) as quantLargura, "
-                        + "                      ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end)) as quantMetragem, "
-                        + "                      ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)) as quantLitro, "
-                        + "                      ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)) as quantPeso, "
-                        + "                      ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)) as quantUnidade, "
-                        + "                      ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)) as quantTotal, "
-                        + "                       m.estoqueMinimo as estoqueMin, "
-                        + "                      Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo"
-                        + "                      "
-                        + "                      from tmpSomaEntrada as tE"
-                        + "                      left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial "
-                        + "                      left Join material as m on m.codMaterial = tE.codMaterial"
-                        + "                      "
-                        + "                      order by tE.descMaterial";
-
-                new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/estoque.jasper", "Listagem de Estoque Por Data", parametros, sql);
-                break;
-
-            default:
-                JOptionPane.showMessageDialog(this, "Erro na seleção");
-                break;
-        }
-    }
 
 }

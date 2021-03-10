@@ -6,7 +6,6 @@
 package graficaatual.entidades.estoque;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,7 +66,10 @@ public class SaidaEstoque implements Serializable {
 
     @Column(name = "cancelada", nullable = false)
     private boolean cancelada;
-       
+    
+    @Column(name = "aprovisionada", nullable = false)
+    private boolean aprovisionada;
+    
     @Column(name = "dataCadastro", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
@@ -245,6 +247,16 @@ public class SaidaEstoque implements Serializable {
     public void setCancelada(boolean cancelada) {
         this.cancelada = cancelada;
     }
+
+    public boolean isAprovisionada() {
+        return aprovisionada;
+    }
+
+    public void setAprovisionada(boolean aprovisionada) {
+        this.aprovisionada = aprovisionada;
+    }
+    
+    
     
     
 
