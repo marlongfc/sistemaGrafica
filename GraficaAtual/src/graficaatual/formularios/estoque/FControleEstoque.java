@@ -1543,8 +1543,6 @@ String sql ="with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.qua
                         rs.getBoolean("estoqueAbaixoMinimo")
                     };
 
-                    System.out.println("Teste, entrou aqui: " + rs.getLong("codMaterial"));
-
                     if ((Boolean) os[10] == true) {
                         listaAbaixoMinimo.add(os);
                     }
