@@ -1397,7 +1397,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             listaAbaixoMinimo.clear();
 
             DefaultTableModel model = (DefaultTableModel) tabelaEstoque.getModel();
-/*
+            /*
             String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
                     + " t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
                     + " Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
@@ -1446,75 +1446,74 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                     + " left Join material as m on m.codMaterial = tE.codMaterial"
                     + " "
                     + " order by tE.descMaterial";
-*/
-  
+             */
 
-String sql ="with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
-                            + "          t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
-                            + "          Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
-                            + "          + ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)  "
-                            + "          + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
-                            + "          +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
-                            + "          + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal"
-                            + "          "
-                            + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,"
-                            + "          Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
-                            + "          "
-                            + "          from entradaEstoque e "
-                            + "          left join material m on m.codMaterial=e.codMaterial"
-                            + "          where e.cancelada=FALSE " 
-                            + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
-                            + "          "
-                            + "          tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
-                            + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
-                            + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
-                            + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
-                            + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
-                            + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
-                            + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
-                            + "          "
-                            + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
-                            + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
-                            + "          "
-                            + "          from saidaEstoque e "
-                            + "          left join material m on m.codMaterial=e.codMaterial"
-                            + "          where e.cancelada=FALSE and e.aprovisionada=FALSE " 
-                            + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),"
-                            + "          "
-                            + "          tempSomaSaidaAprovisionada as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
-                            + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
-                            + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
-                            + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
-                            + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
-                            + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
-                            + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
-                            + "          "
-                            + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
-                            + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
-                            + "          "
-                            + "          from saidaEstoque e "
-                            + "          left join material m on m.codMaterial=e.codMaterial"
-                            + "          where e.cancelada=FALSE and e.aprovisionada=true  " 
-                            + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)"
-                            + "         "
-                            + "         Select tE.codMaterial, tE.descMaterial, "
-                            + "         ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end) - (Case when tSA.quantAlturaSaida is null then 0 else tSA.quantAlturaSaida end)) as quantAltura, "
-                            + "         ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)- (Case when tSA.quantLarguraSaida is null then 0 else tSA.quantLarguraSaida end)) as quantLargura, "
-                            + "         ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end) - (Case when tSA.quantMetragemSaida is null then 0 else tSA.quantMetragemSaida end)) as quantMetragem, "
-                            + "         ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)  - (Case when tSA.quantLitroSaida is null then 0 else tSA.quantLitroSaida end)) as quantLitro, "
-                            + "         ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)- (Case when tSA.quantPesoSaida is null then 0 else tSA.quantPesoSaida end)) as quantPeso, "
-                            + "         ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)- (Case when tSA.quantUnidadeSaida is null then 0 else tSA.quantUnidadeSaida end)) as quantUnidade, "
-                            + "         ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end)) as quantTotal, "
-                            + "         m.estoqueMinimo as estoqueMin, Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end as quantAprovisionada,"
-                            + "         Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo"
-                            + "         "
-                            + "         from tmpSomaEntrada as tE"
-                            + "         left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial"
-                            + "         left Join tempSomaSaidaAprovisionada as tSA on tE.codMaterial = tSA.codMaterial "
-                            + "         left Join material as m on m.codMaterial = tE.codMaterial"
-                            + "         "
-                            + "         order by tE.descMaterial";
-            
+            String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
+                    + "          t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
+                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
+                    + "          + ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)  "
+                    + "          + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
+                    + "          +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
+                    + "          + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal"
+                    + "          "
+                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,"
+                    + "          Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
+                    + "          "
+                    + "          from entradaEstoque e "
+                    + "          left join material m on m.codMaterial=e.codMaterial"
+                    + "          where e.cancelada=FALSE "
+                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
+                    + "          "
+                    + "          tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
+                    + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
+                    + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                    + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                    + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                    + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
+                    + "          "
+                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
+                    + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                    + "          "
+                    + "          from saidaEstoque e "
+                    + "          left join material m on m.codMaterial=e.codMaterial"
+                    + "          where e.cancelada=FALSE and e.aprovisionada=FALSE "
+                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),"
+                    + "          "
+                    + "          tempSomaSaidaAprovisionada as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
+                    + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
+                    + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                    + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                    + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                    + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
+                    + "          "
+                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
+                    + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                    + "          "
+                    + "          from saidaEstoque e "
+                    + "          left join material m on m.codMaterial=e.codMaterial"
+                    + "          where e.cancelada=FALSE and e.aprovisionada=true  "
+                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)"
+                    + "         "
+                    + "         Select tE.codMaterial, tE.descMaterial, "
+                    + "         ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end) - (Case when tSA.quantAlturaSaida is null then 0 else tSA.quantAlturaSaida end)) as quantAltura, "
+                    + "         ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)- (Case when tSA.quantLarguraSaida is null then 0 else tSA.quantLarguraSaida end)) as quantLargura, "
+                    + "         ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end) - (Case when tSA.quantMetragemSaida is null then 0 else tSA.quantMetragemSaida end)) as quantMetragem, "
+                    + "         ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)  - (Case when tSA.quantLitroSaida is null then 0 else tSA.quantLitroSaida end)) as quantLitro, "
+                    + "         ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)- (Case when tSA.quantPesoSaida is null then 0 else tSA.quantPesoSaida end)) as quantPeso, "
+                    + "         ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)- (Case when tSA.quantUnidadeSaida is null then 0 else tSA.quantUnidadeSaida end)) as quantUnidade, "
+                    + "         ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end)) as quantTotal, "
+                    + "         m.estoqueMinimo as estoqueMin, Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end as quantAprovisionada,"
+                    + "         Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo"
+                    + "         "
+                    + "         from tmpSomaEntrada as tE"
+                    + "         left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial"
+                    + "         left Join tempSomaSaidaAprovisionada as tSA on tE.codMaterial = tSA.codMaterial "
+                    + "         left Join material as m on m.codMaterial = tE.codMaterial"
+                    + "         "
+                    + "         order by tE.descMaterial";
+
             ResultSet rs = null;
 
             if (conexao == null || !ValidarConexao.isValidConexao(conexao, "postgres")) {
@@ -1543,7 +1542,7 @@ String sql ="with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.qua
                         rs.getBoolean("estoqueAbaixoMinimo")
                     };
 
-                    if ((Boolean) os[10] == true) {
+                    if ((Boolean) os[11] == true) {
                         listaAbaixoMinimo.add(os);
                     }
 
@@ -1690,6 +1689,8 @@ String sql ="with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.qua
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
         try {
             List<Material> listaMatAux = new ArrayList<Material>();
 
@@ -1723,7 +1724,7 @@ String sql ="with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.qua
                 entrada.setDataAtualizacao(Data.getDateSQL());
                 entrada.setCancelada(false);
 
-                entradaDao.salvar(entrada);
+                entradaDao.salvar(session, entrada);
 
                 //ATUALIZA O PREÇO DOS MATERIAIS PELA ENTRADA
                 Material mat = materialDao.getPorCodigo(entrada.getCodMaterial());
@@ -1738,28 +1739,32 @@ String sql ="with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.qua
 
                     if (op == 0) {
                         mat.setPrecoCompra(entrada.getValorCompra());
-                        mat.setPrecoCustoTotal(mat.getFrete() + entrada.getValorCompra());
-                        materialDao.salvar(mat);
+                        mat.setPrecoCustoTotal((mat.getFrete() == null ? 0 : mat.getFrete()) + entrada.getValorCompra());
+                        materialDao.salvar(session, mat);
                         listaMatAux.add(mat);
                     }
                 }
             }
 
             JOptionPane.showMessageDialog(null, "Processamento concluído!");
-            
+            session.getTransaction().commit();
+            session.close();
+
             if (!listaMatAux.isEmpty()) {
                 String materiaisAtualizados = "";
                 for (Material m : listaMatAux) {
-                  materiaisAtualizados= materiaisAtualizados +", "+ m.getDescricao() + ", ";
+                    materiaisAtualizados = materiaisAtualizados + " " + m.getDescricao() + "\n ";
                 }
-                
-                JOptionPane.showMessageDialog(null, "Os Preços dos Seguintes Materiais Foram Atualizados:!"+"\n"+materiaisAtualizados);
+
+                JOptionPane.showMessageDialog(null, "Os Preços dos Seguintes Materiais Foram Atualizados:!" + "\n" + materiaisAtualizados);
             }
-            
+
             atualizarEstoque();
             limparTelaEntrada();
 
         } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar entrada. Erro: " + e);
         }
@@ -2509,7 +2514,7 @@ String sql ="with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.qua
                 saida.setDataAtualizacao(Data.getDateSQL());
                 saida.setCancelada(false);
                 saida.setAprovisionada(false);
-                
+
                 saidaDao.salvar(saida);
 
                 //   } else {

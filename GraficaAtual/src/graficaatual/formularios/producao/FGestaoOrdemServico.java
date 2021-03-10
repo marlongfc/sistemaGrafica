@@ -336,28 +336,38 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_salvarActionPerformed
 
-    private void salvar() throws Exception {
+    private void salvar() {
 
-        ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
-        if (ordem != null) {
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
-            //Fauramento e Entrega
-            ordem.setCheckEntrega(true);
-            ordem.setCheckFaturamento(true);
-            ordem = ordemDao.addOrdem(ordem);
+        try {
+            ordem = new OrdemServicoDAO().get((Integer) tabOrdensFazer.getValueAt(tabOrdensFazer.getSelectedRow(), 0));
+            if (ordem != null) {
 
-            //Busca as saidas de estoque geradas pelo orçamento e retira o aprovisionamento
-            String sql = "Select e from saidaEstoque e where e.numeroPedido=" + ordem.getOrcamento().getCodOrcamento();
+                //Fauramento e Entrega
+                ordem.setCheckEntrega(true);
+                ordem.setCheckFaturamento(true);
+                ordem = ordemDao.addOrdem(session, ordem);
 
-            List<SaidaEstoque> listaSaida = saidaDao.getList(sql);
-            for (SaidaEstoque s : listaSaida) {
-                s.setAprovisionada(false);
-                s.setObservacao("");
-                saidaDao.salvar(s);
+                //Busca as saidas de estoque geradas pelo orçamento e retira o aprovisionamento
+                String sql = "Select e from SaidaEstoque e where e.numeroPedido=" + ordem.getOrcamento().getCodOrcamento();
+
+                List<SaidaEstoque> listaSaida = saidaDao.getList(sql);
+                for (SaidaEstoque s : listaSaida) {
+                    s.setAprovisionada(false);
+                    s.setObservacao("");
+                    saidaDao.salvar(session, s);
+                }
+
+                session.getTransaction().commit();
+                session.close();
+            } else {
+                JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(this, " Escolha uma Ordem de seviço, selecionando com um click.");
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+            e.printStackTrace();
         }
     }
 
@@ -420,14 +430,14 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
                             itemDao.deletePojo(session, item);
 
                             //Busca as saidas de estoque geradas pelo orçamento e retira o aprovisionamento
-                            String sql = "Select e from saidaEstoque e where e.numeroPedido=" + item.getOrcamento().getCodOrcamento();
+                            String sql = "Select e from SaidaEstoque e where e.numeroPedido=" + item.getOrcamento().getCodOrcamento();
 
                             List<SaidaEstoque> listaSaida = saidaDao.getList(sql);
                             for (SaidaEstoque s : listaSaida) {
                                 s.setAprovisionada(false);
                                 s.setCancelada(true);
                                 s.setObservacao("Pedido Cancelado.");
-                                saidaDao.salvar(s);
+                                saidaDao.salvar(session, s);
                             }
                         }
 
@@ -460,6 +470,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             session.getTransaction().rollback();
             session.close();
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao Cancelar. Tente Novamente");
         }
     }//GEN-LAST:event_cancelarActionPerformed
