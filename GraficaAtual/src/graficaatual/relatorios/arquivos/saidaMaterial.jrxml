@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="157"/>
+	<property name="ireport.x" value="3"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
@@ -14,13 +14,14 @@
 	<parameter name="NUMEROENT" class="java.lang.Integer"/>
 	<parameter name="INSCESTENT" class="java.lang.String"/>
 	<parameter name="COMPLEMENTOENT" class="java.lang.String"/>
-	<parameter name="dataParam" class="java.lang.String"/>
+	<parameter name="dataParam" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[select * from saidaEstoque e
  where e.cancelada=FALSE order by e.dataCadastro asc]]>
 	</queryString>
 	<field name="codsaidaestoque" class="java.lang.Long"/>
 	<field name="altura" class="java.lang.Double"/>
+	<field name="aprovisionada" class="java.lang.Boolean"/>
 	<field name="cancelada" class="java.lang.Boolean"/>
 	<field name="codmaterial" class="java.lang.Long"/>
 	<field name="dataatualizacao" class="java.sql.Date"/>
@@ -106,7 +107,7 @@
 				</textElement>
 				<text><![CDATA[RELATÓRIO DE SAÍDAS DE MATERIAIS ]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="267" y="3" width="84" height="14" forecolor="#4A2680" backcolor="#FFFFFF" uuid="26e6952a-1b49-44d1-bc07-c9f2d7512d4c"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -237,7 +238,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tiposaida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{tiposaida}==0?"Pedido/Produção":($F{tiposaida}==1?"Venda Avulsa":($F{tiposaida}==2?"Descarte":($F{tiposaida}==3?"Brinde/Doação":""))))]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="88" y="14" width="63" height="13" backcolor="#F0F0F0" uuid="b7857c20-3960-485f-8d79-d8702d4b80ac"/>
@@ -254,7 +255,7 @@
 				<textFieldExpression><![CDATA[$F{datacadastro}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="1" y="27" width="197" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="262d1e98-bd14-4b20-944d-e3c1d71b00a7"/>
+				<reportElement mode="Opaque" x="88" y="29" width="270" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="262d1e98-bd14-4b20-944d-e3c1d71b00a7"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -268,7 +269,7 @@
 				<text><![CDATA[OBSERVAÇÃO]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="1" y="42" width="197" height="14" backcolor="#F0F0F0" uuid="113c8769-8f41-4d4c-982f-180b79b1e41f"/>
+				<reportElement mode="Opaque" x="88" y="44" width="270" height="14" backcolor="#F0F0F0" uuid="113c8769-8f41-4d4c-982f-180b79b1e41f"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -307,7 +308,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cancelada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cancelada}==true?"SIM":""]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="198" y="14" width="160" height="13" backcolor="#F0F0F0" uuid="051b5dfc-171c-4894-babc-1cd076386ffe"/>
@@ -464,8 +465,26 @@
 				<text><![CDATA[DATA]]></text>
 			</staticText>
 			<line>
-				<reportElement mode="Opaque" x="1" y="58" width="802" height="2" forecolor="#000000" backcolor="#000000" uuid="42e158a3-b971-44ef-841a-930bafd1aea2"/>
+				<reportElement mode="Opaque" x="1" y="59" width="801" height="2" forecolor="#000000" backcolor="#000000" uuid="42e158a3-b971-44ef-841a-930bafd1aea2"/>
 			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="29" width="87" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="9433fc38-7bbe-4cd2-8da4-1156dbc06953"/>
+				<box>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APROVISIONADA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="1" y="44" width="87" height="15" backcolor="#F0F0F0" uuid="eebe989a-2900-4a9d-8657-ca70ff20aaf4"/>
+				<box>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aprovisionada}==true?"SIM":""]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

@@ -20,7 +20,6 @@ import graficaatual.utilitarios.Data;
 import graficaatual.utilitarios.Persistencia;
 import graficaatual.utilitarios.ValidarConexao;
 import graficaatual.utilitarios.ValidarValor;
-import graficaatual.utilitarios.VisualizaRelatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -205,7 +203,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         tipoEntrada = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         notaFiscal = new javax.swing.JTextField();
@@ -303,7 +300,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         msgSaida = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         btSair1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jPanel5 = new javax.swing.JPanel();
@@ -449,7 +445,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btNovo);
-        btNovo.setBounds(50, 620, 190, 39);
+        btNovo.setBounds(120, 620, 190, 39);
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvar.setText("Salvar");
@@ -459,7 +455,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSalvar);
-        btSalvar.setBounds(240, 620, 190, 39);
+        btSalvar.setBounds(310, 620, 190, 39);
 
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluir.setText("Cancelar Entrada");
@@ -469,7 +465,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btExcluir);
-        btExcluir.setBounds(430, 620, 190, 39);
+        btExcluir.setBounds(500, 620, 190, 39);
 
         btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
         btSair.setText("Sair");
@@ -479,7 +475,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel18.add(btSair);
-        btSair.setBounds(810, 620, 190, 39);
+        btSair.setBounds(690, 620, 190, 39);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -654,16 +650,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         jLabel20.setText("X");
         jPanel18.add(jLabel20);
         jLabel20.setBounds(240, 250, 10, 20);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
-        jButton2.setText("Imprimir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel18.add(jButton2);
-        jButton2.setBounds(620, 620, 190, 39);
 
         tipoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Compra", " Devolução ", " Reaproveitamento", " Doação" }));
         jPanel18.add(tipoEntrada);
@@ -1110,7 +1096,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel21.add(btNovoS);
-        btNovoS.setBounds(40, 540, 190, 39);
+        btNovoS.setBounds(120, 540, 190, 39);
 
         btSalvarS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
         btSalvarS.setText("Salvar");
@@ -1120,7 +1106,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel21.add(btSalvarS);
-        btSalvarS.setBounds(230, 540, 190, 39);
+        btSalvarS.setBounds(310, 540, 190, 39);
 
         btExcluirS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/excuir2.png"))); // NOI18N
         btExcluirS.setText("Cancelar Saída");
@@ -1130,7 +1116,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel21.add(btExcluirS);
-        btExcluirS.setBounds(420, 540, 190, 39);
+        btExcluirS.setBounds(500, 540, 190, 39);
 
         jLabel36.setText("Observação");
         jPanel21.add(jLabel36);
@@ -1181,17 +1167,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel21.add(btSair1);
-        btSair1.setBounds(800, 540, 190, 39);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
-        jButton3.setText("Imprimir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton3);
-        jButton3.setBounds(610, 540, 190, 39);
+        btSair1.setBounds(690, 540, 190, 39);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1255,14 +1231,14 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cód.", "Material", "Metragem (m)", "Largura (m)", "Altura (m)", "Peso (Kg)", "Litros (L)", "Unidades (U)", "Estoque Mínimo", "Quantidade Total", "Estoque Abaixo Minimo"
+                "Cód.", "Material", "Metragem (m)", "Largura (m)", "Altura (m)", "Peso (Kg)", "Litros (L)", "Unidades (U)", "Estoque Mínimo", "Quantidade Aprovisionada", "Quantidade Total", "Estoque Abaixo Minimo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1294,8 +1270,8 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             tabelaEstoque.getColumnModel().getColumn(4).setPreferredWidth(15);
             tabelaEstoque.getColumnModel().getColumn(5).setPreferredWidth(15);
             tabelaEstoque.getColumnModel().getColumn(6).setPreferredWidth(15);
-            tabelaEstoque.getColumnModel().getColumn(10).setResizable(false);
-            tabelaEstoque.getColumnModel().getColumn(10).setPreferredWidth(0);
+            tabelaEstoque.getColumnModel().getColumn(9).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(11).setPreferredWidth(0);
         }
 
         btAddMaterial1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
@@ -1346,9 +1322,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 403, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 711, Short.MAX_VALUE))
+                .addGap(0, 737, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jInternalFrame1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1419,9 +1395,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             removeLinhas(tabelaEstoque);
             listaAbaixoMinimo = new ArrayList<Object[]>();
             listaAbaixoMinimo.clear();
-            
-            DefaultTableModel model = (DefaultTableModel) tabelaEstoque.getModel();
 
+            DefaultTableModel model = (DefaultTableModel) tabelaEstoque.getModel();
+            /*
             String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
                     + " t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
                     + " Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
@@ -1470,14 +1446,81 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                     + " left Join material as m on m.codMaterial = tE.codMaterial"
                     + " "
                     + " order by tE.descMaterial";
+             */
+
+            String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
+                    + "          t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
+                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
+                    + "          + ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)  "
+                    + "          + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
+                    + "          +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
+                    + "          + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal"
+                    + "          "
+                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,"
+                    + "          Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
+                    + "          "
+                    + "          from entradaEstoque e "
+                    + "          left join material m on m.codMaterial=e.codMaterial"
+                    + "          where e.cancelada=FALSE "
+                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
+                    + "          "
+                    + "          tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
+                    + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
+                    + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                    + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                    + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                    + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
+                    + "          "
+                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
+                    + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                    + "          "
+                    + "          from saidaEstoque e "
+                    + "          left join material m on m.codMaterial=e.codMaterial"
+                    + "          where e.cancelada=FALSE and e.aprovisionada=FALSE "
+                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),"
+                    + "          "
+                    + "          tempSomaSaidaAprovisionada as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
+                    + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
+                    + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                    + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                    + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                    + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
+                    + "          "
+                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
+                    + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                    + "          "
+                    + "          from saidaEstoque e "
+                    + "          left join material m on m.codMaterial=e.codMaterial"
+                    + "          where e.cancelada=FALSE and e.aprovisionada=true  "
+                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)"
+                    + "         "
+                    + "         Select tE.codMaterial, tE.descMaterial, "
+                    + "         ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end) - (Case when tSA.quantAlturaSaida is null then 0 else tSA.quantAlturaSaida end)) as quantAltura, "
+                    + "         ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)- (Case when tSA.quantLarguraSaida is null then 0 else tSA.quantLarguraSaida end)) as quantLargura, "
+                    + "         ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end) - (Case when tSA.quantMetragemSaida is null then 0 else tSA.quantMetragemSaida end)) as quantMetragem, "
+                    + "         ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)  - (Case when tSA.quantLitroSaida is null then 0 else tSA.quantLitroSaida end)) as quantLitro, "
+                    + "         ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)- (Case when tSA.quantPesoSaida is null then 0 else tSA.quantPesoSaida end)) as quantPeso, "
+                    + "         ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)- (Case when tSA.quantUnidadeSaida is null then 0 else tSA.quantUnidadeSaida end)) as quantUnidade, "
+                    + "         ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end)) as quantTotal, "
+                    + "         m.estoqueMinimo as estoqueMin, Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end as quantAprovisionada,"
+                    + "         Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo"
+                    + "         "
+                    + "         from tmpSomaEntrada as tE"
+                    + "         left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial"
+                    + "         left Join tempSomaSaidaAprovisionada as tSA on tE.codMaterial = tSA.codMaterial "
+                    + "         left Join material as m on m.codMaterial = tE.codMaterial"
+                    + "         "
+                    + "         order by tE.descMaterial";
 
             ResultSet rs = null;
 
             if (conexao == null || !ValidarConexao.isValidConexao(conexao, "postgres")) {
-              throw new Exception("Conexão com o banco inválida, tente conectar novamente!");
+                throw new Exception("Conexão com o banco inválida, tente conectar novamente!");
             }
-            
-              rs = banco.executeQuery(sql);
+
+            rs = banco.executeQuery(sql);
 
             if (rs != null) {
                 Object os[] = null;
@@ -1494,13 +1537,12 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         rs.getDouble("quantLitro") > 0 ? ValidarValor.getDouble(rs.getDouble("quantLitro")) : null,
                         rs.getDouble("quantUnidade") > 0 ? ValidarValor.getDouble(rs.getDouble("quantUnidade")) : null,
                         rs.getDouble("estoqueMin") > 0 ? ValidarValor.getDouble(rs.getDouble("estoqueMin")) : null,
+                        rs.getDouble("quantAprovisionada") > 0 ? ValidarValor.getDouble(rs.getDouble("quantAprovisionada")) : null,
                         rs.getDouble("quantTotal") > 0 ? ValidarValor.getDouble(rs.getDouble("quantTotal")) : null,
                         rs.getBoolean("estoqueAbaixoMinimo")
                     };
 
-                    System.out.println("Teste, entrou aqui: " + rs.getLong("codMaterial"));
-
-                    if ((Boolean) os[10] == true) {
+                    if ((Boolean) os[11] == true) {
                         listaAbaixoMinimo.add(os);
                     }
 
@@ -1647,7 +1689,10 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
+        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+
         try {
+            List<Material> listaMatAux = new ArrayList<Material>();
 
             DefaultTableModel model = (DefaultTableModel) tabMateriaisAddEntrada.getModel();
 
@@ -1679,15 +1724,47 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 entrada.setDataAtualizacao(Data.getDateSQL());
                 entrada.setCancelada(false);
 
-                entradaDao.salvar(entrada);
+                entradaDao.salvar(session, entrada);
 
+                //ATUALIZA O PREÇO DOS MATERIAIS PELA ENTRADA
+                Material mat = materialDao.getPorCodigo(entrada.getCodMaterial());
+                int op = 0;
+                if (mat != null && entrada.getTipoEntrada() == 0) {
+
+                    if (entrada.getValorCompra() < mat.getPrecoCompra()) {
+
+                        op = JOptionPane.showConfirmDialog(null,
+                                "O Preço de Entrada do Material" + mat.getDescricao() + "é Menor Que o Preço da Última Compra. \n Deseja Mesmo Atualizar o Preço Deste Material?", "Confirmação de Alteração de Preço!", 0);
+                    }
+
+                    if (op == 0) {
+                        mat.setPrecoCompra(entrada.getValorCompra());
+                        mat.setPrecoCustoTotal((mat.getFrete() == null ? 0 : mat.getFrete()) + entrada.getValorCompra());
+                        materialDao.salvar(session, mat);
+                        listaMatAux.add(mat);
+                    }
+                }
             }
 
             JOptionPane.showMessageDialog(null, "Processamento concluído!");
+            session.getTransaction().commit();
+            session.close();
 
+            if (!listaMatAux.isEmpty()) {
+                String materiaisAtualizados = "";
+                for (Material m : listaMatAux) {
+                    materiaisAtualizados = materiaisAtualizados + " " + m.getDescricao() + "\n ";
+                }
+
+                JOptionPane.showMessageDialog(null, "Os Preços dos Seguintes Materiais Foram Atualizados:!" + "\n" + materiaisAtualizados);
+            }
+
+            atualizarEstoque();
             limparTelaEntrada();
 
         } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar entrada. Erro: " + e);
         }
@@ -1706,6 +1783,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                     entrada.setCancelada(true);
                     entradaDao.salvar(entrada);
 
+                    atualizarEstoque();
                     JOptionPane.showMessageDialog(null, "Cancelamento concluído!");
                     limparTelaEntrada();
                 }
@@ -2061,24 +2139,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
     private void tabMateriaisAddEntradaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMateriaisAddEntradaMouseExited
 
     }//GEN-LAST:event_tabMateriaisAddEntradaMouseExited
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        try {
-            Map parametros = null;
-            // if (produto != null) {
-
-            String sql = "";
-
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/produto.jasper", "RELATÓRIO DE PRODUTOS (INDIVIDUAL)", parametros, sql);
-            //   } else {
-            //       JOptionPane.showMessageDialog(null, "Selecione um produto!");
-            //   }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de produtos! \n " + e);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void dataEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataEntradaActionPerformed
         // TODO add your handling code here:
@@ -2453,6 +2513,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 saida.setUsuarioAtualizacao(ControleAcesso.usuario.getCodUsuario() + " - " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                 saida.setDataAtualizacao(Data.getDateSQL());
                 saida.setCancelada(false);
+                saida.setAprovisionada(false);
 
                 saidaDao.salvar(saida);
 
@@ -2462,6 +2523,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 //   }
             }
 
+            atualizarEstoque();
             JOptionPane.showMessageDialog(null, "Processamento concluído!");
 
             limparTelaSaida();
@@ -2484,10 +2546,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 if (op == 0) {
 
                     saida.setCancelada(true);
-                    saidaDao.saveOrUpdatePojo(session, saida);
+                    saidaDao.salvar(saida);
 
-                    session.getTransaction().commit();
-                    session.close();
+                    atualizarEstoque();
 
                     JOptionPane.showMessageDialog(null, "Cancelamento concluído!");
                     limparTelaSaida();
@@ -2501,10 +2562,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
     private void btSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSair1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btSair1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void descFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descFornecedorKeyReleased
         // TODO add your handling code here:
@@ -2710,8 +2767,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descMaterial;
     private javax.swing.JTextField descMaterialS;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JInternalFrame jInternalFrame1;

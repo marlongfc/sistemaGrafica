@@ -134,7 +134,7 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(imprimir);
-        imprimir.setBounds(560, 320, 250, 40);
+        imprimir.setBounds(310, 320, 250, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -145,7 +145,7 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(310, 320, 250, 40);
+        sair.setBounds(560, 320, 250, 40);
         jPanel10.add(dataInicial);
         dataInicial.setBounds(60, 160, 100, 20);
 
@@ -307,7 +307,7 @@ public class FRelatorioFinanceiro extends javax.swing.JInternalFrame {
                     break;
 
                 default:
-                    JOptionPane.showMessageDialog(this, "Erro na seleção");
+                    JOptionPane.showMessageDialog(this, "Relatório Vázio");
                     break;
 
             }
