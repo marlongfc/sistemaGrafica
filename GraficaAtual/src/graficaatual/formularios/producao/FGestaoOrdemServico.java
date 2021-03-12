@@ -119,7 +119,6 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setBorder(null);
         setTitle("Cadastro de Cliente");
@@ -151,7 +150,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(salvar);
-        salvar.setBounds(20, 590, 270, 40);
+        salvar.setBounds(70, 590, 270, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -162,7 +161,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(940, 590, 130, 40);
+        sair.setBounds(840, 590, 130, 40);
 
         jScrollPane6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -292,7 +291,7 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(cancelar);
-        cancelar.setBounds(290, 590, 270, 40);
+        cancelar.setBounds(340, 590, 270, 40);
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
@@ -303,21 +302,10 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(jButton2);
-        jButton2.setBounds(560, 590, 200, 40);
-
-        jButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
-        jButton3.setText("Lista Setor");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel10.add(jButton3);
-        jButton3.setBounds(760, 590, 180, 40);
+        jButton2.setBounds(610, 590, 230, 40);
 
         getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 0, 1100, 700);
+        jPanel10.setBounds(10, 0, 1100, 700);
         jPanel10.getAccessibleContext().setAccessibleName("Cadastro de Pessoas");
 
         pack();
@@ -500,31 +488,6 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            String sql = " select orc.codorcamento as codorcamento ,"
-                    + " orc.prazoentrega  as prazoentrega,"
-                    + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome ,"
-                    + " orc.enderecosecundario as endereco,"
-                    + " prod.descricao as descricao ,"
-                    + " ord.checkcriacao as criacao,"
-                    + " ord.checkprojeto as projeto "
-                    + " from ordemservico as ord"
-                    + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
-                    + " left join produto as prod on (ord.produto = prod.codproduto)"
-                    + " left join cliente as cli on (cli.codcliente = orc.cliente)"
-                    + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
-                    + " where ord.checkentrega=false and  ord.datafimentrega is null"
-                    + " order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao";
-
-            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/ordemServicoSetor.jasper", "RELATÓRIO - ORDEM DE SERVIÇOS POR SETOR", null, sql);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bairros! \n " + e);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     public static void removeLinhas(JTable table) {
         int n = table.getRowCount();
 
@@ -540,7 +503,6 @@ public class FGestaoOrdemServico extends javax.swing.JInternalFrame {
     private javax.swing.JButton cancelar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
