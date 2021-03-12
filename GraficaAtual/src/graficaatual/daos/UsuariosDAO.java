@@ -93,7 +93,7 @@ public class UsuariosDAO extends GenericDAO{
    public String getSqlLista(Integer inicio, Integer fim) {
       String sql = " select u.codUsuario as codigo,"
                 + " u.login as login,"
-                + " case when u.ativo is true then 'SIM' else 'NÃO' end ativo,"
+                + " case when u.ativo = true then 'SIM' else 'NÃO' end ativo,"
                 + " (c.codColaborador ||'-'||p.nome)as colaborador, "
                 + " case when u.acessoCadastro is true then 'SIM' else 'NÃO' end modulo1,"
                 + " case when u.acessoPedido is true then 'SIM' else 'NÃO' end modulo2,"
