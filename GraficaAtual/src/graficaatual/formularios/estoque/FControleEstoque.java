@@ -652,6 +652,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         jLabel20.setBounds(240, 250, 10, 20);
 
         tipoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Compra", " Devolução ", " Reaproveitamento", " Doação" }));
+        tipoEntrada.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tipoEntradaItemStateChanged(evt);
+            }
+        });
         jPanel18.add(tipoEntrada);
         tipoEntrada.setBounds(150, 100, 150, 20);
 
@@ -1322,9 +1327,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 435, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 737, Short.MAX_VALUE))
+                .addGap(0, 743, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jInternalFrame1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1692,8 +1697,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
-            List<Material> listaMatAux = new ArrayList<Material>();
-
+           
             DefaultTableModel model = (DefaultTableModel) tabMateriaisAddEntrada.getModel();
 
             for (int i = 0; i < model.getRowCount(); i++) {
@@ -1724,9 +1728,10 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 entrada.setDataAtualizacao(Data.getDateSQL());
                 entrada.setCancelada(false);
 
-                entradaDao.salvar(session, entrada);
+                entradaDao.insere(session, entrada);
 
                 //ATUALIZA O PREÇO DOS MATERIAIS PELA ENTRADA
+                /*
                 Material mat = materialDao.getPorCodigo(entrada.getCodMaterial());
                 int op = 0;
                 if (mat != null && entrada.getTipoEntrada() == 0) {
@@ -1744,12 +1749,15 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         listaMatAux.add(mat);
                     }
                 }
+                 */
+                
+            
             }
 
             JOptionPane.showMessageDialog(null, "Processamento concluído!");
             session.getTransaction().commit();
             session.close();
-
+            /*
             if (!listaMatAux.isEmpty()) {
                 String materiaisAtualizados = "";
                 for (Material m : listaMatAux) {
@@ -1758,7 +1766,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
                 JOptionPane.showMessageDialog(null, "Os Preços dos Seguintes Materiais Foram Atualizados:!" + "\n" + materiaisAtualizados);
             }
-
+             */
             atualizarEstoque();
             limparTelaEntrada();
 
@@ -2030,6 +2038,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
                 model.addRow(os);
 
+                tabMateriaisAddEntrada.setModel(model);
                 msgEntrada.setVisible(true);
 
                 limparCamposEntrada(false);
@@ -2391,13 +2400,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             if (codMaterialS.getText().equals("") || descMaterialS.getText().equals("") || materialS == null) {
                 JOptionPane.showMessageDialog(null, "Selecione um material válido!");
                 return;
-            } /*   criar função pra ver se o material tem estoque
-            else if () {
-               JOptionPane.showMessageDialog(null, "Não existe entrada deste material no estoque, \n portanto não é possível lançar uma saída!");
-                       return;
-           
-            }
-             */ else {
+            }  else {
 
                 switch (materialS.getUnidadeMedida()) {
                     case 0:
@@ -2466,6 +2469,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
                 model.addRow(os);
 
+                tabMateriaisSaida.setModel(model);
                 msgSaida.setVisible(true);
 
                 limparCamposSaida(false);
@@ -2492,8 +2496,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             for (int i = 0; i < model.getRowCount(); i++) {
 
-                //      SaidaEstoque e = saidaDao.getPorCodigo(Long.parseLong("" + (model.getValueAt(i, 0) == null ? 0 : model.getValueAt(i, 0).equals("") ? 0 : (model.getValueAt(i, 0)))));
-                //     if (e == null) {
+              
                 saida = new SaidaEstoque();
 
                 saida.setCodSaidaEstoque(saidaDao.getNextItem());
@@ -2516,11 +2519,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 saida.setAprovisionada(false);
 
                 saidaDao.salvar(saida);
-
-                //   } else {
-                //       saida = e;
-                //      JOptionPane.showMessageDialog(null, "Saída de material já existe e não pode ser alterada. \n A mesma não será salva!");
-                //   }
             }
 
             atualizarEstoque();
@@ -2607,6 +2605,17 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tipoEntradaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoEntradaItemStateChanged
+        if (tipoEntrada.getSelectedIndex() != 0) {
+            notaFiscal.setEnabled(false);
+            notaFiscal.setText("");
+            valor.setEnabled(false);
+        } else {
+            notaFiscal.setEnabled(true);
+            valor.setEnabled(true);
+        }
+    }//GEN-LAST:event_tipoEntradaItemStateChanged
 
     private void carregarCamposEntrada() {
         try {
