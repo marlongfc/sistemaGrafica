@@ -133,7 +133,7 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(imprimir);
-        imprimir.setBounds(310, 320, 250, 40);
+        imprimir.setBounds(560, 320, 250, 40);
 
         sair.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/SAIR2.png"))); // NOI18N
@@ -144,7 +144,7 @@ public class FRelatorioEstoque extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(sair);
-        sair.setBounds(560, 320, 250, 40);
+        sair.setBounds(310, 320, 250, 40);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N

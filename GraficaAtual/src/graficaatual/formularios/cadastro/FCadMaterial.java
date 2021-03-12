@@ -128,9 +128,28 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        litro = new javax.swing.JTextField();
+        peso = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        frete = new javax.swing.JTextField();
+        precoCustoCompra = new javax.swing.JTextField();
+        precoCustoTotal = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         comboUnidade = new javax.swing.JComboBox<>();
+        metragemLinear = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        unidade = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
         estoqueMinimo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        largura = new javax.swing.JTextField();
+        altura = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -326,14 +345,14 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Material", "Unidade De Medida", "Est. Mínimo"
+                "Código", "Material", "M. Linear (m)", "Larg. (m)", "Alt. (m)", "Unidades", "Peso (kg)", "Litros (L)", "Frete (R$)", "P. Compra (R$)", "Custo Total (R$)", "Est. Mínimo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -353,7 +372,16 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         if (tabMaterial.getColumnModel().getColumnCount() > 0) {
             tabMaterial.getColumnModel().getColumn(0).setPreferredWidth(2);
             tabMaterial.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tabMaterial.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tabMaterial.getColumnModel().getColumn(2).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(3).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(4).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(5).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(6).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(7).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(8).setPreferredWidth(10);
+            tabMaterial.getColumnModel().getColumn(9).setPreferredWidth(35);
+            tabMaterial.getColumnModel().getColumn(10).setPreferredWidth(45);
+            tabMaterial.getColumnModel().getColumn(11).setPreferredWidth(20);
         }
 
         jPanel18.add(jScrollPane11);
@@ -435,6 +463,97 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel2);
         jLabel2.setBounds(60, 120, 140, 14);
 
+        jLabel3.setText("X");
+        jPanel18.add(jLabel3);
+        jLabel3.setBounds(432, 140, 10, 20);
+
+        jLabel4.setText("Litros (L)");
+        jPanel18.add(jLabel4);
+        jLabel4.setBounds(820, 120, 130, 14);
+
+        jLabel5.setText("Peso (Kg)");
+        jPanel18.add(jLabel5);
+        jLabel5.setBounds(670, 120, 80, 14);
+
+        litro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        litro.setText("0,00");
+        litro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                litroFocusLost(evt);
+            }
+        });
+        litro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                litroActionPerformed(evt);
+            }
+        });
+        jPanel18.add(litro);
+        litro.setBounds(820, 140, 130, 20);
+
+        peso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        peso.setText("0,00");
+        peso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pesoFocusLost(evt);
+            }
+        });
+        peso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesoActionPerformed(evt);
+            }
+        });
+        jPanel18.add(peso);
+        peso.setBounds(670, 140, 130, 20);
+
+        jLabel6.setText("Custo Frete (R$)");
+        jPanel18.add(jLabel6);
+        jLabel6.setBounds(60, 170, 140, 20);
+
+        frete.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        frete.setText("0,00");
+        frete.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                freteFocusLost(evt);
+            }
+        });
+        frete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                freteActionPerformed(evt);
+            }
+        });
+        jPanel18.add(frete);
+        frete.setBounds(60, 190, 130, 20);
+
+        precoCustoCompra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        precoCustoCompra.setText("0,00");
+        precoCustoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                precoCustoCompraFocusLost(evt);
+            }
+        });
+        precoCustoCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precoCustoCompraActionPerformed(evt);
+            }
+        });
+        jPanel18.add(precoCustoCompra);
+        precoCustoCompra.setBounds(220, 190, 130, 20);
+
+        precoCustoTotal.setBackground(new java.awt.Color(255, 255, 204));
+        precoCustoTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        precoCustoTotal.setText("0,00");
+        jPanel18.add(precoCustoTotal);
+        precoCustoTotal.setBounds(370, 190, 130, 20);
+
+        jLabel8.setText("Preço de Compra (R$)");
+        jPanel18.add(jLabel8);
+        jLabel8.setBounds(220, 170, 130, 20);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Preço de Custo Total");
+        jPanel18.add(jLabel9);
+        jLabel9.setBounds(370, 170, 150, 14);
+
         comboUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Metro Linear (m)", "Metro Quadrado (m²)", "Unidade (un)", "Quilo (kg)", "Litro (L)"  }));
         comboUnidade.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -444,15 +563,52 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         jPanel18.add(comboUnidade);
         comboUnidade.setBounds(60, 140, 130, 20);
 
+        metragemLinear.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        metragemLinear.setText("0,00");
+        metragemLinear.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel18.add(metragemLinear);
+        metragemLinear.setBounds(220, 140, 130, 20);
+
+        jLabel11.setText("Metragem Linear (m)");
+        jPanel18.add(jLabel11);
+        jLabel11.setBounds(220, 120, 120, 14);
+
+        unidade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        unidade.setText("0");
+        jPanel18.add(unidade);
+        unidade.setBounds(520, 140, 130, 20);
+
+        jLabel12.setText("Unidade (un)");
+        jPanel18.add(jLabel12);
+        jLabel12.setBounds(520, 120, 100, 14);
+
         estoqueMinimo.setBackground(new java.awt.Color(255, 255, 204));
         estoqueMinimo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel18.add(estoqueMinimo);
-        estoqueMinimo.setBounds(200, 140, 130, 20);
+        estoqueMinimo.setBounds(520, 190, 130, 20);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Estoque Mínimo");
         jPanel18.add(jLabel13);
-        jLabel13.setBounds(200, 120, 130, 14);
+        jLabel13.setBounds(520, 170, 130, 14);
+
+        largura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        largura.setText("0,00");
+        jPanel18.add(largura);
+        largura.setBounds(370, 140, 60, 20);
+
+        altura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        altura.setText("0,00");
+        jPanel18.add(altura);
+        altura.setBounds(440, 140, 60, 20);
+
+        jLabel7.setText("Largura (m)");
+        jPanel18.add(jLabel7);
+        jLabel7.setBounds(370, 120, 70, 14);
+
+        jLabel10.setText("Altura (m)");
+        jPanel18.add(jLabel10);
+        jLabel10.setBounds(440, 120, 70, 14);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
         jButton1.setText("Imprimir");
@@ -510,7 +666,46 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             System.out.println("Ocorreu um erro ao tentar pesquisar materials. Erro: " + e);
         }
     }//GEN-LAST:event_descMaterialKeyReleased
-   
+    /*
+    private void atualizarTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tabMaterial.getModel();
+            removeLinhas(tabMaterial);
+
+            List<Material> listaAux = materialDao.getList();
+            if (listaAux.size() > 0) {
+                model.setNumRows(0);
+
+                for (Material m : listaAux) {
+
+                    Object o[] = new Object[]{
+                        m.getCodMaterial(),
+                        m.getDescricao(),
+                        /*  getDescricaoUnidade(m.getUnidade()),*/
+
+ /* m.getMetragemLinear() != null ? ValidarValor.getDouble(m.getMetragemLinear()) : null,
+                        m.getLargura() != null ? ValidarValor.getDouble(m.getLargura()) : null,
+                        m.getAltura() != null ? ValidarValor.getDouble(m.getAltura()) : null,
+                        m.getUnidade() != null ? ValidarValor.getDouble(m.getUnidade()) : null,
+                        m.getPeso() != null ? ValidarValor.getDouble3Casas(m.getPeso()) : null,
+                        m.getLitro() != null ? ValidarValor.getDouble(m.getLitro()) : null,
+                        m.getFrete() != null ? ValidarValor.getDouble(m.getFrete()) : null,
+                        ValidarValor.getDouble(m.getPrecoCompra()),
+                        ValidarValor.getDouble(m.getPrecoCustoTotal()),
+                        ValidarValor.getDouble(m.getEstoqueMinimo())};
+
+                    model.addRow(o);
+                }
+            }
+            tabMaterial.setModel(model);
+        } catch (Exception e) {
+            removeLinhas(tabMaterial);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar lista de materiais cadastrados. Erro: " + e);
+            e.printStackTrace();
+
+        }
+    }
+     */
     private void atualizarTabela() {
         try {
 
@@ -544,10 +739,16 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                     Object o[] = new Object[]{
                         (BigInteger) os[0],
                         (String) os[1],
-                        (String) os[2],
+                        (Double) os[2] != null ? ValidarValor.getDouble((Double) os[2]) : null,
                         (Double) os[3] != null ? ValidarValor.getDouble((Double) os[3]) : null,
-                        
-                    };
+                        (Double) os[4] != null ? ValidarValor.getDouble((Double) os[4]) : null,
+                        (Double) os[5] != null ? ValidarValor.getDouble((Double) os[5]) : null,
+                        (Double) os[6] != null ? ValidarValor.getDouble3Casas((Double) os[6]) : null,
+                        (Double) os[7] != null ? ValidarValor.getDouble((Double) os[7]) : null,
+                        (Double) os[8] != null ? ValidarValor.getDouble((Double) os[8]) : null,
+                        ValidarValor.getDouble((Double) os[9]),
+                        ValidarValor.getDouble((Double) os[10]),
+                        ValidarValor.getDouble((Double) os[11])};
 
                     model.addRow(o);
                 }
@@ -608,8 +809,28 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private void limparCampos() {
         descMaterial.setText("");
         material = null;
+
         comboUnidade.setSelectedIndex(0);
+
+        metragemLinear.setEnabled(true);
+        largura.setEnabled(false);
+        altura.setEnabled(false);
+        unidade.setEnabled(false);
+        litro.setEnabled(false);
+        peso.setEnabled(false);
+
+        metragemLinear.setText("0,00");
+        largura.setText("0,00");
+        altura.setText("0,00");
+        unidade.setText("0");
+        peso.setText("0,00");
+        litro.setText("0,00");
         estoqueMinimo.setText("0,00");
+        frete.setText("0,00");
+
+        precoCustoCompra.setText("0,00");
+        precoCustoTotal.setText("0,00");
+
     }
 
     private void carregarCampos(Material m) {
@@ -618,6 +839,17 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
             material = m;
             descMaterial.setText(m.getDescricao());
             comboUnidade.setSelectedIndex(m.getUnidadeMedida());
+
+            metragemLinear.setText(m.getMetragemLinear() == null ? "0,00" : ValidarValor.getDouble(m.getMetragemLinear()));
+            largura.setText(m.getLargura() == null ? "0,00" : ValidarValor.getDouble(m.getLargura()));
+            altura.setText(m.getAltura() == null ? "0,00" : ValidarValor.getDouble(m.getAltura()));
+            unidade.setText(m.getUnidade() == null ? "0" : ValidarValor.getDouble(m.getUnidade()));
+            peso.setText(m.getPeso() == null ? "0,00" : ValidarValor.getDouble3Casas(m.getPeso()));
+            litro.setText(m.getLitro() == null ? "0,00" : ValidarValor.getDouble(m.getLitro()));
+
+            frete.setText(m.getFrete() == null ? "0,00" : ValidarValor.getDouble(m.getFrete()));
+            precoCustoCompra.setText(ValidarValor.getDouble(m.getPrecoCompra()));
+            precoCustoTotal.setText(ValidarValor.getDouble(m.getPrecoCustoTotal()));
             estoqueMinimo.setText(ValidarValor.getDouble(m.getEstoqueMinimo()));
         }
     }
@@ -637,9 +869,24 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
                     material.setDataAtualizacao(new Date());
                 }
 
+                atualizaPrecoCustoTotal();
+
                 material.setCodMaterial(Long.parseLong(codMaterial.getText()));
                 material.setDescricao(descMaterial.getText());
+
                 material.setUnidadeMedida(comboUnidade.getSelectedIndex());
+
+                material.setMetragemLinear((ValidarValor.getDouble(metragemLinear.getText()) > 0 ? ValidarValor.getDouble(metragemLinear.getText()) : null));
+                material.setLargura((ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(largura.getText()) : null));
+                material.setAltura(ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(altura.getText()) : null);
+                material.setUnidade(ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(unidade.getText()) : null);
+                material.setPeso(ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble3(peso.getText()) : null);
+                material.setLitro(ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble(litro.getText()) : null);
+
+                material.setFrete(ValidarValor.getDouble(frete.getText()) > 0 ? ValidarValor.getArredondamento(ValidarValor.getDouble(frete.getText())) : null);
+
+                material.setPrecoCompra(ValidarValor.getArredondamento(ValidarValor.getDouble(precoCustoCompra.getText())));
+                material.setPrecoCustoTotal(ValidarValor.getArredondamento(ValidarValor.getDouble(precoCustoTotal.getText())));
                 material.setEstoqueMinimo(ValidarValor.getDouble(estoqueMinimo.getText()));
 
                 if (materialDao.salvar(material) != null) {
@@ -728,13 +975,137 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_inicioActionPerformed
 
+    private void litroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_litroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_litroActionPerformed
+
+    private void pesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesoActionPerformed
+
     private void comboUnidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboUnidadeItemStateChanged
-        
+        try {
+            switch (comboUnidade.getSelectedIndex()) {
+                case 0:
+
+                    metragemLinear.setEnabled(true);
+                    largura.setEnabled(false);
+                    altura.setEnabled(false);
+                    unidade.setEnabled(false);
+                    peso.setEnabled(false);
+                    litro.setEnabled(false);
+
+                    largura.setText("0,00");
+                    altura.setText("0,00");
+                    unidade.setText("0");
+                    peso.setText("0,00");
+                    litro.setText("0,00");
+                    frete.setText("0,00");
+                    break;
+                case 1:
+
+                    largura.setEnabled(true);
+                    altura.setEnabled(true);
+                    metragemLinear.setEnabled(false);
+                    unidade.setEnabled(false);
+                    peso.setEnabled(false);
+                    litro.setEnabled(false);
+
+                    metragemLinear.setText("0,00");
+                    unidade.setText("0");
+                    peso.setText("0,00");
+                    litro.setText("0,00");
+                    frete.setText("0,00");
+                    break;
+                case 2:
+
+                    metragemLinear.setEnabled(false);
+                    largura.setEnabled(false);
+                    altura.setEnabled(false);
+                    unidade.setEnabled(true);
+                    peso.setEnabled(false);
+                    litro.setEnabled(false);
+
+                    metragemLinear.setText("0,00");
+                    largura.setText("0,00");
+                    altura.setText("0,00");
+                    peso.setText("0,00");
+                    litro.setText("0,00");
+                    frete.setText("0,00");
+
+                    break;
+
+                case 3:
+
+                    metragemLinear.setEnabled(false);
+                    largura.setEnabled(false);
+                    altura.setEnabled(false);
+                    unidade.setEnabled(false);
+                    peso.setEnabled(true);
+                    litro.setEnabled(false);
+
+                    metragemLinear.setText("0,00");
+                    largura.setText("0,00");
+                    altura.setText("0,00");
+                    unidade.setText("0");
+                    litro.setText("0,00");
+
+                    frete.setText("0,00");
+
+                    break;
+
+                case 4:
+
+                    metragemLinear.setEnabled(false);
+                    largura.setEnabled(false);
+                    altura.setEnabled(false);
+                    unidade.setEnabled(false);
+                    peso.setEnabled(false);
+                    litro.setEnabled(true);
+
+                    metragemLinear.setText("0,00");
+                    largura.setText("0,00");
+                    altura.setText("0,00");
+                    unidade.setText("0");
+                    peso.setText("0,00");
+                    frete.setText("0,00");
+
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_comboUnidadeItemStateChanged
+
+    private void precoCustoCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precoCustoCompraFocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_precoCustoCompraFocusLost
+
+    private void freteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_freteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_freteActionPerformed
+
+    private void precoCustoCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoCustoCompraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precoCustoCompraActionPerformed
+
+    private void freteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_freteFocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_freteFocusLost
+
+    private void litroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_litroFocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_litroFocusLost
+
+    private void pesoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pesoFocusLost
+        atualizaPrecoCustoTotal();
+    }//GEN-LAST:event_pesoFocusLost
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            String sql = "select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro (m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, estoqueminimo   from material order by descricao asc";
+            String sql = "select codmaterial, descricao , case unidademedida when 0 then 'Metro (linear)' when 1 then 'Metro (m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' when 4 then 'Litros (l)' end as unidademedida, metragemlinear, altura,  largura, unidade,  peso, litro,  frete,  precocompra, precocustototal, estoqueminimo   from material order by descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/material.jasper", "RELATÓRIO DE MATERIAIS", null, sql);
 
@@ -744,8 +1115,23 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void atualizaPrecoCustoTotal() {
+        try {
+
+            Double preco = 0.00;
+
+            preco = (ValidarValor.getArredondamento((Double.parseDouble(frete.getText().replaceAll(",", ".")) + Double.parseDouble(precoCustoCompra.getText().replaceAll(",", ".")))));
+            precoCustoTotal.setText(ValidarValor.getDouble(preco));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            precoCustoTotal.setText("0,00");
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField altura;
     private javax.swing.JButton anterior;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btNovo;
@@ -755,18 +1141,29 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> comboUnidade;
     private javax.swing.JTextField descMaterial;
     private javax.swing.JTextField estoqueMinimo;
+    private javax.swing.JTextField frete;
     private javax.swing.JButton inicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -797,8 +1194,15 @@ public class FCadMaterial extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField62;
     private javax.swing.JTextField jTextField63;
     private javax.swing.JTextField jTextField64;
+    private javax.swing.JTextField largura;
+    private javax.swing.JTextField litro;
+    private javax.swing.JTextField metragemLinear;
+    private javax.swing.JTextField peso;
+    private javax.swing.JTextField precoCustoCompra;
+    private javax.swing.JTextField precoCustoTotal;
     private javax.swing.JButton proximo;
     private javax.swing.JTable tabMaterial;
     private javax.swing.JButton ultimo;
+    private javax.swing.JTextField unidade;
     // End of variables declaration//GEN-END:variables
 }

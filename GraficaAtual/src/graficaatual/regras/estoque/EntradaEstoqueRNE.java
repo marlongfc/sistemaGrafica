@@ -24,10 +24,6 @@ public class EntradaEstoqueRNE extends GenericDAO {
     public boolean excluir(EntityManager session, EntradaEstoque entradaEstoque) throws Exception {
         return super.deletePojo(session, entradaEstoque);
     }
-    
-    public Boolean insere(EntityManager session, EntradaEstoque entradaEstoque) throws Exception {
-        return super.savePojo(session, entradaEstoque);
-    }
 
     public long getNextItem(EntityManager session) throws Exception {
         String q = " select max(e.codEntradaEstoque) from EntradaEstoque e ";
@@ -41,7 +37,15 @@ public class EntradaEstoqueRNE extends GenericDAO {
         String sql = " select e from EntradaEstoque e where e.codEntradaEstoque=?1 ";
         return getPojoUnique(session, EntradaEstoque.class, sql, codigo);
     }
-        
+    
+    /*
+      public EntradaEstoque getByMaterial(long codigo, EntityManager session) throws Exception {
+        String sql = " select e from EntradaEstoque e where e.codMaterial=?1 ";
+        return getPojoUnique(session, EntradaEstoque.class, sql, codigo);
+    }
+    */
+
+    
      public List<EntradaEstoque> getListPorMaterial(long codMaterial, EntityManager session) throws Exception {
         String sql = " select e from EntradaEstoque e where e.codMaterial=?1 ";
         return getPureList(session, EntradaEstoque.class, sql);

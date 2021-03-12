@@ -1,5 +1,6 @@
 package graficaatual.pesq.cadastro;
 
+
 import graficaatual.utilitarios.CnvNativeQueryRNE;
 import graficaatual.utilitarios.Persistencia;
 import javax.persistence.EntityManager;
@@ -20,14 +21,13 @@ public class CnvMaterial extends CnvNativeQueryRNE {
 
         try {
 
-            String sql = " select e.codMaterial, e.descricao, case e.unidademedida when 0 then 'Metro (linear)' "
-                    + " when 1 then 'Metro (m²)' when 2 then 'Unidade (un)' when 3 then 'Peso (kg)' "
-                    + " when 4 then 'Litros (l)' end as unidademedida,"
+            String sql = " select e.codMaterial, e.descricao, e.metragemLinear, e.largura, e.altura,"
+                    + " e.unidade, e.peso, e.litro, e.frete, e.precoCompra, e.precoCustoTotal,"
                     + " e.estoqueMinimo   from Material e order by e.descricao asc";
 
             String sqlNrReg = " select  count(e.codMaterial)"
                     + " from Material e  ";
-
+                               
             super.iniciarCnv(session, sqlNrReg, sql, 15);
 
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class CnvMaterial extends CnvNativeQueryRNE {
             super.iniciarCnv(session, sqlNrReg, sql, nrReg, parametros);
 
         } catch (Exception e) {
-            e.printStackTrace();
+           e.printStackTrace();
 
         } finally {
             session.close();
@@ -61,7 +61,7 @@ public class CnvMaterial extends CnvNativeQueryRNE {
         EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
-
+         
             super.proximo(session, parametros);
 
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class CnvMaterial extends CnvNativeQueryRNE {
             super.anterior(session, parametros);
 
         } catch (Exception e) {
-            e.printStackTrace();
+           e.printStackTrace();
 
         } finally {
             session.close();
@@ -92,7 +92,7 @@ public class CnvMaterial extends CnvNativeQueryRNE {
 
     public void primeiro(Object... parametros) {
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
+       EntityManager session = Persistencia.getInstance().getSessionComBegin();
 
         try {
 
