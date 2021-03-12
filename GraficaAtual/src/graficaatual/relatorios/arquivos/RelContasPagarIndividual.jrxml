@@ -16,11 +16,14 @@
 	<parameter name="COMPLEMENTOENT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT c.codcontaspag, c.valorpagar, p.nome, f.descricao as forma, cx.descricao as caixa
-FROM contasapagar c
-INNER JOIN fornecedor fornec ON fornec.codfornecedor = c.fornecedor
-INNER JOIN pessoa p ON p.codpessoa = fornec.pessoa
-INNER JOIN formadepagamento f ON f.codforma = c.formapagamento
-INNER JOIN caixa cx On cx.codcaixa = c.caixa]]>
+                          FROM contasapagar c
+                          INNER JOIN fornecedor fornec ON fornec.codfornecedor = c.fornecedor
+                          INNER JOIN pessoa p ON p.codpessoa = fornec.pessoa
+                          INNER JOIN formadepagamento f ON f.codforma = c.formapagamento
+                          INNER JOIN caixa cx On cx.codcaixa = c.caixa
+
+                          ORDER BY p.nome asc;
+]]>
 	</queryString>
 	<field name="codcontaspag" class="java.lang.Integer"/>
 	<field name="valorpagar" class="java.lang.Double"/>
@@ -140,7 +143,7 @@ INNER JOIN caixa cx On cx.codcaixa = c.caixa]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[VL.RECEBER]]></text>
+				<text><![CDATA[VLR. PAGAR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="351" y="0" width="204" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="1be2c663-752d-4d50-ae87-533de70c31cf"/>

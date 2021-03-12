@@ -728,7 +728,7 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
 
             if (codPagar.getText().length() > 0) {
 
-                String sql = " SELECT c.codcontaspag, c.valorpagar, p.nome, f.descricao as forma  "
+                String sql = " SELECT c.codcontaspag, c.valorpagar, p.nome, f.descricao as forma, cx.descricao as caixa  "
                         + " FROM contasapagar c "
                         + " INNER JOIN fornecedor fornec ON fornec.codfornecedor = c.fornecedor"
                         + " INNER JOIN pessoa p ON p.codpessoa = fornec.pessoa "
@@ -944,6 +944,10 @@ public class FCadContasPagar extends javax.swing.JInternalFrame {
 
         if (descFormaPagamento.getText().length() < 2) {
             throw new Exception("Favor inserir uma Forma de Pagamento");
+        }
+        
+        if(descCaixa.getText().length() < 2){
+            throw  new Exception("Favor inserir uma Caixa");
         }
 
         pagar.setFornecedor(fornecedor);
