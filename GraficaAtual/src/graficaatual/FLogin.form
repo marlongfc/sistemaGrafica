@@ -149,7 +149,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="login">
           <Properties>
-            <Property name="text" type="java.lang.String" value="danilo"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Constraints>
@@ -176,7 +175,6 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="senhaUsuario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="2987dfb"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Constraints>
