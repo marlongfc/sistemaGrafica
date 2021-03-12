@@ -34,7 +34,6 @@ public class FPedido extends javax.swing.JFrame {
         
         //verificação de acesso as telas
         acessotela(jBOrcamento,"FCadOrcamento");
-        //acessotela(jbPedido,"FCadOrcamento");
         acessotela(jbRequisicao,"FCadRequisicao");
   
     }

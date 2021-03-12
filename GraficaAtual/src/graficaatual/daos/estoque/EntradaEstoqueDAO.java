@@ -124,6 +124,17 @@ public class EntradaEstoqueDAO extends EntradaEstoqueRNE {
             session.close();
         }
     }
+    
+        public Long getListNativeCod (String sql) throws Exception {
+
+        EntityManager session = Persistencia.getInstance().getSessionSemBegin();
+
+        try {
+            return super.getListNativeCod(session, sql);
+        } finally {
+            session.close();
+        }
+    }
 
     public List<EntradaEstoque> getList(int NRegistros, String SQL, Object... parametros) {
         return getPureList(Persistencia.getInstance().getEntityManager(), 0, NRegistros, EntradaEstoque.class, SQL, parametros);

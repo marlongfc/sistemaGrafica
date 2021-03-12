@@ -8,9 +8,11 @@ package graficaatual.formularios.cadastro;
 import graficaatual.daos.cadastro.ComposicaoProdutoDAO;
 import graficaatual.daos.cadastro.MaterialDAO;
 import graficaatual.daos.cadastro.ProdutoDAO;
+import graficaatual.daos.estoque.EntradaEstoqueDAO;
 import graficaatual.entidades.ComposicaoProduto;
 import graficaatual.entidades.Material;
 import graficaatual.entidades.Produto;
+import graficaatual.entidades.estoque.EntradaEstoque;
 import graficaatual.pesq.cadastro.CnvProduto;
 import graficaatual.utilitarios.Componentes;
 import graficaatual.utilitarios.Persistencia;
@@ -29,6 +31,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -162,6 +166,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        precoMaterial = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -566,6 +572,20 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         });
         jPanel18.add(jButton2);
         jButton2.setBounds(610, 590, 190, 39);
+
+        precoMaterial.setBackground(new java.awt.Color(255, 255, 204));
+        precoMaterial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        precoMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precoMaterialActionPerformed(evt);
+            }
+        });
+        jPanel18.add(precoMaterial);
+        precoMaterial.setBounds(20, 260, 110, 20);
+
+        jLabel21.setText("Preço do Material");
+        jPanel18.add(jLabel21);
+        jLabel21.setBounds(20, 240, 110, 20);
 
         jTabbedPane1.addTab("Cadastrar", jPanel18);
 
@@ -1016,7 +1036,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                             c.getCodComposicaoProduto(),
                             c.getMaterial().getCodMaterial(),
                             c.getMaterial().getDescricao(),
-                            ValidarValor.getDouble(c.getMaterial().getPrecoCustoTotal()),
+                            ValidarValor.getDouble(c.getCustoPorMaterial()),
                             c.getMetragemLinear() == null ? "" : ValidarValor.getDouble(c.getMetragemLinear()),
                             c.getLargura() == null ? "" : ValidarValor.getDouble(c.getLargura()),
                             c.getAltura() == null ? "" : ValidarValor.getDouble(c.getAltura()),
@@ -1206,8 +1226,14 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             material = materialDao.getPorCodigo(ValidarValor.getLong(codMaterial.getText()));
             if (material == null) {
                 descMaterial.setText("");
+                precoMaterial.setText("");
             } else {
+
+                EntradaEstoque entrada = buscaEntradaRecentePorMaterial(ValidarValor.getInt(codMaterial.getText()));
+
                 descMaterial.setText(material.getDescricao());
+                precoMaterial.setText(entrada== null ? "" : ValidarValor.getDouble(entrada.getValorCompra()));
+
                 habilitaCamposMedidas(material);
             }
         } catch (Exception e) {
@@ -1424,11 +1450,13 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Material já está adicionado, somente as medidas/quantidades serão alteradas!");
                 }
 
+                EntradaEstoque entrada = buscaEntradaRecentePorMaterial(ValidarValor.getInt(codMaterial.getText()));
+
                 Object[] os = new Object[11];
                 os[0] = "";
                 os[1] = codMaterial.getText();
                 os[2] = descMaterial.getText();
-                os[3] = ValidarValor.getDouble(material.getPrecoCustoTotal());
+                 os[3] = ValidarValor.getDouble(entrada != null ? entrada.getValorCompra() : 0);
                 os[4] = (ValidarValor.getDouble(metragemLinear.getText()) > 0 ? ValidarValor.getDouble((Double.parseDouble(metragemLinear.getText().replaceAll(",", ".")))) : "");
                 os[5] = (ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(largura.getText().replaceAll(",", "."))) : "");
                 os[6] = (ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(altura.getText().replaceAll(",", "."))) : "");
@@ -1437,65 +1465,73 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 os[9] = (ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble3Casas(ValidarValor.getDouble(litro.getText()/*.replaceAll(",", ".")*/)) : "");
 
                 //verifica tipo e qualcula quantidade
-                Double valSalvo = material.getPrecoCustoTotal() == null ? 0 : material.getPrecoCustoTotal();
+                //   Double valSalvo = material.getPrecoCustoTotal() == null ? 0 : material.getPrecoCustoTotal();
+                Double valSalvo = entrada != null ? entrada.getValorCompra() : 0;
                 Double valor = null;
 
-                switch (material.getUnidadeMedida()) {
-                    case 0:
-                        //metro linear                           
+                if (entrada != null) {
 
-                        Double mSalvo = material.getMetragemLinear();
-                        Double mTela = (ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
+                    switch (material.getUnidadeMedida()) {
+                        case 0:
+                            //metro linear                           
 
-                        valor = ((mTela * valSalvo) / mSalvo);
-                        os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
+                            Double mSalvo = entrada.getMetragemLinear();
+                            Double mTela = (ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
 
-                        break;
-                    case 1:
-                        //metro quadrado
+                            valor = ((mTela * valSalvo) / mSalvo);
+                            os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
 
-                        Double m2Salvo = material.getLargura() * material.getAltura();
-                        Double m2Tela = (Double.parseDouble(largura.getText().replaceAll(",", "."))) * (Double.parseDouble(altura.getText().replaceAll(",", ".")));
+                            break;
+                        case 1:
+                            //metro quadrado
 
-                        valor = ((m2Tela * valSalvo) / m2Salvo);
-                        os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
+                            Double m2Salvo = entrada.getLargura() * entrada.getAltura();
+                            Double m2Tela = (Double.parseDouble(largura.getText().replaceAll(",", "."))) * (Double.parseDouble(altura.getText().replaceAll(",", ".")));
 
-                        break;
-                    case 2:
-                        //unidade
+                            valor = ((m2Tela * valSalvo) / m2Salvo);
+                            os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
 
-                        Double unidadeSalvo = material.getUnidade();
-                        Double unidadeTela = (ValidarValor.getArredondamento(Double.parseDouble(unidade.getText().replaceAll(",", "."))));
+                            break;
+                        case 2:
+                            //unidade
 
-                        valor = ((unidadeTela * valSalvo) / unidadeSalvo);
-                        os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
+                            Double unidadeSalvo = entrada.getUnidade();
+                            Double unidadeTela = (ValidarValor.getArredondamento(Double.parseDouble(unidade.getText().replaceAll(",", "."))));
 
-                        break;
+                            valor = ((unidadeTela * valSalvo) / unidadeSalvo);
+                            os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
 
-                    case 3:
-                        //peso
+                            break;
 
-                        Double pesoSalvo = material.getPeso();
-                        Double pesoTela = (/*ValidarValor.getArredondamento*/(Double.parseDouble(peso.getText().replaceAll(",", "."))));
+                        case 3:
+                            //peso
 
-                        valor = ((pesoTela * valSalvo) / pesoSalvo);
-                        os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
+                            Double pesoSalvo = entrada.getPeso();
+                            Double pesoTela = (/*ValidarValor.getArredondamento*/(Double.parseDouble(peso.getText().replaceAll(",", "."))));
 
-                        break;
+                            valor = ((pesoTela * valSalvo) / pesoSalvo);
+                            os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
 
-                    case 4:
-                        Double litroSalvo = material.getLitro();
-                        Double litroTela = (/*ValidarValor.getArredondamento*/(Double.parseDouble(litro.getText().replaceAll(",", "."))));
+                            break;
 
-                        valor = ((litroTela * valSalvo) / litroSalvo);
-                        os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
+                        case 4:
+                            Double litroSalvo = entrada.getLitro();
+                            Double litroTela = (/*ValidarValor.getArredondamento*/(Double.parseDouble(litro.getText().replaceAll(",", "."))));
 
-                        break;
-                    default:
-                        os[10] = "0,00";
-                        break;
+                            valor = ((litroTela * valSalvo) / litroSalvo);
+                            os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
+
+                            break;
+                        default:
+                            os[10] = "0,00";
+                            break;
+                    }
+                } else {
+
+                    //NÃO TEM MATERIAL CADASTRADO, ENTÃO PEGA O PREÇO DA TELA
+                    valor = (ValidarValor.getArredondamento(Double.parseDouble(precoMaterial.getText().replaceAll(",", "."))));
+                    os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
                 }
-
                 model.addRow(os);
 
                 msgMaterial.setVisible(true);
@@ -1511,9 +1547,54 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
 
+    private EntradaEstoque buscaEntradaRecentePorMaterial(Integer codMaterial) {
+        EntradaEstoque entrada = null;
+
+        try {
+            String sql = 
+                    
+                     " with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax,"
+                    + "  em.codMaterial as codMaterial from EntradaEstoque em  "
+                    + " where em.cancelada=false and em.codMaterial= "+ codMaterial
+                    + "  group by em.codMaterial)"
+                    + "  "
+                    + " select max(e.codentradaestoque) from EntradaEstoque e "
+                    + "  left join tmpMax on tmpMax.codMaterial = e.codMaterial"
+                    + "  where e.cancelada=false and e.dataCadastro=tmpMax.dataMax "
+                    + "  and e.valorCompra=tmpMax.valorMax "
+                    + "  and  e.codMaterial= " + codMaterial
+                    + "  group by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque "
+                    + " order by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque desc";
+            
+//                    "with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax, "
+//                    + " em.codMaterial as codMaterial from EntradaEstoque em "
+//                    + " where em.cancelada=false and em.codMaterial=" + codMaterial
+//                    + " group by em.codMaterial)"
+//                    + " "
+//                    + "select e from EntradaEstoque e "
+//                    + " "
+//                    + " left join tmpMax on tmpMax.codMaterial = e.codMaterial"
+//                    + " where e.cancelada=false and e.dataCadastro=tmpMax.dataMax "
+//                    + " and e.valorCompra=tmpMax.valorMax "
+//                    + " and  e.codMaterial=" + codMaterial
+//                    + " order by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque desc";
+
+            Long x = new EntradaEstoqueDAO().getListNativeCod(sql);
+            System.out.println("xxxxxxxxxxxx  "+ x);
+            entrada = new EntradaEstoqueDAO().getPorCodigo(x);
+            System.out.println("entrada "+entrada.getMarca());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            entrada = null;
+        }
+
+        return entrada;
+    }
+
     private void limparMaterial() {
         codMaterial.setText("");
         descMaterial.setText("");
+        precoMaterial.setText("");
         limparMedidas();
         material = null;
     }
@@ -1725,6 +1806,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void precoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoMaterialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precoMaterialActionPerformed
+
     private void buscaFigura() {
         FvaFiguraProduto = (FvaFiguraProduto.equals("")) ? "\\" : FvaFiguraProduto;
         JFileChooser chose = new JFileChooser(FvaFiguraProduto);
@@ -1905,6 +1990,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1946,6 +2032,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField metragemLinear;
     private javax.swing.JLabel msgMaterial;
     private javax.swing.JTextField peso;
+    private javax.swing.JTextField precoMaterial;
     private javax.swing.JButton proximo1;
     private javax.swing.JButton removerMaterial;
     private javax.swing.JTable tabComposicao;

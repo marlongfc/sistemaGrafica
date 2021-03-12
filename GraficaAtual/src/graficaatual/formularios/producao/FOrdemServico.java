@@ -116,6 +116,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         imagem = new javax.swing.JButton();
         endImagem = new javax.swing.JTextField();
         imagem1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -282,11 +283,11 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(imagem);
-        imagem.setBounds(350, 610, 240, 40);
+        imagem.setBounds(440, 610, 210, 40);
 
         endImagem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel10.add(endImagem);
-        endImagem.setBounds(590, 610, 390, 40);
+        endImagem.setBounds(650, 610, 390, 40);
 
         imagem1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         imagem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar2.png"))); // NOI18N
@@ -297,7 +298,18 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
             }
         });
         jPanel10.add(imagem1);
-        imagem1.setBounds(110, 610, 240, 40);
+        imagem1.setBounds(200, 610, 240, 40);
+
+        jButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imprimir2.png"))); // NOI18N
+        jButton3.setText("Lista Setor");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton3);
+        jButton3.setBounds(40, 610, 160, 40);
 
         getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 0, 1100, 700);
@@ -497,6 +509,33 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
     private void tabOrdensFazerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabOrdensFazerMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_tabOrdensFazerMouseEntered
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            String sql = " select orc.codorcamento as codorcamento ,"
+            + " orc.prazoentrega  as prazoentrega,"
+            + " (pes.nome || '-' || orc.clientesecundario ||', '||orc.telefonesecundario) as nome ,"
+            + " orc.enderecosecundario as endereco,"
+            + " prod.descricao as descricao ,"
+            + " ord.checkcriacao as criacao,"
+            + " ord.checkprojeto as projeto "
+            + " from ordemservico as ord"
+            + " inner join orcamento as orc on (orc.codorcamento = ord.orcamento )"
+            + " left join produto as prod on (ord.produto = prod.codproduto)"
+            + " left join cliente as cli on (cli.codcliente = orc.cliente)"
+            + " left join pessoa as pes on (cli.pessoa = pes.codpessoa)"
+            + " where ord.checkentrega=false and  ord.datafimentrega is null " + getSetor(0)
+            + " order by ord.equipeentrega,orc.prazoentrega , orc.codorcamento , prod.descricao";
+
+            HashMap parametros = new HashMap();
+            parametros.put("setor", jCBSetor.getSelectedItem());
+            new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/ordemServicoSetor.jasper", "RELATÓRIO - ORDEM DE SERVIÇOS POR SETOR", parametros, sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de bairros! \n " + e);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
         private byte[] getByteImage() {
         try {
             if (FvaFiguraProduto.trim().length() > 0) {
@@ -568,6 +607,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
     private javax.swing.JTextField endImagem;
     private javax.swing.JButton imagem;
     private javax.swing.JButton imagem1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jCBSetor;
     private javax.swing.JLabel jLSelecao;
     private javax.swing.JLabel jLabel2;

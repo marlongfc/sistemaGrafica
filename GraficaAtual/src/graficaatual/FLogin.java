@@ -137,7 +137,6 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 570, 60, 20);
 
-        login.setText("danilo");
         login.setToolTipText("");
         jPanel2.add(login);
         login.setBounds(70, 570, 180, 20);
@@ -148,7 +147,6 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(10, 590, 60, 20);
 
-        senhaUsuario.setText("2987dfb");
         senhaUsuario.setToolTipText("");
         jPanel2.add(senhaUsuario);
         senhaUsuario.setBounds(70, 590, 180, 20);
@@ -201,7 +199,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel7);
         jLabel7.setBounds(20, 130, 80, 20);
 
-        host.setText("localhost");
+        host.setText("192.168.1.109");
         jPanel2.add(host);
         host.setBounds(100, 70, 150, 20);
 

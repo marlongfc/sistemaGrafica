@@ -39,14 +39,15 @@ public class FFinanceiro extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         //verificação de acesso as telas
-//        acessotela(jBCaixa, "FCadCaixa");
-//        acessotela(jBBanco, "FCadBanco");
-        //acessotela(jBFormaPagamento,"FCadFormaDePagamento");
-//        acessotela(jBCentroCusto, "FCadCentroDeCustos");
-//        acessotela(jBPlanoContas, "FCadPlanoDeContas");
-//        acessotela(jBLancCaixa,"FCadLancamento");
-//       
-//        acessotela(jBBanco,"FCadBanco");
+        acessotela(jBFormaPagamento, "FCadFormaDePagamento");
+        acessotela(jBCaixa, "FCadCaixa");
+        acessotela(jBBanco,"FCadBanco");
+        acessotela(jBCentroCusto, "FCadCentroDeCustos");
+        acessotela(jBPlanoContas, "FCadPlanoDeContas");
+        acessotela(jBLancCaixa,"FCadLancamento");
+        acessotela(jBContasReceber,"FCadContasAReceber");
+        acessotela(jBContasPagar,"FCadContasPagar");
+
     }
 
     public static FFinanceiro getInstance() {
