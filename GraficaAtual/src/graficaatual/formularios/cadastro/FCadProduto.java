@@ -1551,24 +1551,38 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         EntradaEstoque entrada = null;
 
         try {
-            String sql = "with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax, "
-                    + " em.codMaterial as codMaterial from EntradaEstoque em "
-                    + " where em.cancelada=false and em.codMaterial=" + codMaterial
-                    + " group by em.codMaterial)"
-                    + " "
-                    + "select e from EntradaEstoque e "
-                    + " "
-                    + " left join tmpMax on tmpMax.codMaterial = e.codMaterial"
-                    + " where e.cancelada=false and e.dataCadastro=tmpMax.dataMax "
-                    + " and e.valorCompra=tmpMax.valorMax "
-                    + " and  e.codMaterial=" + codMaterial
+            String sql = 
+                    
+                     " with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax,"
+                    + "  em.codMaterial as codMaterial from EntradaEstoque em  "
+                    + " where em.cancelada=false and em.codMaterial= "+ codMaterial
+                    + "  group by em.codMaterial)"
+                    + "  "
+                    + " select max(e.codentradaestoque) from EntradaEstoque e "
+                    + "  left join tmpMax on tmpMax.codMaterial = e.codMaterial"
+                    + "  where e.cancelada=false and e.dataCadastro=tmpMax.dataMax "
+                    + "  and e.valorCompra=tmpMax.valorMax "
+                    + "  and  e.codMaterial= " + codMaterial
+                    + "  group by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque "
                     + " order by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque desc";
+            
+//                    "with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax, "
+//                    + " em.codMaterial as codMaterial from EntradaEstoque em "
+//                    + " where em.cancelada=false and em.codMaterial=" + codMaterial
+//                    + " group by em.codMaterial)"
+//                    + " "
+//                    + "select e from EntradaEstoque e "
+//                    + " "
+//                    + " left join tmpMax on tmpMax.codMaterial = e.codMaterial"
+//                    + " where e.cancelada=false and e.dataCadastro=tmpMax.dataMax "
+//                    + " and e.valorCompra=tmpMax.valorMax "
+//                    + " and  e.codMaterial=" + codMaterial
+//                    + " order by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque desc";
 
-            List<EntradaEstoque> lista = new EntradaEstoqueDAO().getList(sql);
-
-            if (lista != null && lista.size() > 0) {
-                entrada = lista.get(0);
-            }
+            Long x = new EntradaEstoqueDAO().getListNativeCod(sql);
+            System.out.println("xxxxxxxxxxxx  "+ x);
+            entrada = new EntradaEstoqueDAO().getPorCodigo(x);
+            System.out.println("entrada "+entrada.getMarca());
         } catch (Exception ex) {
             ex.printStackTrace();
             entrada = null;

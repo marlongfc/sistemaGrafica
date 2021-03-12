@@ -56,6 +56,10 @@ public class EntradaEstoqueRNE extends GenericDAO {
     public List<EntradaEstoque> getList(EntityManager session, String sql) throws Exception {
         return getPureList(session, EntradaEstoque.class, sql);
     }
+    
+    public Long getListNativeCod(EntityManager session, String sql) throws Exception {
+        return (long) getIntegerNativeQuery(session, sql);
+    }
 
     public String getSqlLista(Date inicio, Date fim) {
 
