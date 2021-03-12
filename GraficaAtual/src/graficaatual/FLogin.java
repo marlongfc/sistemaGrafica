@@ -201,7 +201,7 @@ public class FLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel7);
         jLabel7.setBounds(20, 130, 80, 20);
 
-        host.setText("localhost");
+        host.setText("192.168.1.109");
         jPanel2.add(host);
         host.setBounds(100, 70, 150, 20);
 

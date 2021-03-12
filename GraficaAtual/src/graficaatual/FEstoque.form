@@ -105,7 +105,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="210" width="180" height="30"/>
+              <AbsoluteConstraints x="30" y="230" width="180" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -134,7 +134,7 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagens/RELATORIOS COM FUNDO.jpg"/>
+                  <Image iconType="3" name="/imagens/ESTOQUE COM FUNDO.jpg"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -170,7 +170,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="180" width="180" height="30"/>
+              <AbsoluteConstraints x="30" y="190" width="180" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -186,7 +186,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/CADASTRO SEM FUNDO4.jpg"/>
+              <Image iconType="3" name="/imagens/Fornecedor2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ESTOQUE"/>
             <Property name="borderPainted" type="boolean" value="false"/>

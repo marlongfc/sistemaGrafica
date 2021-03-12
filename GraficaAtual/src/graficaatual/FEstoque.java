@@ -32,7 +32,8 @@ public class FEstoque extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
        
         //verificação de acesso as telas
-     //   acessotela(btEstoque,"FControleEstoque");
+        acessotela(btEstoque1,"FControleEstoque");
+        acessotela(btEstoque,"FRelatorioEstoque");
             
     }
     
@@ -90,7 +91,7 @@ public class FEstoque extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBSair);
-        jBSair.setBounds(30, 210, 180, 30);
+        jBSair.setBounds(30, 230, 180, 30);
 
         deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -99,7 +100,7 @@ public class FEstoque extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/RELATORIOS COM FUNDO.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ESTOQUE COM FUNDO.jpg"))); // NOI18N
         deskTop.add(jLabel1);
         jLabel1.setBounds(280, 90, 550, 510);
 
@@ -121,12 +122,12 @@ public class FEstoque extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btEstoque);
-        btEstoque.setBounds(30, 180, 180, 30);
+        btEstoque.setBounds(30, 190, 180, 30);
 
         btEstoque1.setBackground(new java.awt.Color(71, 37, 131));
         btEstoque1.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
         btEstoque1.setForeground(new java.awt.Color(255, 255, 255));
-        btEstoque1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
+        btEstoque1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fornecedor2.png"))); // NOI18N
         btEstoque1.setText("ESTOQUE");
         btEstoque1.setBorderPainted(false);
         btEstoque1.setFocusPainted(false);

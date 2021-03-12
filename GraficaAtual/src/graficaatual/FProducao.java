@@ -36,10 +36,11 @@ public class FProducao extends javax.swing.JFrame {
         
         
         //verificação de acesso as telas
-        //acessotela(jBGgestaoProducao,"FGestaoOrdemServico");
-        //acessotela(jBProducao,"FOrdemServico");
-        //acessotela(jBEntrega,"FOrdemEntrega");
-        //acessotela(jBGrupoEntrega,"FGrupoEntrega");
+        acessotela(jBGgestaoProducao,"FGestaoOrdemServico");
+        acessotela(jBProducao,"FOrdemServico");
+        acessotela(jBEntrega,"FOrdemEntrega");
+        acessotela(jBGrupoEntrega,"FGrupoEntrega");
+        acessotela(jBFatura,"FOrdemFaturamento");
         
        
     }
@@ -118,7 +119,7 @@ public class FProducao extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBSair);
-        jBSair.setBounds(30, 660, 180, 30);
+        jBSair.setBounds(30, 380, 180, 30);
 
         deskTop.setMinimumSize(new java.awt.Dimension(1100, 700));
         deskTop.addComponentListener(new java.awt.event.ComponentAdapter() {

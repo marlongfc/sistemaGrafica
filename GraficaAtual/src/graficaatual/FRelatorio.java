@@ -35,7 +35,10 @@ public class FRelatorio extends javax.swing.JFrame {
        
         //verificação de acesso as telas
         acessotela(jBParametros,"FCadParametros");
-        acessotela(jBTextoPadrao,"FCadTextoPadro");       
+        acessotela(jBTextoPadrao,"FCadTextoPadro");   
+        acessotela(jBReltCadastro,"FRelatorioCadastro");
+        acessotela(jBRELTFinanc,"FRelatorioFinanceiro");  
+        
     }
     
     
@@ -59,8 +62,8 @@ public class FRelatorio extends javax.swing.JFrame {
         jBSair = new javax.swing.JButton();
         deskTop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
-        jBParametros1 = new javax.swing.JButton();
-        jBParametros2 = new javax.swing.JButton();
+        jBReltCadastro = new javax.swing.JButton();
+        jBRELTFinanc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema Gráfica Atual - Módulo Cadastro");
@@ -144,39 +147,39 @@ public class FRelatorio extends javax.swing.JFrame {
         jPanel1.add(deskTop);
         deskTop.setBounds(210, 10, 1070, 700);
 
-        jBParametros1.setBackground(new java.awt.Color(71, 37, 131));
-        jBParametros1.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
-        jBParametros1.setForeground(new java.awt.Color(255, 255, 255));
-        jBParametros1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
-        jBParametros1.setText("Cadastros");
-        jBParametros1.setBorderPainted(false);
-        jBParametros1.setFocusPainted(false);
-        jBParametros1.setFocusable(false);
-        jBParametros1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBParametros1.addActionListener(new java.awt.event.ActionListener() {
+        jBReltCadastro.setBackground(new java.awt.Color(71, 37, 131));
+        jBReltCadastro.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBReltCadastro.setForeground(new java.awt.Color(255, 255, 255));
+        jBReltCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
+        jBReltCadastro.setText("Cadastros");
+        jBReltCadastro.setBorderPainted(false);
+        jBReltCadastro.setFocusPainted(false);
+        jBReltCadastro.setFocusable(false);
+        jBReltCadastro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBReltCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBParametros1ActionPerformed(evt);
+                jBReltCadastroActionPerformed(evt);
             }
         });
-        jPanel1.add(jBParametros1);
-        jBParametros1.setBounds(30, 150, 180, 30);
+        jPanel1.add(jBReltCadastro);
+        jBReltCadastro.setBounds(30, 150, 180, 30);
 
-        jBParametros2.setBackground(new java.awt.Color(71, 37, 131));
-        jBParametros2.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
-        jBParametros2.setForeground(new java.awt.Color(255, 255, 255));
-        jBParametros2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
-        jBParametros2.setText("Financeiro");
-        jBParametros2.setBorderPainted(false);
-        jBParametros2.setFocusPainted(false);
-        jBParametros2.setFocusable(false);
-        jBParametros2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBParametros2.addActionListener(new java.awt.event.ActionListener() {
+        jBRELTFinanc.setBackground(new java.awt.Color(71, 37, 131));
+        jBRELTFinanc.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jBRELTFinanc.setForeground(new java.awt.Color(255, 255, 255));
+        jBRELTFinanc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CADASTRO SEM FUNDO4.jpg"))); // NOI18N
+        jBRELTFinanc.setText("Financeiro");
+        jBRELTFinanc.setBorderPainted(false);
+        jBRELTFinanc.setFocusPainted(false);
+        jBRELTFinanc.setFocusable(false);
+        jBRELTFinanc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBRELTFinanc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBParametros2ActionPerformed(evt);
+                jBRELTFinancActionPerformed(evt);
             }
         });
-        jPanel1.add(jBParametros2);
-        jBParametros2.setBounds(30, 190, 180, 30);
+        jPanel1.add(jBRELTFinanc);
+        jBRELTFinanc.setBounds(30, 190, 180, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,7 +240,7 @@ public class FRelatorio extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_jBSairActionPerformed
 
-    private void jBParametros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBParametros1ActionPerformed
+    private void jBReltCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBReltCadastroActionPerformed
          try {
             deskTop.removeAll();
             FRelatorioCadastro clComp;
@@ -252,9 +255,9 @@ public class FRelatorio extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBParametros1ActionPerformed
+    }//GEN-LAST:event_jBReltCadastroActionPerformed
 
-    private void jBParametros2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBParametros2ActionPerformed
+    private void jBRELTFinancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRELTFinancActionPerformed
          try {
             deskTop.removeAll();
              FRelatorioFinanceiro clComp;
@@ -269,13 +272,13 @@ public class FRelatorio extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao tentar selecionar o formulário. Verifique o formulário e tente novamente. \nErro: " + e);
         }
-    }//GEN-LAST:event_jBParametros2ActionPerformed
+    }//GEN-LAST:event_jBRELTFinancActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane deskTop;
     private javax.swing.JButton jBParametros;
-    private javax.swing.JButton jBParametros1;
-    private javax.swing.JButton jBParametros2;
+    private javax.swing.JButton jBRELTFinanc;
+    private javax.swing.JButton jBReltCadastro;
     private javax.swing.JButton jBSair;
     private javax.swing.JButton jBTextoPadrao;
     private javax.swing.JLabel jLabel1;
