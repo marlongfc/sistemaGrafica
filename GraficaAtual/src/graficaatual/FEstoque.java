@@ -32,8 +32,8 @@ public class FEstoque extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
        
         //verificação de acesso as telas
-        acessotela(btEstoque1,"FControleEstoque");
-        acessotela(btEstoque,"FRelatorioEstoque");
+      //  acessotela(btEstoque1,"FControleEstoque");
+      //  acessotela(btEstoque,"FRelatorioEstoque");
             
     }
     
