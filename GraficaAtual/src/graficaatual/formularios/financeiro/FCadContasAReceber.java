@@ -487,9 +487,9 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         jLabel84.setBounds(690, 170, 100, 20);
 
         jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel85.setText("Valor a Pagar");
+        jLabel85.setText("Vlr. a Receber");
         jPanel18.add(jLabel85);
-        jLabel85.setBounds(840, 170, 80, 20);
+        jLabel85.setBounds(840, 170, 90, 20);
 
         valorAPagar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valorAPagar.setText("0,00");
@@ -504,9 +504,9 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
         dataPagamento.setBounds(690, 190, 130, 20);
 
         jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel86.setText("Valor Pago");
+        jLabel86.setText("Vlr. Recebido");
         jPanel18.add(jLabel86);
-        jLabel86.setBounds(950, 170, 80, 20);
+        jLabel86.setBounds(950, 170, 100, 20);
 
         valorPago.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valorPago.setText("0,00");
@@ -738,6 +738,7 @@ public class FCadContasAReceber extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "Contas a Receber já Cadastrada");
                 }
+                
             }
             setReceber();
             receberDao.salvar(receber);

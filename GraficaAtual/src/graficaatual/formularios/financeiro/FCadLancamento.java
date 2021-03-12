@@ -51,19 +51,19 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
         atualizatabela();
 
         listaLancamento = ObservableCollections.observableList(new LinkedList<LancamentoCaixa>());
-        Componentes comp2 = new Componentes(listaLancamento, false, codLancamento, descLancamento, this, jPanel18, descLancamento.getWidth(), 100);
+        Componentes comp2 = new Componentes(listaLancamento, false, codLancamento, descLancamento, jPanel18, jPanel18, descLancamento.getWidth(), 100);
         comp2.addCol(0, "codLancamento", "Código", 50, Integer.class.getName());
         comp2.addCol(1, "descricao", "Lançamento", 200, String.class.getName());
         comp2.bind();
 
         listaPlano = ObservableCollections.observableList(new LinkedList<PlanoDeContas>());
-        Componentes comp3 = new Componentes(listaPlano, false, codConta, descConta, this, jPanel18, descConta.getWidth(), 100);
+        Componentes comp3 = new Componentes(listaPlano, false, codConta, descConta, jPanel18, jPanel18, descConta.getWidth(), 100);
         comp3.addCol(0, "codPlano", "Código", 50, Integer.class.getName());
         comp3.addCol(1, "descricao", "Conta", 200, String.class.getName());
         comp3.bind();
 
         listaCaixa = ObservableCollections.observableList(new LinkedList<Caixa>());
-        Componentes comp4 = new Componentes(listaCaixa, false, codCaixa, descCaixa, this, jPanel18, descCaixa.getWidth(), 100);
+        Componentes comp4 = new Componentes(listaCaixa, false, codCaixa, descCaixa, jPanel18, jPanel18, descCaixa.getWidth(), 100);
         comp4.addCol(0, "codCaixa", "Código", 50, Integer.class.getName());
         comp4.addCol(1, "descricao", "Caixa", 200, String.class.getName());
         comp4.bind();
@@ -514,7 +514,8 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
                     LancamentoCaixa lancCaixa = new LancamentoCaixa();
                     lancCaixa.setCaixa(caixa);
                     lancCaixa.setDataCadastro(new Date());
-                    lancCaixa.setDescricao(obs.getText());
+                    lancCaixa.setDescricao(descLancamento.getText());
+                    lancCaixa.setObservacao(obs.getText());
                     lancCaixa.setPlanoConta(plano);
                     lancCaixa.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " "
                             + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
@@ -534,6 +535,7 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
                     session.close();
 
                     JOptionPane.showMessageDialog(this, " Lançamento Realizado com Sucesso! ");
+                    limpaCampos();
 
                 } else {
                     throw new Exception("Favor inserir os dados de Caixa.");
@@ -585,7 +587,11 @@ public class FCadLancamento extends javax.swing.JInternalFrame {
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         try {
-            String sql = "SELECT codLancamento, descricao, valor FROM lancamentoCaixa ORDER BY descricao asc";
+            String sql = "SELECT codLancamento, descricao, "
+                    + " CASE WHEN valorEntrada <= 0 THEN (valorSaida * -1) "
+                    + " ELSE valorEntrada"
+                    + " END valor"
+                    + " FROM lancamentoCaixa ORDER BY descricao asc";
 
             new VisualizaRelatorio().visRel("graficaatual/relatorios/arquivos/RelLancamentoCaixaLista.jasper", "RELATÓRIO DE LANÇAMENTOS EM CAIXA", null, sql);
 

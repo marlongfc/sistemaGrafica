@@ -15,9 +15,12 @@
 	<parameter name="INSCESTENT" class="java.lang.String"/>
 	<parameter name="COMPLEMENTOENT" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT codLancamento, descricao, valor
-FROM lancamentoCaixa
- ORDER BY descricao asc]]>
+		<![CDATA[ SELECT codLancamento, descricao,
+                      CASE WHEN valorEntrada <= 0 THEN (valorSaida * -1)
+                      ELSE valorEntrada
+                      END valor
+                      FROM lancamentoCaixa ORDER BY descricao asc;
+]]>
 	</queryString>
 	<field name="codlancamento" class="java.lang.Integer"/>
 	<field name="descricao" class="java.lang.String"/>

@@ -805,7 +805,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                     receber.setPlanoContas(new PlanoDeContasDAO().get(1));//Sempre vai ser como vendas -1
                     receber.setFormaPagamento(orc.getFormaPagamento());
                     receber.setDataCadastro(new Date());
-                    receber.setDescricao(" Faturamento Pedido:" + ordem.getOrcamento().getCodOrcamento() + " " + ordem.getOrcamento().getCliente().getPessoa().getNome());
+                   // receber.setDescricao(" Faturamento Pedido:" + ordem.getOrcamento().getCodOrcamento() + " " + ordem.getOrcamento().getCliente().getPessoa().getNome());
                     receber.setObservacao(" Faturamento Pedido:" + ordem.getOrcamento().getCodOrcamento() + " " + ordem.getOrcamento().getCliente().getPessoa().getNome());
                     receber.setUsuarioCadastro(ControleAcesso.usuario.getColaborador().getPessoa().getCodPessoa() + " - " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                     receber.setDataPagamento(null);
