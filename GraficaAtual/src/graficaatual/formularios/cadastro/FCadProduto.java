@@ -1232,7 +1232,8 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 EntradaEstoque entrada = buscaEntradaRecentePorMaterial(ValidarValor.getInt(codMaterial.getText()));
 
                 descMaterial.setText(material.getDescricao());
-                precoMaterial.setText(entrada== null ? "" : ValidarValor.getDouble(entrada.getValorCompra()));
+                // precoMaterial.setText(entrada == null ? "" : ValidarValor.getDouble(entrada.getValorCompra()));
+                precoMaterial.setText(ValidarValor.getDouble(calculaPrecoUnitario(entrada)));
 
                 habilitaCamposMedidas(material);
             }
@@ -1240,6 +1241,75 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_codMaterialFocusLost
+
+    private Double calculaPrecoUnitario(EntradaEstoque entrada) {
+        try {
+
+            Double valor = 0.0;
+            Double valSalvo = 0.0;
+
+            if (entrada != null) {
+                Material material = materialDao.getPorCodigo(entrada.getCodMaterial());
+
+                switch (material.getUnidadeMedida()) {
+                    case 0:
+                        //metro linear                           
+
+                        Double mSalvo = entrada.getMetragemLinear();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / mSalvo));
+                        break;
+                    case 1:
+                        //metro quadrado
+
+                        Double m2Salvo = entrada.getLargura() * entrada.getAltura();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / m2Salvo));
+
+                        break;
+                    case 2:
+                        //unidade
+
+                        Double unidadeSalvo = entrada.getUnidade();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / unidadeSalvo));
+
+                        break;
+
+                    case 3:
+                        //peso
+
+                        Double pesoSalvo = entrada.getPeso();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / pesoSalvo));
+
+                        break;
+
+                    case 4:
+                        Double litroSalvo = entrada.getLitro();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / litroSalvo));
+
+                        break;
+                    default:
+                        valor = 0.0;
+                        break;
+                }
+            } else {
+                valor = 0.0;
+            }
+            return valor;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return 0.0;
+        }
+    }
 
     private void habilitaCamposMedidas(Material m) {
         try {
@@ -1456,7 +1526,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                 os[0] = "";
                 os[1] = codMaterial.getText();
                 os[2] = descMaterial.getText();
-                 os[3] = ValidarValor.getDouble(entrada != null ? entrada.getValorCompra() : 0);
+                os[3] = ValidarValor.getDouble(entrada != null ? entrada.getValorCompra() : 0);
                 os[4] = (ValidarValor.getDouble(metragemLinear.getText()) > 0 ? ValidarValor.getDouble((Double.parseDouble(metragemLinear.getText().replaceAll(",", ".")))) : "");
                 os[5] = (ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(largura.getText().replaceAll(",", "."))) : "");
                 os[6] = (ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(altura.getText().replaceAll(",", "."))) : "");
@@ -1476,9 +1546,11 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                             //metro linear                           
 
                             Double mSalvo = entrada.getMetragemLinear();
+
                             Double mTela = (ValidarValor.getArredondamento(Double.parseDouble(metragemLinear.getText().replaceAll(",", "."))));
 
-                            valor = ((mTela * valSalvo) / mSalvo);
+                            // valor = ((mTela * valSalvo) / mSalvo);
+                            valor = ((valSalvo / mSalvo) * mTela);
                             os[10] = ValidarValor.getDouble(ValidarValor.getArredondamento(valor));
 
                             break;
@@ -1551,11 +1623,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         EntradaEstoque entrada = null;
 
         try {
-            String sql = 
-                    
-                     " with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax,"
+            String sql
+                    = " with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax,"
                     + "  em.codMaterial as codMaterial from EntradaEstoque em  "
-                    + " where em.cancelada=false and em.codMaterial= "+ codMaterial
+                    + " where em.cancelada=false and em.codMaterial= " + codMaterial
                     + "  group by em.codMaterial)"
                     + "  "
                     + " select max(e.codentradaestoque) from EntradaEstoque e "
@@ -1565,7 +1636,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     + "  and  e.codMaterial= " + codMaterial
                     + "  group by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque "
                     + " order by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque desc";
-            
+
 //                    "with tmpMax as(select Max(em.dataCadastro) as dataMax, Max(em.valorCompra) as valorMax, "
 //                    + " em.codMaterial as codMaterial from EntradaEstoque em "
 //                    + " where em.cancelada=false and em.codMaterial=" + codMaterial
@@ -1578,11 +1649,10 @@ public class FCadProduto extends javax.swing.JInternalFrame {
 //                    + " and e.valorCompra=tmpMax.valorMax "
 //                    + " and  e.codMaterial=" + codMaterial
 //                    + " order by e.dataAtualizacao, e.valorCompra, e.codEntradaEstoque desc";
-
             Long x = new EntradaEstoqueDAO().getListNativeCod(sql);
-            System.out.println("xxxxxxxxxxxx  "+ x);
+            System.out.println("xxxxxxxxxxxx  " + x);
             entrada = new EntradaEstoqueDAO().getPorCodigo(x);
-            System.out.println("entrada "+entrada.getMarca());
+            System.out.println("entrada " + entrada.getMarca());
         } catch (Exception ex) {
             ex.printStackTrace();
             entrada = null;
