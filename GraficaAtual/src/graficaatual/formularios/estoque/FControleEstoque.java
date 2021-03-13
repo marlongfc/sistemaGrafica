@@ -483,6 +483,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         jPanel18.add(jLabel1);
         jLabel1.setBounds(0, 0, 1030, 70);
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setAutoscrolls(true);
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(1130, 400));
+
         tabMateriaisAddEntrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -506,12 +511,14 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabMateriaisAddEntrada.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabMateriaisAddEntrada.setMaximumSize(new java.awt.Dimension(2147483647, 400));
         tabMateriaisAddEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMateriaisAddEntradaMouseClicked(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 tabMateriaisAddEntradaMouseExited(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMateriaisAddEntradaMouseClicked(evt);
             }
         });
         tabMateriaisAddEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -524,15 +531,42 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             tabMateriaisAddEntrada.getColumnModel().getColumn(0).setMinWidth(0);
             tabMateriaisAddEntrada.getColumnModel().getColumn(0).setPreferredWidth(0);
             tabMateriaisAddEntrada.getColumnModel().getColumn(0).setMaxWidth(0);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(1).setPreferredWidth(20);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(3).setPreferredWidth(20);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(4).setPreferredWidth(5);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(8).setPreferredWidth(15);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(9).setPreferredWidth(15);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(10).setPreferredWidth(15);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(11).setPreferredWidth(15);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(12).setPreferredWidth(15);
-            tabMateriaisAddEntrada.getColumnModel().getColumn(13).setPreferredWidth(15);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(1).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(2).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(3).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(4).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(5).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(6).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(7).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(7).setPreferredWidth(200);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(8).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(8).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(9).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(9).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(10).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(10).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(11).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(11).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(12).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(12).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(13).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(13).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(14).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(14).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(15).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(15).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(16).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(16).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(17).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(17).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(18).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(18).setPreferredWidth(100);
         }
 
         jPanel18.add(jScrollPane1);
@@ -980,6 +1014,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         jPanel21.add(jLabel12);
         jLabel12.setBounds(460, 80, 110, 14);
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setAutoscrolls(true);
+        jScrollPane2.setMaximumSize(new java.awt.Dimension(1130, 400));
+
         tabMateriaisSaida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1003,12 +1042,13 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabMateriaisSaida.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tabMateriaisSaida.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMateriaisSaidaMouseClicked(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 tabMateriaisSaidaMouseExited(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMateriaisSaidaMouseClicked(evt);
             }
         });
         tabMateriaisSaida.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1021,15 +1061,30 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             tabMateriaisSaida.getColumnModel().getColumn(0).setMinWidth(0);
             tabMateriaisSaida.getColumnModel().getColumn(0).setPreferredWidth(0);
             tabMateriaisSaida.getColumnModel().getColumn(0).setMaxWidth(0);
-            tabMateriaisSaida.getColumnModel().getColumn(1).setPreferredWidth(20);
-            tabMateriaisSaida.getColumnModel().getColumn(3).setPreferredWidth(20);
-            tabMateriaisSaida.getColumnModel().getColumn(4).setPreferredWidth(5);
-            tabMateriaisSaida.getColumnModel().getColumn(6).setPreferredWidth(15);
-            tabMateriaisSaida.getColumnModel().getColumn(7).setPreferredWidth(15);
-            tabMateriaisSaida.getColumnModel().getColumn(8).setPreferredWidth(15);
-            tabMateriaisSaida.getColumnModel().getColumn(9).setPreferredWidth(15);
-            tabMateriaisSaida.getColumnModel().getColumn(10).setPreferredWidth(15);
-            tabMateriaisSaida.getColumnModel().getColumn(11).setPreferredWidth(15);
+            tabMateriaisSaida.getColumnModel().getColumn(1).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(2).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(3).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(4).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(5).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(5).setPreferredWidth(250);
+            tabMateriaisSaida.getColumnModel().getColumn(6).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(7).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(7).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(8).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(8).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(9).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(9).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(10).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(10).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(11).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(11).setPreferredWidth(100);
+            tabMateriaisSaida.getColumnModel().getColumn(12).setResizable(false);
+            tabMateriaisSaida.getColumnModel().getColumn(12).setPreferredWidth(200);
         }
 
         jPanel21.add(jScrollPane2);
@@ -1231,6 +1286,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel35.setText("ESTOQUE");
 
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setAutoscrolls(true);
+        jScrollPane3.setMaximumSize(new java.awt.Dimension(1130, 400));
+
         tabelaEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1254,12 +1314,13 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaEstoque.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tabelaEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaEstoqueMouseClicked(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 tabelaEstoqueMouseExited(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaEstoqueMouseClicked(evt);
             }
         });
         tabelaEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1269,14 +1330,30 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tabelaEstoque);
         if (tabelaEstoque.getColumnModel().getColumnCount() > 0) {
-            tabelaEstoque.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tabelaEstoque.getColumnModel().getColumn(2).setPreferredWidth(15);
-            tabelaEstoque.getColumnModel().getColumn(3).setPreferredWidth(15);
-            tabelaEstoque.getColumnModel().getColumn(4).setPreferredWidth(15);
-            tabelaEstoque.getColumnModel().getColumn(5).setPreferredWidth(15);
-            tabelaEstoque.getColumnModel().getColumn(6).setPreferredWidth(15);
+            tabelaEstoque.getColumnModel().getColumn(0).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(1).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tabelaEstoque.getColumnModel().getColumn(2).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(3).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(4).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(5).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(6).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(7).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(7).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(8).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(8).setPreferredWidth(100);
             tabelaEstoque.getColumnModel().getColumn(9).setResizable(false);
-            tabelaEstoque.getColumnModel().getColumn(11).setPreferredWidth(0);
+            tabelaEstoque.getColumnModel().getColumn(9).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(10).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(10).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(11).setResizable(false);
+            tabelaEstoque.getColumnModel().getColumn(11).setPreferredWidth(100);
         }
 
         btAddMaterial1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
@@ -1310,7 +1387,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGap(379, 379, 379)
+                        .addGap(394, 394, 394)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1327,9 +1404,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 435, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 743, Short.MAX_VALUE))
+                .addGap(0, 825, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jInternalFrame1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1402,56 +1479,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             listaAbaixoMinimo.clear();
 
             DefaultTableModel model = (DefaultTableModel) tabelaEstoque.getModel();
-            /*
-            String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
-                    + " t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
-                    + " Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
-                    + " ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end) + "
-                    + " (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
-                    + " +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
-                    + " + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal"
-                    + " "
-                    + " from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,"
-                    + " Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
-                    + " "
-                    + " from entradaEstoque e "
-                    + " left join material m on m.codMaterial=e.codMaterial"
-                    + " where e.cancelada=FALSE"
-                    + " group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
-                    + " "
-                    + " tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
-                    + " t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
-                    + " Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
-                    + " ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
-                    + " (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
-                    + " +(case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
-                    + " + (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
-                    + " "
-                    + " from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
-                    + " Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
-                    + " "
-                    + " from saidaEstoque e "
-                    + " left join material m on m.codMaterial=e.codMaterial"
-                    + " where e.cancelada=FALSE"
-                    + " group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)"
-                    + " "
-                    + " Select tE.codMaterial, tE.descMaterial, "
-                    + " ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end)) as quantAltura, "
-                    + " ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)) as quantLargura, "
-                    + " ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end)) as quantMetragem, "
-                    + " ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)) as quantLitro, "
-                    + " ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)) as quantPeso, "
-                    + " ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)) as quantUnidade, "
-                    + " ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)) as quantTotal, "
-                    + "  m.estoqueMinimo as estoqueMin, "
-                    + " Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo"
-                    + " "
-                    + " from tmpSomaEntrada as tE"
-                    + " left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial "
-                    + " left Join material as m on m.codMaterial = tE.codMaterial"
-                    + " "
-                    + " order by tE.descMaterial";
-             */
 
             String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
                     + "          t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
@@ -1694,10 +1721,8 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
 
-        EntityManager session = Persistencia.getInstance().getSessionComBegin();
-
         try {
-           
+
             DefaultTableModel model = (DefaultTableModel) tabMateriaisAddEntrada.getModel();
 
             for (int i = 0; i < model.getRowCount(); i++) {
@@ -1705,7 +1730,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 entrada = new EntradaEstoque();
 
                 entrada.setCodEntradaEstoque(entradaDao.getNextItem());
-                entrada.setTipoEntrada(Integer.parseInt("" + model.getValueAt(i, 1)));
+                entrada.setTipoEntrada(buscaIndexTipoEntrada( (String)  model.getValueAt(i, 1)));
                 entrada.setNotaFiscal("" + model.getValueAt(i, 2));
                 entrada.setDataCadastro(Data.getDateSQL("" + model.getValueAt(i, 3)));
                 entrada.setCodMaterial(Long.parseLong("" + model.getValueAt(i, 4)));
@@ -1728,55 +1753,47 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 entrada.setDataAtualizacao(Data.getDateSQL());
                 entrada.setCancelada(false);
 
-                entradaDao.insere(session, entrada);
-
-                //ATUALIZA O PREÇO DOS MATERIAIS PELA ENTRADA
-                /*
-                Material mat = materialDao.getPorCodigo(entrada.getCodMaterial());
-                int op = 0;
-                if (mat != null && entrada.getTipoEntrada() == 0) {
-
-                    if (entrada.getValorCompra() < mat.getPrecoCompra()) {
-
-                        op = JOptionPane.showConfirmDialog(null,
-                                "O Preço de Entrada do Material" + mat.getDescricao() + "é Menor Que o Preço da Última Compra. \n Deseja Mesmo Atualizar o Preço Deste Material?", "Confirmação de Alteração de Preço!", 0);
-                    }
-
-                    if (op == 0) {
-                        mat.setPrecoCompra(entrada.getValorCompra());
-                        mat.setPrecoCustoTotal((mat.getFrete() == null ? 0 : mat.getFrete()) + entrada.getValorCompra());
-                        materialDao.salvar(session, mat);
-                        listaMatAux.add(mat);
-                    }
-                }
-                 */
-                
-            
+                entradaDao.salvar(entrada);
             }
 
-            JOptionPane.showMessageDialog(null, "Processamento concluído!");
-            session.getTransaction().commit();
-            session.close();
-            /*
-            if (!listaMatAux.isEmpty()) {
-                String materiaisAtualizados = "";
-                for (Material m : listaMatAux) {
-                    materiaisAtualizados = materiaisAtualizados + " " + m.getDescricao() + "\n ";
-                }
-
-                JOptionPane.showMessageDialog(null, "Os Preços dos Seguintes Materiais Foram Atualizados:!" + "\n" + materiaisAtualizados);
-            }
-             */
             atualizarEstoque();
+            JOptionPane.showMessageDialog(null, "Processamento concluído!");
+
             limparTelaEntrada();
 
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao salvar entrada. Erro: " + e);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private Integer buscaIndexTipoEntrada(String i) {
+        Integer tipo = 0;
+        switch (i) {
+
+            case "Compra":
+                tipo = 0;
+                break;
+
+            case "Devolução":
+                tipo = 1;
+                break;
+
+            case "Reaproveitamento":
+                tipo = 2;
+                break;
+
+            case "Doação":
+                tipo = 3;
+                break;
+
+            default:
+                tipo = 0;
+                break;
+        }
+        return tipo;
+    }
+
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try {
@@ -2017,7 +2034,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
                 Object[] os = new Object[19];
                 os[0] = "";
-                os[1] = tipoEntrada.getSelectedIndex();
+                os[1] = buscaTipoEntrada(tipoEntrada.getSelectedIndex());
                 os[2] = notaFiscal.getText();
                 os[3] = dataEntrada.getText();
                 os[4] = codMaterial.getText();
@@ -2042,12 +2059,40 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 msgEntrada.setVisible(true);
 
                 limparCamposEntrada(false);
+
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btAddMaterialActionPerformed
+
+    private String buscaTipoEntrada(Integer i) {
+        String tipo = "";
+        switch (i) {
+
+            case 0:
+                tipo = "Compra";
+                break;
+
+            case 1:
+                tipo = "Devolução";
+                break;
+
+            case 2:
+                tipo = "Reaproveitamento";
+                break;
+
+            case 3:
+                tipo = "Doação";
+                break;
+
+            default:
+                tipo = "";
+                break;
+        }
+        return tipo;
+    }
 
     private void limparMaterial() {
         codMaterial.setText("");
@@ -2387,9 +2432,6 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Ocorreu um erro ao tentar pesquisar materials. Erro: " + e);
         }
-        // } else {
-        //     JOptionPane.showMessageDialog(null, "Não existe entrada deste material no estoque, \n portanto não é possível lançar uma saída!");
-        // }
     }//GEN-LAST:event_descMaterialSKeyReleased
 
     private void btAddMaterialSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddMaterialSActionPerformed
@@ -2400,7 +2442,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             if (codMaterialS.getText().equals("") || descMaterialS.getText().equals("") || materialS == null) {
                 JOptionPane.showMessageDialog(null, "Selecione um material válido!");
                 return;
-            }  else {
+            } else {
 
                 switch (materialS.getUnidadeMedida()) {
                     case 0:
@@ -2414,8 +2456,13 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                     case 1:
                         //metro quadrado
 
-                        if (larguraS.getText().equals("0,00") || Double.parseDouble(larguraS.getText().replaceAll(",", ".")) <= 0 || altura.getText().equals("0,00") || Double.parseDouble(altura.getText().replaceAll(",", ".")) <= 0) {
-                            JOptionPane.showMessageDialog(null, "Informe largura e altura do material !");
+                        if (larguraS.getText().equals("0,00") || Double.parseDouble(larguraS.getText().replaceAll(",", ".")) <= 0) {
+                            JOptionPane.showMessageDialog(null, "Informe largura do material !");
+                            return;
+                        }
+
+                        if (alturaS.getText().equals("0,00") || Double.parseDouble(alturaS.getText().replaceAll(",", ".")) <= 0) {
+                            JOptionPane.showMessageDialog(null, "Informe altura do material !");
                             return;
                         }
 
@@ -2454,7 +2501,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 Object[] os = new Object[13];
 
                 os[0] = "";
-                os[1] = tipoSaida.getSelectedIndex();
+                os[1] = buscaTipoSaida(tipoSaida.getSelectedIndex());
                 os[2] = codPedido.getText();
                 os[3] = dataSaida.getText();
                 os[4] = codMaterialS.getText();
@@ -2479,6 +2526,61 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btAddMaterialSActionPerformed
 
+    private String buscaTipoSaida(Integer i) {
+        String tipo = "";
+        switch (i) {
+
+            case 0:
+                tipo = "Pedido/Produção";
+                break;
+
+            case 1:
+                tipo = "Venda Avulsa";
+                break;
+
+            case 2:
+                tipo = "Descarte";
+                break;
+
+            case 3:
+                tipo = "Brinde/Doação";
+                break;
+
+            default:
+                tipo = "";
+                break;
+        }
+        return tipo;
+    }
+
+    private Integer buscaIndexTipoSaida(String i) {
+        Integer tipo = 0;
+        switch (i) {
+
+            case "Pedido/Produção":
+                tipo = 0;
+                break;
+
+            case "Venda Avulsa":
+                tipo = 1;
+                break;
+
+            case "Descarte":
+                tipo = 2;
+                break;
+
+            case "Brinde/Doação":
+                tipo = 3;
+                break;
+
+            default:
+                tipo = 0;
+                break;
+        }
+        return tipo;
+    }
+
+
     private void removerMaterialSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerMaterialSActionPerformed
         if (indexTabelaSaida != null) {
             DefaultTableModel model = (DefaultTableModel) tabMateriaisSaida.getModel();
@@ -2496,11 +2598,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             for (int i = 0; i < model.getRowCount(); i++) {
 
-              
                 saida = new SaidaEstoque();
 
                 saida.setCodSaidaEstoque(saidaDao.getNextItem());
-                saida.setTipoSaida(Integer.parseInt("" + model.getValueAt(i, 1)));
+                // saida.setTipoSaida(Integer.parseInt("" + model.getValueAt(i, 1)));
+                saida.setTipoSaida(buscaIndexTipoSaida((String) model.getValueAt(i, 1)));
                 saida.setNumeroPedido(model.getValueAt(i, 2) == null ? null : ("" + model.getValueAt(i, 2)).equals("") ? null : Integer.parseInt("" + model.getValueAt(i, 2)));
                 saida.setDataCadastro(Data.getDateSQL("" + model.getValueAt(i, 3)));
                 saida.setCodMaterial(Long.parseLong("" + model.getValueAt(i, 4)));
