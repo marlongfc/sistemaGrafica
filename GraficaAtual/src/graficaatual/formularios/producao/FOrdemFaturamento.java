@@ -527,7 +527,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                     + " log.descricao logradouro, bai.descricao bairro, cid.descricao cidade, "
                     + " orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario, "
                     + " orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega, "
-                    + " prod.codproduto, prod.descricao produto,item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario,aca.descricao acabamento, orc.valortotal,"
+                    + " prod.codproduto,  fo.descricao, prod.descricao produto,item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario,aca.descricao acabamento, orc.valortotal,"
                     + " case when orc.situacao = true then 'PEDIDO' "
                     + " ELSE 'ORÇAMENTO' end nomeRell "
                     + " FROM orcamento orc "
@@ -539,6 +539,7 @@ public class FOrdemFaturamento extends javax.swing.JInternalFrame {
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
                     + " LEFT JOIN produto prod ON prod.codproduto = item.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
+                    + " lEFT JOIN formaDePagamento fo on orc.formapagamento = fo.codForma "
                     + " WHERE orc.codOrcamento = " + valor;
 
             Map tx = new HashMap();

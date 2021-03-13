@@ -1306,7 +1306,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
             String sql = "select cli.codcliente, pes.nome, pes.cnpj, pes.inscestadual, pes.numcasa, pes.uf, pes.cep,pes.email, pes.telefone,"
                     + " log.descricao logradouro, bai.descricao bairro, cid.descricao cidade, "
                     + " orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario, "
-                    + " orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega, "
+                    + " orc.enderecosecundario, orc.telefonesecundario, fo.descricao, orc.tipodeentrega, "
                     + " prod.codproduto, prod.descricao produto,item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario,aca.descricao acabamento, orc.valortotal,"
                     + " case when orc.situacao = true then 'PEDIDO' "
                     + " ELSE 'ORÇAMENTO' end nomeRell "
@@ -1319,6 +1319,7 @@ public class FCadOrcamento extends javax.swing.JInternalFrame {
                     + " LEFT JOIN cidade cid ON cid.codcidade = pes.cidade "
                     + " LEFT JOIN produto prod ON prod.codproduto = item.produto"
                     + " LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento"
+                    + " lEFT JOIN formaDePagamento fo on orc.formapagamento = fo.codForma "
                     + " WHERE orc.codOrcamento = " + codOrcamento.getText();
 
             Map tx = new HashMap();

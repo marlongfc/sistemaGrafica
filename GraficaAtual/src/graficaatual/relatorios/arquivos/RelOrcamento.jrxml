@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelTurnoLista" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
-	<property name="ireport.zoom" value="1.241842646118312"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.502629601803158"/>
+	<property name="ireport.x" value="338"/>
+	<property name="ireport.y" value="239"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
 	<parameter name="CIDADEENT" class="java.lang.String"/>
@@ -18,7 +18,7 @@
 	<queryString>
 		<![CDATA[select cli.codcliente, pes.nome, pes.cnpj, pes.inscestadual, pes.numcasa, pes.uf, pes.cep,pes.email, pes.telefone,
 log.descricao logradouro, bai.descricao bairro, cid.descricao cidade,
-orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, orc.clientesecundario,
+orc.clientesecundario, orc.codorcamento,orc.dataorcamento, orc.validadeorcamento, orc.prazoentrega, orc.formapagamento, fo.descricao, orc.clientesecundario,
 orc.enderecosecundario, orc.telefonesecundario, orc.tipodeentrega,
 prod.codproduto, prod.descricao produto,
 item.quantprod, item.medida, item.unidade, item.valortotalproduto, item.valorunitario, aca.descricao acabamento, orc.valortotal,
@@ -35,7 +35,8 @@ LEFT JOIN logradouro log ON log.codlogradouro = pes.logradouro
 LEFT JOIN bairro bai ON bai.codbairro = pes.bairro
 LEFT JOIN cidade cid ON cid.codcidade = pes.cidade
 LEFT JOIN produto prod ON prod.codproduto = orc.produto
-LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
+LEFT JOIN acabamento aca ON aca.codacabamento = item.acabamento
+lEFT JOIN formaDePagamento fo on orc.formapagamento = fo.codForma]]>
 	</queryString>
 	<field name="codcliente" class="java.lang.Long"/>
 	<field name="nome" class="java.lang.String"/>
@@ -55,6 +56,7 @@ LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 	<field name="validadeorcamento" class="java.sql.Date"/>
 	<field name="prazoentrega" class="java.sql.Date"/>
 	<field name="formapagamento" class="java.lang.Integer"/>
+	<field name="descricao" class="java.lang.String"/>
 	<field name="enderecosecundario" class="java.lang.String"/>
 	<field name="telefonesecundario" class="java.lang.String"/>
 	<field name="tipodeentrega" class="java.lang.Integer"/>
@@ -843,7 +845,7 @@ LEFT JOIN acabamento aca ON aca.codacabamento = orc.acabamento]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{acabamento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="1" y="30" width="800" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="8c9b3491-fd1b-4e2a-91fd-58bbfb6e8923"/>
