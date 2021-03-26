@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelTurnoLista" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
-	<property name="ireport.zoom" value="1.241842646118312"/>
+	<property name="ireport.zoom" value="0.848195236744971"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
 	<parameter name="CIDADEENT" class="java.lang.String"/>
@@ -668,7 +668,7 @@ WHERE orc.codOrcamento = 17]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="376" splitType="Stretch">
+		<band height="240" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="1" y="0" width="207" height="13" forecolor="#FFFFFF" backcolor="#4A2680" uuid="182381b8-cf65-4002-9f8b-0c99021034d3"/>
 				<box leftPadding="2">
@@ -907,22 +907,9 @@ WHERE orc.codOrcamento = 17]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipodeentrega} == 0 ? "Interna" : "Externa"]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="1" y="276" width="802" height="96" isPrintWhenDetailOverflows="true" uuid="1501c439-c4e6-4747-b572-1837649a0bca"/>
-				<textElement markup="html"/>
-				<textFieldExpression><![CDATA[$P{TEXTOPADRAO}]]></textFieldExpression>
-			</textField>
 			<image isUsingCache="true">
-				<reportElement x="285" y="69" width="201" height="170" uuid="cf47dfa0-fbcd-467d-99a3-b1816cc76be8"/>
-				<imageExpression><![CDATA[$P{imagem2}]]></imageExpression>
-			</image>
-			<image isUsingCache="true">
-				<reportElement x="7" y="70" width="201" height="170" uuid="76c37f3c-2fa6-4128-877c-c2bb50c21ae4"/>
+				<reportElement x="299" y="70" width="201" height="170" uuid="76c37f3c-2fa6-4128-877c-c2bb50c21ae4"/>
 				<imageExpression><![CDATA[$P{imagem1}]]></imageExpression>
-			</image>
-			<image isUsingCache="true">
-				<reportElement x="595" y="70" width="201" height="170" uuid="7eb4a256-1bda-44c2-acea-0100a725d158"/>
-				<imageExpression><![CDATA[$P{imagem3}]]></imageExpression>
 			</image>
 		</band>
 	</summary>

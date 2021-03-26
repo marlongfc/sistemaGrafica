@@ -861,7 +861,7 @@ public class FOrdemServico extends javax.swing.JInternalFrame {
         
         String de = texto.getEmailEnvio();
         para.add(ordem.getOrcamento().getCliente().getPessoa().getEmail());
-        String deNome = "Grafica Atual";
+        String deNome = " Atual Comunicação";
         //Conferir Senha
         String senha = texto.getEmailSenha();
         String assunto = " Etapa "+ jCBSetor.getSelectedItem()+" - Concluída " ;
