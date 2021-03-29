@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teste" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b26e1d92-fa82-46e6-8f04-ffebdf501e9d">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="438"/>
-	<property name="ireport.y" value="37"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="NOMEENT" class="java.lang.String"/>
 	<parameter name="LOGRADOUROENT" class="java.lang.String"/>
 	<parameter name="CIDADEENT" class="java.lang.String"/>
@@ -16,68 +16,101 @@
 	<parameter name="COMPLEMENTOENT" class="java.lang.String"/>
 	<parameter name="dataParam" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,
-                                               t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,
-                                               Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else
-                                              + ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)
-                                              + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)
-                                               +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)
-                                               + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal
+		<![CDATA[with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantMetroQuadrado, t.quantMetragemEntrada,
+                                      t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,
 
-                                               from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,
-                                               Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada
+                                      ((case when t.quantMetroQuadrado is null then 0 else t.quantMetroQuadrado end)
+                                      +(case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)
+                                       + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)
+                                       +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)
+                                      + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) as quantidadeTotal
 
-                                               from entradaEstoque e
-                                               left join material m on m.codMaterial=e.codMaterial
-                                               where e.cancelada=FALSE
-                                               group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t),
+                                      from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial,
+				      Sum(e.altura * e.largura *e.unidadesChapas) as quantMetroQuadrado,
+                                      Sum(e.metragemLinear) as quantMetragemEntrada,
+                                      Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada
 
-                                               tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,
-                                               t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,
-                                               Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else
-                                             +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end)
-                                             +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)
-                                             +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)
-                                             +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal
+                                      from entradaEstoque e
+                                      left join material m on m.codMaterial=e.codMaterial
+                                      where e.cancelada=FALSE
+                                      group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t),
 
-                                               from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,
-                                               Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida
+                    tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantMetroQuadradoSaida, t.quantMetragemSaida,
+                                      t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,
+                                      (case when t.quantMetroQuadradoSaida is null then 0 else t.quantMetroQuadradoSaida end)
+                                       +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) +
+                                       +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)
+                                       +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)
+                                       +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end))  as quantidadeTotal
 
-                                               from saidaEstoque e
-                                               left join material m on m.codMaterial=e.codMaterial
-                                               where e.cancelada=FALSE
-                                               group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)
+                                      from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial,
 
-                                               Select tE.codMaterial, tE.descMaterial,
-                                               ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end)) as quantAltura,
-                                               ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)) as quantLargura,
-                                               ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end)) as quantMetragem,
-                                               ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)) as quantLitro,
-                                               ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)) as quantPeso,
-                                               ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)) as quantUnidade,
-                                               '' as quantAprovisionada,
-                                               ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)) as quantTotal,
-                                                m.estoqueMinimo as estoqueMin,
-                                               Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo
+                                      Sum(e.altura * e.largura) as quantMetroQuadradoSaida,
+                                      Sum(e.metragemLinear) as quantMetragemSaida,
+                                      Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida
 
-                                               from tmpSomaEntrada as tE
-                                               left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial
-                                               left Join material as m on m.codMaterial = tE.codMaterial
+                                      from saidaEstoque e
+                                      left join material m on m.codMaterial=e.codMaterial
+                                      where e.cancelada=FALSE and e.aprovisionada=FALSE
+                                      group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),
 
-                                               order by tE.descMaterial]]>
+
+                    tempSomaSaidaAprovisionada as (Select t.codMaterial, t.descMaterial, t.quantMetroQuadradoSaida, t.quantMetragemSaida,
+                                      t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,
+                                      (case when t.quantMetroQuadradoSaida is null then 0 else t.quantMetroQuadradoSaida end)
+                                      +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) +
+                                       +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)
+                                       +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)
+                                       +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) as quantidadeTotal
+
+                                       from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial,
+				       Sum(e.altura * e.largura) as quantMetroQuadradoSaida,
+				       Sum(e.metragemLinear) as quantMetragemSaida,
+                                       Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida
+
+                                       from saidaEstoque e
+                                       left join material m on m.codMaterial=e.codMaterial
+                                       where e.cancelada=FALSE and e.aprovisionada=true
+                                       group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),
+
+		    tempValoresUnitarios as (select tVal.codMaterial, tVal.valUnitario from
+				      (select e.codMaterial as codMaterial, max(e.valorUnitario) as valUnitario from EntradaEstoque e
+				      where e.cancelada!=true group by e.codMaterial order by e.codMaterial ) as tVal)
+
+                                      Select tE.codMaterial, tE.descMaterial,
+
+                                      ((Case when tE.quantMetroQuadrado is null then 0 else tE.quantMetroQuadrado end) - (Case when tS.quantMetroQuadradoSaida is null then 0 else tS.quantMetroQuadradoSaida end) - (Case when tSA.quantMetroQuadradoSaida is null then 0 else tSA.quantMetroQuadradoSaida end)) as quantMetroQuadrado,
+                                      ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end) - (Case when tSA.quantMetragemSaida is null then 0 else tSA.quantMetragemSaida end)) as quantMetragem,
+                                      ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)  - (Case when tSA.quantLitroSaida is null then 0 else tSA.quantLitroSaida end)) as quantLitro,
+                                      ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)- (Case when tSA.quantPesoSaida is null then 0 else tSA.quantPesoSaida end)) as quantPeso,
+                                      ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)- (Case when tSA.quantUnidadeSaida is null then 0 else tSA.quantUnidadeSaida end)) as quantUnidade,
+                                      ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end)) as quantTotal,
+                                      m.estoqueMinimo as estoqueMin, Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end as quantAprovisionada,
+                                      Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo,
+
+
+                                      ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end))* tempVal.valUnitario as valorEmDinheiro
+
+                                      from tmpSomaEntrada as tE
+                                      left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial
+                                      left Join tempSomaSaidaAprovisionada as tSA on tE.codMaterial = tSA.codMaterial
+                                      left Join tempValoresUnitarios as tempVal on tempVal.codMaterial =tE.codMaterial
+                                      left Join material as m on m.codMaterial = tE.codMaterial
+
+                                      order by tE.descMaterial]]>
 	</queryString>
 	<field name="codmaterial" class="java.lang.Long"/>
 	<field name="descmaterial" class="java.lang.String"/>
-	<field name="quantaltura" class="java.lang.Double"/>
-	<field name="quantlargura" class="java.lang.Double"/>
+	<field name="quantmetroquadrado" class="java.lang.Double"/>
 	<field name="quantmetragem" class="java.lang.Double"/>
 	<field name="quantlitro" class="java.lang.Double"/>
 	<field name="quantpeso" class="java.lang.Double"/>
 	<field name="quantunidade" class="java.lang.Double"/>
-	<field name="quantaprovisionada" class="java.lang.String"/>
 	<field name="quanttotal" class="java.lang.Double"/>
 	<field name="estoquemin" class="java.lang.Double"/>
+	<field name="quantaprovisionada" class="java.lang.Double"/>
 	<field name="estoqueabaixominimo" class="java.lang.Boolean"/>
+	<field name="valoremdinheiro" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -190,35 +223,7 @@
 				<text><![CDATA[M. LINEAR (m)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="241" y="23" width="58" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="156731dc-194a-459f-8ec7-87e21a0f6dc7"/>
-				<box>
-					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[LAR. (m)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="299" y="23" width="58" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="f5cf6f11-3e1c-4660-80c4-813e3916cf66"/>
-				<box>
-					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ALT. (m)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="357" y="23" width="40" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="c0555c07-f32c-474d-9a52-5800a9b3d3d9"/>
+				<reportElement mode="Opaque" x="314" y="23" width="46" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="c0555c07-f32c-474d-9a52-5800a9b3d3d9"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -232,17 +237,17 @@
 				<text><![CDATA[UNI.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="397" y="23" width="61" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="6524bc93-65c3-4563-acdb-9d869ad3ee7b"/>
+				<reportElement mode="Opaque" x="361" y="23" width="50" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="6524bc93-65c3-4563-acdb-9d869ad3ee7b"/>
 				<box>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PESO (KG)]]></text>
+				<text><![CDATA[KG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="458" y="23" width="54" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="1e03dd3c-9a30-414c-bcf0-d9380999ca1c"/>
+				<reportElement mode="Opaque" x="411" y="23" width="54" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="1e03dd3c-9a30-414c-bcf0-d9380999ca1c"/>
 				<box>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
@@ -252,17 +257,17 @@
 				<text><![CDATA[LITROS (L)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="512" y="23" width="80" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="1310b443-16fb-4428-a97d-cc12b57fe1cd"/>
+				<reportElement mode="Opaque" x="465" y="23" width="86" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="1310b443-16fb-4428-a97d-cc12b57fe1cd"/>
 				<box>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[QTD. APROVI.]]></text>
+				<text><![CDATA[Q. APROVISIO.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="592" y="23" width="69" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="711992e2-d53b-4551-8a8e-0f96d46a531f"/>
+				<reportElement mode="Opaque" x="551" y="23" width="69" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="711992e2-d53b-4551-8a8e-0f96d46a531f"/>
 				<box>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
@@ -272,8 +277,9 @@
 				<text><![CDATA[QTD. TOTAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="661" y="23" width="60" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="dbcf591b-64f0-48f1-aa36-038e0f871844"/>
+				<reportElement mode="Opaque" x="676" y="23" width="60" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="dbcf591b-64f0-48f1-aa36-038e0f871844"/>
 				<box>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -282,14 +288,15 @@
 				<text><![CDATA[EST. MIN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="721" y="23" width="81" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="0e5c5fec-390b-40bf-973b-5f969fdb7786"/>
+				<reportElement mode="Opaque" x="736" y="23" width="65" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="0e5c5fec-390b-40bf-973b-5f969fdb7786"/>
 				<box>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[ABAIXO DO MIN.]]></text>
+				<text><![CDATA[ABAIXO MIN.]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="148" y="3" width="84" height="14" forecolor="#4A2680" backcolor="#FFFFFF" uuid="37e3368f-6e3b-4227-ba0b-d0e43b8bfa91"/>
@@ -305,6 +312,24 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dataParam}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="620" y="23" width="56" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="99346af9-f13a-4c9b-a20a-3fb1fec801aa"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR R$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="241" y="23" width="73" height="14" forecolor="#FFFFFF" backcolor="#4A2680" uuid="4ef3d43e-6013-44aa-934f-5504276551eb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[M. QUAD. (m²)]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -338,10 +363,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{quantmetragem}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quantmetragem}==0.0?"":$F{quantmetragem}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="241" y="0" width="58" height="13" backcolor="#F0F0F0" uuid="454869b2-9c8c-40b4-af9a-551188b2fccf"/>
+				<reportElement mode="Opaque" x="314" y="0" width="46" height="13" backcolor="#F0F0F0" uuid="802f456c-782e-42e1-b354-cc466939c6f9"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -352,55 +377,27 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{quantlargura}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quantunidade}==0.0?"":$F{quantunidade}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="299" y="0" width="58" height="13" backcolor="#F0F0F0" uuid="76c2ca41-31d6-4190-8252-149f8c6e9803"/>
+				<reportElement mode="Opaque" x="361" y="0" width="50" height="13" backcolor="#F0F0F0" uuid="d21ae2d1-ea37-466b-804c-947c9645d489"/>
 				<box>
-					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{quantaltura}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="357" y="0" width="40" height="13" backcolor="#F0F0F0" uuid="802f456c-782e-42e1-b354-cc466939c6f9"/>
-				<box>
-					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
-					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{quantunidade}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quantpeso}==0.0?"":$F{quantpeso}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="397" y="0" width="61" height="13" backcolor="#F0F0F0" uuid="d21ae2d1-ea37-466b-804c-947c9645d489"/>
+				<reportElement mode="Opaque" x="411" y="0" width="54" height="13" backcolor="#F0F0F0" uuid="fef22429-d0b9-4dc6-87a1-cd879220f60b"/>
 				<box>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{quantpeso}]]></textFieldExpression>
-			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="458" y="0" width="54" height="13" backcolor="#F0F0F0" uuid="fef22429-d0b9-4dc6-87a1-cd879220f60b"/>
-				<box>
-					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{quantlitro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quantlitro}==0.0?"":$F{quantlitro}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement mode="Opaque" x="47" y="0" width="134" height="13" backcolor="#F0F0F0" uuid="051b5dfc-171c-4894-babc-1cd076386ffe"/>
@@ -417,15 +414,15 @@
 				<textFieldExpression><![CDATA[$F{descmaterial}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="512" y="0" width="80" height="13" backcolor="#F0F0F0" uuid="c8629275-1c31-4911-9320-91db13cde07e"/>
+				<reportElement mode="Opaque" x="465" y="0" width="86" height="13" backcolor="#F0F0F0" uuid="c8629275-1c31-4911-9320-91db13cde07e"/>
 				<box>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{quantaprovisionada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quantaprovisionada}==0.0?"":$F{quantaprovisionada}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="592" y="0" width="69" height="13" backcolor="#F0F0F0" uuid="32398c7a-17c1-44da-8229-fc7e96c17e4c"/>
+				<reportElement mode="Opaque" x="551" y="0" width="69" height="13" backcolor="#F0F0F0" uuid="32398c7a-17c1-44da-8229-fc7e96c17e4c"/>
 				<box>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
@@ -433,20 +430,36 @@
 				<textFieldExpression><![CDATA[$F{quanttotal}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="661" y="0" width="60" height="13" backcolor="#F0F0F0" uuid="55d7de5e-839f-4d78-bcd1-e1c379bb6af3"/>
+				<reportElement mode="Opaque" x="676" y="0" width="60" height="13" backcolor="#F0F0F0" uuid="55d7de5e-839f-4d78-bcd1-e1c379bb6af3"/>
 				<box>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{estoquemin}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="721" y="0" width="81" height="13" backcolor="#F0F0F0" uuid="a470e42b-28ef-4f6d-b53b-6a2c4ffe6ed6"/>
+				<reportElement mode="Opaque" x="736" y="0" width="65" height="13" backcolor="#F0F0F0" uuid="a470e42b-28ef-4f6d-b53b-6a2c4ffe6ed6"/>
 				<box>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{estoqueabaixominimo}==true?"SIM":""]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="620" y="0" width="56" height="13" backcolor="#F0F0F0" uuid="df1f6223-6569-4531-802d-e46d19b3519c"/>
+				<box>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valoremdinheiro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="241" y="0" width="73" height="13" backcolor="#F0F0F0" uuid="7255a5c6-5d50-42e8-bcd4-aa4e48e687ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quantmetroquadrado}==0.0?"":$F{quantmetroquadrado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

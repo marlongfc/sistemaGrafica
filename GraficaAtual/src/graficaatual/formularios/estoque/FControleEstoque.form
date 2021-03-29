@@ -503,7 +503,7 @@
                 <Component class="javax.swing.JTable" name="tabMateriaisAddEntrada">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="19" rowCount="0">
+                      <Table columnCount="20" rowCount="0">
                         <Column editable="false" title="  " type="java.lang.Long"/>
                         <Column editable="false" title="Tipo" type="java.lang.String"/>
                         <Column editable="false" title="Nota Fiscal" type="java.lang.String"/>
@@ -515,10 +515,11 @@
                         <Column editable="false" title="Metrag. Linear (m)" type="java.lang.String"/>
                         <Column editable="false" title="Largura (m)" type="java.lang.String"/>
                         <Column editable="false" title="Altura (m)" type="java.lang.String"/>
+                        <Column editable="false" title="Quantidade de Chapas" type="java.lang.String"/>
                         <Column editable="false" title="Unidades (u)" type="java.lang.String"/>
                         <Column editable="false" title="Peso (Kg)" type="java.lang.String"/>
                         <Column editable="false" title="Litros (L)" type="java.lang.String"/>
-                        <Column editable="false" title="Valor Unit&#xe1;rio" type="java.lang.String"/>
+                        <Column editable="false" title="Valor da Compra" type="java.lang.String"/>
                         <Column editable="false" title="Cor" type="java.lang.String"/>
                         <Column editable="false" title="Marca" type="java.lang.String"/>
                         <Column editable="false" title="Data Validade" type="java.lang.String"/>
@@ -623,6 +624,11 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                       </TableColumnModel>
                     </Property>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -633,8 +639,8 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabMateriaisAddEntradaMouseExited"/>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabMateriaisAddEntradaMouseClicked"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabMateriaisAddEntradaMouseExited"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tabMateriaisAddEntradaKeyReleased"/>
                   </Events>
                 </Component>
@@ -772,7 +778,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="350" y="250" width="110" height="-1"/>
+                  <AbsoluteConstraints x="420" y="250" width="110" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -783,7 +789,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="470" y="250" width="110" height="-1"/>
+                  <AbsoluteConstraints x="540" y="250" width="110" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -794,7 +800,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="590" y="250" width="110" height="-1"/>
+                  <AbsoluteConstraints x="660" y="250" width="110" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -845,7 +851,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="350" y="230" width="70" height="-1"/>
+                  <AbsoluteConstraints x="420" y="230" width="70" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -855,7 +861,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="470" y="230" width="80" height="-1"/>
+                  <AbsoluteConstraints x="540" y="230" width="80" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -865,17 +871,18 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="590" y="230" width="80" height="-1"/>
+                  <AbsoluteConstraints x="660" y="230" width="80" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="X"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="240" y="250" width="10" height="20"/>
+                  <AbsoluteConstraints x="330" y="250" width="10" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1121,6 +1128,37 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="140" y="180" width="100" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JTextField" name="unidadesChapas">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="340" y="250" width="59" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel41">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="X"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="240" y="250" width="10" height="20"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Unidades"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="340" y="230" width="60" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -2158,9 +2196,9 @@
                           <Component id="jScrollPane3" min="-2" pref="416" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
-                          <EmptySpace pref="517" max="32767" attributes="0"/>
+                          <EmptySpace pref="585" max="32767" attributes="0"/>
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="825" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="893" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -2220,12 +2258,11 @@
                     <Component class="javax.swing.JTable" name="tabelaEstoque">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="12" rowCount="0">
+                          <Table columnCount="11" rowCount="0">
                             <Column editable="false" title="C&#xf3;d." type="java.lang.Long"/>
                             <Column editable="false" title="Material" type="java.lang.String"/>
                             <Column editable="false" title="Metragem (m)" type="java.lang.String"/>
-                            <Column editable="false" title="Largura (m)" type="java.lang.String"/>
-                            <Column editable="false" title="Altura (m)" type="java.lang.String"/>
+                            <Column editable="false" title="Metros Quadrados (m&#xb2;)" type="java.lang.String"/>
                             <Column editable="false" title="Peso (Kg)" type="java.lang.String"/>
                             <Column editable="false" title="Litros (L)" type="java.lang.String"/>
                             <Column editable="false" title="Unidades (U)" type="java.lang.String"/>
@@ -2253,7 +2290,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -2278,22 +2315,17 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -2305,8 +2337,8 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaEstoqueMouseExited"/>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaEstoqueMouseClicked"/>
+                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaEstoqueMouseExited"/>
                         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tabelaEstoqueKeyReleased"/>
                       </Events>
                     </Component>

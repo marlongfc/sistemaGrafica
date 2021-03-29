@@ -49,6 +49,9 @@ public class EntradaEstoque implements Serializable {
     @Column(name = "ValorCompra", nullable = true)
     private Double valorCompra;
 
+    @Column(name = "ValorUnitario", nullable = true)
+    private Double valorUnitario;
+
     @Column(name = "metragemLinear", nullable = true)
     private Double metragemLinear;
 
@@ -58,18 +61,21 @@ public class EntradaEstoque implements Serializable {
     @Column(name = "altura", nullable = true)
     private Double altura;
 
+    @Column(name = "unidadesChapas", nullable = true)
+    private Integer unidadesChapas;
+
     @Column(name = "unidade", nullable = true)
     private Double unidade;
 
     @Column(name = "peso", nullable = true)
     private Double peso;
-    
+
     @Column(name = "litro", nullable = true)
     private Double litro;
-    
+
     @Column(name = "codMaterial", nullable = false)
     private Long codMaterial;
-    
+
     @Column(name = "descMaterial", nullable = false)
     private String descMaterial;
 
@@ -81,7 +87,7 @@ public class EntradaEstoque implements Serializable {
 
     @Column(name = "cancelada", nullable = false)
     private boolean cancelada;
-    
+
     @Column(name = "dataValidade", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataValidade;
@@ -119,6 +125,14 @@ public class EntradaEstoque implements Serializable {
 
     public void setNotaFiscal(String notaFiscal) {
         this.notaFiscal = notaFiscal;
+    }
+
+    public Integer getUnidadesChapas() {
+        return unidadesChapas;
+    }
+
+    public void setUnidadesChapas(Integer unidadesChapas) {
+        this.unidadesChapas = unidadesChapas;
     }
 
     public Double getQuantidade() {
@@ -224,7 +238,7 @@ public class EntradaEstoque implements Serializable {
     public void setDescFornecedor(String descFornecedor) {
         this.descFornecedor = descFornecedor;
     }
-    
+
     public Long getCodMaterial() {
         return codMaterial;
     }
@@ -248,6 +262,16 @@ public class EntradaEstoque implements Serializable {
     public void setCodFornecedor(Long codFornecedor) {
         this.codFornecedor = codFornecedor;
     }
+
+    public Double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(Double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+    
+    
 
     public Date getDataValidade() {
         return dataValidade;
@@ -296,9 +320,6 @@ public class EntradaEstoque implements Serializable {
     public void setCancelada(boolean cancelada) {
         this.cancelada = cancelada;
     }
-
-   
-    
 
     @Override
     public int hashCode() {

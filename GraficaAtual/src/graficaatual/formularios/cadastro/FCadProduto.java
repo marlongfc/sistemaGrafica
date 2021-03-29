@@ -31,8 +31,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -1242,6 +1240,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_codMaterialFocusLost
 
+    /*
     private Double calculaPrecoUnitario(EntradaEstoque entrada) {
         try {
 
@@ -1263,7 +1262,7 @@ public class FCadProduto extends javax.swing.JInternalFrame {
                     case 1:
                         //metro quadrado
 
-                        Double m2Salvo = entrada.getLargura() * entrada.getAltura();
+                        Double m2Salvo = entrada.getLargura() * entrada.getAltura()*entrada.getUnidadesChapas();
                         valSalvo = entrada.getValorCompra();
 
                         valor = ((valSalvo / m2Salvo));
@@ -1309,6 +1308,20 @@ public class FCadProduto extends javax.swing.JInternalFrame {
             e.printStackTrace();
             return 0.0;
         }
+    }
+     */
+    private Double calculaPrecoUnitario(EntradaEstoque entrada) {
+
+        Double valor = 0.0;
+        try {
+            if (entrada != null) {
+                valor = entrada.getValorUnitario();
+            }
+        } catch (Exception e) {
+
+            return 0.0;
+        }
+        return valor;
     }
 
     private void habilitaCamposMedidas(Material m) {

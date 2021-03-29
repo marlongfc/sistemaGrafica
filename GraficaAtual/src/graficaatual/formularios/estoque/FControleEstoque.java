@@ -52,7 +52,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
      */
     private Material material, materialS;
     private Fornecedor fornecedor;
-    private EntradaEstoque entrada, entradaAuxSaida;
+    private EntradaEstoque entrada;
     private SaidaEstoque saida;
     private EntradaEstoqueDAO entradaDao = new EntradaEstoqueDAO();
     private SaidaEstoqueDAO saidaDao = new SaidaEstoqueDAO();
@@ -226,6 +226,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         codFornecedor = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        unidadesChapas = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
@@ -493,14 +496,14 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "  ", "Tipo", "Nota Fiscal", "Data", "Cód.", "Material", "Cód. Fornecedor", "Fornecedor", "Metrag. Linear (m)", "Largura (m)", "Altura (m)", "Unidades (u)", "Peso (Kg)", "Litros (L)", "Valor Unitário", "Cor", "Marca", "Data Validade", "Observacao"
+                "  ", "Tipo", "Nota Fiscal", "Data", "Cód.", "Material", "Cód. Fornecedor", "Fornecedor", "Metrag. Linear (m)", "Largura (m)", "Altura (m)", "Quantidade de Chapas", "Unidades (u)", "Peso (Kg)", "Litros (L)", "Valor da Compra", "Cor", "Marca", "Data Validade", "Observacao"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -514,11 +517,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         tabMateriaisAddEntrada.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tabMateriaisAddEntrada.setMaximumSize(new java.awt.Dimension(2147483647, 400));
         tabMateriaisAddEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                tabMateriaisAddEntradaMouseExited(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabMateriaisAddEntradaMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tabMateriaisAddEntradaMouseExited(evt);
             }
         });
         tabMateriaisAddEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -567,6 +570,8 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             tabMateriaisAddEntrada.getColumnModel().getColumn(17).setPreferredWidth(100);
             tabMateriaisAddEntrada.getColumnModel().getColumn(18).setResizable(false);
             tabMateriaisAddEntrada.getColumnModel().getColumn(18).setPreferredWidth(100);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(19).setResizable(false);
+            tabMateriaisAddEntrada.getColumnModel().getColumn(19).setPreferredWidth(100);
         }
 
         jPanel18.add(jScrollPane1);
@@ -640,17 +645,17 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         unidade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         unidade.setText("0");
         jPanel18.add(unidade);
-        unidade.setBounds(350, 250, 110, 20);
+        unidade.setBounds(420, 250, 110, 20);
 
         peso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         peso.setText("0,00");
         jPanel18.add(peso);
-        peso.setBounds(470, 250, 110, 20);
+        peso.setBounds(540, 250, 110, 20);
 
         litro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         litro.setText("0,00");
         jPanel18.add(litro);
-        litro.setBounds(590, 250, 110, 20);
+        litro.setBounds(660, 250, 110, 20);
 
         altura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         altura.setText("0,00");
@@ -671,19 +676,20 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
         jLabel17.setText("Unidades");
         jPanel18.add(jLabel17);
-        jLabel17.setBounds(350, 230, 70, 14);
+        jLabel17.setBounds(420, 230, 70, 14);
 
         jLabel18.setText("Peso (kg)");
         jPanel18.add(jLabel18);
-        jLabel18.setBounds(470, 230, 80, 14);
+        jLabel18.setBounds(540, 230, 80, 14);
 
         jLabel19.setText("Litros (l)");
         jPanel18.add(jLabel19);
-        jLabel19.setBounds(590, 230, 80, 14);
+        jLabel19.setBounds(660, 230, 80, 14);
 
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("X");
         jPanel18.add(jLabel20);
-        jLabel20.setBounds(240, 250, 10, 20);
+        jLabel20.setBounds(330, 250, 10, 20);
 
         tipoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Compra", " Devolução ", " Reaproveitamento", " Doação" }));
         tipoEntrada.addItemListener(new java.awt.event.ItemListener() {
@@ -801,6 +807,19 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         jLabel26.setText("Fornecedor");
         jPanel18.add(jLabel26);
         jLabel26.setBounds(140, 180, 100, 14);
+
+        unidadesChapas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel18.add(unidadesChapas);
+        unidadesChapas.setBounds(340, 250, 59, 20);
+
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setText("X");
+        jPanel18.add(jLabel41);
+        jLabel41.setBounds(240, 250, 10, 20);
+
+        jLabel7.setText("Unidades");
+        jPanel18.add(jLabel7);
+        jLabel7.setBounds(340, 230, 60, 14);
 
         jTabbedPane1.addTab("Entrada de Material", jPanel18);
 
@@ -1296,14 +1315,14 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cód.", "Material", "Metragem (m)", "Largura (m)", "Altura (m)", "Peso (Kg)", "Litros (L)", "Unidades (U)", "Estoque Mínimo", "Quantidade Aprovisionada", "Quantidade Total", "Estoque Abaixo Minimo"
+                "Cód.", "Material", "Metragem (m)", "Metros Quadrados (m²)", "Peso (Kg)", "Litros (L)", "Unidades (U)", "Estoque Mínimo", "Quantidade Aprovisionada", "Quantidade Total", "Estoque Abaixo Minimo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1316,11 +1335,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         });
         tabelaEstoque.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tabelaEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                tabelaEstoqueMouseExited(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaEstoqueMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tabelaEstoqueMouseExited(evt);
             }
         });
         tabelaEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1337,7 +1356,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             tabelaEstoque.getColumnModel().getColumn(2).setResizable(false);
             tabelaEstoque.getColumnModel().getColumn(2).setPreferredWidth(100);
             tabelaEstoque.getColumnModel().getColumn(3).setResizable(false);
-            tabelaEstoque.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(3).setPreferredWidth(150);
             tabelaEstoque.getColumnModel().getColumn(4).setResizable(false);
             tabelaEstoque.getColumnModel().getColumn(4).setPreferredWidth(100);
             tabelaEstoque.getColumnModel().getColumn(5).setResizable(false);
@@ -1347,13 +1366,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             tabelaEstoque.getColumnModel().getColumn(7).setResizable(false);
             tabelaEstoque.getColumnModel().getColumn(7).setPreferredWidth(100);
             tabelaEstoque.getColumnModel().getColumn(8).setResizable(false);
-            tabelaEstoque.getColumnModel().getColumn(8).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(8).setPreferredWidth(150);
             tabelaEstoque.getColumnModel().getColumn(9).setResizable(false);
-            tabelaEstoque.getColumnModel().getColumn(9).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(9).setPreferredWidth(150);
             tabelaEstoque.getColumnModel().getColumn(10).setResizable(false);
-            tabelaEstoque.getColumnModel().getColumn(10).setPreferredWidth(100);
-            tabelaEstoque.getColumnModel().getColumn(11).setResizable(false);
-            tabelaEstoque.getColumnModel().getColumn(11).setPreferredWidth(100);
+            tabelaEstoque.getColumnModel().getColumn(10).setPreferredWidth(150);
         }
 
         btAddMaterial1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ADICIONAR2.png"))); // NOI18N
@@ -1404,9 +1421,9 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 585, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 825, Short.MAX_VALUE))
+                .addGap(0, 893, Short.MAX_VALUE))
             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jInternalFrame1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1480,71 +1497,88 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
             DefaultTableModel model = (DefaultTableModel) tabelaEstoque.getModel();
 
-            String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantAlturaEntrada, t.quantLarguraEntrada, t.quantMetragemEntrada,"
-                    + "          t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
-                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaEntrada * t.quantLarguraEntrada) else "
-                    + "          + ((case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)  "
-                    + "          + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
-                    + "          +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
-                    + "          + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) end as quantidadeTotal"
-                    + "          "
-                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaEntrada, Sum(e.largura) as quantLarguraEntrada, Sum(e.metragemLinear) as quantMetragemEntrada,"
-                    + "          Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
-                    + "          "
-                    + "          from entradaEstoque e "
-                    + "          left join material m on m.codMaterial=e.codMaterial"
-                    + "          where e.cancelada=FALSE "
-                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
-                    + "          "
-                    + "          tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
-                    + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
-                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
-                    + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
-                    + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
-                    + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
-                    + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
-                    + "          "
-                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
-                    + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
-                    + "          "
-                    + "          from saidaEstoque e "
-                    + "          left join material m on m.codMaterial=e.codMaterial"
-                    + "          where e.cancelada=FALSE and e.aprovisionada=FALSE "
-                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),"
-                    + "          "
-                    + "          tempSomaSaidaAprovisionada as (Select t.codMaterial, t.descMaterial, t.quantAlturaSaida, t.quantLarguraSaida, t.quantMetragemSaida,"
-                    + "          t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
-                    + "          Case t.unidadeMedida when 1 then (t.quantAlturaSaida * t.quantLarguraSaida) else "
-                    + "          +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
-                    + "          +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
-                    + "          +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
-                    + "          +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) end as quantidadeTotal"
-                    + "          "
-                    + "          from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, Sum(e.altura) as quantAlturaSaida, Sum(e.largura) as quantLarguraSaida, Sum(e.metragemLinear) as quantMetragemSaida,"
-                    + "          Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
-                    + "          "
-                    + "          from saidaEstoque e "
-                    + "          left join material m on m.codMaterial=e.codMaterial"
-                    + "          where e.cancelada=FALSE and e.aprovisionada=true  "
-                    + "          group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t)"
-                    + "         "
-                    + "         Select tE.codMaterial, tE.descMaterial, "
-                    + "         ((Case when tE.quantAlturaEntrada is null then 0 else tE.quantAlturaEntrada end) - (Case when tS.quantAlturaSaida is null then 0 else tS.quantAlturaSaida end) - (Case when tSA.quantAlturaSaida is null then 0 else tSA.quantAlturaSaida end)) as quantAltura, "
-                    + "         ((Case when tE.quantLarguraEntrada is null then 0 else tE.quantLarguraEntrada end) - (Case when tS.quantLarguraSaida is null then 0 else tS.quantLarguraSaida end)- (Case when tSA.quantLarguraSaida is null then 0 else tSA.quantLarguraSaida end)) as quantLargura, "
-                    + "         ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end) - (Case when tSA.quantMetragemSaida is null then 0 else tSA.quantMetragemSaida end)) as quantMetragem, "
-                    + "         ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)  - (Case when tSA.quantLitroSaida is null then 0 else tSA.quantLitroSaida end)) as quantLitro, "
-                    + "         ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)- (Case when tSA.quantPesoSaida is null then 0 else tSA.quantPesoSaida end)) as quantPeso, "
-                    + "         ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)- (Case when tSA.quantUnidadeSaida is null then 0 else tSA.quantUnidadeSaida end)) as quantUnidade, "
-                    + "         ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end)) as quantTotal, "
-                    + "         m.estoqueMinimo as estoqueMin, Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end as quantAprovisionada,"
-                    + "         Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo"
-                    + "         "
-                    + "         from tmpSomaEntrada as tE"
-                    + "         left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial"
-                    + "         left Join tempSomaSaidaAprovisionada as tSA on tE.codMaterial = tSA.codMaterial "
-                    + "         left Join material as m on m.codMaterial = tE.codMaterial"
-                    + "         "
-                    + "         order by tE.descMaterial";
+            String sql = "with tmpSomaEntrada as (Select t.codMaterial, t.descMaterial, t.quantMetroQuadrado, t.quantMetragemEntrada,"
+                    + "                                      t.quantLitroEntrada, t.quantPesoEntrada, t.quantUnidadeEntrada,"
+                    + "                                                                            "
+                    + "                                      ((case when t.quantMetroQuadrado is null then 0 else t.quantMetroQuadrado end)"
+                    + "                                      +(case when t.quantMetragemEntrada is null then 0 else t.quantMetragemEntrada end)  "
+                    + "                                       + (case when t.quantLitroEntrada is null then 0 else t.quantLitroEntrada end)  "
+                    + "                                       +(case when t.quantPesoEntrada is null then 0 else quantPesoEntrada end)"
+                    + "                                      + (case when t.quantUnidadeEntrada is null then 0 else quantUnidadeEntrada end)) as quantidadeTotal"
+                    + "                                       "
+                    + "                                      from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, "
+                    + "				      Sum(e.altura * e.largura *e.unidadesChapas) as quantMetroQuadrado, "
+                    + "                                      Sum(e.metragemLinear) as quantMetragemEntrada,"
+                    + "                                      Sum(e.litro) as quantLitroEntrada, Sum(e.peso) as quantPesoEntrada, Sum(e.unidade) as quantUnidadeEntrada "
+                    + "                                      "
+                    + "                                      from entradaEstoque e "
+                    + "                                      left join material m on m.codMaterial=e.codMaterial"
+                    + "                                      where e.cancelada=FALSE  "
+                    + "                                      group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial) as t), "
+                    + "                                      "
+                    + "                    tempSomaSaida as (Select t.codMaterial, t.descMaterial, t.quantMetroQuadradoSaida, t.quantMetragemSaida,"
+                    + "                                      t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                    + "                                      (case when t.quantMetroQuadradoSaida is null then 0 else t.quantMetroQuadradoSaida end)"
+                    + "                                       +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                    + "                                       +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                    + "                                       +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                    + "                                       +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end))  as quantidadeTotal"
+                    + "                                      "
+                    + "                                      from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, "
+                    + ""
+                    + "                                      Sum(e.altura * e.largura) as quantMetroQuadradoSaida, "
+                    + "                                      Sum(e.metragemLinear) as quantMetragemSaida,"
+                    + "                                      Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                    + "                                      "
+                    + "                                      from saidaEstoque e "
+                    + "                                      left join material m on m.codMaterial=e.codMaterial"
+                    + "                                      where e.cancelada=FALSE and e.aprovisionada=FALSE  "
+                    + "                                      group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),"
+                    + "                                      "
+                    + "                                      "
+                    + "                    tempSomaSaidaAprovisionada as (Select t.codMaterial, t.descMaterial, t.quantMetroQuadradoSaida, t.quantMetragemSaida,"
+                    + "                                      t.quantLitroSaida, t.quantPesoSaida, t.quantUnidadeSaida,"
+                    + "                                      (case when t.quantMetroQuadradoSaida is null then 0 else t.quantMetroQuadradoSaida end)"
+                    + "                                      +  ((case when t.quantMetragemSaida is null then 0 else t.quantMetragemSaida end) + "
+                    + "                                       +  (case when t.quantLitroSaida is null then 0 else t.quantLitroSaida end)  "
+                    + "                                       +  (case when t.quantPesoSaida is null then 0 else quantPesoSaida end)"
+                    + "                                       +   (case when t.quantUnidadeSaida is null then 0 else quantUnidadeSaida end)) as quantidadeTotal"
+                    + "                                       "
+                    + "                                       from (select e.codMaterial as codMaterial, m.unidademedida as unidadeMedida, e.descMaterial as descMaterial, "
+                    + "				       Sum(e.altura * e.largura) as quantMetroQuadradoSaida, "
+                    + "				       Sum(e.metragemLinear) as quantMetragemSaida,"
+                    + "                                       Sum(e.litro) as quantLitroSaida, Sum(e.peso) as quantPesoSaida, Sum(e.unidade) as quantUnidadeSaida "
+                    + "                                       "
+                    + "                                       from saidaEstoque e "
+                    + "                                       left join material m on m.codMaterial=e.codMaterial"
+                    + "                                       where e.cancelada=FALSE and e.aprovisionada=true   "
+                    + "                                       group by e.codMaterial, descMaterial, unidadeMedida order by e.codMaterial)  as t),"
+                    + ""
+                    + "		    tempValoresUnitarios as (select tVal.codMaterial, tVal.valUnitario from"
+                    + "				      (select e.codMaterial as codMaterial, max(e.valorUnitario) as valUnitario from EntradaEstoque e "
+                    + "				      where e.cancelada!=true group by e.codMaterial order by e.codMaterial ) as tVal)"
+                    + "                                      "
+                    + "                                      Select tE.codMaterial, tE.descMaterial, "
+                    + ""
+                    + "                                      ((Case when tE.quantMetroQuadrado is null then 0 else tE.quantMetroQuadrado end) - (Case when tS.quantMetroQuadradoSaida is null then 0 else tS.quantMetroQuadradoSaida end) - (Case when tSA.quantMetroQuadradoSaida is null then 0 else tSA.quantMetroQuadradoSaida end)) as quantMetroQuadrado, "
+                    + "                                      ((Case when tE.quantMetragemEntrada is null then 0 else tE.quantMetragemEntrada end) - (Case when tS.quantMetragemSaida is null then 0 else tS.quantMetragemSaida end) - (Case when tSA.quantMetragemSaida is null then 0 else tSA.quantMetragemSaida end)) as quantMetragem, "
+                    + "                                      ((Case when tE.quantLitroEntrada is null then 0 else tE.quantLitroEntrada end) - (Case when tS.quantLitroSaida is null then 0 else tS.quantLitroSaida end)  - (Case when tSA.quantLitroSaida is null then 0 else tSA.quantLitroSaida end)) as quantLitro, "
+                    + "                                      ((Case when tE.quantPesoEntrada is null then 0 else tE.quantPesoEntrada end) - (Case when tS.quantPesoSaida is null then 0 else tS.quantPesoSaida end)- (Case when tSA.quantPesoSaida is null then 0 else tSA.quantPesoSaida end)) as quantPeso, "
+                    + "                                      ((Case when tE.quantUnidadeEntrada is null then 0 else tE.quantUnidadeEntrada end) - (Case when tS.quantUnidadeSaida is null then 0 else tS.quantUnidadeSaida end)- (Case when tSA.quantUnidadeSaida is null then 0 else tSA.quantUnidadeSaida end)) as quantUnidade, "
+                    + "                                      ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end)) as quantTotal, "
+                    + "                                      m.estoqueMinimo as estoqueMin, Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end as quantAprovisionada,"
+                    + "                                      Case when ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end))<=m.estoqueMinimo then true else false end as estoqueAbaixoMinimo,"
+                    + ""
+                    + "                                      "
+                    + "                                      ((Case when tE.quantidadeTotal is null then 0 else tE.quantidadeTotal end) - (Case when tS.quantidadeTotal is null then 0 else tS.quantidadeTotal end)- (Case when tSA.quantidadeTotal is null then 0 else tSA.quantidadeTotal end))* tempVal.valUnitario as valorEmDinheiro"
+                    + "                                      "
+                    + "                                      from tmpSomaEntrada as tE"
+                    + "                                      left Join tempSomaSaida as tS on tE.codMaterial = tS.codMaterial"
+                    + "                                      left Join tempSomaSaidaAprovisionada as tSA on tE.codMaterial = tSA.codMaterial "
+                    + "                                      left Join tempValoresUnitarios as tempVal on tempVal.codMaterial =tE.codMaterial"
+                    + "                                      left Join material as m on m.codMaterial = tE.codMaterial"
+                    + "                                      "
+                    + "                                      order by tE.descMaterial";
 
             ResultSet rs = null;
 
@@ -1563,18 +1597,19 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         rs.getLong("codMaterial"),
                         rs.getString("descMaterial"),
                         rs.getDouble("quantMetragem") > 0 ? ValidarValor.getDouble(rs.getDouble("quantMetragem")) : null,
-                        rs.getDouble("quantAltura") > 0 ? ValidarValor.getDouble(rs.getDouble("quantAltura")) : null,
-                        rs.getDouble("quantLargura") > 0 ? ValidarValor.getDouble(rs.getDouble("quantLargura")) : null,
-                        rs.getDouble("quantPeso") > 0 ? ValidarValor.getDouble(rs.getDouble("quantPeso")) : null,
+                       // rs.getDouble("quantMetroQuadrado") > 0 ? ValidarValor.getDouble(rs.getDouble("quantMetroQuadrado")) : null,
+                        rs.getDouble("quantMetroQuadrado") > 0 ? rs.getDouble("quantMetroQuadrado") : null,
+                       rs.getDouble("quantPeso") > 0 ? ValidarValor.getDouble(rs.getDouble("quantPeso")) : null,
                         rs.getDouble("quantLitro") > 0 ? ValidarValor.getDouble(rs.getDouble("quantLitro")) : null,
                         rs.getDouble("quantUnidade") > 0 ? ValidarValor.getDouble(rs.getDouble("quantUnidade")) : null,
                         rs.getDouble("estoqueMin") > 0 ? ValidarValor.getDouble(rs.getDouble("estoqueMin")) : null,
                         rs.getDouble("quantAprovisionada") > 0 ? ValidarValor.getDouble(rs.getDouble("quantAprovisionada")) : null,
-                        rs.getDouble("quantTotal") > 0 ? ValidarValor.getDouble(rs.getDouble("quantTotal")) : null,
+                       // rs.getDouble("quantTotal") > 0 ? ValidarValor.getDouble(rs.getDouble("quantTotal")) : null,
+                        rs.getDouble("quantTotal") > 0 ? rs.getDouble("quantTotal") : null,
                         rs.getBoolean("estoqueAbaixoMinimo")
                     };
 
-                    if ((Boolean) os[11] == true) {
+                    if ((Boolean) os[10] == true) {
                         listaAbaixoMinimo.add(os);
                     }
 
@@ -1730,7 +1765,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 entrada = new EntradaEstoque();
 
                 entrada.setCodEntradaEstoque(entradaDao.getNextItem());
-                entrada.setTipoEntrada(buscaIndexTipoEntrada( (String)  model.getValueAt(i, 1)));
+                entrada.setTipoEntrada(buscaIndexTipoEntrada((String) model.getValueAt(i, 1)));
                 entrada.setNotaFiscal("" + model.getValueAt(i, 2));
                 entrada.setDataCadastro(Data.getDateSQL("" + model.getValueAt(i, 3)));
                 entrada.setCodMaterial(Long.parseLong("" + model.getValueAt(i, 4)));
@@ -1740,14 +1775,21 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 entrada.setMetragemLinear(ValidarValor.getDouble("" + model.getValueAt(i, 8)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 8)) : null);
                 entrada.setLargura(ValidarValor.getDouble("" + model.getValueAt(i, 9)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 9)) : null);
                 entrada.setAltura(ValidarValor.getDouble("" + model.getValueAt(i, 10)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 10)) : null);
-                entrada.setUnidade(ValidarValor.getDouble("" + model.getValueAt(i, 11)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 11)) : null);
-                entrada.setPeso(ValidarValor.getDouble("" + model.getValueAt(i, 12)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 12)) : null);
-                entrada.setLitro(ValidarValor.getDouble("" + model.getValueAt(i, 13)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 13)) : null);
-                entrada.setValorCompra(ValidarValor.getArredondamento(ValidarValor.getDouble(("" + model.getValueAt(i, 14)))));
-                entrada.setCor("" + model.getValueAt(i, 15));
-                entrada.setMarca("" + model.getValueAt(i, 16));
-                entrada.setDataValidade(Data.getDateSQL("" + model.getValueAt(i, 17)));
-                entrada.setObservacao("" + model.getValueAt(i, 18));
+                entrada.setUnidadesChapas(ValidarValor.getInt("" + model.getValueAt(i, 11)) > 0 ? ValidarValor.getInt("" + model.getValueAt(i, 11)) : null);
+
+                entrada.setUnidade(ValidarValor.getDouble("" + model.getValueAt(i, 12)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 12)) : null);
+                entrada.setPeso(ValidarValor.getDouble("" + model.getValueAt(i, 13)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 13)) : null);
+                entrada.setLitro(ValidarValor.getDouble("" + model.getValueAt(i, 14)) > 0 ? ValidarValor.getDouble("" + model.getValueAt(i, 14)) : null);
+                entrada.setValorCompra(ValidarValor.getArredondamento(ValidarValor.getDouble(("" + model.getValueAt(i, 15)))));
+
+                /////////////////////////////////////////////////////////
+                entrada.setValorUnitario(calculaPrecoUnitario(entrada));
+                /////////////////////////////////////////////////////////
+
+                entrada.setCor("" + model.getValueAt(i, 16));
+                entrada.setMarca("" + model.getValueAt(i, 17));
+                entrada.setDataValidade(Data.getDateSQL("" + model.getValueAt(i, 18)));
+                entrada.setObservacao("" + model.getValueAt(i, 19));
                 entrada.setUsuarioCadastro(ControleAcesso.usuario.getCodUsuario() + " - " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                 entrada.setUsuarioAtualizacao(ControleAcesso.usuario.getCodUsuario() + " - " + ControleAcesso.usuario.getColaborador().getPessoa().getNome());
                 entrada.setDataAtualizacao(Data.getDateSQL());
@@ -1766,6 +1808,81 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao salvar entrada. Erro: " + e);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private Double calculaPrecoUnitario(EntradaEstoque entrada) {
+        try {
+
+            Double valor = 0.0;
+            Double valSalvo = 0.0;
+
+            if (entrada != null) {
+                Material material = materialDao.getPorCodigo(entrada.getCodMaterial());
+
+                switch (material.getUnidadeMedida()) {
+                    case 0:
+                        //metro linear                           
+
+                        Double mSalvo = entrada.getMetragemLinear();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / mSalvo));
+                        break;
+                    case 1:
+                        //metro quadrado
+
+                        Double m2Salvo = entrada.getLargura() * entrada.getAltura();
+                        Integer quantidadeDeChapas = entrada.getUnidadesChapas();
+                        Double precoPorChapa = 0.0;
+
+                        valSalvo = entrada.getValorCompra();
+
+                        precoPorChapa = valSalvo / quantidadeDeChapas;
+
+                        // valor = ((valSalvo / m2Salvo));
+                        valor = ((precoPorChapa / m2Salvo));
+
+                        break;
+                    case 2:
+                        //unidade
+
+                        Double unidadeSalvo = entrada.getUnidade();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / unidadeSalvo));
+
+                        break;
+
+                    case 3:
+                        //peso
+
+                        Double pesoSalvo = entrada.getPeso();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / pesoSalvo));
+
+                        break;
+
+                    case 4:
+                        Double litroSalvo = entrada.getLitro();
+                        valSalvo = entrada.getValorCompra();
+
+                        valor = ((valSalvo / litroSalvo));
+
+                        break;
+                    default:
+                        valor = 0.0;
+                        break;
+                }
+            } else {
+                valor = 0.0;
+            }
+            return valor;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return 0.0;
+        }
+    }
 
     private Integer buscaIndexTipoEntrada(String i) {
         Integer tipo = 0;
@@ -1848,6 +1965,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 metragemLinear.setEnabled(false);
                 largura.setEnabled(false);
                 altura.setEnabled(false);
+                unidadesChapas.setEnabled(false);
                 unidade.setEnabled(false);
                 peso.setEnabled(false);
                 litro.setEnabled(false);
@@ -1865,6 +1983,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         metragemLinear.setEnabled(true);
                         largura.setEnabled(false);
                         altura.setEnabled(false);
+                        unidadesChapas.setEnabled(false);
                         unidade.setEnabled(false);
                         peso.setEnabled(false);
                         litro.setEnabled(false);
@@ -1878,6 +1997,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         metragemLinear.setEnabled(false);
                         largura.setEnabled(true);
                         altura.setEnabled(true);
+                        unidadesChapas.setEnabled(true);
                         unidade.setEnabled(false);
                         peso.setEnabled(false);
                         litro.setEnabled(false);
@@ -1891,6 +2011,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         metragemLinear.setEnabled(false);
                         largura.setEnabled(false);
                         altura.setEnabled(false);
+                        unidadesChapas.setEnabled(false);
                         unidade.setEnabled(true);
                         peso.setEnabled(false);
                         litro.setEnabled(false);
@@ -1905,6 +2026,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         metragemLinear.setEnabled(false);
                         largura.setEnabled(false);
                         altura.setEnabled(false);
+                        unidadesChapas.setEnabled(false);
                         unidade.setEnabled(false);
                         peso.setEnabled(true);
                         litro.setEnabled(false);
@@ -1918,6 +2040,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         metragemLinear.setEnabled(false);
                         largura.setEnabled(false);
                         altura.setEnabled(false);
+                        unidadesChapas.setEnabled(false);
                         unidade.setEnabled(false);
                         peso.setEnabled(false);
                         litro.setEnabled(true);
@@ -1929,6 +2052,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         metragemLinear.setEnabled(false);
                         largura.setEnabled(false);
                         altura.setEnabled(false);
+                        unidadesChapas.setEnabled(false);
                         unidade.setEnabled(false);
                         peso.setEnabled(false);
                         litro.setEnabled(false);
@@ -1946,6 +2070,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         metragemLinear.setText("0,00");
         largura.setText("0,00");
         altura.setText("0,00");
+        unidadesChapas.setText("");
         unidade.setText("0");
         peso.setText("0,00");
         litro.setText("0,00");
@@ -2000,6 +2125,11 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                             return;
                         }
 
+                        if (unidadesChapas.getText().equals("0") || (unidadesChapas.getText().equals(""))) {
+                            JOptionPane.showMessageDialog(null, "Informe a quantidade de Peças/Chapas!");
+                            return;
+                        }
+
                         break;
                     case 2:
                         //unidade
@@ -2032,7 +2162,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
 
                 DefaultTableModel model = (DefaultTableModel) tabMateriaisAddEntrada.getModel();
 
-                Object[] os = new Object[19];
+                Object[] os = new Object[20];
                 os[0] = "";
                 os[1] = buscaTipoEntrada(tipoEntrada.getSelectedIndex());
                 os[2] = notaFiscal.getText();
@@ -2044,14 +2174,16 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                 os[8] = (ValidarValor.getDouble(metragemLinear.getText()) > 0 ? ValidarValor.getDouble((Double.parseDouble(metragemLinear.getText().replaceAll(",", ".")))) : "");
                 os[9] = (ValidarValor.getDouble(largura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(largura.getText().replaceAll(",", "."))) : "");
                 os[10] = (ValidarValor.getDouble(altura.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(altura.getText().replaceAll(",", "."))) : "");
-                os[11] = (ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(unidade.getText().replaceAll(",", "."))) : "");
-                os[12] = (ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble3Casas(ValidarValor.getDouble(peso.getText()/*.replaceAll(",", ".")*/)) : "");
-                os[13] = (ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble3Casas(ValidarValor.getDouble(litro.getText()/*.replaceAll(",", ".")*/)) : "");
-                os[14] = (ValidarValor.getDouble(valor.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(valor.getText().replaceAll(",", "."))) : "");
-                os[15] = (cor.getText());
-                os[16] = (marca.getText());
-                os[17] = (dataValidade.getText());
-                os[18] = (observacaoEntrada.getText());
+                os[11] = (ValidarValor.getInt(unidadesChapas.getText()) > 0 ? ValidarValor.getInt(unidadesChapas.getText()) : "");
+
+                os[12] = (ValidarValor.getDouble(unidade.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(unidade.getText().replaceAll(",", "."))) : "");
+                os[13] = (ValidarValor.getDouble(peso.getText()) > 0 ? ValidarValor.getDouble3Casas(ValidarValor.getDouble(peso.getText()/*.replaceAll(",", ".")*/)) : "");
+                os[14] = (ValidarValor.getDouble(litro.getText()) > 0 ? ValidarValor.getDouble3Casas(ValidarValor.getDouble(litro.getText()/*.replaceAll(",", ".")*/)) : "");
+                os[15] = (ValidarValor.getDouble(valor.getText()) > 0 ? ValidarValor.getDouble(Double.parseDouble(valor.getText().replaceAll(",", "."))) : "");
+                os[16] = (cor.getText());
+                os[17] = (marca.getText());
+                os[18] = (dataValidade.getText());
+                os[19] = (observacaoEntrada.getText());
 
                 model.addRow(os);
 
@@ -2150,14 +2282,15 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             metragemLinear.setText("" + model.getValueAt(i, 8));
             largura.setText("" + model.getValueAt(i, 9));
             altura.setText("" + model.getValueAt(i, 10));
-            unidade.setText("" + model.getValueAt(i, 11));
-            peso.setText("" + model.getValueAt(i, 12));
-            litro.setText("" + model.getValueAt(i, 13));
-            valor.setText("" + model.getValueAt(i, 14));
-            cor.setText("" + model.getValueAt(i, 15));
-            marca.setText("" + model.getValueAt(i, 16));
-            dataValidade.setText("" + model.getValueAt(i, 17));
-            observacaoEntrada.setText("" + model.getValueAt(i, 18));
+            unidadesChapas.setText("" + model.getValueAt(i, 11));
+            unidade.setText("" + model.getValueAt(i, 12));
+            peso.setText("" + model.getValueAt(i, 13));
+            litro.setText("" + model.getValueAt(i, 14));
+            valor.setText("" + model.getValueAt(i, 15));
+            cor.setText("" + model.getValueAt(i, 16));
+            marca.setText("" + model.getValueAt(i, 17));
+            dataValidade.setText("" + model.getValueAt(i, 18));
+            observacaoEntrada.setText("" + model.getValueAt(i, 19));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             e.printStackTrace();
@@ -2750,6 +2883,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
             metragemLinear.setText(entrada.getMetragemLinear() == null ? "0,00" : ValidarValor.getDouble(entrada.getMetragemLinear()));
             largura.setText(entrada.getLargura() == null ? "0,00" : ValidarValor.getDouble(entrada.getLargura()));
             altura.setText(entrada.getAltura() == null ? "0,00" : ValidarValor.getDouble(entrada.getAltura()));
+            unidadesChapas.setText("" + entrada.getUnidadesChapas());
             unidade.setText(entrada.getUnidade() == null ? "0,00" : ValidarValor.getDouble(entrada.getUnidade()));
             peso.setText(entrada.getPeso() == null ? "0,00" : ValidarValor.getDouble(entrada.getPeso()));
             litro.setText(entrada.getLitro() == null ? "0,00" : ValidarValor.getDouble(entrada.getLitro()));
@@ -2787,6 +2921,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
         metragemLinear.setEnabled(b);
         largura.setEnabled(b);
         altura.setEnabled(b);
+        unidadesChapas.setEnabled(b);
         unidade.setEnabled(b);
         peso.setEnabled(b);
         litro.setEnabled(b);
@@ -2934,8 +3069,10 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
@@ -3018,6 +3155,7 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> tipoSaida;
     private javax.swing.JTextField unidade;
     private javax.swing.JTextField unidadeS;
+    private javax.swing.JTextField unidadesChapas;
     private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }
