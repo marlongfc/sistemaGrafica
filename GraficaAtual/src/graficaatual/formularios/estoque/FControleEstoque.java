@@ -1597,15 +1597,15 @@ public class FControleEstoque extends javax.swing.JInternalFrame {
                         rs.getLong("codMaterial"),
                         rs.getString("descMaterial"),
                         rs.getDouble("quantMetragem") > 0 ? ValidarValor.getDouble(rs.getDouble("quantMetragem")) : null,
-                       // rs.getDouble("quantMetroQuadrado") > 0 ? ValidarValor.getDouble(rs.getDouble("quantMetroQuadrado")) : null,
-                        rs.getDouble("quantMetroQuadrado") > 0 ? rs.getDouble("quantMetroQuadrado") : null,
+                        rs.getDouble("quantMetroQuadrado") > 0 ? ValidarValor.getDouble(rs.getDouble("quantMetroQuadrado")) : null,
+                      //  rs.getDouble("quantMetroQuadrado") > 0 ? rs.getDouble("quantMetroQuadrado") : null,
                        rs.getDouble("quantPeso") > 0 ? ValidarValor.getDouble(rs.getDouble("quantPeso")) : null,
                         rs.getDouble("quantLitro") > 0 ? ValidarValor.getDouble(rs.getDouble("quantLitro")) : null,
                         rs.getDouble("quantUnidade") > 0 ? ValidarValor.getDouble(rs.getDouble("quantUnidade")) : null,
                         rs.getDouble("estoqueMin") > 0 ? ValidarValor.getDouble(rs.getDouble("estoqueMin")) : null,
                         rs.getDouble("quantAprovisionada") > 0 ? ValidarValor.getDouble(rs.getDouble("quantAprovisionada")) : null,
-                       // rs.getDouble("quantTotal") > 0 ? ValidarValor.getDouble(rs.getDouble("quantTotal")) : null,
-                        rs.getDouble("quantTotal") > 0 ? rs.getDouble("quantTotal") : null,
+                        rs.getDouble("quantTotal") > 0 ? ValidarValor.getDouble(rs.getDouble("quantTotal")) : null,
+                       // rs.getDouble("quantTotal") > 0 ? rs.getDouble("quantTotal") : null,
                         rs.getBoolean("estoqueAbaixoMinimo")
                     };
 
